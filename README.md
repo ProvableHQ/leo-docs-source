@@ -10,7 +10,8 @@
 
 This repository serves as a guide for getting started with building on Aleo. Here is a quick summary of the key components:
 
-- [📖 Aleo Developer Docs](https://docs.leo-lang.org/) - Developer documentation for Aleo and the Leo programming language.
+- [📖 Aleo Developer Docs](https://developer.aleo.org/) - Developer documentation for Aleo and the Leo programming language.
+- [📖 Leo Developer Docs](https://docs.leo-lang.org/) - Developer documentation for Aleo and the Leo programming language.
 - [📡 SnarkOS](http://snarkos.org/) - A decentralized operating system for private applications.
 - [⚙️ SnarkVM](https://snarkvm.org/) - A virtual machine for zero-knowledge proofs.
 - [🦁 Leo](https://leo-lang.org/) - A programming language for zero-knowledge proofs.
