@@ -144,7 +144,7 @@ https://apiv2.aleo.network/testnet3/transaction/at12u62xwfew2rq32xee8nwhtlxghfjz
 <!-- markdown-link-check-disable -->
 Remember you a clean devnet running at http://localhost:3030. What we want to do now is to deploy our helloworld program to that network.
 
-Again, make sure it's running: http://localhost:3030/testnet3/latest/height
+Again, make sure the network running: http://localhost:3030/testnet3/latest/height
 <!-- markdown-link-check-enable -->
 
 ### React App WASM Deployment
