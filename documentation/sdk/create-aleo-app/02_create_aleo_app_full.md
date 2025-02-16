@@ -98,7 +98,7 @@ The difference between these two executions is one is using in-browser resources
 
 ## 5. Deploying your Program on Devnet
 
-Let’s deploy the `helloworld` program on your local devnet. 
+Let’s deploy your `helloworld` program on your local devnet. 
 
 Deployment requires an account with Aleo credits. Luckily, the devnet you spun up with the private key you jotted down is already seeded with credits. If for some reason that doesn't work, you can generate a new account and use our faucets to get a seeded account. For now, you can skip the [Account Generation](#account-generation) & [Faucet](#faucet) sections below, and go straight to [Deployment Methods](#deployment-methods).
 
