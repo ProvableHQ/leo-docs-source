@@ -15,7 +15,7 @@ Aleo instructions are compiled into AVM opcodes that can be executed by the Aleo
 Install snarkVM to compile and execute Aleo instructions.
 
 :::info
-snarkVM is currently in active development. Please monitor the repository on [**GitHub**](https://github.com/AleoHQ/snarkVM) for possibly breaking changes.
+snarkVM is currently in active development. Please monitor the repository on [**GitHub**](https://github.com/ProvableHQ/snarkVM) for possibly breaking changes.
 :::
 
 ## Installing snarkVM
@@ -36,7 +36,7 @@ Read the full list of supported [AVM opcodes](./aleo/04_opcodes.md).
 
 Check your program or compiler implementation against the [Aleo instructions grammar](./aleo/06_grammar.md).
 
-Study the formal [ABNF grammar specification](https://github.com/AleoHQ/grammars) for the full formal syntax of Aleo instructions.
+Study the formal [ABNF grammar specification](https://github.com/ProvableHQ/grammars) for the full formal syntax of Aleo instructions.
 
 ## Command Line Interface Documentation
 

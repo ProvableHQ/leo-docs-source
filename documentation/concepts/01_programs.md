@@ -4,7 +4,7 @@ title: Programs
 sidebar_label: Programs
 ---
 
-A **program** is a fundamental data structure for representing application logic and application state.
+A **program** is a fundamental artifact for representing application logic and application state.
 
 Aleo introduces a new programming language called **Aleo instructions** that enables developers to write
 private web applications. Aleo instructions is a statically-typed programming language for
@@ -44,10 +44,10 @@ function transfer:
     // Input the token amount.
     input r2 as u64.private;
 
-    // Checks the given token record has sufficient balance.
-    // This `sub` operation is safe, and the proof will fail
-    // if an underflow occurs. The output register `r3` holds
-    // the change amount to be returned to the sender.
+    // The `sub` operation is safe: it checks for underflows and 
+    // halts if an underflow occurs. When an instruction like this 
+    // halts, no zero-knowledge proof is generated. The output 
+    // register `r3` holds the change amount to be returned to the sender.
     sub r0.amount r2 into r3;
 
     // Produces a token record for the specified receiver.

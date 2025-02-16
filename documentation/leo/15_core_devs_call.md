@@ -13,15 +13,13 @@ We welcome everyone to join!
 ## Logistics
 
 ### When
-**Every Tuesday 9-10AM PT, starting on 5/21/24**
+**Every Thursday 10:30AM ET, starting on 01/30/25**
 
 <!-- markdown-link-check-disable -->
 
 ### Where
-**Google Meet**
-- Video call link: https://meet.google.com/eup-twjf-zbv
-- Or dial: (US) +1 409-263-1346, PIN: 181 961#
-- More phone numbers: https://tel.meet/eup-twjf-zbv?pin=7908874492618
+**Discord**
+- Event Link: https://discord.com/events/700454073459015690/1337095839218143353
 
 <!-- markdown-link-check-enable -->
 

@@ -5,7 +5,7 @@ sidebar_label: Aleo SDK
 ---
 
 <!-- markdown-link-check-disable -->
-[![github]](https://github.com/AleoHQ/python-sdk/tree/master/sdk)
+[![github]](https://github.com/ProvableHQ/python-sdk/tree/master/sdk)
 <!-- markdown-link-check-enable -->
 
 [github]: https://img.shields.io/badge/github-8da0cb?style=for-the-badge&labelColor=555555&logo=github
@@ -30,7 +30,7 @@ pip3 install aleo
 ```
 
 <!-- markdown-link-check-disable -->
-Alternatively, you can also install from a `.whl` file, either from the [GitHub repository](https://github.com/AleoHQ/python-sdk/tree/master/sdk/target/wheels), or by building it yourself. For the installation, use a command like this:
+Alternatively, you can also install from a `.whl` file, either from the [GitHub repository](https://github.com/ProvableHQ/python-sdk/tree/master/sdk/target/wheels), or by building it yourself. For the installation, use a command like this:
 <!-- markdown-link-check-enable -->
 
 ```bash
@@ -49,7 +49,7 @@ print(private_key.to_string())
 
 <!-- markdown-link-check-disable -->
 ### Build Instructions
-To build it, first clone the [GitHub repository](https://github.com/AleoHQ/python-sdk/tree/master/sdk). Then, run the following command:
+To build it, first clone the [GitHub repository](https://github.com/ProvableHQ/python-sdk/tree/master/sdk). Then, run the following command:
 ```bash
 bash build.sh
 ```

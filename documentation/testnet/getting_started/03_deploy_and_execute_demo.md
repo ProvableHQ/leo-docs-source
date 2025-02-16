@@ -10,7 +10,7 @@ Bugs, usability suggestions, and feedback in general would be greatly appreciate
 
 ## Overview
 
-Learn how to deploy and execute a basic "hello world!" program on Aleo's network using Leo and snarkOS. 
+Learn how to deploy and execute a basic "hello world!" program on Aleo's network using Leo and snarkOS.
 
 ## Usage guide
 
@@ -26,7 +26,7 @@ Make sure you have both Leo and snarkOS installed on your machine.
 
 **Note**:
 
-* You can find instructions to install Leo on your machine [here](https://github.com/ProvableHQ/leo) and snarkOS [here](https://github.com/AleoHQ/snarkos)
+* You can find instructions to install Leo on your machine [here](https://github.com/ProvableHQ/leo) and snarkOS [here](https://github.com/ProvableHQ/snarkos)
 * Make sure to pull the latest versions of `snarkos` and `leo` from GitHub to your local machine
 
 ### 2. Generate your test keys and wallet address
@@ -38,11 +38,11 @@ Make sure you have both Leo and snarkOS installed on your machine.
 ### 3a. Seeding your wallet with credits
 <!-- markdown-link-check-disable -->
 
-To seed your wallet, you'll need to request credits from Aleo's faucet at [faucet.aleo.org](https://faucet.aleo.org/) ⛲️. 
+To seed your wallet, you'll need to request credits from Aleo's faucet at [faucet.aleo.org](https://faucet.aleo.org/) ⛲️.
 
 <!-- markdown-link-check-enable -->
 
-**Note**: 
+**Note**:
 
 * It can take up to 5-minutes for the faucet to send your credits, to bide the time, concurrently move on to step 3b below.
 * ⚠️ International requests are not supported by the faucet at the moment (a solution is coming soon). In the meantime, if you need credits and are testing internationally, reach out to the Aleo team on Discord or Twitter for support.
@@ -92,9 +92,9 @@ PATHTOAPP=$(realpath -q $APPNAME)
 
 ### 4. Confirm the Aleo faucet ⛲️ has sent your wallet credits and obtain your ciphertext record value
 
-By this point, the Aleo faucet should have sent your wallet credits. Next, you'll need to verify your credit balance by decrypting the ciphertext record for the execute transfer that was sent to you. 
+By this point, the Aleo faucet should have sent your wallet credits. Next, you'll need to verify your credit balance by decrypting the ciphertext record for the execute transfer that was sent to you.
 
-If you requested credits by texting with your phone number, you should also receive a confirmation with a URL that has a prefix of `explorer.aleo.org/transaction...` 
+If you requested credits by texting with your phone number, you should also receive a confirmation with a URL that has a prefix of `explorer.aleo.org/transaction...`
 
 <!-- markdown-link-check-disable -->
 
@@ -151,7 +151,7 @@ You should have seen a confirmation that your Aleo application was deployed in t
 Finally, it is time to execute the application you just deployed!
 
 * You'll need to update the `--record` flag with the latest transaction linked to your wallet balance. In this case, you can obtain that by going to the following URL: https://api.explorer.aleo.org/v1/testnet/transaction/$DEPLOY_TX_ID but replace $DEPLOY_TX_ID with the transaction ID provided to you once your application was deployed (or from the most recent transaction linked to your wallet address). An example URL looks like so: https://api.explorer.aleo.org/v1/testnet/transaction/at1rkkpqu5k4rt86zzccczw6cxeyvrl7hxydvvv7dhl7zr7p9w40c8s70kwm8
-* In the JSON object provided at https://api.explorer.aleo.org/v1/testnet/transaction/$DEPLOY_TX_ID, navigate to: `object.fee.transition.outputs[0].value` and copy the record ciphertext value.
+* In the JSON object provided at https://api.explorer.provable.com/v1/testnet/transaction/$DEPLOY_TX_ID, navigate to: `object.fee.transition.outputs[0].value` and copy the record ciphertext value.
 * Head to [provable.tools](https://www.provable.tools/) and navigate to the **Record** tab and paste the record ciphertext you just copied as well as your wallet's view key
 * Similar to the steps we followed for a deploy transaction, update your `RECORD` variable with the record plaintext you just decrypted by doing the following:
 
@@ -166,7 +166,7 @@ RECORD=""
 Then just paste the following command in your terminal
 
 ```
-snarkos developer execute "${APPNAME}.aleo" "main" "1u32" "2u32" --private-key "${PRIVATEKEY}" --query "https://api.explorer.aleo.org/v1" --broadcast "https://api.explorer.aleo.org/v1/testnet/transaction/broadcast" --fee 1000000 --record "${RECORD}"
+snarkos developer execute "${APPNAME}.aleo" "main" "1u32" "2u32" --private-key "${PRIVATEKEY}" --query "https://api.explorer.provable.com/v1" --broadcast "https://api.explorer.provable.com/v1/testnet/transaction/broadcast" --fee 1000000 --record "${RECORD}"
 ```
 
 Awesome! You have successfully deployed and executed a Leo application to Testnet, how exciting 🎉

@@ -26,7 +26,7 @@ You can install snarkVM by building from the source code as follows:
 
 ```bash
 # Download the source code
-git clone https://github.com/AleoHQ/snarkVM
+git clone https://github.com/ProvableHQ/snarkVM
 cd snarkvm
 
 # Build in release mode
@@ -45,5 +45,3 @@ snarkvm
 Dive into some code with [**Hello Aleo**](02_hello.md).
 
 :::
-
-

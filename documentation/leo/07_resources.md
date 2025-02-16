@@ -7,7 +7,7 @@ title: Developer Resources
 
 📜 A starter guide to build applications on Aleo 📜
 
-https://github.com/AleoHQ/workshop
+https://github.com/ProvableHQ/workshop
 
 ## 2. The Awesome Aleo Repository
 
@@ -24,11 +24,11 @@ https://discord.gg/aleo
 
 ### Looking for [More Aleo Resources?](../00_getting_started.md)
 
-# Style Guide
+## Style Guide
 
 
 This guide is provided to point developers in the right direction when writing Leo code.
-There are many conventions that are unique to Leo language and the circuits it generates.
+There are many conventions that are unique to the Leo language and the circuits it generates.
 
 This guide is a living document.
 As new Leo programming conventions arise and old ones become obsolete this guide should reflect the changes.
@@ -90,7 +90,6 @@ program prog.aleo {
 | Function Parameters       | snake_case                          |
 | Variables                 | snake_case                          |
 | Inputs                    | snake_case                          |
-```
 
 ### Layout
 Leo file elements should be ordered:
@@ -99,6 +98,7 @@ Leo file elements should be ordered:
 3. Mappings
 4. Records + Structs
 5. Functions + Transitions
+
 
 ### Braces
 Opening braces always go on the same line.
@@ -121,7 +121,7 @@ let a: u32 = 1u32;
 let b: u32 = a + 5u32;
 b *= 2u32;
 
-return b
+return b;
 ```
 
 ### Commas
@@ -148,14 +148,14 @@ For precise control over the circuit size, it is recommended to use ternary expr
 
 ```leo title="Example:"
 if (condition) {
-    return a
+    return a;
 } else {
-    return b
+    return b;
 } 
 ```
 
 ```leo title="Alternative:"
-return condition ? a : b
+return condition ? a : b;
 ```
 
 #### Why?
@@ -168,11 +168,11 @@ We cannot resolve the return statements before evaluating the condition.
 As a solution, Leo creates branches in the circuit so both paths can be evaluated.
 
 ```leo title="branch 1, condition = true"
-return a
+return a;
 ```
 
 ```leo title="branch 2, condition = false"
-return b
+return b;
 ```
 When the input value `condition` is fetched at proving time, we select a branch of the circuit to evaluate.
 Observe that the statement `return a` is repeated in both branches.
@@ -183,13 +183,13 @@ This greatly increases the constraint numbers and slows down the circuit.
 
 Thank you for helping make Leo better!
 
-Before contributing, please view the [Contributor Code of Conduct](https://github.com/AleoHQ/leo/blob/master/CONTRIBUTING.md).
+Before contributing, please view the [Contributor Code of Conduct](https://github.com/ProvableHQ/leo/blob/master/CONTRIBUTING.md).
 By participating in this project - In the issues, pull requests, or Gitter channels -
 you agree to abide by the terms.
 
 ## Report an Issue
 
-To report an issue, please use the [GitHub issues tracker](https://github.com/AleoHQ/leo/issues). When reporting issues, please mention the following details:
+To report an issue, please use the [GitHub issues tracker](https://github.com/ProvableHQ/leo/issues). When reporting issues, please mention the following details:
 
 - Which version of Leo you are using.
 - What was the source code (if applicable).
@@ -235,7 +235,7 @@ Then when running the test command, make sure you have the environment variable 
 
 ### Grammar
 
-[The `grammars` repository](https://github.com/AleoHQ/grammars) contains a file [`leo.abnf`](https://github.com/AleoHQ/grammars/blob/master/leo.abnf) that has the Leo grammar rules in the ABNF format.
+[The `grammars` repository](https://github.com/ProvableHQ/grammars) contains a file [`leo.abnf`](https://github.com/ProvableHQ/grammars/blob/master/leo.abnf) that has the Leo grammar rules in the ABNF format.
 If your changes affect a grammar rule, we may ask you to modify it in that `.abnf` file.
 
 We appreciate your hard work!

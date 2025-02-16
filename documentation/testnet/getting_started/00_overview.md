@@ -1,6 +1,6 @@
 ---
 id: overview
-title: Testnet.
+title: Testnet
 sidebar_label: Overview
 ---
 
@@ -15,12 +15,12 @@ and running experimental features for inclusion on mainnet.
 
 ## snarkOS
 
-`snarkOS` is a decentralized operating system for anonymous web applications. It forms the backbone of Aleo and 
+`snarkOS` is a decentralized operating system for anonymous web applications. It forms the backbone of Aleo and
 enables developers to checkpoint and finalize application state in a publicly-verifiable manner.
 
 ### Source Code
 
-`snarkOS` is open-source and publicly-hosted on [GitHub](https://github.com/AleoHQ/snarkOS).
+`snarkOS` is open-source and publicly-hosted on [GitHub](https://github.com/ProvableHQ/snarkOS).
 
 ## Query The Network
 
@@ -31,9 +31,9 @@ To connect to the network, make a request to an Aleo Testnet bootnode.
 
 | URL              |
 |------------------|
-| [https://api.explorer.aleo.org/v1/testnet](https://api.explorer.aleo.org/v1/testnet/) |
+| [https://api.explorer.provable.com/v1/testnet](https://api.explorer.provable.com/v1/testnet/) |
 
-For example, you can [retrieve the current block height](https://api.explorer.aleo.org/v1/testnet/latest/height). 
+For example, you can [retrieve the current block height](https://api.explorer.provable.com/v1/testnet/latest/height).
 
 With a local instance of `snarkos`, you can launch a client node with:
 
@@ -47,7 +47,7 @@ By default, this will make the node API available at `0.0.0.0:3030`:
 http://0.0.0.0:3030/testnet/latest/height
 ```
 
-Now, refer to the [API reference](#api) for a list of available endpoints. 
+Now, refer to the [API reference](#api) for a list of available endpoints.
 <!-- markdown-link-check-enable -->
 
 ## Docker
@@ -92,5 +92,3 @@ docker start -a snarkos
 - [Find Transition ID](../public_endpoints/22_find_transition_id.md)
 - [Get Environment Information](../public_endpoints/23_get_env_info.md)
 - [Transaction Broadcast](../public_endpoints/24_transaction_broadcast.md)
-
-

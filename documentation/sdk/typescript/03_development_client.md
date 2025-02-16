@@ -6,7 +6,7 @@ sidebar_label: Development Client
 <a name="DevelopmentClient"></a>
 
 ## Overview
-**Kind**: global class  
+**Kind**: global class
 
 * [DevelopmentClient](#DevelopmentClient)
     * [new DevelopmentClient(baseURL)](#new_DevelopmentClient_new)
@@ -31,10 +31,10 @@ sidebar_label: Development Client
 It requires an Aleo Development Server to be running remotely or locally.
 If one is not running, this function will throw an error.</p>
 <p>Information on how to run an Aleo Development Server can be found here:
-https://github.com/AleoHQ/sdk/rust/develop/README.md</p>
+https://github.com/ProvableHQ/sdk/rust/develop/README.md</p>
 
-**Kind**: instance method of [<code>DevelopmentClient</code>](#DevelopmentClient)  
-**Returns**: <code>string</code> \| <code>Error</code> - <p>The transaction_id of the deployment transaction if successful</p>  
+**Kind**: instance method of [<code>DevelopmentClient</code>](#DevelopmentClient)
+**Returns**: <code>string</code> \| <code>Error</code> - <p>The transaction_id of the deployment transaction if successful</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ https://github.com/AleoHQ/sdk/rust/develop/README.md</p>
 | password | <code>string</code> \| <code>undefined</code> | <p>If the development server is started with an encrypted private key, the password is required</p> |
 | feeRecord | <code>string</code> \| <code>undefined</code> | <p>Optional record in text format to be used for the fee. If not provided, the server will search the network for a suitable record to pay the fee.</p> |
 
-**Example**  
+**Example**
 ```js
 const Program = 'program yourprogram.aleo;\n\nfunction hello:\n    input r0 as u32.public;\n    input r1 as u32.private;\n    add r0 r1 into r2;\n    output r2 as u32.private;\n';
 const client = new DevelopmentClient("http://0.0.0.0:4040");
@@ -57,10 +57,10 @@ const transaction_id = await client.deployProgram(Program, 6000000, privateKeySt
 It requires an Aleo Development Server to be running remotely or locally.
 If one is not running, this function will throw an error.</p>
 <p>Information on how to run an Aleo Development Server can be found here:
-https://github.com/AleoHQ/sdk/rust/develop/README.md</p>
+https://github.com/ProvableHQ/sdk/rust/develop/README.md</p>
 
-**Kind**: instance method of [<code>DevelopmentClient</code>](#DevelopmentClient)  
-**Returns**: <code>string</code> \| <code>Error</code> - <p>The transaction_id of the execution transaction if successful</p>  
+**Kind**: instance method of [<code>DevelopmentClient</code>](#DevelopmentClient)
+**Returns**: <code>string</code> \| <code>Error</code> - <p>The transaction_id of the execution transaction if successful</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -72,7 +72,7 @@ https://github.com/AleoHQ/sdk/rust/develop/README.md</p>
 | password | <code>string</code> \| <code>undefined</code> | <p>If the development server is started with an encrypted private key, the password is required</p> |
 | feeRecord | <code>string</code> \| <code>undefined</code> | <p>Optional record in text format to be used for the fee. If not provided, the server will search the network for a suitable record to pay the fee.</p> |
 
-**Example**  
+**Example**
 ```js
 const privateKey = "your private key";
 const client = new DevelopmentClient("http://0.0.0.0:4040");
@@ -86,10 +86,10 @@ via an Aleo development server. It requires an Aleo Development Server
 to be running remotely or locally. If one is not running, this function
 will throw an error.</p>
 <p>Information on how to run an Aleo Development Server can be found here:
-https://github.com/AleoHQ/sdk/rust/develop/README.md</p>
+https://github.com/ProvableHQ/sdk/rust/develop/README.md</p>
 
-**Kind**: instance method of [<code>DevelopmentClient</code>](#DevelopmentClient)  
-**Returns**: <code>string</code> \| <code>Error</code> - <p>The transaction_id of the execution transaction if successful</p>  
+**Kind**: instance method of [<code>DevelopmentClient</code>](#DevelopmentClient)
+**Returns**: <code>string</code> \| <code>Error</code> - <p>The transaction_id of the execution transaction if successful</p>
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -102,7 +102,7 @@ https://github.com/AleoHQ/sdk/rust/develop/README.md</p>
 | feeRecord | <code>string</code> \| <code>undefined</code> | <p>Optional record in text format to be used for the fee. If not provided, the server will search the network for a suitable record to pay the fee.</p> |
 | amountRecord | <code>string</code> \| <code>undefined</code> | <p>Optional record in text format to be used to fund the transfer. If not provided, the server will search the network for a suitable record to fund the amount.</p> |
 
-**Example**  
+**Example**
 ```js
 const privateKey = "your private key";
 const recipient = "recipient's address";

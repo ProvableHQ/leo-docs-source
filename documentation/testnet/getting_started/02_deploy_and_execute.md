@@ -22,7 +22,7 @@ These CLI commands currently live in snarkOS, but can also be migrated to the Al
 ### 1. Install snarkOS
 
 ```
-git clone https://github.com/AleoHQ/snarkOS.git
+git clone https://github.com/ProvableHQ/snarkOS.git
 cd snarkOS
 git checkout mainnet-staging
 cargo install --path .
@@ -47,7 +47,7 @@ snarkos developer scan -v <VIEW_KEY> --start 0 --end 1 --endpoint "http://localh
 Transfer credits to another account.
 
 ```
-snarkos developer execute credits.aleo transfer <INPUT_RECORD> <RECIPIENT_ADDRESS> "<AMOUNT_TO_TRANSFER>u64" --private-key <PRIVATE_KEY> --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet/transaction/broadcast" 
+snarkos developer execute credits.aleo transfer <INPUT_RECORD> <RECIPIENT_ADDRESS> "<AMOUNT_TO_TRANSFER>u64" --private-key <PRIVATE_KEY> --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet/transaction/broadcast"
 ```
 
 or
@@ -71,7 +71,7 @@ snarkos developer deploy fibonacci.aleo --private-key <PRIVATE_KEY> --query "htt
 ### 6. Execute a function of a deployed program
 
 ```
-snarkos developer execute fibonacci.aleo fibonacci "1u8" --private-key <PRIVATE_KEY> --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet/transaction/broadcast" 
+snarkos developer execute fibonacci.aleo fibonacci "1u8" --private-key <PRIVATE_KEY> --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet/transaction/broadcast"
 ```
 
 *NOTE: Fees (in microcredits) must be greater than the transaction size in bytes. Fees can be excluded from execution transactions, but if one is specified, it must follow the above rule. *
@@ -150,7 +150,7 @@ Create an Aleo program execution.
 ##### Example:
 
 ```
-snarkos developer execute fibonacci.aleo fibonacci "1u8" --private-key <PRIVATE_KEY> --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet/transaction/broadcast" 
+snarkos developer execute fibonacci.aleo fibonacci "1u8" --private-key <PRIVATE_KEY> --query "http://localhost:3030" --broadcast "http://localhost:3030/testnet/transaction/broadcast"
 ```
 
 ### Scan
@@ -206,7 +206,7 @@ snarkos developer transfer <AMOUNT_TO_TRANSFER> --input-record <INPUT_RECORD> --
 ```
 
 
-## Usage on Testnet Beta 
+## Usage on Testnet Beta
 
 To deploy and execute programs on Testnet Beta
 <!-- markdown-link-check-disable -->
@@ -222,6 +222,3 @@ Deployment transactions have an additional requirement where the included fee mu
 Execution transactions do not currently have any fee requirements.
 
 *If you'd like to try out deploying an Aleo app, you can follow the demo in the next section, [Deploy and Execute Demo](./03_deploy_and_execute_demo.md).*
-
-
-

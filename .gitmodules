@@ -1,15 +1,15 @@
 [submodule "snarkOS"]
 	path = snarkOS
-	url = https://github.com/AleoHQ/snarkOS.git
+	url = https://github.com/ProvableHQ/snarkOS.git
 [submodule "leo"]
 	path = leo
-	url = https://github.com/AleoHQ/leo
+	url = https://github.com/ProvableHQ/leo
 [submodule "aleo-setup"]
 	path = aleo-setup
-	url = https://github.com/AleoHQ/aleo-setup
+	url = https://github.com/ProvableHQ/aleo-setup
 [submodule "snarkVM"]
 	path = snarkVM
-	url = https://github.com/AleoHQ/snarkVM.git
+	url = https://github.com/ProvableHQ/snarkVM.git
 [submodule "sdk"]
 	path = sdk
-	url = https://github.com/AleoHQ/sdk.git
+	url = https://github.com/ProvableHQ/sdk.git

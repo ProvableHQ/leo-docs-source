@@ -47,7 +47,7 @@ Before beginning, please ensure your machine has `Rust v1.66+` installed. Instru
 
 Start by cloning this GitHub repository:
 ```
-git clone https://github.com/AleoHQ/snarkOS.git --depth 1
+git clone https://github.com/ProvableHQ/snarkOS.git --depth 1
 ```
 
 Next, move into the `snarkOS` directory:

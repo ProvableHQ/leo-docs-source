@@ -14,7 +14,7 @@ The Leo CLI is a command line interface tool that comes equipped with the Leo co
 
 * `-d`, `--debug` - Enables debugging mode
 * `-h`, `--help` - Prints help information
-* `-V`, `--version` - Prints version information
+* `-v`, `--version` - Prints version information
 
 ## List of Commands:
 
@@ -27,6 +27,8 @@ You can print the list of commands by running `leo --help`
 * [`build`](#leo-build) - Compile the current package as a program.
 * [`run`](#leo-run) - Run a program with input variables.
 * [`execute`](#leo-execute) - Execute a program with input variables.
+* [`add`](#leo-add) - Add a new on-chain or local dependency to the current package.
+* [`deploy`](#leo-deploy) - Deploy a program.
 * [`clean`](#leo-clean) - Clean the output directory.
 * [`update`](#leo-update) - Update to the latest version of Leo.
 * [`account`](#leo-account) - Create a new Aleo account.
@@ -37,7 +39,7 @@ You can print the list of commands by running `leo --help`
 ## `leo example`
 
 To list all available example programs, run:
-```bash
+```
 leo example
 
 # Output:
@@ -189,7 +191,7 @@ Use this command to deploy a program to the Aleo network. This requires having a
 
 To deploy the project in the current working directory.
 ```bash
-leo deploy // Defaults to using key information in `.env`, and deploys to `testnet3` via endoint `http://api.explorer.aleo.org/v1`.
+leo deploy // Defaults to using key information in `.env`, and deploys to `testnet3` via endoint `http://api.explorer.provable.com/v1`.
 leo deploy --endpoint "{$ENDPOINT}" --private-key "{$PRIVATE_KEY}" // To deploy using custom private key, to a custom endpoint (e.g. local devnet `http://0.0.0.0:3030`).
 ```
 
@@ -252,7 +254,7 @@ leo account new --write
 
 To list all options
 
-```bash
+```
 leo account --help
 
 # Output:

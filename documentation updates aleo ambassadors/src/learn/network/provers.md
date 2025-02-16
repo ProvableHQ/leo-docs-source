@@ -8,7 +8,7 @@ Provers are an integral part of the Aleo network but do not participate in Aleo'
 
 In the long term, the *CoinbaseReward* incentive that Provers can obtain is directly proportional to their computational power relative to the entire network. The economic incentive for Provers is similar to PoW in Bitcoin, but unlike Bitcoin, Aleo's network doesn't employ a winner-takes-all strategy. As long as the *ProverSolution* satisfies the *ProofTarget*, it is accepted by the network. This approach ensures fairer and more stable rewards for Provers. It's noteworthy that unlike the *BlockReward* for validators, the *CoinbaseReward* decreases over time, reducing by 10% annually until there are no *CoinbaseReward* incentives after 10 years.
 
-> PuzzleReward = CoinbaseReward * 2/3 
+> PuzzleReward = CoinbaseReward * 2/3
 >
 > BlockReward = 23.8 + CoinbaseReward * 1 / 3
 >
@@ -26,4 +26,4 @@ Besides requiring ProverSolutions to be valid, the network also demands that the
 
 ### Become a Prover Node
 
-Becoming a Prover node does not require staking or authorization, anyone can [start a Prover node](https://github.com/AleoHQ/snarkOS?tab=readme-ov-file#32-run-an-aleo-prover).
+Becoming a Prover node does not require staking or authorization, anyone can [start a Prover node](https://github.com/ProvableHQ/snarkOS?tab=readme-ov-file#32-run-an-aleo-prover).

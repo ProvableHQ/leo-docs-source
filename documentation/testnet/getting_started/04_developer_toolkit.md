@@ -20,9 +20,9 @@ Open a new terminal window and type `leo --help` to confirm that Leo is installe
 
    ```
     CLI Arguments entry point - includes global parameters and subcommands
-    
+
     Usage: leo [OPTIONS] [API] <COMMAND>
-    
+
     Commands:
     account  Create a new Aleo account
     new      Create a new Leo package in a new directory
@@ -33,10 +33,10 @@ Open a new terminal window and type `leo --help` to confirm that Leo is installe
     execute  Execute a program with input variables
     update   Update the Leo CLI
     help     Print this message or the help of the given subcommand(s)
-    
+
     Arguments:
     [API]  Custom Aleo PM backend URL [env: APM_URL=]
-    
+
     Options:
     -d                 Print additional information for debugging
     -q                 Suppress CLI output
@@ -45,7 +45,7 @@ Open a new terminal window and type `leo --help` to confirm that Leo is installe
     -V, --version      Print version
    ```
 
-###### 💡Note: If you do not see the output above, you can build Leo from source by following the guide [here](https://github.com/AleoHQ/leo#%EF%B8%8F%EF%B8%8F-build-guide) or download the [latest `.zip`](https://github.com/AleoHQ/leo/releases/latest) file directly and then move the Leo binary to any location; we recommend `/usr/local/bin`.
+###### 💡Note: If you do not see the output above, you can build Leo from source by following the guide [here](https://github.com/ProvableHQ/leo#%EF%B8%8F%EF%B8%8F-build-guide) or download the [latest `.zip`](https://github.com/ProvableHQ/leo/releases/latest) file directly and then move the Leo binary to any location; we recommend `/usr/local/bin`.
 
 ### The `leo account` command
 
@@ -69,15 +69,15 @@ Open a new terminal window and type `leo --help` to confirm that Leo is installe
 
   ```
   Create a new Leo example package in a new directory
-      
+
   Usage: leo example [OPTIONS] <COMMAND>
-      
+
   Commands:
     lottery    A public lottery program
     tictactoe  A standard tic-tac-toe game program
     token      A transparent & shielded custom token program
     help       Print this message or the help of the given subcommand(s)
-      
+
   Options:
     -d                 Print additional information for debugging
     -q                 Suppress CLI output

@@ -18,6 +18,7 @@ The Leo operators compile down to [Aleo instructions opcodes](../aleo/04_opcodes
 | [assert](#assert)           | Assert boolean true                 |
 | [assert_eq](#assert_eq)     | Assert equality                     |
 | [assert_neq](#assert_neq)   | Assert non-equality                 |
+| [block.height](#block.height)| Fetch the latest block height      |
 | [div](#div)                 | Division                            |
 | [div_wrapped](#div_wrapped) | Wrapping division operation         |
 | [double](#double)           | Double                              |
@@ -783,9 +784,10 @@ let a: i8 = -1i8.neg(); // 1i8
 
 #### Description
 
-Negates `first`, storing the result in `destination`.
+Negates the first operand, storing the result in the destination.
 
-For signed integer types, calling `neg` on the minimum value is an invalid operation. For example, the input `-128i8` would not be valid since `128` cannot be represented as an `i8`.
+For signed integer types, the operation halts if the minimum value is negated. For example, `-128i8.neg()` halts since `128` cannot be represented as an `i8`.
+
 
 #### Supported Types
 
@@ -810,7 +812,7 @@ let a: bool = false.nor(false); // true
 
 #### Description
 
-Returns true when neither `first` nor `second` is true, storing the result in `destination`.
+Calculates the negated (inclusive) disjunction of `first` and `second`, storing the result in `destination`. The result is `true` if and only if both `first` and `second` are `false`.
 
 #### Supported Type
 
@@ -859,7 +861,7 @@ let b: bool = false.or(false); // false
 
 #### Description
 
-Performs an OR operation on integer (bitwise) or boolean `first` and `second`, storing the result in `destination`.
+Performs an inclusive OR operation on integer (bitwise) or boolean `first` and `second`, storing the result in `destination`.
 
 #### Supported Types
 
@@ -1019,7 +1021,7 @@ transition verify_field(s: signature, a: address, v: field) {
 
 #### Description
 
-Verifies that the signature `first` was signed by the address `second` with respect to the field `third`, storing the result in `destination`.
+Verifies that the signature `first` was signed by the address `second` with respect to the field `third`, storing the result in `destination`. This verification follows the [Schnorr signature scheme](https://en.wikipedia.org/wiki/Schnorr_signature), which is a digital signature algorithm where the signer generates a random nonce, commits to it, computes a challenge using a hash function, and produces a signature by combining the nonce, challenge, and private key. The verifier checks the validity by reconstructing the challenge and ensuring consistency with the public key and message.
 
 #### Supported Types
 
@@ -1041,7 +1043,7 @@ let b: u8 = a.shl(1u8); // 4u8
 
 #### Description
 
-Shifts `first` left by `second` bits, storing the result in `destination`.
+Shifts `first` left by `second` bits, storing the result in `destination`. The operation halts if the shift distance exceeds the bit size of `first`, or if the shifted result does not fit within the type of `first`.
 
 #### Supported Types
 
@@ -1067,11 +1069,14 @@ Shifts `first` left by `second` bits, storing the result in `destination`.
 
 ```leo
 let a: u8 = 128u8.shl_wrapped(1u8); // 0u8
+let b: i8 = 64i8.shl_wrapped(2u8); // -128i8
 ```
 
 #### Description
 
-Shifts `first` left by `second` bits, wrapping around at the boundary of the type, storing the result in `destination`.
+Shifts `first` left by `second` bits, wrapping around at the boundary of the type, storing the result in `destination`. The shift distance is masked to the bit width of `first`, ensuring that shifting by n is equivalent to shifting by `n % bit_size`. 
+
+If bits are shifted beyond the type's range, they are discarded, which may cause sign changes for signed integers.
 
 #### Supported Types
 
@@ -1102,7 +1107,7 @@ let b: u8 = a.shr(1u8); // 1u8
 
 #### Description
 
-Shifts `first` right by `second` bits, storing the result in `destination`.
+Shifts `first` right by `second` bits, storing the result in `destination`. The operation halts if the shift distance exceeds the bit size of `first`.
 
 #### Supported Types
 
@@ -1132,7 +1137,7 @@ let a: u8 = 128u8.shr_wrapped(7u8); // 1u8
 
 #### Description
 
-Shifts `first` right by `second` bits, wrapping around at the boundary of the type, storing the result in `destination`.
+Shifts `first` right by `second` bits, wrapping around at the boundary of the type, storing the result in `destination`.  The shift distance is masked to the bit width of `first`, ensuring that shifting by `n` is equivalent to shifting by `n % bit_size`.
 
 #### Supported Types
 
@@ -1181,7 +1186,7 @@ let a: field = 1field.square_root(); // 1field
 
 #### Description
 
-Computes the square root of the input, storing the result in `destination`.
+Computes the square root of the input, storing the result in `destination`. If the input is a quadratic residue, the function returns the `smaller` of the two possible roots based on modular ordering. If the input is not a quadratic residue, execution halts.
 
 #### Supported Types
 
@@ -1202,7 +1207,7 @@ let b: u8 = a.sub(1u8); // 0u8
 
 #### Description
 
-Computes `first - second`, storing the result in `destination`.
+Computes `first - second`, storing the result in `destination`. The operation halts if the result is negative in an unsigned type or if it exceeds the minimum representable value in a signed type.
 
 #### Supported Types
 

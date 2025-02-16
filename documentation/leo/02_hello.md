@@ -24,6 +24,8 @@ hello/
   └── main.leo # The Leo source code
 ```
 
+When you run ⁠`leo run main <inputs>`⁠, Leo automatically creates an ⁠`output/`⁠ folder in the project directory.
+
 Let's run the project.
 
 ## Zero Knowledge in One Line
@@ -159,9 +161,7 @@ leo execute main 1u32 2u32
  Leo ✅ Executed 'hello.aleo/main' (in "/hello/build")
 ```
 
-The `leo execute` command will attempt to verify a proof only if all previous steps completed successfully.
-Under the hood, the Leo [CLI](05_commands.md) will check for existing `.prover`, `.verifier`, and `.avm` files
-in the **build** directory before running each command. This ensures that we don't run unnecessary commands.
+The `leo execute` command will attempt to verify a proof only if all previous steps completed successfully. Under the hood, the Leo [CLI](05_commands.md) will check for existing `.prover` file to constructing proof, the `.verifier` file to verify proof and the `.avm` file containing the program's bytecode in the **build/build** directory before running each command. This ensures that we don't run unnecessary commands.
 
 ## Next Steps
 

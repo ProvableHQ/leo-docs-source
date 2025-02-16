@@ -1,5 +1,5 @@
 ---
-id: testnetbeta 
+id: testnetbeta
 title: Getting Ready for Testnet Beta
 sidebar_label: Testnet Beta
 ---
@@ -15,7 +15,7 @@ We are about to reach a huge milestone in Aleo's developement. Testnet Beta is a
 - **Leo v.2.0.0 is the first Testnet Beta compatible version.** (In the meantime, you can build from source on the `testnet-beta` branch of the Leo repository.)
 
 For additional support, please feel free to:
-- File an issue [here](https://github.com/AleoHQ/leo/issues/new/choose).
+- File an issue [here](https://github.com/ProvableHQ/leo/issues/new/choose).
 - Post in the #leo-language Discord [channel](https://discord.com/invite/aleo).
 - Attend the Leo Core Devs Call / Engineering Office Hours.
 
@@ -31,18 +31,18 @@ We've included a check-list of features that are deprecated in Leo v2.0.0. If yo
 - [ ] [Program Limits](#program-limits)
 
 
-*If you run into breaking changes that were not covered above or addressed insufficiently, we'd appreciate it if you file an issue [here](https://github.com/AleoHQ/leo/issues/new/choose). The Leo Team will reach out and help you migrate your applications appropriately.*
+*If you run into breaking changes that were not covered above or addressed insufficiently, we'd appreciate it if you file an issue [here](https://github.com/ProvableHQ/leo/issues/new/choose). The Leo Team will reach out and help you migrate your applications appropriately.*
 
 ## Migrations
 For each of the breaking changes above, we've provided instructions on how to update your programs accordingly. Some of these will be one-line fixes and others will be more conceptually involved.
 
 ### API Endpoints
-If you are using API endpoints, you will likely **need to update the URL** to point to the new Testnet Beta endpoint. 
+If you are using API endpoints, you will likely **need to update the URL** to point to the new Testnet Beta endpoint.
 
-**The official endpoint is `https://api.explorer.aleo.org/v1/testnet`.**
+**The official endpoint is `https://api.explorer.provable.com/v1/testnet`.**
 If you are using a custom endpoint, you will just need to update `testnet3` to `testnet` in the URL.
 
-The [Explorer](https://explorer.aleo.org/) is pointed to Testnet Beta.
+The [Explorer](https://explorer.provable.com/) is pointed to Testnet Beta.
 
 ### Finalization
 The `finalize` programming model for on-chain code has been replaced with a new `async/await` model. See [this](#An-Async-Programming-Model) section for a detailed breakdown.
@@ -109,7 +109,7 @@ program boo.aleo {
         ...
         return (c, finalize_baz(f, ...));
     }
-    
+
     async function finalize_baz(f: Future, ...) {
         f.await();
         ...
@@ -265,8 +265,8 @@ leo execute --program credits.aleo --broadcast transfer_public_to_private <ADDRE
 Extensive information on deployed programs, mapping values, blocks, transactions, node peers, validator committees and the memory pool are now accessible using the leo CLI tool.
 
 ```
-leo query program credits.aleo --mapping-value account aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px                                  
-       Leo ✅ Successfully retrieved data from 'http://api.explorer.aleo.org/v1/testnet/program/credits.aleo/mapping/account/aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px'.
+leo query program credits.aleo --mapping-value account aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px
+       Leo ✅ Successfully retrieved data from 'http://api.explorer.provable.com/v1/testnet/program/credits.aleo/mapping/account/aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px'.
 
 "10331249u64"
 ```
@@ -342,4 +342,3 @@ This restriction can be mitigated by future improvements to `snarkVM`, however w
 
 
 [^1]: There are some operations that are not purely functional, e.g `add` which can fail on overflow.
-

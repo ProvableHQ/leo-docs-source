@@ -4,7 +4,7 @@ title: Tooling for Leo
 sidebar_label: Tooling
 ---
 
-Aleo maintains syntax highlighting implementations across different platforms. If you do not see your favorite editor on this list, please reach out on [GitHub](https://github.com/AleoHQ/welcome/issues/new).
+Aleo maintains syntax highlighting implementations across different platforms. If you do not see your favorite editor on this list, please reach out on [GitHub](https://github.com/ProvableHQ/welcome/issues/new).
 
 1. [Sublime Text](#sublime-text)
 2. [Visual Studio Code](#vs-code)
@@ -35,7 +35,7 @@ Download the editor here: https://code.visualstudio.com/download.
 
 ### Install
 
-1. Install [Leo for VSCode](https://marketplace.visualstudio.com/items?itemName=aleohq.leo-extension) from VSCode marketplace.   
+1. Install [Leo for VSCode](https://marketplace.visualstudio.com/items?itemName=aleohq.leo-extension) from VSCode marketplace.
 2. The correct extension ID is `aleohq.leo-extension`, and the description should state "the official VSCode extension for Leo".
 
 ### Usage
@@ -51,4 +51,4 @@ Download the editor here: https://www.jetbrains.com/idea/download/.
 ### Install
 
 1. Download the [Aleo Developer Plugin](https://plugins.jetbrains.com/plugin/19890-aleo-developer) from JetBrains marketplace.
-2. Click on the gear icon in the upper right > Plugins > gear icon up top > Install Plugin from Disk > Select the downloaded zip file 
+2. Click on the gear icon in the upper right > Plugins > gear icon up top > Install Plugin from Disk > Select the downloaded zip file

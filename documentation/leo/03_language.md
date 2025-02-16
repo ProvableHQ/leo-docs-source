@@ -43,7 +43,7 @@ let b: u8 = 1u8;
 Underscores `_` can be used to separate digits in integer literals.
 
 ```leo
-let b: u8 = 1_000_000u64;
+let n: u64 = 1_000_000u64;
 ```
 
 :::info
@@ -156,6 +156,7 @@ The body of the program is delimited by curly braces `{}`.
 import foo.aleo;
 
 program hello.aleo {
+    const FOO: u64 = 1u64;
     mapping balances: address => u64;
 
     record token {
@@ -187,7 +188,7 @@ program hello.aleo {
    }
 
     function compute(a: u64, b: u64) -> u64 {
-        return a + b;
+        return a + b + FOO;
     }
 }
 ```

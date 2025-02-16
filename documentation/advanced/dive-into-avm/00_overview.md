@@ -8,7 +8,7 @@ The Aleo Virtual Machine (AVM) is a computational platform integral to the Aleo 
 
 After constructing the **R1CS**, corresponding proofs are generated using a variation of **Marlin** algorithm called **Varuna**. This approach allows for succinct verification of arbitrary computations by leveraging a **universal** and **updatable** Structured Reference String (**SRS**).
 
-It was formalised and implemented in the Aleo Network as [ARC-0002](https://github.com/AleoHQ/ARCs/tree/master/arc-0002).
+It was formalised and implemented in the Aleo Network as [ARC-0002](https://github.com/ProvableHQ/ARCs/tree/master/arc-0002).
 
 ### **Key Features of the AVM**
 

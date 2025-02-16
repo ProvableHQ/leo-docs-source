@@ -26,10 +26,10 @@ The official Aleo SDK providing Javascript/Typescript tools for creating zero kn
 
 ### ⚡ Build your own app
 
-Start here with the [documentation](./sdk/typescript/00_sdk_overview.md) and follow the instructions to install the [Aleo SDK](https://github.com/AleoHQ/sdk/tree/testnet3/sdk#readme) to get started building your
+Start here with the [documentation](./sdk/typescript/00_sdk_overview.md) and follow the instructions to install the [Aleo SDK](https://github.com/ProvableHQ/sdk/tree/testnet3/sdk#readme) to get started building your
 first zero knowledge web app.
 
-#### Source: [`sdk/sdk`](https://github.com/AleoHQ/sdk/tree/testnet3/sdk)
+#### Source: [`sdk/sdk`](https://github.com/ProvableHQ/sdk/tree/testnet3/sdk)
 
 
 ## 2. [Create-leo-App](./sdk/create-leo-app/00_app_installation.md) - Zero-Knowledge Web App Examples
@@ -60,14 +60,14 @@ Aleo Wasm is a Rust crate which compiles Aleo code responsible for creating and 
 WebAssembly.
 
 When compiled with `wasm-pack` JavaScript bindings are generated for the WebAssembly allowing Aleo zero
-knowledge programs to be used in the browser and NodeJS. This package is available on NPM (linked above). The 
+knowledge programs to be used in the browser and NodeJS. This package is available on NPM (linked above). The
 [documentation](./sdk/wasm/00_wasm_installation.md) provides instructions for compiling this [crate](https://github.com/ProvableHQ/sdk/tree/testnet3/wasm) and using it in web projects for those interested in building from
 source.
 
 ❗ Currently program execution is only available in web Browsers. However, account, program and data management within
 NodeJS is functional.
 
-Source: [`sdk/wasm`](https://github.com/AleoHQ/sdk/tree/testnet3/wasm)
+Source: [`sdk/wasm`](https://github.com/ProvableHQ/sdk/tree/testnet3/wasm)
 
 ## 4. Aleo Python SDK - Zero Knowledge Algorithms in Python and Zero Knowledge Machine Learning
 
@@ -76,11 +76,11 @@ The official Aleo Python SDK providing tools for creating zero knowledge apps. I
 * The **aleo** library, which uses foreign function interfaces to bring snarkVM functionalities to Python.
 * The **zkml** library, which transpiles scikit-learn machine learning models into Leo programs for inference.
 
-Both libraries are in an early development stage. They can be installed through `pip install aleo` respectively `pip install zkml`. The 
+Both libraries are in an early development stage. They can be installed through `pip install aleo` respectively `pip install zkml`. The
 [documentation on the aleo library](./sdk/python/00_aleo_sdk.md) and the [documentation on the zkml library](./sdk/python/01_zkml_transpiler.md) provide more information on installation and usage.
 
 <!-- markdown-link-check-disable -->
-Source: [`python-sdk`](https://github.com/AleoHQ/python-sdk)
+Source: [`python-sdk`](https://github.com/ProvableHQ/python-sdk)
 <!-- markdown-link-check-enable -->
 
 ## 📚 Documentation

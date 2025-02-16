@@ -8,7 +8,7 @@ title: A Private Auction using Leo
 A first-price sealed-bid auction (or blind auction) is a type of auction in which each participant submits a bid without knowing the bids of the other participants.
 The bidder with the highest bid wins the auction.
 
-In this model, there are two parties: the auctioneer and the bidders.
+In this model, there are two kinds of parties: the auctioneer and the bidders.
 - **Bidder**: A participant in the auction.
 - **Auctioneer**: The party responsible for conducting the auction.
 
@@ -39,7 +39,7 @@ Follow the [Leo Installation Instructions](https://developer.aleo.org/leo/instal
 This auction program can be run using the following bash script. Locally, it will execute Leo program functions to conduct, bid, and close a three party auction.
 
 ```bash
-cd auction
+cd leo/examples/auction
 ./run.sh
 ```
 
@@ -85,14 +85,23 @@ NETWORK=testnet
 PRIVATE_KEY=APrivateKey1zkpG9Af9z5Ha4ejVyMCqVFXRKknSm8L1ELEwcc4htk9YhVK
 ENDPOINT=https://localhost:3030
 " > .env
-```
+``` 
 
 Call the `place_bid` program function with bidder 1 and `10u64` arguments.
 
 ```bash
 leo run place_bid aleo1yzlta2q5h8t0fqe0v6dyh9mtv4aggd53fgzr068jvplqhvqsnvzq7pj2ke 10u64
 ```
-
+Output:
+```bash
+ • {
+  owner: aleo1yzlta2q5h8t0fqe0v6dyh9mtv4aggd53fgzr068jvplqhvqsnvzq7pj2ke.private,
+  bidder: aleo1yzlta2q5h8t0fqe0v6dyh9mtv4aggd53fgzr068jvplqhvqsnvzq7pj2ke.private,
+  amount: 10u64.private,
+  is_winner: false.private,
+  _nonce: 4668394794828730542675887906815309351994017139223602571716627453741502624516group.public
+}
+```
 ## <a id="step2"></a> Step 2: The Second Bid
 
 Have the second bidder place a bid of 90.
@@ -112,7 +121,16 @@ Call the `place_bid` program function with bidder 2 and `90u64` arguments.
 ```bash
 leo run place_bid aleo1esqchvevwn7n5p84e735w4dtwt2hdtu4dpguwgwy94tsxm2p7qpqmlrta4 90u64
 ```
-
+Output:
+```bash
+ • {
+  owner: aleo1esqchvevwn7n5p84e735w4dtwt2hdtu4dpguwgwy94tsxm2p7qpqmlrta4.private,
+  bidder: aleo1esqchvevwn7n5p84e735w4dtwt2hdtu4dpguwgwy94tsxm2p7qpqmlrta4.private,
+  amount: 90u64.private,
+  is_winner: false.private,
+  _nonce: 5952811863753971450641238938606857357746712138665944763541786901326522216736group.public
+}
+```
 ## <a id="step3"></a> Step 3: Select the Winner
 
 Have the auctioneer select the winning bid.

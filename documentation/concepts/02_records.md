@@ -8,8 +8,7 @@ sidebar_label: Records
 A **record** is a fundamental data structure for encoding user assets and application state.
 
 Each account record contains information that specifies the record owner, its stored value, and its application state.
-Records in Aleo are consumed and newly created from a [transition](04_transitions.md) function. A [transaction](03_transactions.md) will store multiple transitions, each of which is responsible for the consumption and creation of its individual records.
-Optionally, if the `visibility` of an entry in the record is `private`, it is be encrypted using the owner's address secret key.
+Records in Aleo are consumed and newly created from a [transition](04_transitions.md) function. A [transaction](03_transactions.md) consists of multiple transitions, If the `visibility` of the record is `private`, it is normally encrypted using the owner’s address secret key, to enable privacy in the application.
 
 ## Components of a Record
 

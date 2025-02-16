@@ -49,11 +49,11 @@ Note: After installation, if your `git` and `rustc` command doesn't work, try to
 Clone the `snarkOS` repository
 
 ```bash
-git clone https://github.com/AleoHQ/snarkOS.git --depth 1
+git clone https://github.com/ProvableHQ/snarkOS.git --depth 1
 cd snarkOS
 
 # Switch to the mainnet branch
-git checkout mainnet 
+git checkout mainnet
 
 [For Ubuntu users] A helper script to install dependencies is available. From the snarkOS directory, run:
 
@@ -67,7 +67,7 @@ Note that the dot at the end of the command is required.
 cargo install --path .
 ```
 
-To test if your snarkOS is working, try typing 
+To test if your snarkOS is working, try typing
 ```bash
 snarkos
 ```
@@ -77,7 +77,7 @@ You should see something like:
 
 Please ensure ports 4133/tcp and 3033/tcp are open on your router and OS firewall.
 
-For more details about how to use `snarkOS` CLI, check out [this link](https://github.com/AleoHQ/snarkOS).
+For more details about how to use `snarkOS` CLI, check out [this link](https://github.com/ProvableHQ/snarkOS).
 
 If you would like to run a local devnet, run the command
 
@@ -85,20 +85,20 @@ If you would like to run a local devnet, run the command
 ./devnet.sh
 ```
 
-You would however, first need to install tmux. Instructions can be found on the github [repo](https://github.com/AleoHQ/snarkOS)
+You would however, first need to install tmux. Instructions can be found on the github [repo](https://github.com/ProvableHQ/snarkOS)
 
 ### Install SnarkVM
-- Install snarkVM from the github [repo](https://github.com/AleoHQ/snarkvm)
+- Install snarkVM from the github [repo](https://github.com/ProvableHQ/snarkvm)
 
 ```
 # Download the source code
-git clone https://github.com/AleoHQ/snarkvm && cd snarkvm
+git clone https://github.com/ProvableHQ/snarkvm && cd snarkvm
 
 # Install snarkVM
 $ cargo install --path .
 ```
 
-To test if snarkVM was installed successfully go to the command line and type 
+To test if snarkVM was installed successfully go to the command line and type
 ```bash
 snarkvm
 ```
@@ -112,7 +112,7 @@ Clone the `leo` repository
 
 ```bash
 # Download the source code
-git clone https://github.com/AleoHQ/leo
+git clone https://github.com/ProvableHQ/leo
 cd leo
 ```
 
@@ -125,7 +125,7 @@ cargo install --path .
 
 That will generate the executable ~/.cargo/bin/leo.
 
-To test if leo was installed successfully, try typing 
+To test if leo was installed successfully, try typing
 ```bash
 leo
 ```
@@ -134,7 +134,7 @@ You should see something like:
 ![leo installation](./images/leo-install-success.png)
 For more details about how to use `leo` Cli, check out [this link](https://developer.aleo.org/leo/commands)
 
---- 
+---
 
 ## Docker
 
@@ -156,7 +156,7 @@ docker run -it 0xaragondocker/leo_docker /bin/bash
 ## Windows Installation with Git Bash
 
 ### Rust Installation
-Rust runs on many platforms, and there are many ways to install Rust. This guide describes installation via rustup, a tool that manages multiple Rust toolchains in a consistent way across all platforms Rust supports. 
+Rust runs on many platforms, and there are many ways to install Rust. This guide describes installation via rustup, a tool that manages multiple Rust toolchains in a consistent way across all platforms Rust supports.
 - On Windows, download and run [rustup-init.exe](https://static.rust-lang.org/rustup/dist/i686-pc-windows-gnu/rustup-init.exe)
 - rustup-init can be configured interactively, and all options can additionally be controlled by command-line arguments, which can be passed through the shell script. Pass --help to rustup-init as follows to display the arguments rustup-init accepts:
 ```
@@ -164,7 +164,7 @@ Rust runs on many platforms, and there are many ways to install Rust. This guide
 ```
 - The above command needs to executed using WSL
 - If you prefer not to use the shell script, you may directly download rustup-init for windows [here](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)
-- verify rust installation by runnin ```rustc --version``` in wsl 
+- verify rust installation by runnin ```rustc --version``` in wsl
 
 
 ### Git
@@ -186,7 +186,7 @@ Rust runs on many platforms, and there are many ways to install Rust. This guide
 
 - In the "Workloads" tab enable "Desktop development with C++"
 ![Desktop Development with C++](./images/desktop-development-c++.png)
-- Click Modify to install 
+- Click Modify to install
 
 
 ### LLVM Installation
@@ -207,23 +207,23 @@ Rust runs on many platforms, and there are many ways to install Rust. This guide
 Using git bash, clone the `snarkOS` repository
 
 ```bash
-git clone https://github.com/AleoHQ/snarkOS.git --depth 1
+git clone https://github.com/ProvableHQ/snarkOS.git --depth 1
 cd snarkOS
 cargo install --locked --path .
 ```
 
 ### Install SnarkVM
-Using git bash, install snarkVM from the github [repo](https://github.com/AleoHQ/snarkvm)
+Using git bash, install snarkVM from the github [repo](https://github.com/ProvableHQ/snarkvm)
 
 ```
 # Download the source code
-git clone https://github.com/AleoHQ/snarkvm && cd snarkvm
+git clone https://github.com/ProvableHQ/snarkvm && cd snarkvm
 
 # Install snarkVM
 $ cargo install --path .
 ```
 
-To test if snarkVM was installed successfully go to the command line and type 
+To test if snarkVM was installed successfully go to the command line and type
 ```bash
 snarkvm
 ```
@@ -238,7 +238,7 @@ This is similar to the Linux/MacOS instructions.
 Clone the `leo` repository using git bash
 ```bash
 # Download the source code
-git clone https://github.com/AleoHQ/leo
+git clone https://github.com/ProvableHQ/leo
 cd leo
 ```
 
@@ -251,7 +251,7 @@ cargo install --path .
 
 That will generate the executable ~/.cargo/bin/leo.
 
-To test if leo was installed successfully, try typing 
+To test if leo was installed successfully, try typing
 ```bash
 leo
 ```
@@ -280,7 +280,7 @@ cargo install --path .
 
 ## Install `leo` IDE Syntax Highlighting:
 
-To improve the developer experience, Aleo has provided extensions for syntax highlighting for your popular code editors. 
+To improve the developer experience, Aleo has provided extensions for syntax highlighting for your popular code editors.
 - [VSCode](https://code.visualstudio.com/download)
     - Install [Leo for VSCode](https://marketplace.visualstudio.com/items?itemName=aleohq.leo-extension) from VSCode marketplace.
     - The correct extension ID is aleohq.leo-extension, and the description should state "the official VSCode extension for Leo".
@@ -293,7 +293,7 @@ To improve the developer experience, Aleo has provided extensions for syntax hig
 
 ## Aleo Wallet Installation
 Using a chrome browser, install either of these chrome extensions to get an Aleo wallet. You can also request for testnet tokens from these wallets.
-- [Leo Wallet](https://chromewebstore.google.com/detail/leo-wallet/nebnhfamliijlghikdgcigoebonmoibm) 
+- [Leo Wallet](https://chromewebstore.google.com/detail/leo-wallet/nebnhfamliijlghikdgcigoebonmoibm)
 - [Puzzle Wallet](https://chromewebstore.google.com/detail/puzzle-aleo-wallet/fdchdcpieegfofnofhgdombfckhbcokj)
 
 ---
@@ -302,7 +302,7 @@ Using a chrome browser, install either of these chrome extensions to get an Aleo
 
 1) Open terminal
 2) Go to the folder where you cloned the snarkos repository [earlier](#install-snarkos).
-3) run the command 
+3) run the command
 ```
 ./devnet.sh
 ```
@@ -316,7 +316,7 @@ Using a chrome browser, install either of these chrome extensions to get an Aleo
 # Interacting with your program on testnet
 
 ## Build Your Program
-First build you program by running 
+First build you program by running
 ```
 leo run {$TRANSITION_NAME} {$INPUTS}
 ```

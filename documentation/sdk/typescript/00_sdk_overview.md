@@ -77,7 +77,7 @@ To build the project from source, go to this project's root and execute:
 
 ### Create Leo App
 A set of fully functional examples of zero knowledge web apps can be found in
-[create-leo-app](https://github.com/AleoHQ/sdk/tree/testnet3/create-leo-app). Create-aleo-app provides several web-app
+[create-leo-app](https://github.com/ProvableHQ/sdk/tree/testnet3/create-leo-app). Create-aleo-app provides several web-app
 templates in common web frameworks such as React that can be used as a starting point for building zero knowledge web apps.
 
 Developers can get started immediately with create-react-app by running:
@@ -87,7 +87,7 @@ Developers can get started immediately with create-react-app by running:
 
 Additionally, the SDK powers [provable.tools](https://provable.tools) - a React app that provides a graphical interface for most
 of the functionality provided by the SDK and can be used as a reference for usage of the SDK. Source code for provable.tools
-can be found [in the SDK repo here](https://github.com/AleoHQ/sdk/tree/testnet3/website)
+can be found [in the SDK repo here](https://github.com/ProvableHQ/sdk/tree/testnet3/website)
 
 ## 1. Create an Aleo Account
 
@@ -169,7 +169,7 @@ The `ProgramManager` object encapsulates the functionality for executing program
 them. Under the hood it uses cryptographic code compiled from [snarkVM](https://developer.aleo.org/aleo) into WebAssembly.
 JavaScript bindings to this WebAssembly code allows execution of programs in zero knowledge fully within the browser
 without requiring any external communication with the internet. Users interested in lower level details on how this is
-achieved can visit the [aleo-wasm](https://github.com/AleoHQ/sdk/tree/testnet3/wasm) crate.
+achieved can visit the [aleo-wasm](https://github.com/ProvableHQ/sdk/tree/testnet3/wasm) crate.
 
 The basic execution flow of a program is as follows:
 1. A web app is loaded with an instance of the `ProgramManager` object
@@ -184,7 +184,7 @@ A diagrammatic representation of the program execution flow is shown below.
 graph LR
     p1[Leo Program]
     p2[Aleo Instructions]
- 
+
     subgraph Browser Web-App
         subgraph ProgramManager
             subgraph Aleo-Wasm-Module
@@ -203,7 +203,7 @@ graph LR
 ❗WebAssembly must be initialized before calling any SDK functions. The current Aleo SDK manages the wasm initialization. Therefore, the workers must be defined properly.
 
 Aleo programs are made zero knowledge through the usage of `ZkSnarks`. The Rust code behind Aleo programs and the ZkSnarks
-that make them zero knowledge are hosted in the [snarkVM Repository](https://github.com/AleoHQ/SnarkVM). The Aleo SDK
+that make them zero knowledge are hosted in the [snarkVM Repository](https://github.com/ProvableHQ/SnarkVM). The Aleo SDK
 compiles this code to WebAssembly and creates JavaScript bindings, enabling Aleo programs to run directly in the browser.
 
 Before any logic within the SDK is run within the browser however, the WebAssembly module the SDK contains must be
@@ -659,11 +659,11 @@ declare module '*.aleo' {
  }
 ```
 Make sure that you included custom types in your `tsconfig` file.
-  
+
 </details>
 
 
-A full example of this implementation can be found [here](https://github.com/AleoHQ/sdk/blob/testnet3/create-leo-app/template-react-leo/src/App.jsx)
+A full example of this implementation can be found [here](https://github.com/ProvableHQ/sdk/blob/testnet3/create-leo-app/template-react-leo/src/App.jsx)
 
 ## 3. Aleo Credit Transfers
 
@@ -754,7 +754,7 @@ graph LR
         m3[account mapping \n key: user4address \n value: 3000u64]
         m4[account mapping \n key: user3address \n value: 0u64]
     end
-    
+
     subgraph credits.aleo account mappings - state 1
         m2[account mapping \n key: user3address \n value: 3000u64]--transfer_public \n recipient: user4address \n amount: 3000u64-->m3
         m1[account mapping \n key: user4address \n value: N/A]
@@ -772,7 +772,7 @@ graph LR
     subgraph credits.aleo account mappings - state 2
         m2[account mapping \n key: user5address \n value: 0u64]
     end
-    
+
     subgraph credits.aleo account mappings - state 1
         m1[account mapping \n key: user5address \n value: 3000u64]
     end
@@ -1085,8 +1085,8 @@ program player_mapping_example.aleo
 mapping score:
     key player as address.public;
     value score as u64.public;
-    
-// The update score function    
+
+// The update score function
 function update_score:
     input r0 as address.public;
     input r1 as u64.public;
