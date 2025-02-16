@@ -71,7 +71,7 @@ q  # exit ctrl+b mode
 ```
 
 <!-- markdown-link-check-disable -->
-Check that your network is running by using http://localhost:3030/testnet3/latest/height in your browser. The height should increase as a sign that your network is alive.
+Check that your network is running by visiting http://localhost:3030/testnet3/latest/height in your browser. The height should increase as a sign that your network is alive.
 
 ## 4. Execute `helloworld.aleo` locally
 
