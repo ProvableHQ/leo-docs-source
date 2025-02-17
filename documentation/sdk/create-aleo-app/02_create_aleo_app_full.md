@@ -64,11 +64,12 @@ Right when the node starts, you'll see information for node 0, copy this down!
 If you missed it because it scrolled too fast, use these `tmux` commands to scroll up:
 
 ```bash
-ctrl+b+[  # enter scroll mode to scroll up
-ctrl+b+w  # see all 4 validator nodes
-ctrl+b+:kill-session  # kills the session
+ctrl+b [  # enter scroll mode to scroll up
+ctrl+b w  # see all 4 validator nodes
+ctrl+b :kill-session  # kills the session
 q  # exit ctrl+b mode
 ```
+
 
 <!-- markdown-link-check-disable -->
 Check that your network is running by visiting http://localhost:3030/testnet3/latest/height in your browser. The height should increase as a sign that your network is alive.
