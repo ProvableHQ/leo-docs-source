@@ -1,4 +1,5 @@
 ---
+id: development_client
 title: Development Client
 sidebar_label: Development Client
 ---

@@ -10,7 +10,7 @@ sidebar_label: React App + Devnet + Testing Infra
 ## 1. Installation
 
 - Install [leo](https://github.com/ProvableHQ/leo), which will let you deploy and execute your program.
-- Install [snarkOS](https://github.com/AleoHQ/snarkOS), which will spin up a live devnet either locally or on AWS.
+- Install [snarkOS](https://github.com/ProvableHQ/snarkOS), which will spin up a live devnet either locally or on AWS.
 - Install [tmux](https://formulae.brew.sh/formula/tmux), because the devnet dashboard uses this. 
 - Run these commands to set up your React App and install Leo, our statically-typed programming language built for writing private applications:
  
@@ -264,10 +264,10 @@ git push -u origin main
 ```
 
 ### Claim your Leo badge
-1. Go to the Leo repo issues tab [here](https://github.com/AleoHQ/leo/issues/new/choose)
+1. Go to the Leo repo issues tab [here](https://github.com/ProvableHQ/leo/issues/new/choose)
 2. Go to 🥇 "Badge" and click "Get Started".
 3. Follow the brief instructions and submit.
-4. Once your issue is approved, we will add you to the [contributors section](https://github.com/AleoHQ/leo#%EF%B8%8F-contributors) of the Leo README.md file.
+4. Once your issue is approved, we will add you to the [contributors section](https://github.com/ProvableHQ/leo#%EF%B8%8F-contributors) of the Leo README.md file.
 
 Congratulations on becoming a Leo contributor! 🎉
 

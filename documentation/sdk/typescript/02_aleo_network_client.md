@@ -1,4 +1,5 @@
 ---
+id: aleo_network_client
 title: Aleo Network Client
 sidebar_label: Aleo Network Client
 ---
