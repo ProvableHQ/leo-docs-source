@@ -38,6 +38,7 @@ package-name/
 ├── program.json # Your program manifest
 ├── README.md # Your program description
 └── main.leo # Your program file
+└── .env # environment variable (your private key, network type)
 ```
 
 ## `snarkvm build`
@@ -64,11 +65,6 @@ snarkvm run {$FUNCTION} {$INPUTS}
 snarkvm run hello 2u32 3u32
 ```
 
-To run your Aleo program function in offline mode run:
-```bash
-snarkvm run {$FUNCTION} {$INPUTS} --offline
-```
-
 To run your Aleo program function to a specified endpoint run:
 ```bash
 snarkvm run {$FUNCTION} {$INPUTS} --endpoint {$ENDPOINT}
@@ -81,7 +77,7 @@ To execute your Aleo program function run:
 snarkvm execute {$FUNCTION} {$INPUTS}
 
 // Example
-snarkvm run hello 2u32 3u32
+snarkvm execute hello 2u32 3u32
 ```
 
 To execute your Aleo program function in offline mode run:
