@@ -239,10 +239,6 @@ tx-cannon batch-execute --test helloworld.toml -e http://localhost:3030
 
 There's much more functionality to be explored in the [`tx-cannon` repository](https://github.com/AleoHQ/tx-cannon). You can batch deploy, execute, and transfer, so take advantage of the tool to run development tests on your application!
 
-## 7. Claim your Leo Contributor Badge!
-
-Making it through this tutorial was no easy task, so because you've done it, we'd love to honor you with a Leo contributor badge on Github!
-
 ### Pushing your Leo Application to Github
 
 1. Let's get to your project's directory, initialize, and commit your application.
@@ -265,14 +261,6 @@ git remote add origin <REMOTE_URL>
 git remote -v
 git push -u origin main
 ```
-
-### Claim your Leo badge
-1. Go to the Leo repo issues tab [here](https://github.com/AleoHQ/leo/issues/new/choose)
-2. Go to 🥇 "Badge" and click "Get Started".
-3. Follow the brief instructions and submit.
-4. Once your issue is approved, we will add you to the [contributors section](https://github.com/AleoHQ/leo#%EF%B8%8F-contributors) of the Leo README.md file.
-
-Congratulations on becoming a Leo contributor! 🎉
 
 ## 8. Recap & Additional Resources
 
