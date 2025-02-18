@@ -401,8 +401,9 @@ A finalize must immediately follow a [function](#function), and must have the sa
 
 :::note
 Previously, a `finalize` function was executed on chain after the zero-knowledge proof of the execution of the associated function is verified;
-Upon success of the finalize function, the program logic was executed.  
-Upon failure of the finalize function, the program logic was reverted.  
+Upon success, the program logic was executed, and upon failure, the program logic was reverted.
+
+Now, finalization operates asynchronously and in the future, meaning that the execution of a finalize function is deferred rather than happening immediately after verification. This allows for greater flexibility in handling state updates and interactions within Aleo programs.  
 :::
 
 ### Futures
@@ -414,7 +415,7 @@ specifying which code blocks to run on-chain and how to run them.
 #### future type
 A user can declare a future type by specifying a `Locator` followed by the tag `.future`.
 For example, `credits.aleo/mint_public.future`.
-A `function` can only output a future and a finalize block can only take a future in as input.
+A `function` can only output a future and a finalize block can only take a future in as input. However, unlike function inputs, **the future input of a finalizer is implicit**- it is not explicitly declared using input... Instead, the finalizer automatically processes the future output of the assocated function.
 A `closure` cannot output a future or take a future in as input.
 
 #### async call
@@ -422,7 +423,7 @@ A user can make an asynchronous call to the finalize block via the `async` keywo
 For example, `async mint_public r0 r1 into r2;`.
 Note that the associated function must be specified.
 This operation produces a `Future` as output.
-`async` takes the place of the `finalize` command, which was allowed in the body of a function after the output statements.
+`async` takes the place of the `finalize` command, which was allowed in the body of a function after the output statements (**see NOTE above**).
 
 ```aleo showLineNumbers
 // The `transfer_public_to_private` function turns a specified amount
@@ -553,9 +554,9 @@ There are a number of rules associated with using these components.
 9. Instructions can be interleaved between invocations of call, async, and await.
 
 
-### Finalize Commands
+### Additional Instructions and Finalize Commands
 
-The following commands are supported in Aleo Instructions to provide additional program functionality.
+The following instructions and commands are supported in Aleo Instructions to provide additional program functionality. Some are specific to finalize blocks (e.g., ChaCha), while others can be used in functions as well (e.g., BHP).
 
 
 #### block.height
