@@ -217,9 +217,10 @@ tx-cannon deploy helloworld-deux/build/hellowords.aleo -k <private-key> --fee 3 
 
 Again, you can check that your deployment was successful on your network using: http://localhost:3030/testnet3/transaction/your-txn-id.
 
-## 6. Execution On-Chain using the Transaction Cannon 
+## 6. Executing and Verifying transactions using the Transaction Cannon
 
-Once your program has been deployed on devnet, it's easy to execute your program on-chain. Create a `.toml` file with these parameters:
+
+Once your program has been deployed on devnet, it's easy to interact with your program. Unlike Ethereum, where executions occur on-chain, Aleo performs executions off-chain while verifying them on-chain. Create a `.toml` file with these parameters:
 
 ```toml
 # helloworld.aleo
