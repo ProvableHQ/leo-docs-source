@@ -130,9 +130,9 @@ Aleo programs provide the ability for users to make any input or output of a pro
 was run correctly. Keeping program inputs and outputs private allows developers to build privacy into their applications.
 
 Zero-Knowledge programs are written in one of two languages:
-1. [Leo](https://docs.leo-lang.org/leo/language): A high level, developer friendly language for developing
+1. [Leo](https://docs.leo-lang.org): A high level, developer friendly language for developing
    zero knowledge programs.
-2. [Aleo Instructions](https://docs.leo-lang.org/aleo/): A low level language that provides developers fine
+2. [Aleo Instructions](https://developer.aleo.org/guides/aleo/aleo/): A low level language that provides developers fine
    grained control over the execution flow of zero knowledge programs. Leo programs are compiled into Aleo Instructions
    under the hood.
 
@@ -166,7 +166,7 @@ function hello:
 The SDK provides the ability to execute Aleo Instructions programs %100 client-side within the browser.
 
 The `ProgramManager` object encapsulates the functionality for executing programs and making zero knowledge proofs about
-them. Under the hood it uses cryptographic code compiled from [snarkVM](https://docs.leo-lang.org/aleo) into WebAssembly.
+them. Under the hood it uses cryptographic code compiled from [snarkVM](https://developer.aleo.org/guides/aleo/aleo/) into WebAssembly.
 JavaScript bindings to this WebAssembly code allows execution of programs in zero knowledge fully within the browser
 without requiring any external communication with the internet. Users interested in lower level details on how this is
 achieved can visit the [aleo-wasm](https://github.com/ProvableHQ/sdk/tree/testnet3/wasm) crate.
