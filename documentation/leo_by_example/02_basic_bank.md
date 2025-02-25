@@ -39,7 +39,7 @@ There are, of course, ways to write a version of this application without these 
 
 ## How to Run
 
-Follow the [Leo Installation Instructions](https://docs.leo-lang.org/leo/installation).
+Follow the [Leo Installation Instructions](https://docs.leo-lang.org/getting_started/installation).
 
 This basic bank program can be run using the following bash script. Locally, it will execute Leo program functions to issue, deposit, and withdraw tokens between a bank and a user.
 
