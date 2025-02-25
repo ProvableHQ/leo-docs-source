@@ -20,7 +20,7 @@ Proposal information and voting results are revealed using the public `mapping` 
 
 ## How to Run
 
-Follow the [Leo Installation Instructions](https://docs.leo-lang.org/leo/installation).
+Follow the [Leo Installation Instructions](https://docs.leo-lang.org/getting_started/installation).
 
 This vote program can be run using the following bash script. Locally, it will execute Leo program functions to create proposals, create tickets, and make votes.
 

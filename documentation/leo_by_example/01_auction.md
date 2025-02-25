@@ -36,7 +36,7 @@ The auction is conducted in a series of stages.
 
 ## How to Run
 
-Follow the [Leo Installation Instructions](https://docs.leo-lang.org/leo/installation).
+Follow the [Leo Installation Instructions](https://docs.leo-lang.org/getting_started/installation).
 
 This auction program can be run using the following bash script. Locally, it will execute Leo program functions to conduct, bid, and close a three party auction.
 

@@ -11,7 +11,7 @@ A transparent & shielded custom token in Leo.
 
 ## How to Run
 
-Follow the [Leo Installation Instructions](https://docs.leo-lang.org/leo/installation).
+Follow the [Leo Installation Instructions](https://docs.leo-lang.org/getting_started/installation).
 
 This token program can be run using the following bash script. Locally, it will execute Leo program functions to mint and transfer tokens publicly and privately.
 

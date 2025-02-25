@@ -30,7 +30,7 @@ The game board is represented by a struct called `Board`, which contains three `
 
 ## How to Run
 
-Follow the [Leo Installation Instructions](https://docs.leo-lang.org/leo/installation).
+Follow the [Leo Installation Instructions](https://docs.leo-lang.org/getting_started/installation).
 
 This tictactoe program can be run using the following bash script. Locally, it will execute Leo program functions to create and play a game of Tic Tac Toe.
 
