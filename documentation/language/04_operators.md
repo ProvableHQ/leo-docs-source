@@ -60,6 +60,18 @@ let result = (a + 1u8) * 2u8;
 
 Leo supports several expressions that can be used to reference information about the Aleo blockchain and the current transaction.
 
+### self.address
+
+Returns the address of this program.
+
+```leo showLineNumbers
+program test.aleo {
+    transition get_program_address() -> address {
+        return self.address;
+    }
+}
+```
+
 ### self.caller
 
 Returns the address of the account/program that invoked the current `transition`.
