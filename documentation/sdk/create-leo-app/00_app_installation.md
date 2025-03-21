@@ -16,7 +16,7 @@ sidebar_label: Installation
 With NPM:
 
 ```bash
-npm create aleo-app@latest
+npm create leo-app@latest
 ```
 
 1. Enter the project name.
@@ -27,7 +27,7 @@ npm create aleo-app@latest
 
 3. If you choose `React` as your framework, the supported templates are:
     - `JavaScript` + `Leo`
-    - `TypeScript` + `Leo`
+    - `TypeScript` + `React`
     - `TypeScript` + `Next.js`
 
 ## More Information
