@@ -139,7 +139,7 @@ This section refers to the guide created by GitHub [here](https://docs.github.co
 
 Check out the following resources:
 
-- [Our developer docs](https://docs.leo-lang.org/getting_started/)
+- [Our developer docs](https://docs.leo-lang.org/getting_started/installation)
 - See the SDK in action at [provable.tools](https://www.provable.tools/)
 - Play around with Leo in the browser with [Leo Playground](https://play.leo-lang.org/)
 - Learn Leo syntax, functions, and best practices with the [Leo's language guide](https://docs.leo-lang.org/leo/language)
