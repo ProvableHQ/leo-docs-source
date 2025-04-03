@@ -277,7 +277,7 @@ Congratulations on becoming a Leo contributor! 🎉
 
 2. You also installed [Leo](https://docs.leo-lang.org/leo/), our statically-typed programming language built for writing private applications.
 
-3. You executed `helloworld` using WASM, which called on in-browser resources to use [snarkVM](https://docs.leo-lang.org/aleo/), the data execution layer. It is used to compile Leo programs and execute them locally off-chain. All Leo programs eventually become Aleo instructions via Aleo’s compiler during the execution phase of snarkVM. 
+3. You executed `helloworld` using WASM, which called on in-browser resources to use [snarkVM](https://github.com/ProvableHQ/snarkVM), the data execution layer. It is used to compile Leo programs and execute them locally off-chain. All Leo programs eventually become Aleo instructions via Aleo’s compiler during the execution phase of snarkVM. 
 
 4. You also executed `helloworld` locally in your terminal using `leo execute`, which similarly uses local computational resources to compile your Leo program using snarkVM.
 

@@ -11,7 +11,7 @@ We welcome everyone to join!
 ## Logistics
 
 ### When
-**Every Thursday 10:30AM ET, starting on 01/30/25**
+**Every Second Thursday 10:30AM ET, starting on 01/30/25**
 
 ### Where
 <!-- markdown-link-check-disable -->

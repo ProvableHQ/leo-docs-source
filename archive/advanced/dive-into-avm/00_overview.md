@@ -18,7 +18,7 @@ It was formalised and implemented in the Aleo Network as [ARC-0002](https://gith
 
 ## **AVM’s Architecture and Design**
 
-The AVM is virtual machine that operates on a last-in, first-out (LIFO) principle where data is stacked and the most recently added data is the first to be accessed or removed. This design is conducive to the execution of complex arithmetic circuits that are essential for the privacy-preserving features of Aleo. The AVM's architecture is designed to support the execution of private applications by leveraging zero-knowledge proofs. It uses Leo (high-level programming language), which compiles down into an intermediate representation known as AVM opcodes. These opcodes are then used to construct the R1CS, which are essential for generating zero-knowledge proofs. Check the full list [here](https://docs.leo-lang.org/aleo/opcodes/)
+The AVM is virtual machine that operates on a last-in, first-out (LIFO) principle where data is stacked and the most recently added data is the first to be accessed or removed. This design is conducive to the execution of complex arithmetic circuits that are essential for the privacy-preserving features of Aleo. The AVM's architecture is designed to support the execution of private applications by leveraging zero-knowledge proofs. It uses Leo (high-level programming language), which compiles down into an intermediate representation known as AVM opcodes. These opcodes are then used to construct the R1CS, which are essential for generating zero-knowledge proofs. Check the full list [here](https://developer.aleo.org/guides/aleo/opcodes)
 
 The AVM architecture can be broken down into several key components and characteristics:
 

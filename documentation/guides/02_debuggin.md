@@ -6,7 +6,7 @@ sidebar_label: Debuggin' Out
 
 `leo debug` is a powerful tool that developers can use to interactively step through executions and track down bugs. In this workshop, we'll use the Leo debugger to explore and gain a deeper understanding of a variety of programs. You will also build up the skills to adeptly use the debugger in your development work.
 
-**This tutorial assumes that you are already familiar with Leo. If you'd like a refresher, see the [Developer Docs](https://docs.leo-lang.org/getting_started)**.
+**This tutorial assumes that you are already familiar with Leo. If you'd like a refresher, see the [Developer Docs](https://docs.leo-lang.org/getting_started/installation)**.
 
 We're always looking to improve Leo's developer experience. If you have any feedback, please feel free to [file](https://github.com/ProvableHQ/leo/issues/new/choose) an issue!
 
