@@ -207,7 +207,7 @@ git push -u origin main
 
 2. You also installed [Leo](https://docs.leo-lang.org/leo/), our statically-typed programming language built for writing private applications. Using Leo, you can write, build, compile, and execute Leo programs locally.
 
-3. We provided the `helloworld` Leo program already pre-compiled into Aleo instructions and then executed it locally using WASM + web workers, which was an abstraction on snarkVM’s capabilities. [snarkVM](https://docs.leo-lang.org/aleo/) is the data execution layer. It is used to compile Leo programs and execute them locally off-chain. All Leo programs eventually become Aleo instructions via Aleo’s compiler during the execution phase of snarkVM. 
+3. We provided the `helloworld` Leo program already pre-compiled into Aleo instructions and then executed it locally using WASM + web workers, which was an abstraction on snarkVM’s capabilities. [snarkVM](https://github.com/ProvableHQ/snarkVM) is the data execution layer. It is used to compile Leo programs and execute them locally off-chain. All Leo programs eventually become Aleo instructions via Aleo’s compiler during the execution phase of snarkVM. 
 
 4. Similarly, we deployed the `helloworld` program, again using the WASM + web workers abstraction layer but you can also deploy programs on-chain using [snarkOS](https://docs.leo-lang.org/testnet/getting_started/deploy_execute/#deploy), the data availability layer or blockchain / distributed ledger.
 
