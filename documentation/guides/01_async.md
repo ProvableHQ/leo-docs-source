@@ -54,15 +54,16 @@ import mapping.aleo;
 program second_mapping.aleo {
 	mapping hashes: u8 => scalar;
 
-async transition two_mappings(value: u8) -> Future {
-let increment_future: Future = mapping.aleo/transition_increment();
-return finalize_update_mapping(value, imported_future); 
-} 
+    async transition two_mappings(value: u8) -> Future {
+        let increment_future: Future = mapping.aleo/transition_increment();
+        return finalize_update_mapping(value, imported_future); 
+    } 
 
-async function finalize_update_mapping(value: u8, imported_future: Future ) {
-	imported_future.await();
-	let hash: scalar = BHP256::hash_to_scalar(value);
-hashes.set(value, hash);
+    async function finalize_update_mapping(value: u8, imported_future: Future ) {
+	    imported_future.await();
+	    let hash: scalar = BHP256::hash_to_scalar(value);
+        hashes.set(value, hash);
+    }
 }
 ```
 
