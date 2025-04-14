@@ -71,3 +71,9 @@ program second_mapping.aleo {
 ## Managing public and private state in async transitions
 
 Updating private state on Aleo utilizes off-chain proof generation to preserve the confidentiality of the user’s data and associated address.  Therefore, Records cannot be created or consumed within the scope of `async functions`.  However, Records can be used inside of the scope of `async transitions`.  This is because transition and async transition functions are initially executed off-chain and are accompanied by proofs of correct execution which are subsequently verified by validators.  Once the proof is verified, validators execute the code contained within a Future, which is solely defined by code within an `async function`.  
+
+|                          | **Public State**     | **Private State**                  |
+|--------------------------|----------------------|------------------------------------|
+| **Function Type**        | `async function`     | `async transition` or `transition` |
+| **Data Storage**         | `mapping`            | `record`                           |
+| **Visibility**           | everyone             | Visible if you have the `viewkey`  |
