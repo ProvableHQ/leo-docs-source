@@ -52,14 +52,14 @@ Leo enables developers to call external `async transitions` from imported progra
 import first_mapping.aleo;
 
 program second_mapping.aleo {
-	mapping hashes: u8 => scalar;
+    mapping hashes: u8 => scalar;
 
     async transition two_mappings(value: u8) -> Future {
         let increment_future: Future = first_mapping.aleo/transition_increment();
         return finalize_update_mapping(value, imported_future); 
     } 
 
-    async function finalize_update_mapping(value: u8, imported_future: Future ) {
+    async function finalize_update_mapping(value: u8, imported_future: Future) {
 	    imported_future.await();
 	    let hash: scalar = BHP256::hash_to_scalar(value);
         hashes.set(value, hash);
