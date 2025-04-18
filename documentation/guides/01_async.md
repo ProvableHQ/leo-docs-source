@@ -46,7 +46,7 @@ program first_mapping.aleo {
 
 ## Calling async transitions from external programs
 
-Leo enables developers to call external `async transitions` from imported programs in an `async transition`.  A call to an async transition returns a `Future` which must be passed as inputs to an async function.  These `Futures` must be resolved inside of the `async function` using the `await` keyword, as shown in the example below.
+Leo enables developers to call external `async transitions` from imported programs in an `async transition`.  A call to an async transition returns a `Future` which must be passed as inputs to an async function.  These `Futures` must be composed inside of the `async function` using the `await` keyword, as shown in the example below.
 
 ```leo
 import first_mapping.aleo;
