@@ -193,6 +193,25 @@ program test.aleo {
 ```
 
 
+### Structs
 
+Struct types are declared and constructed with a familiar syntax. Note that there is a global namespace for struct
+types across your program and its dependencies. If a dependency declares a struct type `T`, you may access that type
+without any qualifier.
 
+```leo
+program test.aleo {
+    struct S {
+        x: field,
+        y: u32,
+    }
 
+    transition foo(y: u32) -> S {
+        let s: S = S {
+            x: 172field,
+            y,
+        };
+        return s;
+    }
+}
+```
