@@ -25,12 +25,12 @@ program hello.aleo {
     const FOO: u64 = 1u64;
     mapping account: address => u64;
 
-    record token {
+    record Token {
         owner: address,
         amount: u64,
     }
 
-    struct message {
+    struct Message {
         sender: address,
         object: u64,
     }
@@ -38,8 +38,8 @@ program hello.aleo {
     async transition mint_public(
         public receiver: address,
         public amount: u64,
-    ) -> (token, Future) {
-        return (token {
+    ) -> (Token, Future) {
+        return (Token {
             owner: receiver,
             amount,
         }, update_state(receiver, amount));
@@ -158,7 +158,7 @@ When passing a record as input to a program function, the `_nonce: group` compon
 (but it does not need to be declared in the Leo program).
 
 ```aleo showLineNumbers
-record token {
+record Token {
     // The token owner.
     owner: address,
     // The token amount.
