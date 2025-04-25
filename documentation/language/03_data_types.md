@@ -138,25 +138,25 @@ let arr: [bool; 4] = [true, false, true, false];
 // Nested array
 let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
 
-struct bar {
+struct Bar {
     data: u8,
 }
 
 // Array of structs
-let arr_of_structs: [bar; 2] = [bar { data: 1u8 }, bar { data: 2u8 }];
+let arr_of_structs: [Bar; 2] = [Bar { data: 1u8 }, Bar { data: 2u8 }];
 
 // Access the field of a struct within an array
-transition foo(a: [bar; 8]) -> u8 {
+transition foo(a: [Bar; 8]) -> u8 {
     return a[0u8].data;
 }
 
 // Struct that contains an array
-struct bat {
+struct Bat {
     data: [u8; 8],
 }
 
 // Record that contains an array
-record floo {
+record Floo {
     owner: address,
     data: [u8; 8],
 }
