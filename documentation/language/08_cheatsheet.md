@@ -76,7 +76,7 @@ You can cast an `address` to a `field` but not vice versa.
 ## 4. Records
 Defining a `record`
 ```leo
-record token {
+record Token {
     owner: address,
     amount: u64,
 }
@@ -99,7 +99,7 @@ let user_balance: u64 = user.balance;
 ## 5. Structs
 Defining a `struct`
 ```leo
-struct message {
+struct Message {
     sender: address,
     object: u64,
 };
@@ -174,7 +174,7 @@ let third: field = t.2;
 transition mint_public(
     public receiver: address,
     public amount: u64,
-) -> token { /* Your code here */ }
+) -> Token { /* Your code here */ }
 ```
 
 ## 9. Functions
