@@ -57,4 +57,20 @@ When deploying to a local devnet, specify the path for the local dependency as f
 ```
 leo add program_name.aleo --local ./path_to_dependency
 ```
-
+The dependencies section in the `program.json` manifest should include the path:
+```json
+{
+  "program": "your_program.aleo",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "local_dependency.aleo",
+      "location": "local",
+      "network": null,
+      "path": "./path"
+    }
+  ]
+} 
+```
