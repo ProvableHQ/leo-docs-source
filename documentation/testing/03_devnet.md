@@ -63,7 +63,7 @@ Note:  The minimum number of validators to run a local devnet is 4.
 
 If you have already installed the SnarkOS CLI, you do not need to build the binary.  
 
-Clearing the ledger history may be useful if you wish to redploy your program without changing the name.  However, this will erase all transactions and start a new instance of the Aleo blockchain from genesis.
+Clearing the ledger history may be useful if you wish to redploy your program without changing the name.  However, this will erase all transaction history and start a new instance of the Aleo blockchain from genesis.
 
 `tmux` allows you to toggle between nodes in your local devnet. Here are some useful (default) commands:
 
@@ -86,7 +86,7 @@ Ctrl+b :kill-session
 
 ## Deploy
 
-When deploying programs to local devnet, make sure that your `.env` matches the one below:
+When deploying programs to a local devnet, make sure that your `.env` file matches the one below:
 
 ```bash 
 NETWORK=testnet
@@ -94,7 +94,7 @@ PRIVATE_KEY=APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH
 ENDPOINT=http://localhost:3030
 ```
 
-The Private Key is same one that is generated when you create a new project using the `leo new` command.  It will be seeded with ample test credits.
+The Private Key is same one that is generated when you create a new Leo project using the `leo new` command.  It will be seeded with ample test credits in the devnet.
 To deploy your program, run the following command:
 ```bash
 leo deploy
@@ -115,7 +115,7 @@ You can check your transactions by using the following API endpoint:
 GET http://localhost:3030/testnet/transaction/{transaction_id}
 ```
 
-The transaction API endpoint is instructive in verifying whether a transaction succeeded or failed.  Since both successful and failed transaction will execute a fee transaction,  If only the fee transaction appears, that is a clear indication that the transaction has failed.  Note that on the Testnet and on Mainnet, failed transactions still require a fee since the network is performing a computation.
+The transaction API endpoint is instructive in verifying whether a transaction succeeded or failed.  Since both successful and failed transaction execute a fee transaction, if only the fee transaction appears, that is a clear indication that the transaction has failed.  Note that on the Testnet and on Mainnet, failed transactions still require a fee since the network is performing a computation.
 
 A full list of API endpoints is available [here](https://developer.aleo.org/references/apis/public_api/)
 
