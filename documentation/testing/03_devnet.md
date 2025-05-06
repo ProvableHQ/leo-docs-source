@@ -8,7 +8,8 @@ A local devnet can be a heavyweight but reliable way to test your application on
 
 ## Setup
 
-To run a local devnet, you'll need to install [snarkOS](https://developer.aleo.org/guides/introduction/getting_started#2-installing-snarkos).
+To run a local devnet, you'll need to install [snarkOS](https://developer.aleo.org/guides/introduction/getting_started#2-installing-snarkos).  
+Be sure to use the latest [release](https://github.com/ProvableHQ/snarkOS/releases).
 You'll also need `tmux` (instructions below) and the [devnet.sh](https://github.com/ProvableHQ/snarkOS/blob/staging/devnet.sh) script in the `snarkOS` repository.
 
 <details><summary>macOS</summary>
@@ -49,7 +50,20 @@ sudo apt install tmux
 
 ### Runing the Devnet
 
-Run the `devnet.sh` script and follow the prompts.
+From the root of the SnarkOS repository, run the `devnet.sh` script and follow the prompts.  Alternatively, you can copy the script to your project's directory. 
+
+```bash
+Enter the total number of validators (default: 4): 
+Enter the total number of clients (default: 2): 
+Enter the network ID (mainnet = 0, testnet = 1, canary = 2) (default: 1): 
+Do you want to run 'cargo install --locked --path .' to build the binary? (y/n, default: y): n
+Do you want to clear the existing ledger history? (y/n, default: n):
+```
+Note:  The minimum number of validators to run a local devnet is 4.
+
+If you have already installed the SnarkOS CLI, you do not need to build the binary.  
+
+Clearing the ledger history may be useful if you wish to redploy your program without changing the name.  However, this will erase all transactions and start a new instance of the Aleo blockchain from genesis.
 
 `tmux` allows you to toggle between nodes in your local devnet. Here are some useful (default) commands:
 
@@ -67,3 +81,64 @@ Ctrl+b :select-window -t {NODE_ID}
 # To stop a local devnet
 Ctrl+b :kill-session
 ```
+
+### Interacting with your program
+
+## Deploy
+
+When deploying programs to local devnet, make sure that your `.env` matches the one below:
+
+```bash 
+NETWORK=testnet
+PRIVATE_KEY=APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH
+ENDPOINT=http://localhost:3030
+```
+
+The Private Key is same one that is generated when you create a new project using the `leo new` command.  It will be seeded with ample test credits.
+To deploy your program, run the following command:
+```bash
+leo deploy
+```
+
+## Executing Transactions
+
+After deploying your program, you can call methods using the following command syntax:
+```bash
+leo execute <method_name> [input1] [input2...] --program <program_name>.aleo --broadcast
+```
+
+## API endpoints
+
+You can check your transactions by using the following API endpoint:
+
+```bash
+GET http://localhost:3030/testnet/transaction/{transaction_id}
+```
+
+A full list of API endpoints is available [here](https://developer.aleo.org/references/apis/public_api/)
+
+## Record Scanning
+
+You can use the SnarkOS CLI to view your Records using the following command syntax:
+```bash
+snarkos developer scan --endpoint http://localhost:3030 --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH --start <block_number> --network 1
+```
+
+Setting `block_number` to `0` will list all of the records from genesis, including your test credit records. 
+
+```bash
+⚠️  Attention - Scanning the entire chain. This may take a while...
+
+Scanning 3 blocks for records (100% complete)...   
+
+[
+  "{  owner: aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px.private,  microcredits: 23437500000000u64.private,  _nonce: 3666670146276262240199958044811329632452609778779651964870759629195088099828group.public}",
+  "{  owner: aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px.private,  microcredits: 23437500000000u64.private,  _nonce: 4536868268814456227312360347031739423312689137706933033938812386306238998060group.public}",
+  "{  owner: aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px.private,  microcredits: 23437500000000u64.private,  _nonce: 205967862164714901379497326815256981526025583494109091059194305832749867953group.public}",
+  "{  owner: aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px.private,  microcredits: 23437500000000u64.private,  _nonce: 4424806931746512507605174575961455750579179367541686805196254590136284583805group.public}"
+]
+```
+
+Setting `block_number` to `1` or higher will exclude the above credit records from the scan.
+
+
