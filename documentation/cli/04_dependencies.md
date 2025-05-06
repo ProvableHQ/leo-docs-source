@@ -13,7 +13,7 @@ program test.aleo {
 }
 ```
 
-Use the `leo add` command to update the `program.json` manifest to include any dependencies used in your program.
+From the root of your Leo program directory, use the `leo add` command to update the `program.json` manifest to add dependencies.
 
 ## Deployed Programs
 When adding a deployed program as a dependency to your program, such as the `credits.aleo`, use the following command::
@@ -74,3 +74,6 @@ The dependencies section in the `program.json` manifest should include the path:
   ]
 } 
 ```
+
+## Deploying to a program with local dependencies to a network.
+When deploying a program that uses local dependcies, each of those dependencies will be deployed in order, followed by the main program.  Those dependencies should be specified as local dependencies in the `program.json` manifest.
