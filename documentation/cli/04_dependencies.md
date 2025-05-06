@@ -76,4 +76,8 @@ The dependencies section in the `program.json` manifest should include the path:
 ```
 
 ## Deploying to a program with local dependencies to a network.
-When deploying a program that uses local dependcies, each of those dependencies will be deployed in order, followed by the main program.  Those dependencies should be specified as local dependencies in the `program.json` manifest.
+When deploying a program that uses local dependcies, use the following command:
+```bash
+leo deploy --recursive
+```
+All local dependency will be deployed in order, followed by the main program.  Deployed dependencies will be skipped.
