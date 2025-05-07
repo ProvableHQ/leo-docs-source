@@ -15,6 +15,7 @@ You can print the list of commands by running `leo --help`
 * [`account`](#leo-account) - Create a new Aleo account, sign and verify messages.
 * [`new`](#leo-new) - Create a new Leo project in a new directory.
 * [`build`](#leo-build) - Compile the current project.
+* [`test`](#leo-test) - Test the current project.
 * [`deploy`](#leo-deploy) - Generate proving and verifying keys and produce a transaction contianing the deployment.
 * [`run`](#leo-run) - Run a program without producing a proof.
 * [`execute`](#leo-execute) - Execute a program and produce a transaction containing a proof.
@@ -128,6 +129,46 @@ This will populate the directory `build/` (creating it if it doesn't exist) with
      Leo ✅ Compiled 'main.leo' into Aleo instructions
 ```
 
+## `leo test`
+[Back to Top](#commands)
+:::tip
+Use this command to locally run your tests. 
+:::
+
+To run tests in the current project, run:
+```bash
+leo test
+```
+
+You should write your tests in Leo source files in the `tests/` directory in your project.
+`leo new` will create an example test file you can start with.
+
+Transitions in the test file can be annotated with `@native_test` to indicate they are test
+procedures that should be called during test runs. Test files may also have a special type of
+interpreted procedured, defined with the `interpret` keyword. These procedures may be annotated
+with `@interpreted_test`:
+
+```leo
+@interpreted_test
+interpret a_test_procedure() {
+    assert_eq(1u32, 1u32);
+}
+```
+
+These procedures will also be called during test runs, but using the Leo interpreter rather than
+through a SnarkVM ledger. Interpreted tests are likely to run much faster than native tests.
+
+Tests are considered to have failed when they halt (often by a triggered assertion). Otherwise
+they pass.
+
+Either type of test may receive the annotation `@should_fail` to indicate failure is expected.
+In this case, the test will be considered to have passed if and only if it halts.
+
+You can supply a string on the command line; only test procedures whose qualified names
+contain this string will be run:
+```bash
+leo test TEST_NAME
+```
 
 ## `leo deploy`
 [Back to Top](#commands)
