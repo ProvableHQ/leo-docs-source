@@ -4,6 +4,7 @@ title: Deploy Your Programs
 sidebar_label: Deploy
 ---
 
+
 The `leo deploy` command is used for deploying Leo program to a local devnet, Testnet, or Mainnet.
 
 The following parameters need to be specified in either a `.env` file or as environment variables: the target network, the Private Key, and a node API endpoint.
@@ -56,6 +57,6 @@ After deploying the dependency program, a second deploy prompt will appear for t
 ? Do you want to submit deployment of program `example_program.aleo` to network testnet via endpoint http://localhost:3030 using address aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px? (y/n) ›
 ```
 
-When deploying to either the Testnet or Mainnet uisng public credits, there is a 12 second delay between programs deployments.  This ensures that programs are deployed in separate blocks and prevents the network from attempting to deploy multiple programs to the same blocks if sufficient funds are not available for the final deployment.
+When deploying to either the Testnet or Mainnet using public credits, there is a 12 second delay between programs deployments.  This ensures that programs are deployed in separate blocks and prevents the network from attempting to deploy multiple programs to the same blocks if sufficient funds are not available for the final deployment.
 
 

@@ -26,7 +26,7 @@ or
 leo add credits
 ```
 
-If you are deplolying to mainnet, you will need to specify mainnet imports using the `--network` flag as follows:
+If you are deploying to mainnet, you will need to specify mainnet imports using the `--network` flag as follows:
 
 ```
 leo add credits --network mainnet
@@ -49,6 +49,11 @@ For the first imported dependency, a new `dependencies` field will be added to t
     }
   ]
 }
+```
+
+Dependencies can be removed using the `leo remove` command:
+```bash
+leo remove credits.aleo
 ```
 
 ## Local development
@@ -76,7 +81,7 @@ The dependencies section in the `program.json` manifest should include the path:
 ```
 
 ## Deploying to a program with local dependencies to a network.
-When deploying a program that uses local dependcies, use the following command:
+When deploying a program that uses local dependencies, use the following command:
 ```bash
 leo deploy --recursive
 ```

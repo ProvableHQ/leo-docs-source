@@ -5,13 +5,13 @@ sidebar_label: Execute
 ---
 
 
-The `leo execute` command is used to call functions from deployed programs.  Under the hood, this commands downloads the program code from the specified network, synthesizes the program circuit, executes the function logic, generates proving verifying keys along with a zero-knowledge proof, and then submits that information to the network.
+The `leo execute` command is used to call functions from deployed programs.  Under the hood, this commands downloads the program code from the specified network, synthesizes the program circuit, executes the function logic, generates proving verifying keys along with a zero-knowledge proof, and then submits a transaction object to the network.
 
 The full syntax for the `leo execute` command is:
 ```bash
 leo execute <method_name> [input_1] [input_2] ... [input_n] --program <program_name>.aleo --broadcast
 ```
-As with the `leo deploy` command, you must specify the network, Private Key, and node endpoint parameters in either a `.env` file or using environment variables.  
+As with the `leo deploy` command, you must specify the network, Private Key, and node endpoint parameters using either a `.env` file or environment variables.  
 
 Developers have the option to inspect a transaction object before it is broadcast to the network using the `--dry-run` flag in lieu of the `--broadcast` flag.  Invoking this flag will print the transaction output to `stdout`.
 
