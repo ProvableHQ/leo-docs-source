@@ -23,4 +23,4 @@ At some point you'll need testnet credits. There are a few community-supported f
 
 - [**Sotertech**](https://faucetbeta.sotertech.io/) - 10 credits /  24 hours (*quickest to access as of 2/17/25*)
 
-The faucets are periodically refereshed.
+The faucets are periodically refreshed.
