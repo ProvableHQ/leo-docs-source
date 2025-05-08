@@ -104,7 +104,7 @@ leo deploy
 
 After deploying your program, you can call methods using the following command syntax:
 ```bash
-leo execute <method_name> [input1] [input2...] --program <program_name>.aleo --broadcast
+leo execute <method_name> [input_1] [input_2] ... [input_n] --program <program_name>.aleo --broadcast
 ```
 
 ## API endpoints
