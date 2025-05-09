@@ -20,7 +20,7 @@ From the root of the Leo program directory, run the following command:
 leo deploy
 ```
 
-Alternatively, the command syntax accomodates enviroment variables:
+Alternatively, the command syntax accommodates environment variables:
 ```bash
 leo deploy --endpoint "{ENDPOINT} --private-key "{$PRIVATE_KEY}"
 ```
