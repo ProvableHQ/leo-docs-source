@@ -156,6 +156,11 @@ leo run {$TRANSITION} {$INPUTS}
 ```
 This command does not synthesize the program circuit or generate proving and verifying keys.
 
+For the default program created by `leo new`, this command
+```bash
+leo run main 1u32 2u32
+```
+will generate this output
 
 ```bash title="console output:"
  Leo ✅ Compiled 'main.leo' into Aleo instructions
@@ -167,6 +172,13 @@ This command does not synthesize the program circuit or generate proving and ver
  • 3u32
  
  Leo ✅ Finished 'hello.aleo/main' (in "/hello/build")
+```
+
+If one or more of your inputs are negatives, and consequently begin with a `-`,
+you may separate the inputs with a `--` so that the command line parser
+won't attempt to parse them as options:
+```bash
+leo run ${TRANSITION} -- {$INPUTS}
 ```
 
 ## `leo execute`
