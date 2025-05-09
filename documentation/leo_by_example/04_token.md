@@ -118,7 +118,7 @@ Output
 }
 ```
 
-Again, we see the arguments used for the finzalize function of `transfer_public` - Alice's address, Bob's address, and the amount to transfer. The public mapping will be queryable on-chain.
+Again, we see the arguments used for the finalize function of `transfer_public` - Alice's address, Bob's address, and the amount to transfer. The public mapping will be queryable on-chain.
 
 ## <a id="step3"></a> Private Transfer
 

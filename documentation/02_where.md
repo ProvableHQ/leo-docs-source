@@ -4,7 +4,7 @@ title: Where to go?
 sidebar_label: Where to go?
 ---
 
-While a deep dive through the Leo documentation is a useful exercise, we realize that it may not be very pratical. To help you along your journey, we've provided a "map" to help you find your way.
+While a deep dive through the Leo documentation is a useful exercise, we realize that it may not be very practical. To help you along your journey, we've provided a "map" to help you find your way.
 
 ## Roadmap
 

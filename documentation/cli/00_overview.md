@@ -4,7 +4,7 @@ title: The Leo Command Line Interface
 sidebar_label: Overview 
 ---
 
-The Leo CLI is a command line interface tool that comes equipped with the Leo compiler. It contains a number of helpful 
+The Leo CLI is a command line interface tool that comes equipped with the Leo compiler.
 
 :::tip
 You can print the list of commands by running `leo --help`
@@ -15,7 +15,7 @@ You can print the list of commands by running `leo --help`
 * [`account`](#leo-account) - Create a new Aleo account, sign and verify messages.
 * [`new`](#leo-new) - Create a new Leo project in a new directory.
 * [`build`](#leo-build) - Compile the current project.
-* [`deploy`](#leo-deploy) - Generate proving and verifying keys and produce a transaction contianing the deployment.
+* [`deploy`](#leo-deploy) - Generate proving and verifying keys and produce a transaction containing the deployment.
 * [`run`](#leo-run) - Run a program without producing a proof.
 * [`execute`](#leo-execute) - Execute a program and produce a transaction containing a proof.
 * [`debug`](#leo-debug) - Run the interactive debugger in the current package.
@@ -58,7 +58,7 @@ To create a new account and save it to your `.env` file, run:
 leo account new --write
 ````
 
-`leo account` has a number of additional subomcommands. To list all options, run:
+`leo account` has a number of additional subcommands. To list all options, run:
 
 ```
 leo account --help
@@ -79,7 +79,7 @@ Options:
   -d                 Print additional information for debugging
   -q                 Suppress CLI output
       --path <PATH>  Optional path to Leo program root folder
-      --home <HOME>  Optional path to aleo program registry.
+      --home <HOME>  Optional path to Aleo program registry.
   -h, --help         Print help
 ```
 
@@ -242,7 +242,7 @@ Options:
   -n, --network <NETWORK>    Network to use. Defaults to entry in `.env`.
   -q                         Suppress CLI output
       --path <PATH>          Path to Leo program root folder
-      --home <HOME>          Path to aleo program registry
+      --home <HOME>          Path to Aleo program registry
   -h, --help                 Print help
 ```
 

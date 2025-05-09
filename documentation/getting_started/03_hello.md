@@ -31,7 +31,7 @@ Now let's compile the program.
 leo build
 ```
  
-On invoking the build command, Leo automatically creates a `/build⁠` and `output/`⁠ folder in the project directory. The compiled code is contained in the `build` directory. `output` is used to stored intermediate artificats from compilation. 
+On invoking the build command, Leo automatically creates a `/build⁠` and `output/`⁠ folder in the project directory. The compiled code is contained in the `build` directory. `output` is used to stored intermediate artifacts from compilation. 
 
 
 The `leo run` command will compile and run the program.
