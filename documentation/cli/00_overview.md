@@ -197,7 +197,9 @@ This command synthesizes the program circuit and generates proving and verifying
  Leo ✅ Executed 'hello.aleo/main' (in "/hello/build")
 ```
 
-Use the `-b` or `--broadcast` flag to broadcast a transaction to a network.
+:::info
+The `-b` or `--broadcast` flag is required in order to broadcast a transaction to a network.
+:::
 
 See [Execute](./02_executing.md) for more details.
 
