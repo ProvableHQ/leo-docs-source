@@ -8,9 +8,8 @@ A local devnet can be a heavyweight but reliable way to test your application on
 
 ## Setup
 
-To run a local devnet, you'll need to install [snarkOS](https://developer.aleo.org/guides/introduction/getting_started#2-installing-snarkos).  
-Be sure to use the latest [release](https://github.com/ProvableHQ/snarkOS/releases).
-You'll also need `tmux` (instructions below) and the [devnet.sh](https://github.com/ProvableHQ/snarkOS/blob/staging/devnet.sh) script in the `snarkOS` repository.
+To run a local devnet using SnarkOS, you'll need to install the latest [SnarkOS release](https://github.com/ProvableHQ/snarkOS/releases).
+You'll also need `tmux` (instructions below) and the [devnet.sh](https://github.com/ProvableHQ/snarkOS/blob/staging/devnet.sh) script from the [SnarkOS repository](https://github.com/ProvableHQ/snarkOS).
 
 <details><summary>macOS</summary>
 
@@ -126,7 +125,7 @@ You can use the SnarkOS CLI to view your Records using the following command syn
 snarkos developer scan --endpoint http://localhost:3030 --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH --start <block_number> --network 1
 ```
 
-Setting `block_number` to `0` will list all of the records from genesis, including your test credit records. 
+Setting `block_number` to `0` will list all of the records created starting from the genesis block, including your test credit records. 
 
 ```bash
 ⚠️  Attention - Scanning the entire chain. This may take a while...
