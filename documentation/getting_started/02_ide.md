@@ -4,7 +4,7 @@ title: Your Development Environment
 sidebar_label: Dev Env
 ---
 
-Developers can choose from a wide variety of development environment. 
+Developers can choose from a wide variety of development environments. 
 
 ## Leo Playground
 
