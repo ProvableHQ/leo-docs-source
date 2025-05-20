@@ -22,10 +22,4 @@ The program ID in `program` is the official name that other developers will be a
     "program": "hello.aleo",
 ```
 
-All files in the current package will be compiled with the specified Leo `version`.
-
-```json
-    "version": "0.0.0",
-```
-
 Dependencies will be added to the field of the same name, as they are added. The dependencies are also pegged in the **leo.lock** file.
