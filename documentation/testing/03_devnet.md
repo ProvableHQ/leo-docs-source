@@ -8,8 +8,8 @@ A local devnet can be a heavyweight but reliable way to test your application on
 
 ## Setup
 
-To run a local devnet using SnarkOS, you'll need to install the latest [SnarkOS release](https://github.com/ProvableHQ/snarkOS/releases).
-You'll also need `tmux` (instructions below) and the [devnet.sh](https://github.com/ProvableHQ/snarkOS/blob/staging/devnet.sh) script from the [SnarkOS repository](https://github.com/ProvableHQ/snarkOS).
+To run a local devnet using snarkOS, you'll need to install the latest [snarkOS release](https://github.com/ProvableHQ/snarkOS/releases).
+You'll also need `tmux` (instructions below) and the [devnet.sh](https://github.com/ProvableHQ/snarkOS/blob/staging/devnet.sh) script from the [snarkOS repository](https://github.com/ProvableHQ/snarkOS).
 
 <details><summary>macOS</summary>
 
