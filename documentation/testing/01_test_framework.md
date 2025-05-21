@@ -35,28 +35,28 @@ The `example_program.leo` program contains a transition function which returns t
 
 ```Leo
 transition simple_addition(public a: u32, b: u32) -> u32 {
-        let c: u32 = a + b;
-        return c;
-    }
+    let c: u32 = a + b;
+    return c;
+}
 ```
 
 In the `test_example_program.leo`, we can write two tests to ensure that the transition logic returns correct values.
 ```Leo
 @test
-    transition test_simple_addition() {
-        let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
-        assert_eq(result, 5u32);
-    }
+transition test_simple_addition() {
+    let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
+    assert_eq(result, 5u32);
+}
 ```
 
 The `@should_fail` annotation should be added after the `@test` annotation for tests that are expected to fail.
 ```Leo
 @test
 @should_fail
-    transition test_simple_addition_fail() {
-        let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
-        assert_eq(result, 3u32);
-    }
+transition test_simple_addition_fail() {
+    let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
+    assert_eq(result, 3u32);
+}
 ```
 
 Developers can test that Record and struct fields match their expected values.
@@ -64,9 +64,9 @@ Developers can test that Record and struct fields match their expected values.
 ```Leo
 @test
 transition test_record_maker() {
-        let r: example_program.aleo/Example = example_program.aleo/mint_record(0field);
-        assert_eq(r.x, 0field);
-    }
+    let r: example_program.aleo/Example = example_program.aleo/mint_record(0field);
+    assert_eq(r.x, 0field);
+}
 ```
 
 :::info
@@ -78,6 +78,7 @@ Each test file is required to have at least one transition function.
 While the testing framework cannot access on-chain state from Testnet or Mainnet, developers can simulate on-chain state using interpreted tests.  Within interpreted tests, developers are able to await Futures and update mappings.  Interpreted tests are annotated with the `script` keyword.
 
 ```Leo
+@test
 script test_async() {
     const VAL: field = 12field;
     let fut: Future = example_program.aleo/set_mapping(VAL);
