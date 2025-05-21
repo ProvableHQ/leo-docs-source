@@ -25,7 +25,7 @@ The test file is a Leo program that imports the program in `main.leo`.  The test
 This tutorial will use an example program which can be found in the [example's repository](https://github.com/ProvableHQ/leo-examples/tree/main/tests).  
 
 :::info
-The name of the test file must match the program name.  For example, if the name of the test file is `test_example_program.leo`, the program name should be `test_example_program.aleo`.
+Developers can add multiple `leo` files to the test directory but must ensure that the name of the test file matches the program name.  For example, if the name of the test file is `test_example_program.leo`, the program name must be `test_example_program.aleo`.
 :::
 
 
@@ -59,6 +59,18 @@ The `@should_fail` annotation should be added after the `@test` annotation for t
     }
 ```
 
+Developers can test that Record and struct fields match their expected values.
+
+```Leo
+@test
+transition test_record_maker() {
+        let r: example_program.aleo/Example = example_program.aleo/mint_record(0field);
+        assert_eq(r.x, 0field);
+    }
+```
+
+
+
 ## Using interpreted tests for modelling on-chain state
 While the testing framework cannot access on-chain state from Testnet or Mainnet, developers can simulate on-chain state using interpreted tests.  Within interpreted tests, developers are able to await Futures and update mappings.  Interpreted tests are annotated with the `script` keyword.
 
@@ -78,12 +90,15 @@ script test_async() {
 }
 ```
 
+:::info
+While non-async logic may be tested using an interpreted tests, all async functionality must be tested within interpreted tests.
+:::
+
+## Running tests
+Invoking the `leo test` command will run all of the compiled and interpreted tests. Developer may optionally select individual tests by supplying the function test name to the `leo test` command.
 
 
 
 
-
-On-chain state is not accessible.
-Test file name should match the program name of the test.
 Need at least one transition function in the test file.
 
