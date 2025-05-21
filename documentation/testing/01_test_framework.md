@@ -69,6 +69,9 @@ transition test_record_maker() {
     }
 ```
 
+:::info
+Each test file is required to have at least one transition function.
+:::
 
 
 ## Using interpreted tests for modelling on-chain state
@@ -94,11 +97,9 @@ script test_async() {
 While non-async logic may be tested using an interpreted tests, all async functionality must be tested within interpreted tests.
 :::
 
+
 ## Running tests
-Invoking the `leo test` command will run all of the compiled and interpreted tests. Developer may optionally select individual tests by supplying the function test name to the `leo test` command.
-
-
-
-
-Need at least one transition function in the test file.
-
+Invoking the `leo test` command will run all of the compiled and interpreted tests. Developer may optionally select individual tests by supplying the function test name as follows:
+```bash
+leo test test_async
+```
