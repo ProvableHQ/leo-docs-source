@@ -8,6 +8,7 @@ sidebar_label: Testing
 The Leo testing frameworks enables developers to validate their Leo program logic by writing unit and integration tests. Tests are written in Leo and are located in a `/tests` subdirectory of the main Leo project directory.
 
 ```bash
+example_program
 ├── build
 │   ├── imports
 │   │   └── test_example_program.aleo
@@ -20,7 +21,7 @@ The Leo testing frameworks enables developers to validate their Leo program logi
 │   └── test_example_program.leo
 └── program.json
 ```
-The test file is a Leo program that imports the program in `main.leo`.  The test functions will all be annotated with `@test` above the the function declaration. 
+The test file is a Leo program that imports the program in `main.leo`.  The test functions will all be annotated with `@test` above the function declaration. 
 
 This tutorial will use an example program which can be found in the [example's repository](https://github.com/ProvableHQ/leo-examples/tree/main/tests).  
 
@@ -31,7 +32,7 @@ Developers can add multiple `leo` files to the test directory but must ensure th
 
 ## Testing transition function logic.
 
-The `example_program.leo` program contains a transition function which returns the sum of two `u32` inputs.  When testing 
+The `example_program.leo` program contains a transition function which returns the sum of two `u32` inputs.
 
 ```Leo
 transition simple_addition(public a: u32, b: u32) -> u32 {
@@ -40,7 +41,7 @@ transition simple_addition(public a: u32, b: u32) -> u32 {
 }
 ```
 
-In the `test_example_program.leo`, we can write two tests to ensure that the transition logic returns correct values.
+The `test_example_program.leo` contains two tests to ensure that the transition logic returns a correct output and fails when the output does not match the sum of the input values.
 ```Leo
 @test
 transition test_simple_addition() {
@@ -75,18 +76,16 @@ Each test file is required to have at least one transition function.
 
 
 ## Using interpreted tests for modelling on-chain state
-While the testing framework cannot access on-chain state from Testnet or Mainnet, developers can simulate on-chain state using interpreted tests.  Within interpreted tests, developers are able to await Futures and update mappings.  Interpreted tests are annotated with the `script` keyword.
+While the testing framework cannot access on-chain state from either Testnet or Mainnet, developers can simulate on-chain state using interpreted tests.  Developers are able to await Futures and update mappings using interpreted tests.  When using interpreted tests, the `transition` or `function` keyword is replaced with the `script` keyword.
 
 ```Leo
 @test
 script test_async() {
     const VAL: field = 12field;
     let fut: Future = example_program.aleo/set_mapping(VAL);
-    // We must await this future for the async code to run.
     fut.await();
     assert_eq(Mapping::get(example_program.aleo/map, 0field), VAL);
 
-    // scripts can also do other things normally only async code can do:
     let rand_val: field = ChaCha::rand_field();
     Mapping::set(example_program.aleo/map, VAL, rand_val);
     let value: field = Mapping::get(example_program.aleo/map, VAL);
