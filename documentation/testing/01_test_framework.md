@@ -5,7 +5,7 @@ sidebar_label: Testing
 ---
 
 ## Introduction
-The Leo testing frameworks enables developers to validate their Leo program logic by writing unit and integration tests. Tests are written in Leo and are located in a `/tests` subdirectory of the main Leo project directory.
+The Leo testing frameworks enables developers to validate their Leo program logic by writing unit and integration tests. Tests are written in Leo and are located in a `tests/` subdirectory of the main Leo project directory.
 
 ```bash
 example_program
