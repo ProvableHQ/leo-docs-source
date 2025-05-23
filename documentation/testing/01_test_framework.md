@@ -99,7 +99,16 @@ External transitions -- async or not -- may be called from native or interpreted
 
 
 ## Running tests
-Invoking the `leo test` command will run all of the compiled and interpreted tests. Developer may optionally select individual tests by supplying the function test name as follows:
+Invoking the `leo test` command will run all of the compiled and interpreted tests. Developer may optionally select an individual tests by supplying a a test function name or a string that is contained within a test function name.  For instance, to run the test for `test_async`, developers would use the following command:
 ```bash
 leo test test_async
 ```
+Either of the following commands will run both of the addition function tests:
+```bash
+leo test simple
+```
+or
+```bash
+leo test addition
+```
+
