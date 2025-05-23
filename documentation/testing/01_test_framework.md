@@ -94,7 +94,7 @@ script test_async() {
 ```
 
 :::info
-While non-async logic may be tested using an interpreted tests, all async functionality must be tested within interpreted tests.
+External transitions -- async or not -- may be called from native or interpreted tests, but external async functions may only be called directly from interpreted tests.
 :::
 
 
