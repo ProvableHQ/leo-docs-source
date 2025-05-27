@@ -114,7 +114,7 @@ script test_async() {
 ```
 
 :::info
-External transitions -- async or not -- may be called from native or interpreted tests, but external async functions may only be called directly from interpreted tests.
+External transitions -- async or not -- may be called from test transitions or scripts, but external async functions may only be called directly from scripts.
 :::
 
 
