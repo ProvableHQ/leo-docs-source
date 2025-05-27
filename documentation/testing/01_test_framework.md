@@ -64,7 +64,7 @@ transition test_simple_addition_fail() {
 
 ## Leo types
 
-Developers can test that Record and struct fields match their expected values.  In `example_program.leo`, a Record is minted transition function shown here:
+Developers can test that record and struct fields match their expected values.  In `example_program.leo`, a record is minted transition function shown here:
 
 ```Leo
 record Example {
