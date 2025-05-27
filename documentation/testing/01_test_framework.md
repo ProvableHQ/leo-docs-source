@@ -30,7 +30,9 @@ Developers can add multiple `leo` files to the test directory but must ensure th
 :::
 
 
-## Testing transition function logic.
+## Testing transition functions.
+
+### Function logic
 
 The `example_program.leo` program contains a transition function which returns the sum of two `u32` inputs.
 
@@ -60,7 +62,25 @@ transition test_simple_addition_fail() {
 }
 ```
 
-Developers can test that Record and struct fields match their expected values.
+## Leo types
+
+Developers can test that Record and struct fields match their expected values.  In `example_program.leo`, a Record is minted transition function shown here:
+
+```Leo
+record Example {
+    owner: address,
+    x: field,
+}
+
+transition mint_record(x: field) -> Example {
+    return Example {
+        owner: self.signer,
+        x,
+    };
+}
+```
+
+The corresponding test in `test_example_program.leo` checks that the Record field contains the correct value:
 
 ```Leo
 @test
