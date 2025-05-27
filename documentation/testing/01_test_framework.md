@@ -96,7 +96,7 @@ Each test file is required to have at least one transition function.
 
 
 ## Using interpreted tests for modelling on-chain state
-While the testing framework cannot access on-chain state from either `testnet` or `mainnet`, developers can simulate on-chain state using interpreted tests. Developers are able to await `Future`s and update mappings using interpreted tests. When using interpreted tests, the `transition` or `function` keyword is replaced with the `script` keyword.
+While the testing framework cannot access on-chain state from either `testnet` or `mainnet`, developers can simulate on-chain state in `script`s. A script is interpreted Leo code in which developers are able to await `Future`s and update mappings using interpreted tests. When using interpreted tests, the `transition` or `function` keyword is replaced with the `script` keyword.
 
 ```Leo
 @test
