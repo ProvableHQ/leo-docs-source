@@ -23,7 +23,7 @@ example_program
 ```
 The test file is a Leo program that imports the program in `main.leo`.  The test functions will all be annotated with `@test` above the function declaration. 
 
-This tutorial will use an example program which can be found in the [example's repository](https://github.com/ProvableHQ/leo-examples/tree/main/tests).  
+This tutorial will use an example program which can be found in the [example's repository](https://github.com/ProvableHQ/leo-examples/tree/main/example_with_test).  
 
 :::info
 Developers can add multiple `leo` files to the test directory but must ensure that the name of the test file matches the test program name.  For example, if the name of the test file is `test_example_program.leo`, the test program name must be `test_example_program.aleo`.
