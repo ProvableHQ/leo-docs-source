@@ -64,7 +64,7 @@ transition test_simple_addition_fail() {
 
 ## Leo types
 
-Developers can test that Record and struct fields match their expected values.  In `example_program.leo`, a Record is minted transition function shown here:
+Developers can test that record and struct fields match their expected values.  In `example_program.leo`, a record is minted transition function shown here:
 
 ```Leo
 record Example {
@@ -96,7 +96,7 @@ Each test file is required to have at least one transition function.
 
 
 ## Using interpreted tests for modelling on-chain state
-While the testing framework cannot access on-chain state from either `testnet` or `mainnet`, developers can simulate on-chain state using interpreted tests. Developers are able to await `Future`s and update mappings using interpreted tests. When using interpreted tests, the `transition` or `function` keyword is replaced with the `script` keyword.
+While the testing framework cannot access on-chain state from either `testnet` or `mainnet`, developers can simulate on-chain state in `script`s. A script is interpreted Leo code in which developers are able to await `Future`s and update mappings using interpreted tests. When using interpreted tests, the `transition` or `function` keyword is replaced with the `script` keyword.
 
 ```Leo
 @test
@@ -114,7 +114,7 @@ script test_async() {
 ```
 
 :::info
-External transitions -- async or not -- may be called from native or interpreted tests, but external async functions may only be called directly from interpreted tests.
+External transitions -- async or not -- may be called from test transitions or scripts, but external async functions may only be called directly from scripts.
 :::
 
 
