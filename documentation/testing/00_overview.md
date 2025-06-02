@@ -5,7 +5,7 @@ sidebar_label: Overview
 ---
 
 Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are number of tools and techniques you can use. 
-- [**Unit and Integration Testing**](01_test_framework.md) - Coming soon!
+- [**Unit and Integration Testing**](01_test_framework.md) - Testing your Aleo program.
 
 - [**Debugging**](./02_debugger.md) - Tools and tips to trace errors.
 
