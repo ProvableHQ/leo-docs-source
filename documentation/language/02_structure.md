@@ -68,10 +68,13 @@ The following must be declared inside the scope of a program in a Leo file:
 - transition functions
 - helper functions
 - async functions
+- external transitions
 
-The following must be declared outside the scope of a program in a Leo file:
+Imports must be declared outside the scope of a program in a Leo file.
 
-- imports
+:::info
+A program can store public credits but not private credits.  Since programs do not have an a private key associate with their public address, they are unable to own records.
+:::  
 
 #### Program ID
 

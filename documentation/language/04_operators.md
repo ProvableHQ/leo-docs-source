@@ -72,6 +72,10 @@ program test.aleo {
 }
 ```
 
+:::info
+Developers may also use the program name instead of self.address.
+:::
+
 ### self.caller
 
 Returns the address of the account/program that invoked the current `transition`.
