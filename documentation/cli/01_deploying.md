@@ -7,6 +7,8 @@ sidebar_label: Deploy
 
 The `leo deploy` command is used for deploying Leo program to a local devnet, Testnet, or Mainnet.
 
+Note that until the release of SnarkOS version 4.1.0, users will need to add a `--twice` flag to `leo deploy` when deploying programs to a local devnet.  This ensures that the correct program version is assigned to the program.  Once program upgradability is fully merged, this will no longer be a requirement. 
+
 The following parameters need to be specified in either a `.env` file or as environment variables: the target network, the Private Key, and a node API endpoint.
 
 An `.env` file should be formatted as follows:

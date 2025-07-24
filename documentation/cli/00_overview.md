@@ -137,9 +137,13 @@ Use this command to deploy a program to the Aleo network. This requires having a
 
 To deploy the project in the current working directory.
 ```bash
-leo deploy // Defaults to using key information in `.env`, and deploys to `testnet3` via endoint `http://api.explorer.provable.com/v1`.
+leo deploy // Defaults to using key information in `.env`, and deploys to `testnet3` via endpoint `http://api.explorer.provable.com/v1`.
 leo deploy --endpoint "{$ENDPOINT}" --private-key "{$PRIVATE_KEY}" // To deploy using custom private key, to a custom endpoint (e.g. local devnet `http://0.0.0.0:3030`).
 ```
+
+:::info
+Note that until the release of SnarkOS v4.1.0, users will need to use a `--twice` when deploying to local devnets.
+:::
 
 See [Deploy](01_deploying.md) for more details.
 
