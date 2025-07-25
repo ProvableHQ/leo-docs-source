@@ -45,7 +45,7 @@ Within a `constructor`, you can access on-chain metadata about the program using
 | `self.program_owner` | `address`  | The address that submitted the deployment transaction. |
 | `self.checksum` | `[u8, 32]` | The program's checksum, which is a unique identifier for the program's code. |
 
-You may also refer to other program's metadata by qualifying the operand with the program name, like `credits.aleo/edition`.
+You may also refer to other program's metadata by qualifying the operand with the program name, like `Program::edition(credits.aleo)`, `Program::program_owner(foo.aleo)`.
 
 Note. Programs deployed before upgradability do not have a `program_owner`. Attempting to access it will result in a runtime error.
 
