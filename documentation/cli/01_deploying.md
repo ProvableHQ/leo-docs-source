@@ -13,7 +13,7 @@ The following parameters need to be specified in either a `.env` file or as envi
 
 An `.env` file should be formatted as follows:
 ```bash
- NETWORK=testnet
+NETWORK=testnet
 PRIVATE_KEY=APrivateKey1z...GPWH
 ENDPOINT=https://api.explorer.provable.com/v1
 ```
