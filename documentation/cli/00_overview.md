@@ -142,7 +142,7 @@ leo deploy --endpoint "{$ENDPOINT}" --private-key "{$PRIVATE_KEY}" // To deploy 
 ```
 
 :::info
-Note that until the release of SnarkOS v4.1.0, users will need to use a `--twice` when deploying to local devnets.
+Note that until the release of Leo CLI version 3.1.0, users will need to use a `--twice` when deploying to local devnets.
 :::
 
 See [Deploy](01_deploying.md) for more details.
