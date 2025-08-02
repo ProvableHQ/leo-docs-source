@@ -16,12 +16,12 @@ The Leo compiler reads the annotation to understand your intent and generate the
 
 There are four primary upgrade modes:
 
-| Mode         | Description |
-|:-------------| :--- |
-| `@noupgrade` | **Default.** The program is not upgradable. |
-| `@admin`     | Upgrades are controlled by a single, hardcoded admin address. |
+| Mode         | Description                                                                                       |
+|:-------------|:--------------------------------------------------------------------------------------------------|
+| `@noupgrade` | The program is not upgradable.                                                                    |
+| `@admin`     | Upgrades are controlled by a single, hardcoded admin address.                                     |
 | `@checksum`  | Upgrades are governed by an on-chain checksum, often managed by a separate program (e.g., a DAO). |
-| `@custom`    | You write the entire upgrade logic from scratch in the `constructor`. |
+| `@custom`    | You write the entire upgrade logic from scratch in the `constructor`.                             |
 
 ## 2. Core Mechanics
 
@@ -30,36 +30,35 @@ Upgradability revolves around a special `constructor` function and on-chain prog
 ### The `constructor`
 
 The `constructor` is a special function that runs on-chain during every deployment and upgrade. Think of it as the gatekeeper for your program.
+There are two key properties of the `constructor` related to upgradability:
 
-* **It's Immutable:** The logic inside your `constructor` is set in stone at the first deployment. It can never be changed by a future upgrade. A bug here is permanent, so audit it carefully.
-* **It Controls Everything:** If the `constructor` logic fails (e.g., a failed `assert`), the entire deployment or upgrade transaction is rejected.
-* **It's the Key:** A program is only upgradable if it is first deployed with a `constructor`.
+* **Foundational:** A program is only upgradable if it is first deployed with a `constructor`.  If the `constructor` logic fails (e.g., a failed `assert`), the entire deployment or upgrade transaction is rejected.
+* **Immutable:** The logic inside the `constructor` is set in stone at the first deployment. It can never be changed by a future upgrade. Any bugs introduced here are permanent, so audit your constructor carefully.
 
 ### Program Metadata Operands
 
 Within a `constructor`, you can access on-chain metadata about the program using the `self` keyword.
 
-| Operand | Leo Type   | Description |
-| :--- |:-----------| :--- |
-| `self.edition` | `u16`      | The program's version number. Starts at `0` and must increment by exactly `1` for each upgrade. |
-| `self.program_owner` | `address`  | The address that submitted the deployment transaction. |
-| `self.checksum` | `[u8, 32]` | The program's checksum, which is a unique identifier for the program's code. |
+| Operand | Leo Type   | Description                                                                                                                                  |
+| :--- |:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| `self.edition` | `u16`      | The program's version number. Starts at `0` and is incremented by `1` for each upgrade. The edition is tracked automatically on the network. |
+| `self.program_owner` | `address`  | The address that submitted the deployment transaction.                                                                                       |
+| `self.checksum` | `[u8, 32]` | The program's checksum, which is a unique identifier for the program's code.                                                                 |
 
 You may also refer to other program's metadata by qualifying the operand with the program name, like `Program::edition(credits.aleo)`, `Program::program_owner(foo.aleo)`.
+You will need to import the program in your Leo file to use this syntax.
 
-Note. Programs deployed before upgradability do not have a `program_owner`. Attempting to access it will result in a runtime error.
+Note. Programs deployed before the upgradability feature (i.e. using Leo version < v3.1.0) do not have a `program_owner`. Attempting to access it will result in a runtime error.
 
 ---
 
 ## 3. Upgrade Patterns in Leo
 
-Here are practical recipes for each upgrade mode, including the `program.json` configuration and the corresponding Leo code.
+Here are the most common upgrade patterns in Leo. 
 
 ### Pattern 1: Non-Upgradable (Default)
 
-**Goal:** Explicitly prevent all future upgrades. This is the safest default.
-
-**`program.json`**
+**Goal:** Explicitly prevent all future upgrades. 
 
 **`main.leo`**
 
@@ -82,13 +81,17 @@ program noupgrade_example.aleo {
 }
 ```
 
+The corresponding AVM code is:
+```
+constructor:
+    assert.eq edition 0u16
+```
+
 ### Pattern 2: Admin-Driven Upgrade
 
 **Goal:** Restrict upgrades to a single, hardcoded admin address.
 
 **`main.leo`**
-
-The compiler uses the `address` from `program.json` to generate the admin-checking constructor.
 
 ```leo
 // The 'admin_example' program.
@@ -107,38 +110,16 @@ program admin_example.aleo {
 }
 ```
 
-### Pattern 3: Custom Logic (Time-lock Example)
-
-**Goal:** Implement any upgrade logic you need. Here, we'll enforce a time delay before an upgrade is allowed.
-
-
-**`main.leo`**
-
-With the `@custom` constructor, you are responsible for writing the entire constructor logic yourself.
-
-```leo
-// The 'timelock_example' program.
-program timelock_example.aleo {
-    transition main(public a: u32, b: u32) -> u32 {
-        let c: u32 = a + b;
-        return c;
-    }
-
-    @custom
-    async constructor() {
-        // For upgrades (edition > 0), enforce a block height condition.
-        if self.edition > 0u16 {
-            assert(block.height >= 1300u32);
-        }
-    }
-}
+The corresponding AVM code is:
+```
+constructor:
+    assert.eq program_owner aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px;
 ```
 
-### Pattern 4: Checksum-Driven (Vote Example)
+
+### Pattern 3: Checksum-Driven (Vote Example)
 
 **Goal:** Delegate upgrade authority to a separate governance program that manages a list of approved code checksums.
-
-**`program.json`**
 
 **`main.leo`**
 
@@ -159,6 +140,56 @@ program vote_example.aleo {
 }
 ```
 
+The corresponding AVM code is:
+```
+constructor:
+    branch.eq edition 0u16 to end;
+    get basic_voting.aleo/approved_checksum[true] into r0;
+    assert.eq checksum r0;
+    position end;
+```
+
+### Pattern 4: Custom Logic (Time-lock Example)
+
+**Goal:** Enforce a time delay before an upgrade is allowed. No pre-defined mode is available for this so we'll have to write our own upgrade policy
+
+
+**`main.leo`**
+
+With the `@custom` constructor, you are responsible for writing the entire constructor logic yourself.
+
+```leo
+// The 'timelock_example' program.
+program timelock_example.aleo {
+    transition main(public a: u32, b: u32) -> u32 {
+        let c: u32 = a + b;
+        return c;
+    }
+
+    @custom
+    async constructor() {
+        // For upgrades (edition > 0), enforce a block height condition on when the constructor can be called successfully
+        if self.edition > 0u16 {
+            assert(block.height >= 1300u32);
+        }
+    }
+}
+```
+
+The corresponding AVM code is:
+```
+constructor:
+    gt edition 0u16 into r0;
+    branch.eq r0 false to end_then_0_0;
+    gte block.height 1300u32 into r1;
+    assert.eq r1 true;
+    branch.eq true true to end_otherwise_0_1;
+    position end_then_0_0;
+    position end_otherwise_0_1;
+```
+
+
+
 -----
 
 ## 4\. The Rules: What You Can and Cannot Change
@@ -167,38 +198,38 @@ The protocol enforces strict rules to ensure that upgrades don't break dependent
 
 An upgrade **can**:
 
-* Change the internal logic of existing `function` and `finalize` blocks.
-* Add new `struct`s, `record`s, `mapping`s, `function`s, and `closure`s.
+* Change the internal logic of existing `transition` and `async functions` blocks.
+* Add new `struct`s, `record`s, `mapping`s, `transition`s, and `function`s.
 
 An upgrade **cannot**:
 
-* Change the input or output signatures of any existing `function`.
-* Change the input signature of any existing `finalize` block.
-* Change the logic within an existing `closure`.
+* Change the input or output signatures of any existing `transition`, `function`, `async function`.
+* Change the input signature of any existing `async function` block.
+* Change the logic within a non-inline `function`.
 * Modify or delete any existing `struct`, `record`, or `mapping`.
 * Delete any existing program component.
 
 | Program Component | Delete | Modify | Add |
-| :--- | :---: | :---: | :---: |
-| `import` | ❌ | ❌ | ✅ |
-| `struct` | ❌ | ❌ | ✅ |
-| `record` | ❌ | ❌ | ✅ |
-| `mapping` | ❌ | ❌ | ✅ |
-| `closure` | ❌ | ❌ | ✅ |
-| `function` | ❌ | ✅ (logic) | ✅ |
-| `finalize` | ❌ | ✅ (logic) | ✅ |
-| `constructor` | ❌ | ❌ | ❌ |
+|:------------------| :---: | :---: | :---: |
+| `import`          | ❌ | ❌ | ✅ |
+| `struct`          | ❌ | ❌ | ✅ |
+| `record`          | ❌ | ❌ | ✅ |
+| `mapping`         | ❌ | ❌ | ✅ |
+| `function`        | ❌ | ❌ | ✅ |
+| `transition`      | ❌ | ✅ (logic) | ✅ |
+| `async function`  | ❌ | ✅ (logic) | ✅ |
+| `constructor`     | ❌ | ❌ | ❌ |
 
 -----
 
 ## 5\. Security Checklist
 
-Mutability introduces new risks. Keep these points in mind.
+Program mutability introduces new risks. Keep these points in mind:
 
-- ✅ **Audit the `constructor` intensely.** Its logic is permanent and cannot be fixed after deployment.
-- ✅ **Prefer multi-sig or DAO governance over a single admin.** A single point of failure is risky.
-- ✅ **Implement time-locks for major upgrades.** Giving users a window to react builds trust.
-- ✅ **Plan for "ossification".** Provide a way to make your program immutable (e.g., by transferring admin rights to a burn address) to give users long-term certainty.
+- **Audit the `constructor` intensely.** Its logic is permanent and cannot be fixed after deployment.
+- **Prefer multi-sig or DAO governance over a single admin.** A single point of failure is risky.
+- **Implement time-locks for major upgrades.** Giving users a window to react builds trust.
+- **Plan for "ossification".** Provide a way to make your program immutable (e.g., by transferring admin rights to a burn address) to give users long-term certainty.
 
 ## 6\. Legacy Programs: The Final Word
 
