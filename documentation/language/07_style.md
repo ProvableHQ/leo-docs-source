@@ -160,7 +160,7 @@ This greatly increases the constraint numbers and slows down the circuit.
 
 Thank you for helping make Leo better!
 
-Before contributing, please view the [Contributor Code of Conduct](https://github.com/ProvableHQ/leo/blob/master/CONTRIBUTING.md).
+Before contributing, please view the [Contributor Code of Conduct](https://github.com/ProvableHQ/leo/blob/mainnet/CONTRIBUTING.md).
 By participating in this project - In the issues, pull requests, or Gitter channels -
 you agree to abide by the terms.
 
