@@ -7,7 +7,7 @@ sidebar_label: Upgrading Programs
 # A Developer's Guide to Upgradability in Leo
 
 This guide provides a practical overview of Aleo's program upgradability framework, tailored for developers using the Leo language. You'll learn how to configure your program, implement common upgrade patterns, and follow best practices for writing secure, maintainable applications.
-For more details on the underlying protocol, refer to the [Aleo docs](TODO).
+For more details on the underlying protocol, refer to the [Aleo docs](https://developer.aleo.org/guides/introduction/getting_started).
 
 ## 1. Getting Started: The Upgrade Policy
 
@@ -56,7 +56,7 @@ Note. Programs deployed before the upgradability feature (i.e. using Leo version
 
 Here are the most common upgrade patterns in Leo. 
 
-### Pattern 1: Non-Upgradable (Default)
+### Pattern 1: Non-Upgradable 
 
 **Goal:** Explicitly prevent all future upgrades. 
 
