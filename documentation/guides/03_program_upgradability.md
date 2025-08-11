@@ -32,7 +32,7 @@ Upgradability revolves around a special `constructor` function and on-chain prog
 The `constructor` is a special function that runs on-chain during every deployment and upgrade. Think of it as the gatekeeper for your program.
 There are two key properties of the `constructor` related to upgradability:
 
-* **Foundational:** A program is only upgradable if it is first deployed with a `constructor`.  If the `constructor` logic fails (e.g., a failed `assert`), the entire deployment or upgrade transaction is rejected.
+* **Foundational:** All programs must be deployed with a `constructor`.  If the `constructor` logic fails (e.g., a failed `assert`), the entire deployment or upgrade transaction is rejected.
 * **Immutable:** The logic inside the `constructor` is set in stone at the first deployment. It can never be changed by a future upgrade. Any bugs introduced here are permanent, so audit your constructor carefully.
 
 ### Program Metadata Operands
@@ -54,7 +54,9 @@ Note. Programs deployed before the upgradability feature (i.e. using Leo version
 
 ## 3. Upgrade Patterns in Leo
 
-Here are the most common upgrade patterns in Leo. 
+Below are some common upgrade patterns in Leo. 
+
+You may also refer to the working Leo [examples](https://github.com/ProvableHQ/leo-examples/tree/main/upgrades).
 
 ### Pattern 1: Non-Upgradable 
 
