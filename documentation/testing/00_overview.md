@@ -21,6 +21,4 @@ At some point you'll need testnet credits. There are a few community-supported f
 
 - [**Demox**](https://discord.com/channels/913160862670397510/1202322326230937640/1203135682873266207) - 10 credits / 12 hours
 
-- [**Sotertech**](https://faucetbeta.sotertech.io/) - 10 credits /  24 hours (*quickest to access as of 2/17/25*)
-
 The faucets are periodically refreshed.
