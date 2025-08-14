@@ -8,9 +8,6 @@ sidebar_label: Deploy and Upgrade
 The `leo deploy` command is used for deploying Leo program to a local devnet, Testnet, or Mainnet.
 The `leo upgrade` command is used for upgrading an existing Leo program on the network.
 
-The following parameters need to be specified in either as 1. CLI options, 2. environment variables, or 3 `.env` file: the target network, the Private Key, and a node API endpoint.
-The options are selected in that order of precedence. For example, if the `--network` option is specified, it will override the value in the `.env` file.
-
 ## Getting Started
 From the root of the Leo program directory, run the following command:
 ```bash
@@ -91,10 +88,11 @@ Options:
 
 
 ## A Quick Example
-When you run `leo new`, it creates a new Leo project with default files and directories, including an `.env` file.
-The defaults are set to deploy on a testnet devnet using a local node API endpoint.
+When you run `leo new`, it creates a new Leo project with default files and directories, including a `.env` file.
+The defaults in the `.env` file are set to deploy on a testnet devnet using a local node API endpoint.
+The defaults are set to deploy on a local devnet with the `testnet` configuration using a local node API endpoint.
 
-To test the deployment, run a devnet via `leo devnet` (you'll need to configure it appropriately) and then run:
+To test the deployment, run a devnet via `leo devnet` (you'll need to configure it appropriately and run it in a separate terminal) and then run:
 ```bash
 > leo deploy  --devnet --broadcast
        Leo
@@ -221,7 +219,15 @@ See the [Upgradability Guide](../guides/03_program_upgradability.md) for more de
 
 
 ## Options and Environment Variables
-An `.env` file should be formatted as follows:
+The target network, the Private Key, and a node API endpoint need to be specified for a deployment or upgrade.
+They can be set in one of the following ways, in order of precedence:
+1. CLI options,
+2. environment variables, or
+3. 3 `.env` file:
+
+The options are selected in that order of precedence. 
+For example, if the `--network` option is specified, it will override the value in the `.env` file.
+A `.env` file should be formatted as follows:
 ```bash
 NETWORK=testnet
 PRIVATE_KEY=APrivateKey1z...GPWH
