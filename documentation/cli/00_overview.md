@@ -13,16 +13,17 @@ You can print the list of commands by running `leo --help`
 ## Commands
 
 * [`account`](#leo-account) - Create a new Aleo account, sign and verify messages.
-* [`new`](#leo-new) - Create a new Leo project in a new directory.
-* [`build`](#leo-build) - Compile the current project.
-* [`deploy`](#leo-deploy) - Generate proving and verifying keys and produce a transaction containing the deployment.
-* [`run`](#leo-run) - Run a program without producing a proof.
-* [`execute`](#leo-execute) - Execute a program and produce a transaction containing a proof.
-* [`debug`](#leo-debug) - Run the interactive debugger in the current package.
-* [`query`](#leo-query) - Retrieve metadata and state from the network.
 * [`add`](#leo-add) - Add a new on-chain or local dependency to the current project.
-* [`remove`](#leo-remove) - Remove a dependency from the current project.
+* [`build`](#leo-build) - Compile the current project.
 * [`clean`](#leo-clean) - Clean the build and output artifacts.
+* [`debug`](#leo-debug) - Run the interactive debugger in the current package.
+* [`deploy`](#leo-deploy) - Generate proving and verifying keys and produce a transaction containing the deployment.
+* [`devnet`](#leo-devnet) - Initialize a local devnet
+* [`execute`](#leo-execute) - Execute a program and produce a transaction containing a proof.
+* [`new`](#leo-new) - Create a new Leo project in a new directory.
+* [`query`](#leo-query) - Retrieve metadata and state from the network.
+* [`remove`](#leo-remove) - Remove a dependency from the current project.
+* [`run`](#leo-run) - Run a program without producing a proof.
 * [`update`](#leo-update) - Update to the latest version of Leo.
 
 ---
@@ -49,7 +50,7 @@ We urge you to exercise caution when managing your private keys. `leo account` c
 To import an existing Aleo account, run:
 
 ```bash
-leo account import {$PRIVATE_KEY}
+leo account import <PRIVATE_KEY>
 ```
 
 To create a new account and save it to your `.env` file, run:
@@ -60,10 +61,11 @@ leo account new --write
 
 `leo account` has a number of additional subcommands. To list all options, run:
 
-```
+```bash
 leo account --help
+```
 
-# Output:
+```bash title="console output:"
 Create a new Aleo account, sign and verify messages
 
 Usage: leo account [OPTIONS] <COMMAND>
@@ -85,21 +87,30 @@ Options:
 
 To learn more about how to use `leo account` to sign and verify messages, check out [**Sign and Verify**](03_signing.md).
 
+&nbsp;
 
-## `leo new`
-
+## `leo add`
 [Back to Top](#commands)
+:::tip
+Use this command to add a dependency to your program. This is a precursor to being able to import a program inside the leo source code file. 
+:::
 
-To create a new project, run:
+The command can be used to add an already deployed program as a project dependency.
+`<PROGRAM>` should be the name of the program to add as a dependency.
 ```bash
-leo new {$NAME}
+leo add <PROGRAM> // <NETWORK> defaults to `testnet`.
+leo add -n <NETWORK> <PROGRAM> // To pull from a custom network. 
 ```
 
-Valid project names are snake_case: lowercase letters and numbers separated by underscores.
-This command will create a new directory with the given project name.
+The command can be used to add a local Leo program as a project dependency.
+`<PATH>` should be the relative path to the project directory.
+```bash
+leo add -l <PATH> <PROGRAM> 
+```
 
-See [Project Layout](../language/01_layout.md) for more details .
+See [Dependency Management](./04_dependencies.md) for more details.
 
+&nbsp;
 
 ## `leo build`
 
@@ -116,7 +127,7 @@ leo build
 
 [//]: # ( Compiling Starting...)
 
-[//]: # ( Compiling Compiling main program... &#40;"${NAME}/src/main.leo"&#41;)
+[//]: # ( Compiling Compiling main program... &#40;"${NAME>/src/main.leo"&#41;)
 
 [//]: # ( Compiling Complete)
 
@@ -128,6 +139,38 @@ This will populate the directory `build/` (creating it if it doesn't exist) with
      Leo ✅ Compiled 'main.leo' into Aleo instructions
 ```
 
+&nbsp;
+
+## `leo clean`
+[Back to Top](#commands)
+
+To clean the build directory, run:
+```bash
+leo clean
+```
+```bash title="console output:"
+  Leo 🧹 Cleaned the outputs directory (in "...")
+  Leo 🧹 Cleaned the build directory (in "...")
+```
+
+&nbsp;
+
+## `leo debug`
+[Back to Top](#commands)
+
+To start the interactive debugger, run `leo debug` in a Leo project.
+
+```bash
+> leo debug
+       Leo ✅ Compiled sources for 'workshop'
+This is the Leo Interpreter. Try the command `#help`.
+
+? Command? › 
+```
+
+See [Debugging](./../testing/02_debugger.md) for more details.
+
+&nbsp;
 
 ## `leo deploy`
 [Back to Top](#commands)
@@ -138,48 +181,87 @@ Use this command to deploy a program to the Aleo network. This requires having a
 To deploy the project in the current working directory.
 ```bash
 leo deploy // Defaults to using key information in `.env`, and deploys to `testnet3` via endoint `http://api.explorer.provable.com/v1`.
-leo deploy --endpoint "{$ENDPOINT}" --private-key "{$PRIVATE_KEY}" // To deploy using custom private key, to a custom endpoint (e.g. local devnet `http://0.0.0.0:3030`).
+leo deploy --endpoint "<ENDPOINT>" --private-key "<PRIVATE_KEY>" // To deploy using custom private key, to a custom endpoint (e.g. local devnet `http://0.0.0.0:3030`).
 ```
+
+:::info
+The `-b` or `--broadcast` flag is required in order to broadcast a transaction to a network.
+:::
+
+:::info
+The `-devnet` flag is required if broadcasting to a local devnet.
+:::
 
 See [Deploy](01_deploying.md) for more details.
 
-## `leo run`
+&nbsp;
+
+## `leo devnet`
 [Back to Top](#commands)
 :::tip
-Use this command to run your program before [**executing**](#leo-execute) it.
+Use this command to initialize a local devnet
 :::
 
-To run a Leo transition function with inputs from the command line.
-`{$INPUTS}` should be a list of inputs to the program separated by spaces.
+:::info
+The default ENDPOINT for a local devnet is `http://localhost:3030`
+:::
+
+To intialize a local devnet, run the following command:
 ```bash
-leo run {$TRANSITION} {$INPUTS}
+leo devnet --snarkos <SNARKOS>
 ```
-This command does not synthesize the program circuit or generate proving and verifying keys.
+where `<SNARKOS>` should be the path to an installed binary of snarkOS.
 
-For the default program created by `leo new`, this command
+If you don't have snarkOS installed, you can do so by passing the `--install` flag, which will install the binary at the path specified above.
+
+### Optional Flags:
+#### `--snarkos-features <FEATURES>`
+Specifies which of snarkOS to use (e.g. `test_network`)
+
+#### `--install`
+Installs (or reinstalls) snarkOS at the provided `--snarkos` path with the given `--snarkos-features`.
+
+#### `--snarkos-version <SNARKOS_VERSION>`
+Specifies which version of snarkOS to use or install.  Defaults to latest version on [crates.io](https://crates.io/crates/snarkos)
+
+#### `--consensus-heights <CONSENSUS_HEIGHTS> `
+Optional blocks heights to use for each successive consensus upgrade.  Must have `--snarkos-features test_network` enabled as well.
+
+The following will enable Consensus_V0 at block 0, Consensus_V1 at block 1, etc.:
 ```bash
-leo run main 1u32 2u32
-```
-will generate this output
-
-```bash title="console output:"
- Leo ✅ Compiled 'main.leo' into Aleo instructions
-
-⛓  Constraints
- • 'hello.aleo/main' - 33 constraints (called 1 time)
-
-➡️  Output
- • 3u32
- 
- Leo ✅ Finished 'hello.aleo/main' (in "/hello/build")
+--consensus-heights 0,1,2,3....
 ```
 
-If one or more of your inputs are negatives, and consequently begin with a `-`,
-you may separate the inputs with a `--` so that the command line parser
-won't attempt to parse them as options:
-```bash
-leo run ${TRANSITION} -- {$INPUTS}
-```
+#### `--storage <STORAGE>`
+Root directory path for snarkOS ledgers and logs.  Defaults to `./`
+
+#### `--clear-storage`
+Clear existing snarkOS ledgers before starting the devnet
+
+
+#### `--network <NETWORK>`
+Specifies what the network ID of the devnet will be.
+
+| ID |  Network  |
+|:---------:|:------:|
+| 0  | Mainnet | 
+| 1  | Testnet (default)| 
+| 2  | Canary | 
+
+#### `--tmux`
+Run devnet nodes in tmux (only available on Unix-based systems)
+
+#### `--num-validators <NUM_VALIDATORS>`
+Number of validators to use in snarkOS.  Defaults to 4.
+
+#### `--num-clients <NUM_CLIENTS>`
+Number of clients to use in snarkOS. Defaults to 2.
+
+#### `--verbosity <VERBOSITY>`
+Specifies the verbository of snarkOS (0-4).  Defaults to 1.
+
+
+&nbsp;
 
 ## `leo execute`
 [Back to Top](#commands)
@@ -188,9 +270,9 @@ Use this command to execute your program and generate a transaction object.
 :::
 
 To execute a Leo transition function with inputs from the command line.
-`{$INPUTS}` should be a list of inputs to the program separated by spaces.
+`<INPUTS>` should be a list of inputs to the program separated by spaces.
 ```bash
-leo execute {$TRANSITION} {$INPUTS}
+leo execute <TRANSITION> <INPUTS>
 ```
 This command synthesizes the program circuit and generates proving and verifying keys.
 
@@ -213,24 +295,29 @@ This command synthesizes the program circuit and generates proving and verifying
 The `-b` or `--broadcast` flag is required in order to broadcast a transaction to a network.
 :::
 
+:::info
+The `-devnet` flag is required if broadcasting to a local devnet.
+:::
+
 See [Execute](./02_executing.md) for more details.
 
+&nbsp;
 
-## `leo debug`
+## `leo new`
+
 [Back to Top](#commands)
 
-To start the interactive debugger, run `leo debug` in a Leo project.
-
+To create a new project, run:
 ```bash
-> leo debug
-       Leo ✅ Compiled sources for 'workshop'
-This is the Leo Interpreter. Try the command `#help`.
-
-? Command? › 
+leo new <NAME>
 ```
 
-See [Debugging](./../testing/02_debugger.md) for more details.
+Valid project names are snake_case: lowercase letters and numbers separated by underscores.
+This command will create a new directory with the given project name.
 
+See [Project Layout](../language/01_layout.md) for more details .
+
+&nbsp;
 
 ## `leo query`
 [Back to Top](#commands)
@@ -263,26 +350,28 @@ Options:
 ```
 
 
-## `leo add`
+
 [Back to Top](#commands)
 :::tip
 Use this command to add a dependency to your program. This is a precursor to being able to import a program inside the leo source code file. 
 :::
 
 The command can be used to add an already deployed program as a project dependency.
-`{$PROGRAM}` should be the name of the program to add as a dependency.
+`<PROGRAM>` should be the name of the program to add as a dependency.
 ```bash
-leo add {$PROGRAM} // {$NETWORK} defaults to `testnet`.
-leo add -n {$NETWORK} {$PROGRAM} // To pull from a custom network. 
+leo add <PROGRAM> // <NETWORK> defaults to `testnet`.
+leo add -n <NETWORK> <PROGRAM> // To pull from a custom network. 
 ```
 
 The command can be used to add a local Leo program as a project dependency.
-`{$PATH}` should be the relative path to the project directory.
+`<PATH>` should be the relative path to the project directory.
 ```bash
-leo add -l {$PATH} {$PROGRAM} 
+leo add -l <PATH> <PROGRAM> 
 ```
 
 See [Dependency Management](./04_dependencies.md) for more details.
+
+&nbsp;
 
 ## `leo remove`
 [Back to Top](#commands)
@@ -295,17 +384,47 @@ leo remove credits.aleo
 
 See [Dependency Management](./04_dependencies.md) for more details.
 
-## `leo clean`
-[Back to Top](#commands)
+&nbsp;
 
-To clean the build directory, run:
+## `leo run`
+[Back to Top](#commands)
+:::tip
+Use this command to run your program before [**executing**](#leo-execute) it.
+:::
+
+To run a Leo transition function with inputs from the command line.
+`<INPUTS>` should be a list of inputs to the program separated by spaces.
 ```bash
-leo clean
+leo run <TRANSITION> <INPUTS>
 ```
+This command does not synthesize the program circuit or generate proving and verifying keys.
+
+For the default program created by `leo new`, this command
+```bash
+leo run main 1u32 2u32
+```
+will generate this output
+
 ```bash title="console output:"
-  Leo 🧹 Cleaned the outputs directory (in "...")
-  Leo 🧹 Cleaned the build directory (in "...")
+ Leo ✅ Compiled 'main.leo' into Aleo instructions
+
+⛓  Constraints
+ • 'hello.aleo/main' - 33 constraints (called 1 time)
+
+➡️  Output
+ • 3u32
+ 
+ Leo ✅ Finished 'hello.aleo/main' (in "/hello/build")
 ```
+
+If one or more of your inputs are negatives, and consequently begin with a `-`,
+you may separate the inputs with a `--` so that the command line parser
+won't attempt to parse them as options:
+```bash
+leo run ${TRANSITION> -- <INPUTS>
+```
+
+&nbsp;
 
 ## `leo update`
 [Back to Top](#commands)
@@ -326,10 +445,10 @@ Checking latest released version... v1.8.3
   Updating Leo is on the latest version 1.9.0
 ```
 
-
+<!-- 
 ### `leo example`
 [Back to Top](#commands)
 
 :::warning
 `leo example` has been deprecated and will no longer be supported.
-:::
+::: -->
