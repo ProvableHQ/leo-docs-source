@@ -1,6 +1,6 @@
 ---
 id: leo account 
-title: `leo account`
+title: leo accounts
 sidebar_label: Account
 ---
 
