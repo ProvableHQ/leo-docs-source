@@ -37,7 +37,10 @@ To create a new Aleo account, run:
 
 ```bash
 leo account new
+```
 
+
+```bash title="console output:"
   Private Key  APrivateKey1zkp...
      View Key  AViewKey1...
       Address  aleo1...
@@ -421,12 +424,33 @@ If one or more of your inputs are negatives, and consequently begin with a `-`,
 you may separate the inputs with a `--` so that the command line parser
 won't attempt to parse them as options:
 ```bash
-leo run ${TRANSITION> -- <INPUTS>
+leo run <TRANSITION_NAME> -- <INPUT_1> -- <INPUT_2> ...
 ```
 
 &nbsp;
 
 ## `leo update`
+[Back to Top](#commands)
+
+To download and install the latest Leo version run:
+
+```bash
+leo update
+```
+
+```bash title="console output:"
+Checking target-arch... x86_64-apple-darwin
+
+Checking current version... v1.8.3
+
+Checking latest released version... v1.8.3
+
+  Updating Leo is on the latest version 1.9.0
+```
+
+&nbsp;
+
+## `leo upgrade`
 [Back to Top](#commands)
 
 To download and install the latest Leo version run:
