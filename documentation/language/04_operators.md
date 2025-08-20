@@ -1771,9 +1771,9 @@ The instruction will halt if the given `struct` value exceeds the 64-bit limit.
 
 ```leo
 let salt: scalar = ChaCha::rand_scalar();
-let a: address = Pedersen64::commit_to_address(1u8, salt);
-let b: field = Pedersen64::commit_to_field(2i64, salt);
-let c: group = Pedersen64::commit_to_group(1field, salt);
+let a: address = Pedersen128::commit_to_address(1u8, salt);
+let b: field = Pedersen128::commit_to_field(2i64, salt);
+let c: group = Pedersen128::commit_to_group(1field, salt);
 ```
 
 #### Description
