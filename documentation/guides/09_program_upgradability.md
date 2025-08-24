@@ -12,7 +12,7 @@ For more details on the underlying protocol, refer to the [Aleo docs](https://de
 ## 1. Getting Started: The Upgrade Policy
 
 Your program's upgrade policy is defined by an annotation on a constructor (see below) in the Leo program. 
-The Leo compiler reads the annotation to understand your intent and generate the appropriate underlying code.
+The Leo compiler reads the annotation to understand your intent and generates the appropriate underlying code.
 
 There are four primary upgrade modes:
 
