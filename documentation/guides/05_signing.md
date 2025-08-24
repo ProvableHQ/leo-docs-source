@@ -1,7 +1,7 @@
 ---
 id: sign 
-title: Sign and Verify 
-sidebar_label: Sign and Verify 
+title: Signing and Verifying
+sidebar_label: Signing and Verifying
 ---
 
 In addition to creating accounts, `leo account` can be used to sign data and verify signatures. This can be useful for a particular class of applications that rely on signed data as input.

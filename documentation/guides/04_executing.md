@@ -1,6 +1,6 @@
 ---
 id: execute
-title: Run Your Programs
+title: Executing Your Programs
 sidebar_label: Execute 
 ---
 

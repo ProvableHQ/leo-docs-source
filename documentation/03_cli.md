@@ -1,7 +1,7 @@
 ---
-id: overview 
+id: cli
 title: The Leo Command Line Interface
-sidebar_label: Overview 
+sidebar_label: CLI 
 ---
 
 The Leo CLI is a command line interface tool that comes equipped with the Leo compiler.
@@ -9,8 +9,6 @@ The Leo CLI is a command line interface tool that comes equipped with the Leo co
 :::tip
 You can print the list of commands by running `leo --help`
 :::
-
-
 
 ## Commands
 
@@ -371,7 +369,65 @@ This is the Leo Interpreter. Try the command `#help`.
 ? Command? › 
 ```
 
-See [Debugging](./../testing/02_debugger.md) for more details.
+### Cheatsheet
+
+<!--TODO: Rewrite this cheatsheet to present the information in a more condensed form.-->
+
+```
+You probably want to start by running a function or transition.
+For instance
+#into program.aleo/main()
+Once a function is running, commands include
+#into    to evaluate into the next expression or statement;
+#step    to take one step towards evaluating the current expression or statement;
+#over    to complete evaluating the current expression or statement;
+#run     to finish evaluating
+#quit    to quit the interpreter.
+
+You can set a breakpoint with
+#break program_name line_number
+
+When executing Aleo VM code, you can print the value of a register like this:
+#print 2
+
+Some of the commands may be run with one letter abbreviations, such as #i.
+
+Note that this interpreter is not line oriented as in many common debuggers;
+rather it is oriented around expressions and statements.
+As you step into code, individual expressions or statements will
+be evaluated one by one, including arguments of function calls.
+
+You may simply enter Leo expressions or statements on the command line
+to evaluate. For instance, if you want to see the value of a variable w:
+w
+If you want to set w to a new value:
+w = z + 2u8;
+
+Note that statements (like the assignment above) must end with a semicolon.
+
+If there are futures available to be executed, they will be listed by
+numerical index, and you may run them using `#future` (or `#f`); for instance
+#future 0
+
+The interpreter begins in a global context, not in any Leo program. You can set
+the current program with
+
+#set_program program_name
+
+This allows you to refer to structs and other items in the indicated program.
+
+The interpreter may enter an invalid state, often due to Leo code entered at the
+REPL. In this case, you may use the command
+
+#restore
+
+Which will restore to the last saved state of the interpreter. Any time you
+enter Leo code at the prompt, interpreter state is saved.
+
+Input history is available - use the up and down arrow keys.
+```
+
+See [Debugging](./guides/08_debugging.md) for more details.
 
 &nbsp;
 
@@ -1225,6 +1281,8 @@ If you want to run a specific set of tests, run the following command:
 leo test <TEST_NAME>
 ```
 where `<TEST_NAME>` is the string to match against the qualified name of each test.
+
+Check out the [**Testing**](./guides/07_testing.md) guide for more information.
 
 
 ### Flags:

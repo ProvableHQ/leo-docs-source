@@ -1,20 +1,18 @@
 ---
 id: debuggin
 title: Debuggin' Out 
-sidebar_label: Debuggin' Out
+sidebar_label: Debugging
 ---
 
 `leo debug` is a powerful tool that developers can use to interactively step through executions and track down bugs. In this workshop, we'll use the Leo debugger to explore and gain a deeper understanding of a variety of programs. You will also build up the skills to adeptly use the debugger in your development work.
 
-**This tutorial assumes that you are already familiar with Leo. If you'd like a refresher, see the [Developer Docs](https://docs.leo-lang.org/getting_started/installation)**.
-
-We're always looking to improve Leo's developer experience. If you have any feedback, please feel free to [file](https://github.com/ProvableHQ/leo/issues/new/choose) an issue!
+**This tutorial assumes that you are already familiar with Leo.**
 
 # Setup
 
 ## Source Material
 
-Install the latest version of the [workshop](https://github.com/ProvableHQ/workshop/).
+Download the latest version of the [workshop](https://github.com/ProvableHQ/workshop/tree/master/debuggin-out).
 
 ## Leo
 
@@ -181,7 +179,63 @@ Prepared to evaluate:
 point_math.aleo/sqrt_bitwise(0u32)
 
 ✔ <b>Command?</b> · #o
-Result: 0u32
+Result: 0u32### Cheatsheet
+
+<!--TODO: Rewrite this cheatsheet to present the information in a more condensed form.-->
+
+```
+You probably want to start by running a function or transition.
+For instance
+#into program.aleo/main()
+Once a function is running, commands include
+#into    to evaluate into the next expression or statement;
+#step    to take one step towards evaluating the current expression or statement;
+#over    to complete evaluating the current expression or statement;
+#run     to finish evaluating
+#quit    to quit the interpreter.
+
+You can set a breakpoint with
+#break program_name line_number
+
+When executing Aleo VM code, you can print the value of a register like this:
+#print 2
+
+Some of the commands may be run with one letter abbreviations, such as #i.
+
+Note that this interpreter is not line oriented as in many common debuggers;
+rather it is oriented around expressions and statements.
+As you step into code, individual expressions or statements will
+be evaluated one by one, including arguments of function calls.
+
+You may simply enter Leo expressions or statements on the command line
+to evaluate. For instance, if you want to see the value of a variable w:
+w
+If you want to set w to a new value:
+w = z + 2u8;
+
+Note that statements (like the assignment above) must end with a semicolon.
+
+If there are futures available to be executed, they will be listed by
+numerical index, and you may run them using `#future` (or `#f`); for instance
+#future 0
+
+The interpreter begins in a global context, not in any Leo program. You can set
+the current program with
+
+#set_program program_name
+
+This allows you to refer to structs and other items in the indicated program.
+
+The interpreter may enter an invalid state, often due to Leo code entered at the
+REPL. In this case, you may use the command
+
+#restore
+
+Which will restore to the last saved state of the interpreter. Any time you
+enter Leo code at the prompt, interpreter state is saved.
+
+Input history is available - use the up and down arrow keys.
+```
 
 ✔ <b>Command?</b> · #i point_math.aleo/sqrt_bitwise(1u32)
 Prepared to evaluate:
