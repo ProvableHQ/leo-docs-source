@@ -499,7 +499,7 @@ Once it is deployed, it CANNOT be changed.
 ──────────────────────────────────────────────
 ```
 
-See the **[Deploying](01_deploying.md)** guide for more details.
+See the **[Deploying](./guides/03_deploying.md)** guide for more details.
 
 
 ### Flags:
@@ -1178,7 +1178,7 @@ leo remove <NAME>
 ```
 where `<NAME>` is the name of the imported program.
 
-See the **[Dependency Management](./guides/04_dependencies.md)** guide for more details.
+See the **[Dependency Management](./guides/02_dependencies.md)** guide for more details.
 
 ### Flags:
 
@@ -1346,7 +1346,7 @@ Lists all available versions of Leo.
 
 Upgrades a program that is already deployed on the network.
 
-See the **[Upgrading Programs](./guides/03_program_upgradability.md)** guide for more details.
+See the **[Upgrading Programs](./guides/09_program_upgradability.md)** guide for more details.
 
 
 ### Flags:
