@@ -12,7 +12,7 @@ Leo ships with an interactive debugger that you can use to step through your pro
 
 ### Getting Started
 
-Run through the [tutorial](./../guides/02_debuggin.md) to get familiar with the debugger. 
+Run through the [tutorial](./../guides/08_debugging.md) to get familiar with the debugger. 
 
 ### Cheatsheet
 

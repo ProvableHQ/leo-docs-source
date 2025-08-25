@@ -8,11 +8,11 @@ Once deployed, an application lives on the ledger forever. Consequently, it's im
 
 - [**Unit and Integration Testing**](#test-framework) - Validate Leo program logic through test cases.
 
-- [**Running a Devnet**](./03_devnet.md) - Deploy and execute on a local devnet.
+- [**Running a Devnet**](#running-a-devnet) - Deploy and execute on a local devnet.
 
-- [**Deploying/Executing on Testnet**](./03_devnet.md) - Deploy and execute on the Aleo Testnet.
+- [**Deploying/Executing on Testnet**](#deployingexecuting-on-testnet) - Deploy and execute on the Aleo Testnet.
 
-- [**Other Tools**](./04_other.md) - Tools and methodologies developed by the open-source Aleo community.
+- [**Other Tools**](#other-tools) - Tools and methodologies developed by the open-source Aleo community.
 
 
 ## Unit and Integration Testing
@@ -282,7 +282,7 @@ leo query transaction {TRANSACTION_ID}
 
 The transaction API endpoint is instructive in verifying whether a transaction succeeded or failed.  Since both successful and failed transaction execute a fee transaction, if only the fee transaction appears, that is a clear indication that the transaction has failed.  Note that on the Testnet and on Mainnet, failed transactions still require a fee since the network is performing a computation.
 
-A full list of API endpoints is available [here](https://developer.aleo.org/references/apis/public_api/)
+A full list of API endpoints is available [here](https://developer.aleo.org/apis/public_api)
 
 ### Record Scanning
 

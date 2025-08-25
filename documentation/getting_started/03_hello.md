@@ -107,7 +107,7 @@ The constructor acts as a gatekeeper for your program; the logic in the function
 All programs must have an explicitly declared constructor function.
 :::
 
-For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/03_program_upgradability.md).
+For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/09_program_upgradability.md).
 
 
 Now let's compile the program and run the program.
@@ -148,7 +148,7 @@ leo run main 1u32 2u32
 ## Deploying and Executing
 Running programs locally is great, but you'll likely want to actually deploy your programs and execute functions onchain.  To do this, you'll need to use `leo deploy` for deployment and `leo execute` to execute functions and generate the transaction containing the requisite metadata and zero-knowledge proofs.
 
-We have dedicated guides for both [Deploying](./../cli/01_deploying.md) and [Executing](./../cli/02_executing.md), so please check those out for more information!
+We have dedicated guides for both [Deploying](./../guides/03_deploying.md) and [Executing](./../guides/04_executing.md), so please check those out for more information!
 
 
 ## Clean
@@ -167,7 +167,7 @@ Leo 🧹 Cleaned the build directory ./hello/build
 
 To learn more about the Leo language and its syntax, start [here](./../language/00_overview.md).
 
-To learn more about how to use the Leo CLI, start [here](./../cli/00_overview.md).
+To learn more about how to use the Leo CLI, start [here](./../03_cli.md).
 
 To get started with some sample projects, check out the **Leo By Example** section.
 

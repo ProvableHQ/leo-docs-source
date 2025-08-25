@@ -760,7 +760,7 @@ Attempting to determine the consensus version from the latest block height at {E
 ```
 
 
-See the **[Executing](./02_executing.md)** guide for more details.
+See the **[Executing](./guides/04_executing.md)** guide for more details.
 
 
 ### Flags:
@@ -887,7 +887,7 @@ leo new <NAME>
 Valid project names are snake_case: lowercase letters and numbers separated by underscores.
 This command will create a new directory with the given project name.
 
-See [Project Layout](../language/01_layout.md) for more details .
+See [Project Layout](./language/01_layout.md) for more details .
 
 &nbsp;
 
@@ -1063,7 +1063,7 @@ Get the value corresponding to the specified mapping and key.  Will return `null
 #### `--edition <EDITION>`
 An optional edition to query for when fetching the program source. If not specified, the latest edition will be used.
 
-The edition of the program is set to `0` upon initial deployment and is incremented by `1` each time the program is upgraded.  See the **[Upgrading Programs](./../guides/03_program_upgradability.md)** guide for more details.
+The edition of the program is set to `0` upon initial deployment and is incremented by `1` each time the program is upgraded.  See the **[Upgrading Programs](./guides/09_program_upgradability.md)** guide for more details.
 
 
 ---
@@ -1178,7 +1178,7 @@ leo remove <NAME>
 ```
 where `<NAME>` is the name of the imported program.
 
-See the **[Dependency Management](./04_dependencies.md)** guide for more details.
+See the **[Dependency Management](./guides/04_dependencies.md)** guide for more details.
 
 ### Flags:
 
@@ -1346,7 +1346,7 @@ Lists all available versions of Leo.
 
 Upgrades a program that is already deployed on the network.
 
-See the **[Upgrading Programs](./../guides/03_program_upgradability.md)** guide for more details.
+See the **[Upgrading Programs](./guides/03_program_upgradability.md)** guide for more details.
 
 
 ### Flags:
