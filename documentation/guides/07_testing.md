@@ -141,7 +141,7 @@ or
 leo test addition
 ```
 
-See the `leo test` CLI documentation [here](./../03_cli.md#leo-test)
+See the `leo test` CLI documentation [here](./../cli/13_test.md)
 
 
 ## Running a Devnet
@@ -222,7 +222,7 @@ Ctrl+b :select-window -t {NODE_ID}
 Ctrl+b :kill-session
 ```
 
-See the full `leo devnet` CLI documentation [here](./../03_cli.md#leo-devnet)
+See the full `leo devnet` CLI documentation [here](./../cli/07_devnet.md)
 
 
 

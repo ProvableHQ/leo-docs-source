@@ -90,7 +90,7 @@ leo execute main 1u32 2u32
  • 3u32
 ```
 
-The `leo execute` command will attempt to verify a proof only if all previous steps completed successfully. Under the hood, the Leo [CLI](./../03_cli.md) will check for existing `.prover` file to constructing proof, the `.verifier` file to verify proof and the `.avm` file containing the program's bytecode in the **build/build** directory before running each command. This ensures that we don't run unnecessary commands.
+The `leo execute` command will attempt to verify a proof only if all previous steps completed successfully. Under the hood, the Leo [CLI](./../cli/00_overview.md) will check for existing `.prover` file to constructing proof, the `.verifier` file to verify proof and the `.avm` file containing the program's bytecode in the **build/build** directory before running each command. This ensures that we don't run unnecessary commands.
 
 You'll notice that running `leo execute` produces a JSON object. This is a [`Transaction`](https://developer.aleo.org/concepts/fundamentals/transactions) that can be broadcast to the Aleo network.
 

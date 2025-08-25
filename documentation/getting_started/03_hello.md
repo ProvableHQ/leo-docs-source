@@ -167,7 +167,7 @@ Leo 🧹 Cleaned the build directory ./hello/build
 
 To learn more about the Leo language and its syntax, start [here](./../language/00_overview.md).
 
-To learn more about how to use the Leo CLI, start [here](./../03_cli.md).
+To learn more about how to use the Leo CLI, start [here](./../cli/00_overview.md).
 
 To get started with some sample projects, check out the **Leo By Example** section.
 
