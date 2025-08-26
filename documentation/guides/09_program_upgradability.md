@@ -206,8 +206,7 @@ An upgrade **can**:
 
 An upgrade **cannot**:
 
-* Change the input or output signatures of any existing `transition`, `function`, `async function`.
-* Change the input signature of any existing `async function` block.
+* Change the input or output signatures of any existing `transition`, `function`, `async transition`, or `async function`.
 * Change the logic within a non-inline `function`.
 * Modify or delete any existing `struct`, `record`, or `mapping`.
 * Delete any existing program component.
