@@ -8,6 +8,8 @@ sidebar_label: Run
 Use this command to run your program before [**executing**](#leo-execute) it.
 :::
 
+You can run a transition function by using the `leo run` command.  This will simply run the specified transition function with the provided inputs and show what the produced output will be.  It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain.  For that, please see the `leo execute` command.
+
 To run a Leo transition function with inputs from the command line, run the following command:
 ```bash
 leo run <TRANSITION_NAME> <INPUTS>
