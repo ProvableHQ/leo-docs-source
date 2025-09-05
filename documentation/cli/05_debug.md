@@ -72,4 +72,4 @@ enter Leo code at the prompt, interpreter state is saved.
 Input history is available - use the up and down arrow keys.
 ```
 
-See [Debugging](./../guides/08_debugging.md) for more details.
+See [Debugging](./../guides/09_debugging.md) for more details.

@@ -107,7 +107,7 @@ The constructor acts as a gatekeeper for your program; the logic in the function
 All programs must have an explicitly declared constructor function.
 :::
 
-For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/09_program_upgradability.md).
+For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/10_program_upgradability.md).
 
 
 Now let's compile the program and run the program.

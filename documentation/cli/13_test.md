@@ -12,7 +12,7 @@ leo test <TEST_NAME>
 ```
 where `<TEST_NAME>` is the string to match against the qualified name of each test.
 
-Check out the [**Testing**](./../guides/07_testing.md) guide for more information.
+Check out the [**Testing**](./../guides/08_testing.md) guide for more information.
 
 
 ### Flags:
