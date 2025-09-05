@@ -3,6 +3,7 @@ id: ide
 title: Your Development Environment 
 sidebar_label: Dev Env
 ---
+[general tags]: # (playground, ide, plugin)
 
 Developers can choose from a wide variety of development environments. 
 

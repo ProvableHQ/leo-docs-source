@@ -3,7 +3,7 @@ id: execute
 title: Executing Your Programs
 sidebar_label: Execute 
 ---
-
+[general tags]: # (guides,execute, execution, transaction, transition, transaction_status, async_transition)
 
 The `leo execute` command is used to call functions from deployed programs.  Under the hood, this commands downloads the program code from the specified network, synthesizes the program circuit, executes the function logic, generates proving verifying keys along with a zero-knowledge proof, and then submits a transaction object to the network.
 

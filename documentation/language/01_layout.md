@@ -3,6 +3,7 @@ id: layout
 title: Layout of a Leo Project
 sidebar_label: Project Layout
 ---
+[general tags]: # (project, project_layout, manifest)
 
 ### The Manifest
 

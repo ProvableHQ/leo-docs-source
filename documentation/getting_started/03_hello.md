@@ -3,6 +3,7 @@ id: hello
 title: Hello, Leo
 sidebar_label: Hello, Leo
 ---
+[general tags]: # (hello_leo, starter_project)
 
 ## Initialize the project
 
@@ -31,7 +32,7 @@ hello/
 
 ### The Manifest
 
-**program.json** is the Leo manifest file that configures the  package.
+**program.json** is the Leo manifest file that configures the package.
 ```json title="program.json"
 {
   "program": "hello.aleo",

@@ -3,7 +3,9 @@ id: dependencies
 title: Dependency Management
 sidebar_label: Dependency Management
 ---
-## Leo imports
+[general tags]: # (guides, dependency, dependency_management, imports, program)
+
+## Leo Imports
 In your `main.leo` file, specify any imported dependencies using the `import` keyword before the program declaration:
 ```leo
 import credits.aleo;

@@ -3,6 +3,7 @@ id: cli_devnet
 title: leo devnet
 sidebar_label: Devnet
 ---
+[general tags]: # (cli, leo_devnet, devnet local_devnet, snarkos)
 
 ## `leo devnet`
 [Back to Top](#commands)

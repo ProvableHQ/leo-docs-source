@@ -3,6 +3,7 @@ id: devnet
 title: Running a Devnet
 sidebar_label: Devnet
 ---
+[general tags]: # (guides, devnet local_devnet, snarkos)
 
 A local devnet can be a heavyweight but reliable way to test your application on Aleo.
 

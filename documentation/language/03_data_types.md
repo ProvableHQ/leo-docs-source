@@ -3,6 +3,7 @@ id: data_types
 title: Data Types
 sidebar_label: Data Types
 ---
+[general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
 
 ### Booleans
 

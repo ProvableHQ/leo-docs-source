@@ -3,6 +3,7 @@ id: new
 title: What's new on Leo?
 sidebar_label: What's new?
 ---
+[general tags]: # ()
 
 :::tip
 ### [**📦 Releases**](https://github.com/ProvableHQ/leo/releases) - Stay up to date with the latest Leo releases.

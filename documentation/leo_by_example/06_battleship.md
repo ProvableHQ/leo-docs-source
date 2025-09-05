@@ -2,6 +2,7 @@
 id: battleship
 title: A Game of Battleship in Leo
 ---
+[general tags]: # (example, battleship, struct, program, transition)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/battleship)**
 

@@ -3,6 +3,7 @@ id: installation
 title: Installation
 sidebar: Installation
 ---
+[general tags]: # (installation, install_leo)
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

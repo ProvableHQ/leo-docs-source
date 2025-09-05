@@ -3,6 +3,7 @@ id: upgradability
 title: Upgrading Programs
 sidebar_label: Upgrading Programs
 ---
+[general tags]: # (guides, upgrade, program, transaction, constructor)
 
 # A Developer's Guide to Upgradability in Leo
 

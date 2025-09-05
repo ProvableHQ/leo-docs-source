@@ -3,6 +3,7 @@ id: cli_run
 title: leo run
 sidebar_label: Run
 ---
+[general tags]: # (cli, leo_run, run, transition, async_transition)
 
 :::tip
 Use this command to run your program before [**executing**](#leo-execute) it.

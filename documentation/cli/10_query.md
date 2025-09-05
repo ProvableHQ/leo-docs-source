@@ -3,6 +3,7 @@ id: cli_query
 title: leo query
 sidebar_label: Query
 ---
+[general tags]: # (cli, leo_query, query, block, transaction, program, stateroot, committee, mempool, peers, snarkOS, mapping)
 
 The `leo query` command is used to get data from a network supporting the canonical `snarkOS` endpoints.
 

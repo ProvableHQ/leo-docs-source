@@ -2,6 +2,7 @@
 id: auction
 title: A Private Auction using Leo
 ---
+[general tags]: # (example, auction, record, program, transition, assert)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/auction)**
 

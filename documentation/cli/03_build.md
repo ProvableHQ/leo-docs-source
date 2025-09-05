@@ -3,7 +3,7 @@ id: cli_build
 title: leo build
 sidebar_label: Build
 ---
-
+[general tags]: # (cli, leo_build, build, compile, program)
 
 ## `leo build`
 

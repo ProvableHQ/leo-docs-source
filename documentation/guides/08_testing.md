@@ -3,6 +3,7 @@ id: test
 title: Testing, Testing, 123
 sidebar_label: Testing
 ---
+[general tags]: # (guides, tests, testing, unit_testing, integration_testing, devnet, testnet)
 
 Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are number of tools and techniques you can use. 
 

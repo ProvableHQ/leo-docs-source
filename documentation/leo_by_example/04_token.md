@@ -2,6 +2,7 @@
 id: token
 title: A Custom Token in Leo
 ---
+[general tags]: # (example, token, record, program, transition, future, async_transition, async_function)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/token)**
 
