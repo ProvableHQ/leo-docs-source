@@ -8,7 +8,7 @@ sidebar_label: Execute
 This command requires having a funded account. 
 :::
 
-You can execute a transition function by using the `leo execute` command.  This differs from the `leo run` command in that a transaction and proof of execution are produced, and optionally can be broadcast to the network.
+You can execute a transition function by using the `leo execute` command.  This differs from the `leo run` command in that a transaction and proof of execution are produced, and optionally can be broadcasted to the network.
 
 To execute a Leo transition function with inputs from the command line, run the following command:
 ```bash
