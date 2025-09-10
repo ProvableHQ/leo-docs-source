@@ -3,6 +3,7 @@ id: cli_execute
 title: leo execute
 sidebar_label: Execute
 ---
+[general tags]: # (cli, leo_execute, execute, execution, transaction, transition, transaction_status, async_transition)
 
 :::note
 This command requires having a funded account. 

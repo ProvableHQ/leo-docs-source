@@ -3,6 +3,7 @@ id: installation
 title: Create Leo App
 sidebar_label: Installation
 ---
+[general tags]: # (javascript, nodejs, leo)
 
 <a href="https://www.npmjs.com/package/create-leo-app"> <img alt="Create Leo App" src="https://img.shields.io/npm/l/create-leo-app?label=NPM%20-%20Create-Leo-App&labelColor=green&color=blue" /></a>
 

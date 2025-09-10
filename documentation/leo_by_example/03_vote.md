@@ -2,6 +2,7 @@
 id: vote
 title: A Voting Program using Leo
 ---
+[general tags]: # (example, vote, record, program, mapping)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/vote)**
 

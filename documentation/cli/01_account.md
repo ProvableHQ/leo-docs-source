@@ -3,7 +3,7 @@ id: cli_account
 title: leo account
 sidebar_label: Account
 ---
-
+[general tags]: # (cli, leo_account, account, sign, verify, signature, private_key, view_key, address)
 
 The `leo account` command is used to create and manage Aleo accounts, as well as sign and verify messages
 

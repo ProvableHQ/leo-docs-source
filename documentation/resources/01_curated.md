@@ -3,6 +3,7 @@ id: curated
 title: Curated Resources 
 sidebar_label: Curated 
 ---
+[general tags]: # (resources, links)
 
 There's a lot more on Leo and Aleo out there! Here are some thing you might find interesting.
 

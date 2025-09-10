@@ -3,6 +3,7 @@ id: cli_deploy
 title: leo deploy
 sidebar_label: deploy
 ---
+[general tags]: # (cli, leo_deploy, deploy, deployment, transaction, program)
 
 :::note
 This command requires having a funded account. 

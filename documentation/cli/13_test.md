@@ -3,6 +3,7 @@ id: cli_test
 title: leo test
 sidebar_label: Test
 ---
+[general tags]: # (cli, leo_test, testing)
 
 This command runs all the test cases specified in the Leo file in `tests/`.  
 

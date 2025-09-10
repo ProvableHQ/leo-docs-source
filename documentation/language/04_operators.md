@@ -3,6 +3,7 @@ id: operators
 title: Operators and Expressions
 sidebar_label: Operators and Expressions
 ---
+[general tags]: # (operators, cryptographic_operators, assert, hash, commit, random, address, block)
 
 ## Operators
 

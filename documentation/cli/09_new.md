@@ -3,6 +3,7 @@ id: cli_new
 title: leo new
 sidebar_label: New
 ---
+[general tags]: # (cli, leo_new, new, new_project)
 
 To create a new project, run:
 ```bash

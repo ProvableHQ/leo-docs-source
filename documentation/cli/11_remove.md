@@ -3,6 +3,8 @@ id: cli_remove
 title: leo remove
 sidebar_label: Remove
 ---
+[general tags]: # (cli, leo_remove, remove_dependency, dependency, dependency_management, imports)
+
 To remove a dependency from your project, run the following command:
 
 ```bash

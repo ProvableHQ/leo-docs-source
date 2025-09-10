@@ -3,6 +3,7 @@ id: overview
 title: The Leo Language Reference
 sidebar_label: Overview
 ---
+[general tags]: # (syntax)
 
 ### Statically Typed
 

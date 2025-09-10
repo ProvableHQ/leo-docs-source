@@ -3,6 +3,7 @@ id: structure
 title: Structure of a Leo Program 
 sidebar_label: Program Structure
 ---
+[general tags]: # (program, constant, import, transition, async_transition, function, async_function, inline, record, struct, mapping)
 
 ## Layout of a Leo Program
 

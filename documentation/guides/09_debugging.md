@@ -3,6 +3,7 @@ id: debuggin
 title: Debuggin' Out 
 sidebar_label: Debugging
 ---
+[general tags]: # (guides, debug, debugger, program)
 
 `leo debug` is a powerful tool that developers can use to interactively step through executions and track down bugs. In this workshop, we'll use the Leo debugger to explore and gain a deeper understanding of a variety of programs. You will also build up the skills to adeptly use the debugger in your development work.
 
