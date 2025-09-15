@@ -35,7 +35,7 @@ The `src/` directory is where all of your Leo code will live.  The main entry po
 
 In addition to your main file, Leo also supports a module system as of v3.2.0.
 
-Leaf modules (i.e. modules without submodules) must be defined in a single file (ex. `foo.leo`) Modules with submodules must be defined by an optional top-level `.leo` file and a subdirectory directory containing the submodules:
+Leaf modules (i.e. modules without submodules) must be defined in a single file (ex. `foo.leo`).  Modules with submodules must be defined by an optional top-level `.leo` file and a subdirectory directory containing the submodules:
 
 
 Take the following project as an example:
