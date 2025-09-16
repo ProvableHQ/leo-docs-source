@@ -45,9 +45,7 @@ hello/
 ```
 
 The program ID in `program` is the official name that other developers will be able to look up after the program has been deployed to a network.  This must be the same as the name of your program in `main.leo`, or compilation will fail.
-```json
-    "program": "hello.aleo",
-```
+
 
 Dependencies will be added to the field of the same name, as they are imported.  Dependencies that are only used during development and not in production will be added to the `dev_dependencies` field.
 
@@ -111,11 +109,11 @@ All programs must have an explicitly declared constructor function.
 For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/10_program_upgradability.md).
 
 
-Now let's compile the program and run the program.
+Now let's compile and run the program.
 
 ## Build and Run 
 
-Now let's compile the program.
+To compile the program, run:
 ```
 leo build
 ```
