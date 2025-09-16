@@ -15,7 +15,7 @@ leo devnet --snarkos <SNARKOS>
 ```
 The `<SNARKOS>` is the path to an installed binary of [**snarkOS**](https://github.com/ProvableHQ/snarkOS), the decentralized operating system that forms the backbone of the Aleo network.  
 
-If you don't have snarkOS installed, you can pass the `--install` flag and the CLI will automatically download, compile, and store the binary at the path specified by `<SNARKOS>`
+If you don't have snarkOS installed, you can pass the `--install` flag and the CLI will automatically download, compile, and store the binary at the path specified by `<SNARKOS>`.
 ```bash
 leo devnet --snarkos <SNARKOS> --install
 ```
@@ -23,7 +23,7 @@ leo devnet --snarkos <SNARKOS> --install
 
 Windows users will need to perform some additional steps in order for snarkOS to install properly:
 1. Upon initially installing Rust, you should have been automatically been prompted to install Visual Studio with the MSVC 2022 C++ build tools. 
-2. Open the Visual Studio Installer and install the C++ Clang Compiler for Windows and either the Windows 10 SDK or Windows 11 SDK (depending on your OS). Make a note of the installation path of the installed tools (should be of the form `{PATH}\Microsoft Visual Studio\2022\BuildTools`)
+2. Open the Visual Studio Installer and install the C++ Clang Compiler for Windows and either the Windows 10 SDK or Windows 11 SDK (depending on your OS). Make a note of the installation path of the installed tool.  It should be of the form `{PATH}\Microsoft Visual Studio\2022\BuildTools`.
 3. Within the aforementioned build tools directory, you should find the location of a file called `libclang.dll`.  For `x86`-based systems, this should be in the `VC\Tools\Llvm\bin` subdirectory.  For `x64`-based systems, this should be in the `VC\Tools\Llvm\x64\bin` subdirectory.
 4. Once you have the full path of `libclang.dll`, create the `LIBCLANG_PATH` environment variable for your system and set it to this path.
 5. snarkOS should now compile and run properly.
@@ -97,9 +97,9 @@ Clearing the ledger history may be useful if you wish to redeploy your program w
 
 ## Deploying and Executing
 
-When deploying or executing programs on a local devnet, make sure that endpoint is set to `http://localhost:3030` rather than any external API endpoints.  You can do this either by manually setting the `ENDPOINT` environment variable, by passing the `--endpoint {ENDPOINT}` flag in the CLI, or by setting the `ENDPOINT` in a `.env` file within the root directory of your Leo project.
+When deploying or executing programs on a local devnet, make sure that endpoint is set to `http://localhost:3030` rather than any external API endpoints.  You can do this either by manually setting the `ENDPOINT` environment variable, by passing the `--endpoint http://localhost:3030` flag in the CLI, or by setting the `ENDPOINT` variable in a `.env` file within the root directory of your Leo project.
 
-snarkOS automatically intializes four development accounts funded with Aleo credits that can be used for testing purposes.
+You will also need credits to fund transactions on the devnet.  snarkOS automatically initializes four development accounts funded with Aleo credits that can be used for testing purposes.
 ```bash
 # Account 0
 APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH
@@ -121,6 +121,8 @@ APrivateKey1zkpBjpEgLo4arVUkQmcLdKQMiAKGaHAQVVwmF8HQby8vdYs
 AViewKey1iKKSsdnatHcm27goNC7SJxhqQrma1zkq91dfwBdxiADq
 aleo12ux3gdauck0v60westgcpqj7v8rrcr3v346e4jtq04q7kkt22czsh808v2
 ```
+You can specify the private key to use by manually setting the `PRIVATE_KEY` environment variable, by passing the `--private-key http://localhost:3030` flag in the CLI, or by setting the `PRIVATE_KEY` variable in a `.env` file within the root directory of your Leo project.
+
 Once your private key and endpoint have been correctly set, deploying and executing largely function the same as they would on Testnet or Mainnet.  For more details on either of those processes, check out the [**Deploying**](./03_deploying.md) and [**Executing**](./04_executing.md) guides.
 
 
