@@ -1,7 +1,7 @@
 ---
 id: execute
 title: Executing Your Programs
-sidebar_label: Execute 
+sidebar_label: Executing
 ---
 
 [general tags]: # (guides,execute, execution, transaction, transition, transaction_status, async_transition)
