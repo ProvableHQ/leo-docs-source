@@ -1,9 +1,9 @@
 ---
 id: deploy
-title: Deploy and Upgrade Your Programs 
-sidebar_label: Deploy and Upgrade
+title: Deploy Your Programs 
+sidebar_label: Deploy
 ---
-[general tags]: # (guides, deploy, upgrade, deployment, program)
+[general tags]: # (guides, deploy, deployment, program)
 
 The `leo deploy` command is used for deploying Leo program to a local devnet, Testnet, or Mainnet.
 The `leo upgrade` command is used for upgrading an existing Leo program on the network.
