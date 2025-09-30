@@ -2,6 +2,7 @@
 id: basic_bank
 title: A Basic Bank using Leo
 ---
+[general tags]: # (example, bank, record, program, transition, assert, hash, loops, mappings, async_transition, async_function)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/basic_bank)**
 

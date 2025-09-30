@@ -3,6 +3,7 @@ id: leo
 title: The Leo Programming Language
 sidebar_label: Leo
 ---
+[general tags]: # (overview, leo)
 
 Leo is an open-source, statically-typed, imperative programming language designed for building private applications on the Aleo blockchain. 
 It abstracts the complexities of zero-knowledge cryptography, enabling developers to create secure, privacy-preserving applications while abstracting technical complexities.

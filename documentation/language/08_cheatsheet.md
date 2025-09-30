@@ -3,6 +3,7 @@ id: cheatsheet
 title: Leo Syntax Cheatsheet
 sidebar: Cheatsheet
 ---
+[general tags]: # (program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, transition, async_transition, function, async_function, inline, mapping, conditionals, loops)
 
 ## 1. File Import
 ```leo

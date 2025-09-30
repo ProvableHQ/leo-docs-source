@@ -2,6 +2,7 @@
 id: tictactoe
 title: A Game of Tic-Tac-Toe in Leo
 ---
+[general tags]: # (example, tictactoe, program, struct, conditional)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/tictactoe)**
 

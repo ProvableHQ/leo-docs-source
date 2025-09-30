@@ -3,6 +3,7 @@ id: control
 title: Control Flow
 sidebar_label: Control Flow
 ---
+[general tags]: # (loop, conditional, return)
 
 ### If Statements
 

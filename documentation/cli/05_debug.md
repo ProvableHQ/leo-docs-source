@@ -1,18 +1,19 @@
 ---
-id: debugging
-title: Debugging Your Code
-sidebar_label: Debugging
+id: cli_debug
+title: leo debug
+sidebar_label: Debug
 ---
+[general tags]: # (cli, leo_debug, debug, debugger)
 
-Here are a few techniques to debug your programs.
+To start the interactive debugger, run `leo debug` in a Leo project.
 
-## Interactive Debugging
+```bash
+> leo debug
+       Leo ✅ Compiled sources for 'workshop'
+This is the Leo Interpreter. Try the command `#help`.
 
-Leo ships with an interactive debugger that you can use to step through your programs.
-
-### Getting Started
-
-Run through the [tutorial](./../guides/02_debuggin.md) to get familiar with the debugger. 
+? Command? › 
+```
 
 ### Cheatsheet
 
@@ -72,7 +73,4 @@ enter Leo code at the prompt, interpreter state is saved.
 Input history is available - use the up and down arrow keys.
 ```
 
-
-### Inspect Compiler Output
-
-<!--TODO:-->
+See [Debugging](./../guides/09_debugging.md) for more details.

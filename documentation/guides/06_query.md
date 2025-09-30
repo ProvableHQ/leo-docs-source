@@ -1,8 +1,9 @@
 ---
 id: query 
-title: Retrieving Network Metadata and State
+title: Querying Network Metadata and State
 sidebar_label: Querying the Network
 ---
+[general tags]: # (guides, query)
 
 <!--TODO:-->
 
