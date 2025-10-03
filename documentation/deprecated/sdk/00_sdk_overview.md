@@ -3,7 +3,7 @@ id: overview
 title: Aleo SDK
 sidebar_label: Overview
 ---
-
+<!-- markdown-link-check-disable -->
 
 The [Aleo SDK](https://github.com/ProvableHQ/sdk) provides tools for building zero knowledge applications. It consists of
 several TypeScript & JavaScript libraries which provide the following functionality:
@@ -31,9 +31,9 @@ first zero knowledge web app.
 
 #### Source: [`sdk/sdk`](https://github.com/ProvableHQ/sdk/tree/testnet3/sdk)
 
-<!-- markdown-link-check-disable -->
+
 ## 2. [Create-leo-App](./create-leo-app/00_app_installation.md) - Zero-Knowledge Web App Examples
-<!-- markdown-link-check-enable -->
+
 
 <a href="https://www.npmjs.com/package/create-leo-app"> <img alt="Create Leo App" src="https://img.shields.io/npm/l/create-aleo-app?label=NPM%20-%20Create-Leo-App&labelColor=green&color=blue" /></a>
 
@@ -80,9 +80,8 @@ The official Aleo Python SDK providing tools for creating zero knowledge apps. I
 Both libraries are in an early development stage. They can be installed through `pip install aleo` respectively `pip install zkml`. The
 [documentation on the aleo library](./python/00_aleo_sdk.md) and the [documentation on the zkml library](./python/01_zkml_transpiler.md) provide more information on installation and usage.
 
-<!-- markdown-link-check-disable -->
+
 Source: [`python-sdk`](https://github.com/ProvableHQ/python-sdk)
-<!-- markdown-link-check-enable -->
 
 ## 📚 Documentation
 
@@ -97,3 +96,4 @@ how to use the SDK to build web apps using Aleo.
 #### [Aleo Wasm Readme](https://github.com/ProvableHQ/sdk/tree/testnet3/wasm#readme)
 The Aleo Wasm Readme provides instructions for compiling the Aleo Wasm crate and using it in web projects. Those who
 want to build from source or create their own WebAssembly bindings should start here
+<!-- markdown-link-check-enable -->
