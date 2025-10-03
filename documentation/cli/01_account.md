@@ -17,6 +17,7 @@ We urge you to exercise caution when managing your private keys. `leo account` c
 * [`import`](#leo-account-import) - Derive and Aleo account from a private key.
 * [`sign`](#leo-account-sign) - Sign a message using your Aleo private key.
 * [`verify`](#leo-account-verify) - Verify a message and signature from an Aleo address.
+* [`decrypt`](#leo-account-verify) - Verify a message and signature from an Aleo address.
 
 &nbsp;
 
@@ -173,4 +174,43 @@ Specifies the message that was signed.
 #### `--raw `
 #### `-r`
 Parses the message as bytes instead of Aleo literals.
+
+
+
+## `leo account decrypt`
+
+[Back to Top](#subcommands)
+
+Use this command to decrypt a record ciphertext using your Aleo private key or view key.
+
+To decrypt a record ciphertext using your private key, run the following command
+```bash
+leo account decrypt --ciphertext <CIPHERTEXT> -k <KEY>
+```
+where `<CIPHERTEXT>` is the ciphertext of a record, and `<KEY>` is private key of the record's owner.
+
+Optionally, you can specify a path to a file containing the key rather than the key itself:
+ ```bash
+leo account decrypt --ciphertext <CIPHERTEXT> -f <PATH_TO_KEYFILE
+```
+
+If you do not specify either the key or key file, the CLI will attempt use the `PRIVATE_KEY` and `VIEW_KEY` environment variables.
+
+If the private key does not correspond to the owner of the record, the decryption will fail. 
+
+### Flags:
+#### `-c <CIPHERTEXT>`
+:::info
+This flag is required!
+:::
+Specifies the record ciphertext to decrypt.
+
+#### `-k <KEY>`
+Specifies the private key or view key to use for decryption.  This will raise an error if you also pass the `-f` flag.
+
+#### `-f <KEY_FILE>`
+Specifies the path to a file containing the private key or view key.  This will raise an error if you also pass the `-k` flag.
+
+#### `--network <NETWORK>`
+Specifies the network to deploy to. Overrides any `NETWORK` environment variable set manually or in a `.env` file.  Valid network names are `testnet`, `mainnet`, and `canary`.
 

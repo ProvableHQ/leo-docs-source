@@ -77,8 +77,10 @@ The following must be declared outside the scope of a program in a Leo file:
 #### Program ID
 
 A program ID is declared as `{name}.{network}`.
+
 The first character of a `name` must be a lowercase letter.
-`name` can contain lowercase letters, numbers, and underscores.
+`name` can only contain lowercase letters, numbers, and underscores, and must not contain a double underscore (`__`) or the keyword `aleo` in it.
+
 Currently, `aleo` is the only supported `network` domain.
 
 ```leo showLineNumbers
@@ -148,15 +150,14 @@ struct Array3 {
 
 ### Record
 
-A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is declared as `record {name} {}`.
-Records contain component declarations `{visibility} {name}: {type},`.
+A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be prefixes of other record names.
+
+Records contain component declarations `{visibility} {name}: {type},`. Record component `name`s must not contain the keyword `aleo`. 
 
 A visibility can be either `constant`, `public`, or `private`.
 Users may also omit the visibility, in which case, Leo will default to `private`.
 
-Record data structures must contain the `owner` component as shown below.
-When passing a record as input to a program function, the `_nonce: group` component is also required
-(but it does not need to be declared in the Leo program).
+Record data structures must contain the `owner` component as shown below. When passing a record as input to a program function, the `_nonce: group` component is also required (but it does not need to be declared in the Leo program).
 
 ```aleo showLineNumbers
 record Token {

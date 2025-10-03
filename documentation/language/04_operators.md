@@ -228,6 +228,9 @@ The Leo operators compile down to [Aleo instructions opcodes](https://developer.
 | [square](#square)           | Square                              |
 | [sub](#sub)                 | Subtraction                         |
 | [sub_wrapped](#sub_wrapped) | Wrapping subtraction                |
+| [to_x_coordinate](#to_x_coordinate) | Extract x-coordinate of a group element              |
+| [to_y_coordinate](#to_y_coordinate) | Extract y-coordinate of a group element              |
+| [sub_wrapped](#sub_wrapped) | Wrapping subtraction                |
 | [ternary](#ternary)         | Ternary select                      |
 | [xor](#xor)                 | Exclusive conjunction               |
 
@@ -611,13 +614,13 @@ Divides `first` by `second`, wrapping around at the boundary of the type, and st
 ### `double`
 
 ```leo
-let a: group = (0, 4)group;
+let a: group = 2group;
 let b: group = a.double();
 ```
 
 #### Description
 
-Doubles the input, storing the result in `destination`.
+Adds the input to itself, storing the result in `destination`.
 
 
 #### Supported Types
@@ -1479,6 +1482,48 @@ Selects `first`, if `condition` is true, otherwise selects `second`, storing the
 
 [Back to Top](#table-of-standard-operators)
 ***
+
+
+
+
+### `to_x_coordinate`
+
+```leo
+let x: field = 0group.to_x_coordinate(); // 0field
+```
+
+#### Description
+Extracts the x-coordinate of the group element as a field element.
+
+
+#### Supported Types
+
+| Input   | Destination |
+|---------|-------------|
+| `group` | `field`     |
+
+[Back to Top](#table-of-standard-operators)
+***
+
+### `to_y_coordinate`
+
+```leo
+let y: field = 0group.to_y_coordinate(); // 1field
+```
+
+#### Description
+Extracts the y-coordinate of the group element as a field element.
+
+
+#### Supported Types
+
+| Input   | Destination |
+|---------|-------------|
+| `group` | `field`     |
+
+[Back to Top](#table-of-standard-operators)
+***
+
 
 ### `xor`
 
