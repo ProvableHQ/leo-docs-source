@@ -31,8 +31,9 @@ first zero knowledge web app.
 
 #### Source: [`sdk/sdk`](https://github.com/ProvableHQ/sdk/tree/testnet3/sdk)
 
-
+<!-- markdown-link-check-disable -->
 ## 2. [Create-leo-App](./create-leo-app/00_app_installation.md) - Zero-Knowledge Web App Examples
+<!-- markdown-link-check-enable -->
 
 <a href="https://www.npmjs.com/package/create-leo-app"> <img alt="Create Leo App" src="https://img.shields.io/npm/l/create-aleo-app?label=NPM%20-%20Create-Leo-App&labelColor=green&color=blue" /></a>
 

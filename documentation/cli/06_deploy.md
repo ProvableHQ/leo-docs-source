@@ -87,13 +87,13 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
 **Common Endpoints:**
-
+<!-- markdown-link-check-disable -->
 | Network |  Endpoint  |
 |:---------:|:------:|
 | Devnet (local)  | https://localhost:3030 | 
 | Testnet  | https://api.explorer.provable.com/v1| 
 | Mainnet  | https://api.explorer.provable.com/v1| 
-
+<!-- markdown-link-check-enable -->
 
 #### `--devnet`
 Specifies whether the network being deployed to is a devnet. If not set, defaults to the `DEVNET` environment variable.

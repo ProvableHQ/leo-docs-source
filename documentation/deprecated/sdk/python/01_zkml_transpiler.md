@@ -31,7 +31,7 @@ Ensure you have 3.9.6 or newer installed.
    python3 --version
    ```
    - If not installed, follow the instructions [here](https://www.python.org/about/).
-
+<!-- markdown-link-check-disable -->
 #### Leo
 Ensure you have Leo version 1.9.3 or newer installed.
    - Verify with:
@@ -50,7 +50,7 @@ You can install the `zkml` Python library from PyPI using the following command:
 ```bash
 pip3 install zkml
 ```
-
+<!-- markdown-link-check-enable -->
 <!-- markdown-link-check-disable -->
 Note: On some systems, you may need to use `pip` instead of `pip3`.
 Alternatively, you can also install through the `.whl` file or in editable mode from the [GitHub repository](https://github.com/ProvableHQ/python-sdk/tree/master/zkml).
