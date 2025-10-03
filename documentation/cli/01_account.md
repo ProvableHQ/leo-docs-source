@@ -17,7 +17,7 @@ We urge you to exercise caution when managing your private keys. `leo account` c
 * [`import`](#leo-account-import) - Derive and Aleo account from a private key.
 * [`sign`](#leo-account-sign) - Sign a message using your Aleo private key.
 * [`verify`](#leo-account-verify) - Verify a message and signature from an Aleo address.
-* [`decrypt`](#leo-account-decrypt) - Decrypt record ciphertext using your Aleo private key or view key
+* [`decrypt`](#leo-account-decrypt) - Decrypt record ciphertexts using your Aleo private key or view key
 
 &nbsp;
 
