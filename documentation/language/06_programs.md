@@ -169,7 +169,7 @@ An async function is used to define computation run on-chain. It is declared as 
 
 Async functions are atomic; they either succeed or fail, and the state is reverted if they fail.
 
-An example of using an async function to perform on-chain state mutation is in the `transfer_public_to_private` transition below, which updates the public account mapping (and thus a user's balance) when called.
+An example of using an async function to perform on-chain state mutation is in the `transfer_public_to_private` transition below, which updates the public `account` mapping (and thus a user's balance) when called.
 
 ```leo showLineNumbers
 program transfer.aleo {
@@ -226,7 +226,6 @@ program transfer.aleo {
     }
 }
 ```
-
 
 If there is no need to create or alter the public on-chain state, async functions are not required.
 
