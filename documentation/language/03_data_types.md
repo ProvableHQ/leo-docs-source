@@ -6,7 +6,11 @@ sidebar_label: Data Types
 [general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
 Variables in Leo are generally declared as: `let {name} : {type} = {value}{type}`.  
 
-However, as of v2.7.0, Leo now supports basic type inference.  As long as the type of the variable is stated in some part of the expression or can be assumed from prior expressions, the Leo code will compile correctly:
+As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.  
+
+If the compiler cannot infer the type, you must provide an explicit type annotation. 
+
+Here are some examples:
 ```leo
 let a: u8 = 2u8; // explicit type - allowed
 let b = 2u8; // type inference - allowed
