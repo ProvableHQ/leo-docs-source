@@ -49,7 +49,7 @@ Higher bit length integers generate more constraints in the circuit, which can s
 
 #### A Note on Leo Integers
 
-Leo will not default to an integer type. The definition of an integer **must** include an explicit type or be able to be inferred.  
+Leo does not assume a default integer type.  Every integer must either have an **explicit type annotation** or a type that can be **inferred by the compiler**. 
 
 ```leo
 let a: u8 = 2u8; // explicit type
