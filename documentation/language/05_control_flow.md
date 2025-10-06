@@ -23,9 +23,8 @@ Conditional statements can be nested.
 
 Leo also supports ternary expressions.  Ternary expressions are declared as `if {condition} ? {then} : {else}`, and can be nested.
 ```leo
-    let a: u8 = 1u8;
-    
-    a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8);
+let a: u8 = 1u8;    
+a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8);
 ```
 
 ### Return Statements
