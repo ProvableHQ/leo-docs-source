@@ -1483,9 +1483,6 @@ Selects `first`, if `condition` is true, otherwise selects `second`, storing the
 [Back to Top](#table-of-standard-operators)
 ***
 
-
-
-
 ### `to_x_coordinate`
 
 ```leo

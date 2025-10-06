@@ -19,8 +19,19 @@ let b = 2u8; // type inference - allowed
 let c : u8 = 2; // type inference - allowed
 
 let d = 2; // ambiguous type - not allowed
-
 ```
+
+Type inference also applies to members within a struct:
+```leo
+struct Foo {
+    x: u8
+}
+
+let f = Foo {
+    x: 5, // inferred to be a `u8`
+};
+```
+
 
 ## Types
 
@@ -68,9 +79,9 @@ These are unsigned integers less than the modulus of the base field. The followi
 smallest and largest field elements.
 
 ```leo
-let a : field = 0field;
+let a: field = 0field;
 let b = 8444461749428370424248824938781546531375899335154063827935233455917409239040field;
-let c : field = 0;
+let c: field = 0;
 ```
 
 ### Group Elements
@@ -82,9 +93,9 @@ A group element is denoted by the x-coordinate of its point; for example,
 `2group` means the point `(2, 5553594316923449299484601589326170487897520766531075014687114064346375156608)`.
 
 ```leo
-let a : group = 0group; // the point with 0 x-coordinate, (0, 1)
+let a: group = 0group; // the point with 0 x-coordinate, (0, 1)
 let b = 1540945439182663264862696551825005342995406165131907382295858612069623286213group;  // the generator point
-let c : group = 0;
+let c: group = 0;
 ```
 
 The aforementioned generator point can be obtained via a constant associated to the `group` type.
@@ -99,9 +110,9 @@ Leo supports the `scalar` type for elements of the scalar field defined by the e
 These are unsigned integers less than the modulus of the scalar field. The following are the smallest and largest scalars.
 
 ```leo
-let a : scalar = 0scalar;
+let a: scalar = 0scalar;
 let b = 2111115437357092606062206234695386632838870926408408195193685246394721360382scalar;
-let c : scalar = 0;
+let c: scalar = 0;
 ```
 
 ### Addresses
