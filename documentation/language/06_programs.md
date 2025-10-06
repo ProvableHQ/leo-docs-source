@@ -4,6 +4,8 @@ title: Programs in Practice
 sidebar_label: Programs in Practice
 ---
 [general tags]: # (program, mapping, transition, function, inline, async_transition, async_function)
+å
+## Mappings
 
 ### Mapping Operations
 
@@ -62,7 +64,7 @@ program test.aleo {
 }
 ```
 
-
+## Functions
 
 ### Transition Function
 
@@ -144,23 +146,28 @@ inline foo(
 }
 ```
 
-The rules for functions (in the traditional sense) are as follows:
+As of Leo v3.0.0, inline functions also support **const generics**:
+```leo showLineNumbers
+inline sum_first_n_ints::[N: u32]() -> u32 {
+    let sum = 0u32;
+    for i in 0u32..N {
+        sum += i + other::[i]();
+    }
+    return sum;
+}
+ 
+transition main() -> u32 {
+    return sum_first_n_ints::[5u32]();
+}
+```
+Acceptable types for generic const parameters are any size of signed or unsigned integer, `bool`,  `scalar`, `group`, `field`, or `address`.
 
-- There are three variants of functions: `transition`, `function`, `inline`.
-- A `transition` can only call a `function`, `inline`, or external `transition`.
-- A `function` can only call an `inline`.
-- An `inline` can only call another `inline`.
-- Direct/indirect recursive calls are not allowed.
 
 ### Async Function
 
-An async function is declared as `async function` and is used to define computation run on-chain. 
-A call to an async function returns a [`Future`](#future) object.
-It is asynchronous because the code gets executed at a later point in time. 
-One of its primary uses is to initiate or change public on chain state within mappings.
-An async function can only be called by an async [transition function](#transition-function) and is executed on chain, after the zero-knowledge proof of the execution of the associated transition is verified.
-Async functions are atomic; they either succeed or fail, and the state is reverted if they fail.
+An async function is used to define computation run on-chain. It is declared as `async function`, and calls to it return a [`Future`](#future) object.  The term asynchronous is used because the code gets executed at a later point in time.  The most common use case is to initiate or change public on chain state within mappings. An async function can only be called by an [`async transition`](#transition-function) and is executed on chain only after the zero-knowledge proof of the execution of the associated transition is verified.
 
+Async functions are atomic; they either succeed or fail, and the state is reverted if they fail.
 
 An example of using an async function to perform on-chain state mutation is in the `transfer_public_to_private` transition below, which updates the public account mapping (and thus a user's balance) when called.
 
@@ -198,7 +205,40 @@ program transfer.aleo {
 }
 ```
 
+Alternatively, you may see async function code declared inside of an `async` blocks within an `async transition` function.  Below is what this would theoretically look like for the same `transfer_public_to_private` transition:
+```leo showLineNumbers
+program transfer.aleo {
+    async transition transfer_public_to_private(
+        receiver: address,
+        public amount: u64
+    ) -> (token, Future) {
+        let new: token = token {
+            owner: receiver,
+            amount,
+        };
+
+        let f : Future = async {
+            let current_amount: u64 = Mapping::get_or_use(account, self.caller, 0u64);
+            Mapping::set(account, self.caller, current_amount - amount);
+        }
+
+        return (new, f);
+    }
+}
+```
+
+
 If there is no need to create or alter the public on-chain state, async functions are not required.
+
+### Function Rules
+
+The rules for functions (in the traditional sense) are as follows:
+
+- There are three variants of functions: `transition`, `function`, `inline`.
+- A `transition` can only call a `function`, `inline`, or external `transition`.
+- A `function` can only call an `inline`.
+- An `inline` can only call another `inline`.
+- Direct/indirect recursive calls are not allowed.
 
 
 ## Limitations

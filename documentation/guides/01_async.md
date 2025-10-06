@@ -44,6 +44,24 @@ program first_mapping.aleo {
 }
 ```
 
+Leo also offers a shorthand for writing onchain code in the form of `async` blocks within `async transition` functions:
+```leo
+program first_mapping.aleo {
+    mapping accumulator: u8 => u64;
+    
+    async transition_increment() -> Future {
+        let f : Future = async {
+            let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, default 0
+            let new_count: u64 = current_count + 1u64;
+            accumulator.set(0u8, new_count);
+        }
+        return f;
+    }
+
+}
+```
+
+
 
 ## Calling async transitions from external programs
 

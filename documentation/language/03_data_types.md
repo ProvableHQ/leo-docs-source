@@ -4,6 +4,8 @@ title: Data Types
 sidebar_label: Data Types
 ---
 [general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
+
+## Type Inference
 Variables in Leo are generally declared as: `let {name} : {type} = {value}{type}`.  
 
 As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.  
@@ -17,7 +19,10 @@ let b = 2u8; // type inference - allowed
 let c : u8 = 2; // type inference - allowed
 
 let d = 2; // ambiguous type - not allowed
+
 ```
+
+## Types
 
 ### Booleans
 
@@ -232,3 +237,15 @@ program test.aleo {
     }
 }
 ```
+
+As of v3.0.0, Leo now supports **const generics** for struct types:
+```
+struct Matrix::[N: u32, M: u32] {
+    data: [field; N * M],
+}
+
+// Usage
+let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
+
+```
+Note that any generic structs is that they cannot be imported outside a program, but can be declared and used in submodules. Acceptable types for generic const parameters are any size of signed or unsigned integer, `bool`,  `scalar`, `group`, `field`, or `address`.
