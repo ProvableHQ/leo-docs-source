@@ -152,7 +152,7 @@ struct Array3 {
 
 A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be a prefix of any other record name.
 
-Records contain component declarations `{visibility} {name}: {type},`. Record component `name`s must not contain the keyword `aleo`. 
+Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`. 
 
 A visibility can be either `constant`, `public`, or `private`.
 Users may also omit the visibility, in which case, Leo will default to `private`.
