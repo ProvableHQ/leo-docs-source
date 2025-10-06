@@ -191,7 +191,7 @@ where `<CIPHERTEXT>` is the ciphertext of a record, and `<KEY>` is private key o
 
 Optionally, you can specify a path to a file containing the key rather than the key itself:
  ```bash
-leo account decrypt --ciphertext <CIPHERTEXT> -f <PATH_TO_KEYFILE
+leo account decrypt --ciphertext <CIPHERTEXT> -f <PATH_TO_KEYFILE>
 ```
 
 If you do not specify either the key or key file, the CLI will attempt use the `PRIVATE_KEY` and `VIEW_KEY` environment variables.

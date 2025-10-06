@@ -4,7 +4,7 @@ title: Programs in Practice
 sidebar_label: Programs in Practice
 ---
 [general tags]: # (program, mapping, transition, function, inline, async_transition, async_function)
-å
+
 ## Mappings
 
 ### Mapping Operations
