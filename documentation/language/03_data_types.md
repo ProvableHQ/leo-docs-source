@@ -256,4 +256,4 @@ struct Matrix::[N: u32, M: u32] {
 // Usage
 let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
 ```
-Note that any generic structs is that they cannot be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters are any integer type, `bool`,  `scalar`, `group`, `field`, or `address`.
+Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`,  `scalar`, `group`, `field`, and `address`.
