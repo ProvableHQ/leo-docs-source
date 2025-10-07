@@ -229,16 +229,13 @@ program transfer.aleo {
 
 If there is no need to create or alter the public on-chain state, async functions are not required.
 
-### Function Rules
+### Function Call Rules
 
-The rules for functions (in the traditional sense) are as follows:
-
-- There are three variants of functions: `transition`, `function`, `inline`.
-- A `transition` can only call a `function`, `inline`, or external `transition`.
-- A `function` can only call an `inline`.
-- An `inline` can only call another `inline`.
-- Direct/indirect recursive calls are not allowed.
-
+- There are three function variants: `transition`, `function`, and `inline`.
+- A `transition` can call: `function`, `inline`, and external `transition`s.
+- A `function` can only call: `inline`s.
+- An `inline` can only call: other `inline`s.
+- Recursive calls (direct or indirect) are not allowed.
 
 ## Limitations
 snarkVM imposes the following limits on Aleo programs:
