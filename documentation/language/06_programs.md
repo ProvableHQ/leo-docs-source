@@ -160,7 +160,7 @@ transition main() -> u32 {
     return sum_first_n_ints::[5u32]();
 }
 ```
-Acceptable types for const generic parameters are any integer type, `bool`, `scalar`, `group`, `field`, or `address`.
+Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
 
 ### Async Function
