@@ -205,7 +205,7 @@ program transfer.aleo {
 }
 ```
 
-Alternatively, you may see async function code declared inside of an `async` blocks within an `async transition` function.  Below is what this would theoretically look like for the same `transfer_public_to_private` transition:
+Alternatively, you may write async code inside of an `async` block within an `async transition` function.  Below is what that would look like for the same `transfer_public_to_private` transition:
 ```leo showLineNumbers
 program transfer.aleo {
     async transition transfer_public_to_private(
