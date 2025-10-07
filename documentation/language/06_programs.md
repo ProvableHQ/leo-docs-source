@@ -151,7 +151,7 @@ As of Leo v3.0.0, inline functions also support **const generics**:
 inline sum_first_n_ints::[N: u32]() -> u32 {
     let sum = 0u32;
     for i in 0u32..N {
-        sum += i + other::[i]();
+        sum += i
     }
     return sum;
 }
