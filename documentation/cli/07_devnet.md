@@ -10,10 +10,11 @@ sidebar_label: Devnet
 :::tip
 Use this command to initialize a local devnet
 :::
-
+<!-- markdown-link-check-disable -->
 :::info
 The default ENDPOINT for a local devnet is `http://localhost:3030`
 :::
+<!-- markdown-link-check-enable -->
 
 To intialize a local devnet, run the following command:
 ```bash
@@ -36,10 +37,10 @@ Specifies which features of snarkOS to use (e.g. `test_network`)
 
 #### `--install`
 Installs (or reinstalls) snarkOS at the provided `--snarkos` path with the given `--snarkos-features`.
-
+<!-- markdown-link-check-disable -->
 #### `--snarkos-version <SNARKOS_VERSION>`
 Specifies which version of snarkOS to use or install.  Defaults to latest version on [crates.io](https://crates.io/crates/snarkos)
-
+<!-- markdown-link-check-enable -->
 #### `--consensus-heights <CONSENSUS_HEIGHTS> `
 Optional blocks heights to use for each successive consensus upgrade.  Must have `--snarkos-features test_network` enabled as well.
 

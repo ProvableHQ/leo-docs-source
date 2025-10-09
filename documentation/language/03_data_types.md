@@ -5,13 +5,41 @@ sidebar_label: Data Types
 ---
 [general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
 
+## Type Inference
+As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.  
+
+If the compiler cannot infer the type, you must provide an explicit type annotation. 
+
+Here are some examples:
+```leo
+let a: u8 = 2u8; // explicit type - allowed
+let b = 2u8; // type inference - allowed
+let c : u8 = 2; // type inference - allowed
+
+let d = 2; // ambiguous type - not allowed
+```
+
+Type inference also applies to members within a struct:
+```leo
+struct Foo {
+    x: u8
+}
+
+let f = Foo {
+    x: 5, // inferred to be a `u8`
+};
+```
+
+
+## Types
+
 ### Booleans
 
-Leo supports the traditional `true` or `false` boolean values. The explicit `bool` type for booleans in statements is
-required.
+Leo supports the traditional `true` or `false` boolean values.
 
 ```leo
 let b: bool = false;
+let a = false
 ```
 
 ### Integers
@@ -35,13 +63,11 @@ Higher bit length integers generate more constraints in the circuit, which can s
 
 #### A Note on Leo Integers
 
-Leo will not default to an integer type. The definition of an integer **must** include an explicit type.  
-**Type casting is supported as of Leo v1.8.2**
+Leo does not assume a default integer type.  Every integer must either have an **explicit type annotation** or a type that can be **inferred by the compiler**. 
 
 ```leo
 let a: u8 = 2u8; // explicit type
 let b: u16 = a as u16; // type casting
-let c: u8 = 2; // implicit type -- not supported
 ```
 
 ### Field Elements
@@ -52,7 +78,8 @@ smallest and largest field elements.
 
 ```leo
 let a: field = 0field;
-let b: field = 8444461749428370424248824938781546531375899335154063827935233455917409239040field;
+let b = 8444461749428370424248824938781546531375899335154063827935233455917409239040field;
+let c: field = 0;
 ```
 
 ### Group Elements
@@ -65,7 +92,8 @@ A group element is denoted by the x-coordinate of its point; for example,
 
 ```leo
 let a: group = 0group; // the point with 0 x-coordinate, (0, 1)
-let b: group = 1540945439182663264862696551825005342995406165131907382295858612069623286213group;  // the generator point
+let b = 1540945439182663264862696551825005342995406165131907382295858612069623286213group;  // the generator point
+let c: group = 0;
 ```
 
 The aforementioned generator point can be obtained via a constant associated to the `group` type.
@@ -81,7 +109,8 @@ These are unsigned integers less than the modulus of the scalar field. The follo
 
 ```leo
 let a: scalar = 0scalar;
-let b: scalar = 2111115437357092606062206234695386632838870926408408195193685246394721360382scalar;
+let b = 2111115437357092606062206234695386632838870926408408195193685246394721360382scalar;
+let c: scalar = 0;
 ```
 
 ### Addresses
@@ -90,7 +119,8 @@ Addresses are defined to enable compiler-optimized routines for parsing and oper
 These semantics will be accompanied by a standard library in a future sprint.
 
 ```leo
-let receiver: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4;
+let sender: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4;
+let receiver = aleo129nrpl0dxh4evdsan3f4lyhz5pdgp6klrn5atp37ejlavswx5czsk0j5dj;
 ```
 
 ### Signatures
@@ -216,3 +246,14 @@ program test.aleo {
     }
 }
 ```
+
+As of v3.0.0, Leo now supports **const generics** for struct types:
+```
+struct Matrix::[N: u32, M: u32] {
+    data: [field; N * M],
+}
+
+// Usage
+let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
+```
+Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`,  `scalar`, `group`, `field`, and `address`.

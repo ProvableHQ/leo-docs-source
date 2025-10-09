@@ -182,8 +182,6 @@ point_math.aleo/sqrt_bitwise(0u32)
 ✔ <b>Command?</b> · #o
 Result: 0u32### Cheatsheet
 
-<!--TODO: Rewrite this cheatsheet to present the information in a more condensed form.-->
-
 ```
 You probably want to start by running a function or transition.
 For instance

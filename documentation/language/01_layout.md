@@ -54,8 +54,7 @@ Given the structure above, the following modules are defined:
 | -------- | ---- | ----------- | ------------------------- |
 | `common.leo` | Module | `common` | `main.leo` : `common::<item>`  |
 | `outer.leo` | Module | `outer` | `main.leo` : `outer::<item>` |
-| `outer/inner.leo` | Submodule | `outer::inner` |`main.leo` : `outer::inner::<item>` <br> `outer.leo` : `inner::<item>`|
-
+| `outer/inner.leo` | Submodule | `outer::inner` |`main.leo` : `outer::inner::<item>` <br></br> `outer.leo` : `inner::<item>`|
 :::info
 Only relative paths are implemented so far. That means that items in `outer.leo` cannot be accessed from items in `inner.leo`, for example. This is limiting for now but will no longer be an issue when we add absolute paths.
 :::

@@ -5,11 +5,10 @@ sidebar_label: Control Flow
 ---
 [general tags]: # (loop, conditional, return)
 
-### If Statements
+### Conditional Statements
 
-If statements are declared as `if {condition} { ... } else if {condition} { ... } else { ... }`.
-If statements can be nested.
-
+Conditional statements are declared as `if {condition} { ... } else if {condition} { ... } else { ... }`.
+Conditional statements can be nested.
 ```leo
     let a: u8 = 1u8;
     
@@ -20,6 +19,12 @@ If statements can be nested.
     } else {
         a += 3u8;
     }
+```
+
+Leo also supports ternary expressions.  Ternary expressions are declared as `{condition} ? {then} : {else}`, and can be nested.
+```leo
+let a: u8 = 1u8;    
+a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8);
 ```
 
 ### Return Statements

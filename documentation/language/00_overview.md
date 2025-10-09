@@ -9,10 +9,11 @@ sidebar_label: Overview
 
 Leo is a **statically typed language**, which means we must know the type of each variable before executing a circuit.
 
-### Explicit Types Required
+Leo does not support `undefined` or `null` values.  When creating a new variable, its type must be either:
 
-There is no `undefined` or `null` value in Leo. When assigning a new variable, **the type of the value must be
-explicitly stated**.
+- **Explicitly stated** using a type annotation, or  
+- **Automatically inferred** by the compiler.  
+
 
 <!-- The exception to this rule is when a new variable inherits its type from a previous variable. -->
 

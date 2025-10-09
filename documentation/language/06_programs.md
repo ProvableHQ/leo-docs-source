@@ -5,6 +5,8 @@ sidebar_label: Programs in Practice
 ---
 [general tags]: # (program, mapping, transition, function, inline, async_transition, async_function)
 
+## Mappings
+
 ### Mapping Operations
 
 Mappings can be read from and modified by calling one of the following functions.
@@ -62,7 +64,7 @@ program test.aleo {
 }
 ```
 
-
+## Functions
 
 ### Transition Function
 
@@ -144,25 +146,30 @@ inline foo(
 }
 ```
 
-The rules for functions (in the traditional sense) are as follows:
+As of Leo v3.0.0, inline functions also support **const generics**:
+```leo showLineNumbers
+inline sum_first_n_ints::[N: u32]() -> u32 {
+    let sum = 0u32;
+    for i in 0u32..N {
+        sum += i
+    }
+    return sum;
+}
+ 
+transition main() -> u32 {
+    return sum_first_n_ints::[5u32]();
+}
+```
+Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
-- There are three variants of functions: `transition`, `function`, `inline`.
-- A `transition` can only call a `function`, `inline`, or external `transition`.
-- A `function` can only call an `inline`.
-- An `inline` can only call another `inline`.
-- Direct/indirect recursive calls are not allowed.
 
 ### Async Function
 
-An async function is declared as `async function` and is used to define computation run on-chain. 
-A call to an async function returns a [`Future`](#future) object.
-It is asynchronous because the code gets executed at a later point in time. 
-One of its primary uses is to initiate or change public on chain state within mappings.
-An async function can only be called by an async [transition function](#transition-function) and is executed on chain, after the zero-knowledge proof of the execution of the associated transition is verified.
+An async function is used to define computation run on-chain. It is declared as `async function`, and calls to it return a [`Future`](#future) object.  The term asynchronous is used because the code gets executed at a later point in time.  The most common use case is to initiate or change public on chain state within mappings. An async function can only be called by an [`async transition`](#transition-function) and is executed on chain only after the zero-knowledge proof of the execution of the associated transition is verified.
+
 Async functions are atomic; they either succeed or fail, and the state is reverted if they fail.
 
-
-An example of using an async function to perform on-chain state mutation is in the `transfer_public_to_private` transition below, which updates the public account mapping (and thus a user's balance) when called.
+An example of using an async function to perform on-chain state mutation is in the `transfer_public_to_private` transition below, which updates the public `account` mapping (and thus a user's balance) when called.
 
 ```leo showLineNumbers
 program transfer.aleo {
@@ -198,8 +205,37 @@ program transfer.aleo {
 }
 ```
 
+Alternatively, you may write async code inside of an `async` block within an `async transition` function.  Below is what that would look like for the same `transfer_public_to_private` transition:
+```leo showLineNumbers
+program transfer.aleo {
+    async transition transfer_public_to_private(
+        receiver: address,
+        public amount: u64
+    ) -> (token, Future) {
+        let new: token = token {
+            owner: receiver,
+            amount,
+        };
+
+        let f : Future = async {
+            let current_amount: u64 = Mapping::get_or_use(account, self.caller, 0u64);
+            Mapping::set(account, self.caller, current_amount - amount);
+        }
+
+        return (new, f);
+    }
+}
+```
+
 If there is no need to create or alter the public on-chain state, async functions are not required.
 
+### Function Call Rules
+
+- There are three function variants: `transition`, `function`, and `inline`.
+- A `transition` can call: `function`, `inline`, and external `transition`s.
+- A `function` can only call: `inline`s.
+- An `inline` can only call: other `inline`s.
+- Recursive calls (direct or indirect) are not allowed.
 
 ## Limitations
 snarkVM imposes the following limits on Aleo programs:
