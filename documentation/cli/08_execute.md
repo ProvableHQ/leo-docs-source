@@ -1,13 +1,13 @@
 ---
 id: cli_execute
-title: leo execute
+title: ""
 sidebar_label: Execute
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_execute, execute, execution, transaction, transition, transaction_status, async_transition)
 
-:::note
-This command requires having a funded account. 
-:::
+# `leo execute`
 
 You can execute a transition function by using the `leo execute` command.  This differs from the `leo run` command in that a transaction and proof of execution are produced, and optionally can be broadcasted to the network.
 
@@ -16,6 +16,10 @@ To execute a Leo transition function with inputs from the command line, run the 
 leo execute <TRANSITION_NAME> <INPUTS>
 ```
 where `<TRANSITION_NAME>` is the name of the `transition` or `async transition` function to execute and `<INPUTS>`is a list of inputs to the program separated by spaces.
+
+:::note
+This command requires having a funded account. 
+:::
 
 Under the hood, this command synthesizes the program circuit and generates proving and verifying keys.
 

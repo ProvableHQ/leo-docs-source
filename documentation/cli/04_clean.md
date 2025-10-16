@@ -1,9 +1,11 @@
 ---
 id: cli_clean
-title: leo clean
+title: ""
 sidebar_label: Clean
 ---
 [general tags]: # (cli, leo_clean, clean)
+
+# `leo clean`
 
 To clean the build directory, run:
 ```bash

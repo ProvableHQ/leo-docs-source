@@ -1,9 +1,13 @@
 ---
 id: cli_add
-title: leo add
+title: ""
 sidebar_label: Add 
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_add, add_dependency, dependency, dependency_management, imports)
+
+# `leo add`
 
 The `leo add` command is used to add a new on-chain or local dependency to the current Leo project.
 

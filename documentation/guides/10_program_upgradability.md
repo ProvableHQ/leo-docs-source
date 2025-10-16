@@ -10,7 +10,7 @@ sidebar_label: Upgrading Programs
 This guide provides a practical overview of Aleo's program upgradability framework, tailored for developers using the Leo language. You'll learn how to configure your program, implement common upgrade patterns, and follow best practices for writing secure, maintainable applications.
 For more details on the underlying protocol, refer to the [Aleo docs](https://developer.aleo.org/guides/program_upgradability/).
 
-## 1. Getting Started: The Upgrade Policy
+## Getting Started: The Upgrade Policy
 
 Your program's upgrade policy is defined by an annotation on a constructor (see below) in the Leo program. 
 The Leo compiler reads the annotation to understand your intent and generates the appropriate underlying code.
@@ -24,7 +24,7 @@ There are four primary upgrade modes:
 | `@checksum`  | Upgrades are governed by an on-chain checksum, often managed by a separate program (e.g., a DAO). |
 | `@custom`    | You write the entire upgrade logic from scratch in the `constructor`.                             |
 
-## 2. Core Mechanics
+## Core Mechanics
 
 Upgradability revolves around a special `constructor` function and on-chain program metadata.
 
@@ -53,7 +53,7 @@ Note. Programs deployed before the upgradability feature (i.e. using Leo version
 
 ---
 
-## 3. Upgrade Patterns in Leo
+## Upgrade Patterns in Leo
 
 Below are some common upgrade patterns in Leo. 
 
@@ -196,7 +196,7 @@ constructor:
 
 -----
 
-## 4\. The Rules: What You Can and Cannot Change
+## The Rules: What You Can and Cannot Change
 
 The protocol enforces strict rules to ensure that upgrades don't break dependent applications or corrupt existing state.
 
@@ -225,7 +225,7 @@ An upgrade **cannot**:
 
 -----
 
-## 5\. Security Checklist
+## Security Checklist
 
 Program mutability introduces new risks. Keep these points in mind:
 
@@ -234,7 +234,7 @@ Program mutability introduces new risks. Keep these points in mind:
 - **Implement time-locks for major upgrades.** Giving users a window to react builds trust.
 - **Plan for "ossification".** Provide a way to make your program immutable (e.g., by transferring admin rights to a burn address) to give users long-term certainty.
 
-## 6\. Legacy Programs: The Final Word
+## Legacy Programs
 
 If you have a program that was deployed before the upgradability feature was enabled (or any program deployed without a `constructor`):
 

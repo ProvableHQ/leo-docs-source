@@ -58,7 +58,7 @@ Dependencies can be removed using the `leo remove` command:
 leo remove credits.aleo
 ```
 
-## Local development
+## Local Development
 When deploying to a local devnet, specify the path for the local dependency as follows:
 
 ```
@@ -82,7 +82,7 @@ The dependencies section in the `program.json` manifest should include the path:
 } 
 ```
 
-## Deploying to a program with local dependencies to a network.
+## Recursive Deployment
 When deploying a program that uses local dependencies, use the following command:
 ```bash
 leo deploy --recursive
