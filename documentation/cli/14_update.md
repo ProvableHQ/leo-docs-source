@@ -1,9 +1,13 @@
 ---
 id: cli_update
-title: leo update
+title: ""
 sidebar_label: Update
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_update, versioning)
+
+# `leo update`
 
 To download and install the latest Leo version run:
 

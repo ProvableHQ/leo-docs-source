@@ -1,9 +1,13 @@
 ---
 id: cli_account
-title: leo account
+title: ""
 sidebar_label: Account
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_account, account, sign, verify, signature, private_key, view_key, address)
+
+# `leo account`
 
 The `leo account` command is used to create and manage Aleo accounts, as well as sign and verify messages
 
@@ -12,7 +16,7 @@ We urge you to exercise caution when managing your private keys. `leo account` c
 :::
 
 
-## Subcommands
+# Subcommands
 * [`new`](#leo-account-new) - Generates a new Aleo account.
 * [`import`](#leo-account-import) - Derive and Aleo account from a private key.
 * [`sign`](#leo-account-sign) - Sign a message using your Aleo private key.

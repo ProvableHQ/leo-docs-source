@@ -1,9 +1,13 @@
 ---
 id: cli_test
-title: leo test
+title: ""
 sidebar_label: Test
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_test, testing)
+
+# `leo test`
 
 This command runs all the test cases specified in the Leo file in `tests/`.  
 

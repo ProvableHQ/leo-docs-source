@@ -1,9 +1,13 @@
 ---
 id: cli_remove
-title: leo remove
+title: ""
 sidebar_label: Remove
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_remove, remove_dependency, dependency, dependency_management, imports)
+
+# `leo remove`
 
 To remove a dependency from your project, run the following command:
 

@@ -1,13 +1,13 @@
 ---
 id: cli_build
-title: leo build
+title: ""
 sidebar_label: Build
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_build, build, compile, program)
 
-## `leo build`
-
-[Back to Top](#commands)
+# `leo build`
 
 To compile your program into Aleo instructions and verify that it builds properly, run:
 ```bash

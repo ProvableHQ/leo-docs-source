@@ -1,20 +1,13 @@
 ---
 id: cli_devnet
-title: leo devnet
+title: ""
 sidebar_label: Devnet
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_devnet, devnet local_devnet, snarkos)
 
-## `leo devnet`
-[Back to Top](#commands)
-:::tip
-Use this command to initialize a local devnet
-:::
-<!-- markdown-link-check-disable -->
-:::info
-The default ENDPOINT for a local devnet is `http://localhost:3030`
-:::
-<!-- markdown-link-check-enable -->
+# `leo devnet`
 
 To intialize a local devnet, run the following command:
 ```bash
@@ -23,6 +16,12 @@ leo devnet --snarkos <SNARKOS>
 where `<SNARKOS>` should be the path to an installed binary of snarkOS.
 
 If you don't have snarkOS installed, you can do so by passing the `--install` flag, which will install the binary at the path specified above.
+
+<!-- markdown-link-check-disable -->
+:::info
+The default ENDPOINT for a local devnet is `http://localhost:3030`
+:::
+<!-- markdown-link-check-enable -->
 
 ### Flags:
 #### `--snarkos <SNARKOS>`

@@ -1,9 +1,13 @@
 ---
 id: cli_upgrade
-title: leo upgrade
+title: ""
 sidebar_label: Upgrade
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_upgrade, upgrade, program)
+
+# `leo upgrade`
 
 Upgrades a program that is already deployed on the network.
 

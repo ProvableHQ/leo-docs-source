@@ -1,9 +1,11 @@
 ---
 id: cli_debug
-title: leo debug
+title: ""
 sidebar_label: Debug
 ---
 [general tags]: # (cli, leo_debug, debug, debugger)
+
+# `leo debug`
 
 To start the interactive debugger, run `leo debug` in a Leo project.
 

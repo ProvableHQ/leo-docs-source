@@ -1,14 +1,18 @@
 ---
 id: cli_query
-title: leo query
+title: ""
 sidebar_label: Query
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_query, query, block, transaction, program, stateroot, committee, mempool, peers, snarkOS, mapping)
+
+# `leo query`
 
 The `leo query` command is used to get data from a network supporting the canonical `snarkOS` endpoints.
 
 
-## Subcommands
+# Subcommands
 * [`block`](#leo-query-block) - Query block information.
 * [`transaction`](#leo-query-transaction) - Query transaction information.
 * [`program`](#leo-query-program) - Query program source code and live mapping values.
@@ -22,7 +26,7 @@ The `leo query` command is used to get data from a network supporting the canoni
 ---
 
 
-### `leo query block`
+## `leo query block`
 
 To fetch blocks from a given network, run the following command
 ```bash
@@ -99,7 +103,7 @@ leo query block <BLOCK_HASH> --to-height
 
 ---
 
-### `leo query transaction`
+## `leo query transaction`
 
 To fetch a specific transaction from a given network, run the following command:
 
@@ -151,7 +155,7 @@ leo query transaction --from-program <PROGRAM_NAME>
 
 ---
 
-### `leo query program`
+## `leo query program`
 
 To fetch a specific program from a given network, run the following command:
 
@@ -191,7 +195,7 @@ The edition of the program is set to `0` upon initial deployment and is incremen
 
 ---
 
-### `leo query stateroot`
+## `leo query stateroot`
 
 This command queries the latest stateroot of a given network. 
 
@@ -206,7 +210,7 @@ The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set man
 
 ---
 
-### `leo query committee`
+## `leo query committee`
 
 This command queries the current validator committee for a given network. 
 
@@ -221,7 +225,7 @@ The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set man
 
 ---
 
-### `leo query mempool`
+## `leo query mempool`
 
 This command queries transactions and transmissions from the memory pool for a node on a given network.
 
@@ -260,7 +264,7 @@ The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set man
 
 ---
 
-### `leo query peers`
+## `leo query peers`
 
 This command queries peer information for a node on a given network.
 

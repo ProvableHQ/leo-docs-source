@@ -40,7 +40,7 @@ You can print the list of commands by running `leo --help`
 * [`update`](./14_update.md) - Update to the latest version of Leo.
 * [`upgrade`](./15_upgrade.md) - Upgrade a deployed program on the Aleo network.
 
-### Universal Flags:
+## Universal Flags
 These flags are available to use alongside all commands in the Leo CLI.
 
 #### `-h`

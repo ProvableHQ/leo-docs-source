@@ -248,7 +248,7 @@ program test.aleo {
 ```
 
 As of v3.0.0, Leo now supports **const generics** for struct types:
-```
+```leo
 struct Matrix::[N: u32, M: u32] {
     data: [field; N * M],
 }

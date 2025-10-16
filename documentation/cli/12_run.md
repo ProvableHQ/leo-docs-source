@@ -1,15 +1,15 @@
 ---
 id: cli_run
-title: leo run
+title: ""
 sidebar_label: Run
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_run, run, transition, async_transition)
 
-:::tip
-Use this command to run your program before [**executing**](#leo-execute) it.
-:::
+# `leo run`
 
-You can run a transition function by using the `leo run` command.  This will simply run the specified transition function with the provided inputs and show what the produced output will be.  It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain.  For that, please see the `leo execute` command.
+You can run a transition function by using the `leo run` command.  This will simply run the specified transition function with the provided inputs and show what the produced output will be.  It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain.  For that, please see the [`leo execute`](08_execute.md) command.
 
 To run a Leo transition function with inputs from the command line, run the following command:
 ```bash

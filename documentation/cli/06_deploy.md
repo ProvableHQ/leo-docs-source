@@ -1,9 +1,13 @@
 ---
 id: cli_deploy
-title: leo deploy
-sidebar_label: deploy
+title: ""
+sidebar_label: Deploy
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (cli, leo_deploy, deploy, deployment, transaction, program)
+
+# `leo deploy`
 
 :::note
 This command requires having a funded account. 
