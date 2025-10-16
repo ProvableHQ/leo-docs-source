@@ -2,8 +2,8 @@
 id: installation
 title: Installation
 sidebar: Installation
-toc_min_heading_level: 1
-toc_max_heading_level: 1
+toc_min_heading_level: 5
+toc_max_heading_level: 5
 ---
 [general tags]: # (installation, install_leo)
 
