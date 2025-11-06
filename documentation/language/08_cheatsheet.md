@@ -125,8 +125,8 @@ Declaring `arrays`
 ```leo
 let arrb: [bool; 2] = [true, false];
 let arr: [u8; 4] = [1u8, 2u8, 3u8, 4u8]; 
+let empty: [u8; 0] = []; 
 ```
-**Arrays cannot be empty.**
 
 Accessing elements
 ```leo
@@ -154,7 +154,7 @@ Declaring tuples
 ```leo
 let t: (u8, bool, field) = (42u8, true, 100field);
 ```
-**Tuples cannot be empty or modified. Same with arrays.**
+**Tuples cannot be empty.**
 
 Accessing tuple elements
 

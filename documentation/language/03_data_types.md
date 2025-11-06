@@ -154,7 +154,7 @@ program test.aleo {
 
 ### Array
 
-Leo supports static arrays. Array types are declared as `[type; length]` and can be nested. Arrays cannot be empty nor modified.
+Leo supports static arrays. Array types are declared as `[type; length]` and can be nested.
 
 Arrays only support constant accesses. The accessor expression must be a constant expression.
 
@@ -168,6 +168,9 @@ let arr: [bool; 4] = [true, false, true, false];
 
 // Nested array
 let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
+
+// Empty array
+let empty: [u32; 0] = [];
 
 struct Bar {
     data: u8,
@@ -207,7 +210,7 @@ transition sum_with_loop(a: [u64; 4]) -> u64 {
 
 ### Tuple
 
-Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and can be nested. Tuples cannot be empty or modified.
+Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and can be nested. Tuples cannot be empty.
 
 Tuples only support constant access with a dot `.` and a constant integer.
 

@@ -143,7 +143,7 @@ leo query transaction {TRANSACTION_ID}
 
 The transaction API endpoint is instructive in verifying whether a transaction succeeded or failed.  Since both successful and failed transaction execute a fee transaction, if only the fee transaction appears, that is a clear indication that the transaction has failed.  Note that on the Testnet and on Mainnet, failed transactions still require a fee since the network is performing a computation.
 
-A full list of API endpoints is available [here](https://developer.aleo.org/apis/provable-api)
+A full list of API endpoints is available [here](https://developer.aleo.org/apis/v2/provable-api)
 
 ## Record Scanning
 
