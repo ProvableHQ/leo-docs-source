@@ -30,6 +30,34 @@ let f = Foo {
 };
 ```
 
+## Option Types
+As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types listed in the section below.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
+```leo
+let w: u8? = 42u8;
+let x: u8? = none;
+```
+A value of type `T?` can be converted to type `T` by calling the `.unwrap()` method on the value.  Note that if the value being unwrapped is `none`, then the program will fail to execute.  To unwrap the value with a fallback for this case, call the `.unwrap_or()` method:
+```leo
+let y = w.unwrap();        // Returns 42u8
+let z = x.unwrap_or(99u8); // Returns 99u8
+```
+Option types can also be stored in arrays and structs:
+```leo
+// Struct of options
+struct Point { 
+    x: u32?, 
+    y: u32? 
+}
+
+// Array of options
+let arr: [u16?; 2] = [1u16, none];
+let first_val = arr[0].unwrap();        // Returns 1u16
+let second_val = arr[1].unwrap_or(0u16); // Returns 0u16
+
+// Structs have option variant as well
+let p: Point? = none;
+let p_val = p.unwrap_or(Point { x: 0u32, y: none }); // Returns default 
+```
 
 ## Types
 
@@ -61,20 +89,19 @@ let n: u64 = 1_000_000u64;
 Higher bit length integers generate more constraints in the circuit, which can slow down computation time.
 :::
 
-#### A Note on Leo Integers
-
+:::info
 Leo does not assume a default integer type.  Every integer must either have an **explicit type annotation** or a type that can be **inferred by the compiler**. 
 
 ```leo
 let a: u8 = 2u8; // explicit type
 let b: u16 = a as u16; // type casting
 ```
+:::
 
 ### Field Elements
 
 Leo supports the `field` type for elements of the base field of the elliptic curve.
-These are unsigned integers less than the modulus of the base field. The following are the
-smallest and largest field elements.
+These are unsigned integers less than the modulus of the base field. The following are the smallest and largest field elements.
 
 ```leo
 let a: field = 0field;
