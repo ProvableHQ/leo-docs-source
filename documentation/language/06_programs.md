@@ -5,30 +5,39 @@ sidebar_label: Programs in Practice
 ---
 [general tags]: # (program, mapping, transition, function, inline, async_transition, async_function)
 
-## Mappings
+## Onchain Storage
 
-### Mapping Operations
+### Mappings
 
-Mappings can be read from and modified by calling one of the following functions.
+There are several functions available to query and modify mappings.  The examples  below will reference the following mapping:
+```leo
+mapping counter: address => u64;
+```
+:::info
+Mapping operations are only allowed in an [async function](#async-function).
+:::
 
+To set a `u64` value for a particular `address` in `counter`:
+```leo
+counter.set(addr,value)
+Mapping::set(counter, addr, value); // Alternate syntax
+```
+To query a `u64` value for a particular `address` in `counter`:
+```leo
+counter.get(addr)
+Mapping::get(counter, addr); // Alternate syntax
+```
+Note that if value at `addr` does not exist above, then the program will fail to execute.  To query a value with a fallback for this case:
+```leo
+counter.get_or_use(addr,fallback_value)
+Mapping::get_or_use(counter, addr, fallback_value); // Alternate syntax
+```
+To remove the value set at particular `address` in `counter`:
+```leo
+counter.remove(addr)
+Mapping::remove(counter, addr); // Alternate syntax
+```
 
-#### get
-
-A get command, e.g. `current_value = Mapping::get(counter, addr);`
-Gets the value stored at `addr` in `counter` and stores the result in `current_value`
-If the value at `addr` does not exist, then the program will fail to execute.
-
-#### get_or_use
-
-A get command that uses the provided default if the key is not present in the mapping,  
-e.g. `let current_value: u64 = Mapping::get_or_use(counter, addr, 0u64);`  
-Gets the value stored at `addr` in `counter` and stores the result in `current_value`.
-If the key is not present, `0u64` is stored in `counter` (associated to the key) and in `current_value`.
-
-#### set
-
-A set command, e.g. `Mapping::set(counter, addr, current_value + 1u64);`
-Sets the `addr` entry as `current_value + 1u64` in `counter`.
 
 #### contains
 
@@ -40,11 +49,8 @@ Returns `true` if `addr` is present in `counter`, `false` otherwise.
 A remove command, e.g. `Mapping::remove(counter, addr);`
 Removes the entry at `addr` in `counter`.
 
-#### Usage 
+#### Example Usage 
 
-:::info
-Mapping operations are only allowed in an [async function](#async-function).
-:::
 
 ```leo showLineNumbers
 program test.aleo {
@@ -63,6 +69,26 @@ program test.aleo {
 
 }
 ```
+
+### Storage
+
+
+
+### Usage
+
+
+Storage vectors supported core operations:
+
+vec.push(10u32);         // Push 10u32 at the end of vector `vec`
+let x = vec.pop();       // Pop and return the last element of `vec`
+let y = vec.get(5);      // Get element at index 5
+vec.set(3, 5u32);        // Set element at index 3 to `5u32`
+let y = vec.len();       // Return the number of elements in `vec`
+vec.swap_remove(3);      // Remove element at index `3` from `vec` and returns 
+                         // it. The removed element is replaced by the last 
+                         // element of the vector.
+
+Internally, the compiler rewrites these high-level constructs into mappings and mapping operations.
 
 ## Functions
 
