@@ -42,7 +42,14 @@ toc_max_heading_level: 3
 | [SHA3_512::hash_to_TYPE](#sha3_512hash_to_type)           | 512-bit input SHA3 hash           |
 | [ChaCha::rand_TYPE](#chacharand_type)                     | ChaCha RNG                        |
 | [signature::verify](#signatureverify)                     | Verify a Schnorr signature        |
-| [ECDSA::verify_VARIANT](#ecdsaverify_variant)             | Verify an ECDSA signature         |
+| [ECDSA::verify_digest](#ecdsaverify_digest)               | Verify an ECDSA signature against a pre-hash |
+| [ECDSA::verify_keccak256](#ecdsaverify_keccak256)         | Verify an ECDSA signature using Keccak256 |
+| [ECDSA::verify_keccak384](#ecdsaverify_keccak384)         | Verify an ECDSA signature using Keccak384 |
+| [ECDSA::verify_keccak512](#ecdsaverify_keccak512)         | Verify an ECDSA signature using Keccak512 |
+| [ECDSA::verify_sha3_256](#ecdsaverify_sha3_256)           | Verify an ECDSA signature using SHA3_256  |
+| [ECDSA::verify_sha3_384](#ecdsaverify_sha3_384)           | Verify an ECDSA signature using SHA3_384  |
+| [ECDSA::verify_sha3_512](#ecdsaverify_sha3_512)           | Verify an ECDSA signature using SHA3_512  |
+
 
 ## Serialization / Deserialization
 
@@ -1712,7 +1719,7 @@ let valid: bool = ECDSA::verify_sha3_256_raw(sig, addr, msg);
 let valid: bool = ECDSA::verify_sha3_256_eth(sig, eth_addr, msg);
 ```
 
-Verifies that the signature `first` was signed by the private key corresponding to the address `second` with respect to the field `third`, storing the result in `destination`.  This function assumes that value passed as `third` is the plaintext message bytes, which will be hashed using the Keccak256 algorithm.  The standard version of `verify_sha3_256` will include the Aleo specific metadata alongside the input, while the `verify_sha3_256_raw` version will exclude the metadata.  The `verify_sha3_256_eth` will both exclude the metadata and assume that `second` is a 20-byte Ethereum address.
+Verifies that the signature `first` was signed by the private key corresponding to the address `second` with respect to the field `third`, storing the result in `destination`.  This function assumes that value passed as `third` is the plaintext message bytes, which will be hashed using the SHA3_256 algorithm.  The standard version of `verify_sha3_256` will include the Aleo specific metadata alongside the input, while the `verify_sha3_256_raw` version will exclude the metadata.  The `verify_sha3_256_eth` will both exclude the metadata and assume that `second` is a 20-byte Ethereum address.
 
 This verification follows the [ECDSA signature scheme](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm); an algorithm widely used across many other blockchains and legacy systems. 
 
@@ -1736,7 +1743,7 @@ let valid: bool = ECDSA::verify_sha3_384_raw(sig, addr, msg);
 let valid: bool = ECDSA::verify_sha3_384_eth(sig, eth_addr, msg);
 ```
 
-Verifies that the signature `first` was signed by the private key corresponding to the address `second` with respect to the field `third`, storing the result in `destination`.  This function assumes that value passed as `third` is the plaintext message bytes, which will be hashed using the Keccak384 algorithm.  The standard version of `verify_sha3_384` will include the Aleo specific metadata alongside the input, while the `verify_sha3_384_raw` version will exclude the metadata.  The `verify_sha3_384_eth` will both exclude the metadata and assume that `second` is a 20-byte Ethereum address.
+Verifies that the signature `first` was signed by the private key corresponding to the address `second` with respect to the field `third`, storing the result in `destination`.  This function assumes that value passed as `third` is the plaintext message bytes, which will be hashed using the SHA3_384  algorithm.  The standard version of `verify_sha3_384` will include the Aleo specific metadata alongside the input, while the `verify_sha3_384_raw` version will exclude the metadata.  The `verify_sha3_384_eth` will both exclude the metadata and assume that `second` is a 20-byte Ethereum address.
 
 This verification follows the [ECDSA signature scheme](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm); an algorithm widely used across many other blockchains and legacy systems. 
 
@@ -1762,7 +1769,7 @@ let valid: bool = ECDSA::verify_sha3_512_raw(sig, addr, msg);
 let valid: bool = ECDSA::verify_sha3_512_eth(sig, eth_addr, msg);
 ```
 
-Verifies that the signature `first` was signed by the private key corresponding to the address `second` with respect to the field `third`, storing the result in `destination`.  This function assumes that value passed as `third` is the plaintext message bytes, which will be hashed using the Keccak512 algorithm.  The standard version of `verify_sha3_512` will include the Aleo specific metadata alongside the input, while the `verify_sha3_512_raw` version will exclude the metadata.  The `verify_sha3_512_eth` will both exclude the metadata and assume that `second` is a 20-byte Ethereum address.
+Verifies that the signature `first` was signed by the private key corresponding to the address `second` with respect to the field `third`, storing the result in `destination`.  This function assumes that value passed as `third` is the plaintext message bytes, which will be hashed using the SHA3_512 algorithm.  The standard version of `verify_sha3_512` will include the Aleo specific metadata alongside the input, while the `verify_sha3_512_raw` version will exclude the metadata.  The `verify_sha3_512_eth` will both exclude the metadata and assume that `second` is a 20-byte Ethereum address.
 
 This verification follows the [ECDSA signature scheme](https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm); an algorithm widely used across many other blockchains and legacy systems. 
 
