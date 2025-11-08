@@ -116,8 +116,8 @@ Broadcasts the transaction to the network upon successful execution.  Without pa
 #### `--save <SAVE>`
 Saves the transaction to the directory located at the `<SAVE>` path.
 
-#### `-y`
 #### `--yes`
+#### `-y`
 The CLI will ask for manual confirmation on several steps throughout the deployment process.  Setting this flag automatically agrees to all confirmations.
 
 :::warning
@@ -131,10 +131,8 @@ Specifes the priority fee for the deployment transaction(s) delimited by `|` and
 1 Credit == 1,000,000 Microcreditss
 :::
 
-
-#### `-f <FEE_RECORDS>`
 #### `--fee-records <FEE_RECORDS>`
-
+#### `-f <FEE_RECORDS>`
 Specifes the record(s) to pay for fees privately, delimited by `|` and used in order. The fees must either be valid plaintext, ciphertext, or `default`.  If not specified, then transaction fees will be public.
 
 

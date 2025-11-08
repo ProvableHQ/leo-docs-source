@@ -33,12 +33,12 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 #### `--endpoint <ENDPOINT>`
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
-#### `-l`
 #### `--local` 
+#### `-l`
 Specifies that the keys should be generated for the local Leo project in the current working directory.
 
-#### `-s <SKIP>`
 #### `--skip <SKIP>`
+#### `-s <SKIP>`
 Specifies to skip the key generation for any function names that contain the provided substrings
 
 
