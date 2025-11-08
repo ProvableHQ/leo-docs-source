@@ -146,6 +146,14 @@ To remove the element at index `idx`, return it, and replace it with the final e
 ```leo
 users.swap_remove(idx);
 ```
+To clear the every element in `users`:
+```leo
+users.clear()
+```
+:::note
+- `clear()` does not actually remove any values from the vector. It just sets the length to 0.
+- Similarly `swap_remove()` and `pop()` do not actually remove values either. They just reduce the length by 1 to make sure the last element is no longer accessible.
+:::
 
 ### Usage
 
