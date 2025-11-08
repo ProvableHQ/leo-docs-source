@@ -233,7 +233,7 @@ let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
 Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`,  `scalar`, `group`, `field`, and `address`.
 
 ## Option Types
-As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, exlucding `address`, `signature`, and `tuple`.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
+As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, excluding `address`, `signature`, and `tuple`.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
 ```leo
 let w: u8? = 42u8;
 let x: u8? = none;
