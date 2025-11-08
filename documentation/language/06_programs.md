@@ -5,90 +5,176 @@ sidebar_label: Programs in Practice
 ---
 [general tags]: # (program, mapping, transition, function, inline, async_transition, async_function)
 
-## Onchain Storage
 
-### Mappings
+## Mappings
 
-There are several functions available to query and modify mappings.  The examples  below will reference the following mapping:
+There are several functions available to query and modify mappings.  The examples below will reference the following mapping:
 ```leo
-mapping counter: address => u64;
+mapping balance: address => u64;
 ```
-:::info
-Mapping operations are only allowed in an [async function](#async-function).
-:::
 
-To set a `u64` value for a particular `address` in `counter`:
+### Querying
+To simply check if a value has been set for a particular `address` in `balance`:
 ```leo
-counter.set(addr,value)
-Mapping::set(counter, addr, value); // Alternate syntax
+balance.contains(addr)
+Mapping::contains(balance, addr); // Alternate syntax
 ```
-To query a `u64` value for a particular `address` in `counter`:
+To query a value for a particular `address` in `balance`:
 ```leo
-counter.get(addr)
-Mapping::get(counter, addr); // Alternate syntax
+balance.get(addr)
+Mapping::get(balance, addr); // Alternate syntax
 ```
 Note that if value at `addr` does not exist above, then the program will fail to execute.  To query a value with a fallback for this case:
 ```leo
-counter.get_or_use(addr,fallback_value)
-Mapping::get_or_use(counter, addr, fallback_value); // Alternate syntax
+balance.get_or_use(addr,fallback_value)
+Mapping::get_or_use(balance, addr, fallback_value); // Alternate syntax
 ```
-To remove the value set at particular `address` in `counter`:
+
+### Modifying
+To set a value for a particular `address` in `balance`:
 ```leo
-counter.remove(addr)
-Mapping::remove(counter, addr); // Alternate syntax
+balance.set(addr,value)
+Mapping::set(balance, addr, value); // Alternate syntax
+```
+To remove the value set at particular `address` in `balance`:
+```leo
+balance.remove(addr)
+Mapping::remove(balance, addr); // Alternate syntax
 ```
 
-
-#### contains
-
-A contains command, e.g. `let contains: bool = Mapping::contains(counter, addr);`
-Returns `true` if `addr` is present in `counter`, `false` otherwise.
-
-#### remove
-
-A remove command, e.g. `Mapping::remove(counter, addr);`
-Removes the entry at `addr` in `counter`.
-
-#### Example Usage 
-
-
+### Usage
 ```leo showLineNumbers
-program test.aleo {
-    mapping counter: address => u64;
+program mapping.aleo {
+    mapping balance: address => u64;
 
     async transition dubble() -> Future {
-        return update_mappings(self.caller);
+        return dubble_onchain(self.caller);
     }
 
-    async function update_mappings(addr: address) {
-        let current_value: u64 = Mapping::get_or_use(counter, addr, 0u64);
-        Mapping::set(counter, addr, current_value + 1u64);
-        current_value = Mapping::get(counter, addr);
-        Mapping::set(counter, addr, current_value + 1u64);
+    async function dubble_onchain(addr: address) {
+        let current_value: u64 = balance.get_or_use(addr, 0u64);
+        balance.set(addr, current_value + 1u64);
+
+        let next_current_value = balance.get(addr);
+        balance.set(addr, current_value + 1u64);
     }
 
 }
 ```
 
-### Storage
+:::info
+Mapping operations are only allowed in an [async function](#async-function) or async block.
+:::
+
+## Storage Variables
+
+Storage variables behave similar to option types.  There are several functions available to query and modify singleton storage variables.  The examples below will reference the following:
+```leo
+storage counter: u64;
+```
+
+### Querying
+To query the value currrently stored at `counter`:
+```leo
+counter.unwrap();
+```
+Note that if `counter` has not been initialized, then the program will fail to execute.  To query the value with a fallback for this case:
+```leo
+counter.unwrap_or(fallback_value);
+```
+### Modifying
+To set a value for `counter`:
+```leo
+counter = 5u64;
+```
+To unset the value at `counter`:
+```leo
+counter = none;
+```
+
+### Usage
+```leo showLineNumbers
+program storage_variable.aleo {
+    storage counter: u64;
+
+    async transition increment() -> Future {
+        return increment_onchain();
+    }
+
+    async function increment_onchain() {
+        let current_value: u64 = counter.unwrap_or(0u64);
+        counter = current_value + 1u64;
+    }
+
+}
+```
+:::info
+Storage variable operations are only allowed in an [async function](#async-function) or async block.
+:::
 
 
+## Storage Vectors
+
+Storage vectors behave like dynamic arrays of values of a given types.  There are several functions available to query and modify storage vectors.  The examples below will reference the following:
+```leo
+storage users: [address];
+```
+
+### Querying
+To query the address currrently stored in `users` at index `idx`:
+```leo
+users.get(idx);
+```
+To get the current length of `users`:
+```leo
+users.len();
+```
+### Modifying
+To set an address for at index `idx` in `users`:
+```leo
+users.set(idx, value);
+```
+To push an address onto the end of `users`:
+```leo
+users.push(value);
+```
+To pop and return the last element of `users`:
+```leo
+users.pop();
+```
+To remove the element at index `idx`, return it, and replace it with the final element of `users`:
+```leo
+users.swap_remove(idx);
+```
 
 ### Usage
 
+```leo showLineNumbers
+program storage_vector.aleo {
+    storage id_numbers: [u64];
 
-Storage vectors supported core operations:
+    async transition add_id(new_id: u64) -> Future {
+        return add_id_onchain(new_id);
+    }
 
-vec.push(10u32);         // Push 10u32 at the end of vector `vec`
-let x = vec.pop();       // Pop and return the last element of `vec`
-let y = vec.get(5);      // Get element at index 5
-vec.set(3, 5u32);        // Set element at index 3 to `5u32`
-let y = vec.len();       // Return the number of elements in `vec`
-vec.swap_remove(3);      // Remove element at index `3` from `vec` and returns 
-                         // it. The removed element is replaced by the last 
-                         // element of the vector.
+    async function add_id_onchain(new_id: u64) {
+        id_numbers.push(new_id);
+    }
 
-Internally, the compiler rewrites these high-level constructs into mappings and mapping operations.
+
+    async transition remove_id(idx: u32) -> Future {
+        return remove_id_onchain(idx);
+    }
+
+    async function remove_id_onchain(idx: u32) {
+        id_numbers.swap_remove(idx);
+    }
+}
+```
+:::info
+Storage vector operations are only allowed in an [async function](#async-function) or async block.
+:::
+
 
 ## Functions
 

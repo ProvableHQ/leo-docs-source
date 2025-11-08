@@ -232,34 +232,8 @@ let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
 ```
 Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`,  `scalar`, `group`, `field`, and `address`.
 
-
-## Type Inference
-As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.  
-
-If the compiler cannot infer the type, you must provide an explicit type annotation. 
-
-Here are some examples:
-```leo
-let a: u8 = 2u8; // explicit type - allowed
-let b = 2u8; // type inference - allowed
-let c : u8 = 2; // type inference - allowed
-
-let d = 2; // ambiguous type - not allowed
-```
-
-Type inference also applies to members within a struct:
-```leo
-struct Foo {
-    x: u8
-}
-
-let f = Foo {
-    x: 5, // inferred to be a `u8`
-};
-```
-
 ## Option Types
-As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types listed in the section below.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
+As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, exlucding `address`, `signature`, and `tuple`.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
 ```leo
 let w: u8? = 42u8;
 let x: u8? = none;
@@ -286,3 +260,29 @@ let second_val = arr[1].unwrap_or(0u16); // Returns 0u16
 let p: Point? = none;
 let p_val = p.unwrap_or(Point { x: 0u32, y: none }); // Returns default 
 ```
+
+## Type Inference
+As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.  
+
+If the compiler cannot infer the type, you must provide an explicit type annotation. 
+
+Here are some examples:
+```leo
+let a: u8 = 2u8; // explicit type - allowed
+let b = 2u8; // type inference - allowed
+let c : u8 = 2; // type inference - allowed
+
+let d = 2; // ambiguous type - not allowed
+```
+
+Type inference also applies to members within a struct:
+```leo
+struct Foo {
+    x: u8
+}
+
+let f = Foo {
+    x: 5, // inferred to be a `u8`
+};
+```
+

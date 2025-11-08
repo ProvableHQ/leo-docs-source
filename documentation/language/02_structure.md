@@ -142,8 +142,8 @@ storage counter: u32;
 ```
 A storage vector is declared as `storage {name}: [{type}]`.  Storage vectors contain dynamic lists of values of a given type.  They are declared at program scope and are stored on chain, similar to mappings.
 ```leo
-// On-chain storage of an `users` storage vector of type address,
-storage users: [address];
+// On-chain storage of an `accounts` storage vector of type address,
+storage accounts: [address];
 ```
 
 ### Struct
