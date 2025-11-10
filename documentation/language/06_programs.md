@@ -29,6 +29,12 @@ Note that if value at `addr` does not exist above, then the program will fail to
 balance.get_or_use(addr,fallback_value)
 Mapping::get_or_use(balance, addr, fallback_value); // Alternate syntax
 ```
+A program can also query values from another program's mappings:
+```leo
+let balance1 = credits.aleo/account.get(addr);
+let balance2 = credits.aleo/account.get_or_use(addr, 0u64);
+```
+
 
 ### Modifying
 To set a value for a particular `address` in `balance`:
@@ -44,7 +50,7 @@ Mapping::remove(balance, addr); // Alternate syntax
 
 ### Usage
 ```leo showLineNumbers
-program mapping.aleo {
+program map.aleo {
     mapping balance: address => u64;
 
     async transition dubble() -> Future {
