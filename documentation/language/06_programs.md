@@ -117,38 +117,38 @@ Storage variable operations are only allowed in an [async function](#async-funct
 
 Storage vectors behave like dynamic arrays of values of a given types.  There are several functions available to query and modify storage vectors.  The examples below will reference the following:
 ```leo
-storage users: [address];
+storage id_numbers: [u64];
 ```
 
 ### Querying
-To query the address currrently stored in `users` at index `idx`:
+To query the element currrently stored in `id_numbers` at index `idx`:
 ```leo
-users.get(idx);
+id_numbers.get(idx);
 ```
-To get the current length of `users`:
+To get the current length of `id_numbers`:
 ```leo
-users.len();
+id_numbers.len();
 ```
 ### Modifying
-To set an address for at index `idx` in `users`:
+To set an element at index `idx` in `id_numbers`:
 ```leo
-users.set(idx, value);
+id_numbers.set(idx, value);
 ```
-To push an address onto the end of `users`:
+To push an element onto the end of `id_numbers`:
 ```leo
-users.push(value);
+id_numbers.push(value);
 ```
-To pop and return the last element of `users`:
+To pop and return the last element of `id_numbers`:
 ```leo
-users.pop();
+id_numbers.pop();
 ```
-To remove the element at index `idx`, return it, and replace it with the final element of `users`:
+To remove the element at index `idx`, return it, and replace it with the final element of `id_numbers`:
 ```leo
-users.swap_remove(idx);
+id_numbers.swap_remove(idx);
 ```
-To clear the every element in `users`:
+To clear the every element in `id_numbers`:
 ```leo
-users.clear()
+id_numbers.clear()
 ```
 :::note
 - `clear()` does not actually remove any values from the vector. It just sets the length to 0.
