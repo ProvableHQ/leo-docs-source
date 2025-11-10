@@ -103,6 +103,11 @@ program second_mapping.aleo {
     } 
 }
 ```
+You can access the inputs to an external future using the following syntax:
+```leo
+let f = imported_program.aleo/some_function();
+let value = f.0;  // or f.1, f.2, f.3 and so on depending on the input index 
+```
 
 
 ## Managing Public and Private State in Async Transitions
