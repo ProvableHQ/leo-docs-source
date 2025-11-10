@@ -93,6 +93,8 @@ leo devnet --snarkos <SNARKOS> --clear-storage
 ```
 Clearing the ledger history may be useful if you wish to redeploy your program without changing the name.  However, this will erase all transaction history and start a new instance of the Aleo blockchain from genesis.
 
+<!-- TODO: Talk about setting consensus heights -->
+
 
 
 ## Deploying and Executing
