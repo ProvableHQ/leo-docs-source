@@ -104,7 +104,7 @@ The height of the chain will increase as blocks are produced.  At various differ
 (ConsensusVersion::V10, 10_525_000),
 (ConsensusVersion::V11, 11_952_000),
 ```
-Obviously you may not want to wait for 10 million blocks to access a newer feature like program upgradability, so `leo devnet` provides a way to manually set the consensus heights via the `--consensus-heights` flag:
+Obviously you don't have time to wait for 10 million blocks to access a newer feature like program upgradability, so `leo devnet` provides a way to manually set the consensus heights via the `--consensus-heights` flag:
 ```bash
 leo devnet --snarkos <SNARKOS> --consensus-heights 0,1,2,3,4,5,6,7,8,9,10
 ```
