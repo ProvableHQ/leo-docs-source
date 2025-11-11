@@ -167,7 +167,7 @@ Records contain component declarations `{visibility} {name}: {type},`. Names of 
 
 A visibility can be either `constant`, `public`, or `private`.Users may also omit the visibility, in which case, Leo will default to `private`.
 
-Record data structures must contain the `owner` component as shown below. When passing a record as input to a program function, the `_nonce: group` and `_version: u8` components are also required but do not need to be declared in the Leo program. They are inserted automatically by the compiler.
+Record data structures must always contain a component named `owner` of type `address`, as shown below. When passing a record as input to a program function, the `_nonce: group` and `_version: u8` components are also required but do not need to be declared in the Leo program. They are inserted automatically by the compiler.
 
 ```aleo showLineNumbers
 record Token {
