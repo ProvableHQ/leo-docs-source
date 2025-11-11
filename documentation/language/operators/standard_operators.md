@@ -21,6 +21,7 @@ toc_max_heading_level: 3
 | [assert_eq](#assert_eq)     | Assert equality                     |
 | [assert_neq](#assert_neq)   | Assert non-equality                 |
 | [block.height](#block.height)| Fetch the latest block height      |
+| [Deserialize:from_bits::[TYPE] ](#deserializefrom_bitstype)            | Deserialize bits to a data type  |
 | [div](#div)                 | Division                            |
 | [div_wrapped](#div_wrapped) | Wrapping division operation         |
 | [double](#double)           | Double                              |
@@ -44,6 +45,7 @@ toc_max_heading_level: 3
 | [pow_wrapped](#pow_wrapped) | Wrapping exponentiation             |
 | [rem](#rem)                 | Remainder                           |
 | [rem_wrapped](#rem_wrapped) | Wrapping remainder                  |
+| [Serialize::to_bits](#serializeto_bits)                   | Serialize data to bits            |
 | [shl](#shl)                 | Shift left                          |
 | [shl_wrapped](#shl_wrapped) | Wrapping shift left                 |
 | [shr](#shr)                 | Shift right                         |
@@ -244,204 +246,6 @@ Divides `first` by `second`, wrapping around at the boundary of the type, and st
 | `u32`  | `u32`  | `u32`       |
 | `u64`  | `u64`  | `u64`       |
 | `u128` | `u128` | `u128`      |
-
-[Back to Top](#table-of-contents)
-***
-
-### `gt`
-
-```leo
-let a: bool = 2u8 > 1u8; // true
-let b: bool = 1u8.gt(1u8); // false
-```
-
-
-
-Checks if `first` is greater than `second`, storing the result in `destination`.
-
-#### Supported Types
-
-| First    | Second   | Destination |
-|----------|----------|-------------|
-| `field`  | `field`  | `bool`   |
-| `i8`     | `i8`     | `bool`   |
-| `i16`    | `i16`    | `bool`   |
-| `i32`    | `i32`    | `bool`   |
-| `i64`    | `i64`    | `bool`   |
-| `i128`   | `i128`   | `bool`   |
-| `u8`     | `u8`     | `bool`   |
-| `u16`    | `u16`    | `bool`   |
-| `u32`    | `u32`    | `bool`   |
-| `u64`    | `u64`    | `bool`   |
-| `u128`   | `u128`   | `bool`   |
-| `scalar` | `scalar` | `bool`   |
-
-[Back to Top](#table-of-contents)
-***
-
-### `gte`
-
-```leo
-let a: bool = 2u8 >= 1u8; // true
-let b: bool = 1u8.gte(1u8); // true
-```
-
-
-
-Checks if `first` is greater than or equal to `second`, storing the result in `destination`.
-
-#### Supported Types
-
-| First    | Second   | Destination |
-|----------|----------|-------------|
-| `field`  | `field`  | `bool`   |
-| `i8`     | `i8`     | `bool`   |
-| `i16`    | `i16`    | `bool`   |
-| `i32`    | `i32`    | `bool`   |
-| `i64`    | `i64`    | `bool`   |
-| `i128`   | `i128`   | `bool`   |
-| `u8`     | `u8`     | `bool`   |
-| `u16`    | `u16`    | `bool`   |
-| `u32`    | `u32`    | `bool`   |
-| `u64`    | `u64`    | `bool`   |
-| `u128`   | `u128`   | `bool`   |
-| `scalar` | `scalar` | `bool`   |
-
-[Back to Top](#table-of-contents)
-***
-
-### `eq`
-
-```leo
-let a: bool = 1u8 == 1u8; // true
-let b: bool = 1u8.eq(2u8); // false
-```
-
-
-
-Compares `first` and `second` for equality, storing the result in `destination`.
-
-#### Supported Types
-
-| First       | Second      | Destination |
-|-------------|-------------|-------------|
-| `address`   | `address`   | `bool`   |
-| `bool`   | `bool`   | `bool`   |
-| `field`     | `field`     | `bool`   |
-| `group`     | `group`     | `bool`   |
-| `i8`        | `i8`        | `bool`   |
-| `i16`       | `i16`       | `bool`   |
-| `i32`       | `i32`       | `bool`   |
-| `i64`       | `i64`       | `bool`   |
-| `i128`      | `i128`      | `bool`   |
-| `u8`        | `u8`        | `bool`   |
-| `u16`       | `u16`       | `bool`   |
-| `u32`       | `u32`       | `bool`   |
-| `u64`       | `u64`       | `bool`   |
-| `u128`      | `u128`      | `bool`   |
-| `scalar`    | `scalar`    | `bool`   |
-| `Signature` | `Signature` | `bool`   |
-| `struct`    | `struct`    | `bool`   |
-| `Record`    | `Record`    | `bool`   |
-
-[Back to Top](#table-of-contents)
-***
-
-### `neq`
-
-```leo
-let a: bool = 1u8 != 1u8; // false
-let b: bool = 1u8.neq(2u8); // true
-```
-
-
-
-Compares `first` and `second` for non-equality, storing the result in `destination`.
-
-#### Supported Types
-
-| First       | Second      | Destination |
-|-------------|-------------|-------------|
-| `address`   | `address`   | `bool`   |
-| `bool`   | `bool`   | `bool`   |
-| `field`     | `field`     | `bool`   |
-| `group`     | `group`     | `bool`   |
-| `i8`        | `i8`        | `bool`   |
-| `i16`       | `i16`       | `bool`   |
-| `i32`       | `i32`       | `bool`   |
-| `i64`       | `i64`       | `bool`   |
-| `i128`      | `i128`      | `bool`   |
-| `u8`        | `u8`        | `bool`   |
-| `u16`       | `u16`       | `bool`   |
-| `u32`       | `u32`       | `bool`   |
-| `u64`       | `u64`       | `bool`   |
-| `u128`      | `u128`      | `bool`   |
-| `scalar`    | `scalar`    | `bool`   |
-| `Signature` | `Signature` | `bool`   |
-| `struct`    | `struct`    | `bool`   |
-| `Record`    | `Record`    | `bool`   |
-
-[Back to Top](#table-of-contents)
-***
-
-### `lt`
-
-```leo
-let a: bool = 1u8 < 2u8; // true
-let b: bool = 1u8.lt(1u8); // false
-```
-
-
-
-Checks if `first` is less than `second`, storing the result in `destination`.
-
-#### Supported Types
-
-| First    | Second   | Destination |
-|----------|----------|-------------|
-| `field`  | `field`  | `bool`   |
-| `i8`     | `i8`     | `bool`   |
-| `i16`    | `i16`    | `bool`   |
-| `i32`    | `i32`    | `bool`   |
-| `i64`    | `i64`    | `bool`   |
-| `i128`   | `i128`   | `bool`   |
-| `u8`     | `u8`     | `bool`   |
-| `u16`    | `u16`    | `bool`   |
-| `u32`    | `u32`    | `bool`   |
-| `u64`    | `u64`    | `bool`   |
-| `u128`   | `u128`   | `bool`   |
-| `scalar` | `scalar` | `bool`   |
-
-[Back to Top](#table-of-contents)
-***
-
-### `lte`
-
-```leo
-let a: bool = 1u8 <= 2u8; // true
-let b: bool = 1u8.lte(1u8); // true
-```
-
-
-
-Checks if `first` is less than or equal to `second`, storing the result in `destination`.
-
-#### Supported Types
-
-| First    | Second   | Destination |
-|----------|----------|-------------|
-| `field`  | `field`  | `bool`   |
-| `i8`     | `i8`     | `bool`   |
-| `i16`    | `i16`    | `bool`   |
-| `i32`    | `i32`    | `bool`   |
-| `i64`    | `i64`    | `bool`   |
-| `i128`   | `i128`   | `bool`   |
-| `u8`     | `u8`     | `bool`   |
-| `u16`    | `u16`    | `bool`   |
-| `u32`    | `u32`    | `bool`   |
-| `u64`    | `u64`    | `bool`   |
-| `u128`   | `u128`   | `bool`   |
-| `scalar` | `scalar` | `bool`   |
 
 [Back to Top](#table-of-contents)
 ***
@@ -1053,6 +857,291 @@ Performs a XOR operation on integer (bitwise) or boolean `first` and `second`, s
 [Back to Top](#table-of-contents)
 ***
 
+## Comparators
+
+
+### `gt`
+
+```leo
+let a: bool = 2u8 > 1u8; // true
+let b: bool = 1u8.gt(1u8); // false
+```
+
+
+
+Checks if `first` is greater than `second`, storing the result in `destination`.
+
+#### Supported Types
+
+| First    | Second   | Destination |
+|----------|----------|-------------|
+| `field`  | `field`  | `bool`   |
+| `i8`     | `i8`     | `bool`   |
+| `i16`    | `i16`    | `bool`   |
+| `i32`    | `i32`    | `bool`   |
+| `i64`    | `i64`    | `bool`   |
+| `i128`   | `i128`   | `bool`   |
+| `u8`     | `u8`     | `bool`   |
+| `u16`    | `u16`    | `bool`   |
+| `u32`    | `u32`    | `bool`   |
+| `u64`    | `u64`    | `bool`   |
+| `u128`   | `u128`   | `bool`   |
+| `scalar` | `scalar` | `bool`   |
+
+[Back to Top](#table-of-contents)
+***
+
+### `gte`
+
+```leo
+let a: bool = 2u8 >= 1u8; // true
+let b: bool = 1u8.gte(1u8); // true
+```
+
+
+
+Checks if `first` is greater than or equal to `second`, storing the result in `destination`.
+
+#### Supported Types
+
+| First    | Second   | Destination |
+|----------|----------|-------------|
+| `field`  | `field`  | `bool`   |
+| `i8`     | `i8`     | `bool`   |
+| `i16`    | `i16`    | `bool`   |
+| `i32`    | `i32`    | `bool`   |
+| `i64`    | `i64`    | `bool`   |
+| `i128`   | `i128`   | `bool`   |
+| `u8`     | `u8`     | `bool`   |
+| `u16`    | `u16`    | `bool`   |
+| `u32`    | `u32`    | `bool`   |
+| `u64`    | `u64`    | `bool`   |
+| `u128`   | `u128`   | `bool`   |
+| `scalar` | `scalar` | `bool`   |
+
+[Back to Top](#table-of-contents)
+***
+
+### `eq`
+
+```leo
+let a: bool = 1u8 == 1u8; // true
+let b: bool = 1u8.eq(2u8); // false
+```
+
+
+
+Compares `first` and `second` for equality, storing the result in `destination`.
+
+#### Supported Types
+
+| First       | Second      | Destination |
+|-------------|-------------|-------------|
+| `address`   | `address`   | `bool`   |
+| `bool`   | `bool`   | `bool`   |
+| `field`     | `field`     | `bool`   |
+| `group`     | `group`     | `bool`   |
+| `i8`        | `i8`        | `bool`   |
+| `i16`       | `i16`       | `bool`   |
+| `i32`       | `i32`       | `bool`   |
+| `i64`       | `i64`       | `bool`   |
+| `i128`      | `i128`      | `bool`   |
+| `u8`        | `u8`        | `bool`   |
+| `u16`       | `u16`       | `bool`   |
+| `u32`       | `u32`       | `bool`   |
+| `u64`       | `u64`       | `bool`   |
+| `u128`      | `u128`      | `bool`   |
+| `scalar`    | `scalar`    | `bool`   |
+| `Signature` | `Signature` | `bool`   |
+| `struct`    | `struct`    | `bool`   |
+| `Record`    | `Record`    | `bool`   |
+
+[Back to Top](#table-of-contents)
+***
+
+### `neq`
+
+```leo
+let a: bool = 1u8 != 1u8; // false
+let b: bool = 1u8.neq(2u8); // true
+```
+
+
+
+Compares `first` and `second` for non-equality, storing the result in `destination`.
+
+#### Supported Types
+
+| First       | Second      | Destination |
+|-------------|-------------|-------------|
+| `address`   | `address`   | `bool`   |
+| `bool`   | `bool`   | `bool`   |
+| `field`     | `field`     | `bool`   |
+| `group`     | `group`     | `bool`   |
+| `i8`        | `i8`        | `bool`   |
+| `i16`       | `i16`       | `bool`   |
+| `i32`       | `i32`       | `bool`   |
+| `i64`       | `i64`       | `bool`   |
+| `i128`      | `i128`      | `bool`   |
+| `u8`        | `u8`        | `bool`   |
+| `u16`       | `u16`       | `bool`   |
+| `u32`       | `u32`       | `bool`   |
+| `u64`       | `u64`       | `bool`   |
+| `u128`      | `u128`      | `bool`   |
+| `scalar`    | `scalar`    | `bool`   |
+| `Signature` | `Signature` | `bool`   |
+| `struct`    | `struct`    | `bool`   |
+| `Record`    | `Record`    | `bool`   |
+
+[Back to Top](#table-of-contents)
+***
+
+### `lt`
+
+```leo
+let a: bool = 1u8 < 2u8; // true
+let b: bool = 1u8.lt(1u8); // false
+```
+
+
+
+Checks if `first` is less than `second`, storing the result in `destination`.
+
+#### Supported Types
+
+| First    | Second   | Destination |
+|----------|----------|-------------|
+| `field`  | `field`  | `bool`   |
+| `i8`     | `i8`     | `bool`   |
+| `i16`    | `i16`    | `bool`   |
+| `i32`    | `i32`    | `bool`   |
+| `i64`    | `i64`    | `bool`   |
+| `i128`   | `i128`   | `bool`   |
+| `u8`     | `u8`     | `bool`   |
+| `u16`    | `u16`    | `bool`   |
+| `u32`    | `u32`    | `bool`   |
+| `u64`    | `u64`    | `bool`   |
+| `u128`   | `u128`   | `bool`   |
+| `scalar` | `scalar` | `bool`   |
+
+[Back to Top](#table-of-contents)
+***
+
+### `lte`
+
+```leo
+let a: bool = 1u8 <= 2u8; // true
+let b: bool = 1u8.lte(1u8); // true
+```
+
+
+
+Checks if `first` is less than or equal to `second`, storing the result in `destination`.
+
+#### Supported Types
+
+| First    | Second   | Destination |
+|----------|----------|-------------|
+| `field`  | `field`  | `bool`   |
+| `i8`     | `i8`     | `bool`   |
+| `i16`    | `i16`    | `bool`   |
+| `i32`    | `i32`    | `bool`   |
+| `i64`    | `i64`    | `bool`   |
+| `i128`   | `i128`   | `bool`   |
+| `u8`     | `u8`     | `bool`   |
+| `u16`    | `u16`    | `bool`   |
+| `u32`    | `u32`    | `bool`   |
+| `u64`    | `u64`    | `bool`   |
+| `u128`   | `u128`   | `bool`   |
+| `scalar` | `scalar` | `bool`   |
+
+[Back to Top](#table-of-contents)
+***
+
+
+## Context-dependent Expressions
+
+### `block.height`
+
+```leo
+async transition matches(height: u32) -> Future {
+    return check_block_height(height);
+} 
+
+async function check_block_height(height: u32) {
+    assert_eq(height, block.height);
+}
+```
+
+
+The `block.height` operator is used to fetch the latest block height in a Leo program. It represents the number of 
+blocks in the chain. In the above example, `block.height` is used in an async function to fetch the latest block 
+height in a program.
+
+:::info
+* The `block.height` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `block.height` operator doesn't take any parameters.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+### `self.address`
+
+```leo
+transition get_program_address() -> address {
+    return self.address;
+}
+```
+
+The `self.address` operator returns the address of the program that calls it.  While programs are identified by their name (`{PROGRAM_NAME}.aleo`), under the hood they have a corresponding Aleo address.
+
+:::info
+* The `self.address` operator doesn't take any parameters.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+### `self.caller`
+
+```leo
+transition matches(addr: address) -> bool {
+    return self.caller == addr;
+}
+```
+
+The `self.caller` operator returns the address of the account/program that invoked the current `transition`.  Note that if the `transition` was called as part of an external program, this operation will return the address of the program, NOT the address of the top-level user. 
+
+:::info
+* The `self.caller` operator doesn't take any parameters.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+### `self.signer`
+
+```leo
+transition matches(addr: address) -> bool {
+    return self.signer == addr;
+}
+```
+
+The `self.signer` operator returns the address of the account/program that invoked the top-level `transition`.  This will be the user account that signed the transaction.
+
+:::info
+* The `self.signer` operator doesn't take any parameters.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+
+
+
+
+
 ## Group/Field Specific Operators
 
 ### `group::GEN`
@@ -1203,84 +1292,87 @@ Extracts the y-coordinate of the group element as a field element.
 
 
 
+## Serialization / Deserialization
 
-## Context-dependent Expressions
-
-### `block.height`
-
+### `Serialize::to_bits`
 ```leo
-async transition matches(height: u32) -> Future {
-    return check_block_height(height);
-} 
+// Standard serialization (includes type metadata)
+let bits: [bool; 58] = Serialize::to_bits(value);
 
-async function check_block_height(height: u32) {
-    assert_eq(height, block.height);
-}
+// Raw serialization (no metadata, just raw bits)
+let bits: [bool; 32] = Serialize::to_bits_raw(value);
+
+// Works with arrays too
+let bits: [bool; 128] = Serialize::to_bits_raw([1u32, 2u32, 3u32, 4u32]);
 ```
 
+By appending `_raw` to the end of the function, the function will omit the metadata of a type and directly serialize the input bits.
 
-The `block.height` operator is used to fetch the latest block height in a Leo program. It represents the number of 
-blocks in the chain. In the above example, `block.height` is used in an async function to fetch the latest block 
-height in a program.
+#### Supported Types
 
-:::info
-* The `block.height` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
-* The `block.height` operator doesn't take any parameters.
-:::
+| First     | Destination  | Destination (Raw)  |
+|-----------|:-------------|--------------------|
+| `address` | `[bool; 279]`| `[bool; 253]`      |
+| `bool`    | `[bool; 27]` | `[bool; 1]`        |
+| `field`   | `[bool; 279]`| `[bool; 253]`      |
+| `group`   | `[bool; 279]`| `[bool; 253]`      |
+| `i8`      | `[bool; 34]` | `[bool; 8]`        |
+| `i16`     | `[bool; 42]` | `[bool; 16]`       |
+| `i32`     | `[bool; 58]` | `[bool; 32]`       |
+| `i64`     | `[bool; 90]` | `[bool; 64]`       |
+| `i128`    | `[bool; 154]`| `[bool; 128]`      |
+| `u8`      | `[bool; 34]` | `[bool; 8]`        |
+| `u16`     | `[bool; 42]` | `[bool; 16]`       |
+| `u32`     | `[bool; 58]` | `[bool; 32]`       |
+| `u64`     | `[bool; 90]` | `[bool; 64]`       |
+| `u128`    | `[bool; 154]`| `[bool; 128]`      |
+| `scalar`  | `[bool; 277]`| `[bool; 251]`      |
 
 [Back to Top](#table-of-contents)
 ***
 
-### `self.address`
+### `Deserialize::from_bits::[TYPE]`
 
 ```leo
-transition get_program_address() -> address {
-    return self.address;
-}
+// Standard deserialization (includes type metadata)
+let bits1: [bool; 58] = Serialize::to_bits(1u32);
+let value1: u32 = Deserialize::from_bits::[u32](bits1);
+
+// Raw deserialization (no metadata, just raw bits)
+let bits2: [bool; 32] = Serialize::to_bits_raw(1u32);
+let value2: u32 = Deserialize::from_bits_raw::[u32](bits2);
+
+// Works with arrays too
+let bits3: [bool; 128] = Serialize::to_bits_raw([1u32, 2u32, 3u32, 4u32]);
+let arr: [u32; 4] = Deserialize::from_bits_raw::[[u32; 4]](bits3);
 ```
 
-The `self.address` operator returns the address of the program that calls it.  While programs are identified by their name (`{PROGRAM_NAME}.aleo`), under the hood they have a corresponding Aleo address.
+By appending `_raw` to the end of the function, the function will omit the metadata of a type and directly serialize the input bits.
 
-:::info
-* The `self.address` operator doesn't take any parameters.
-:::
+#### Supported Types
+
+| TYPE      | Input        | Input (Raw)        | Destination |
+|-----------|:-------------|--------------------|-------------|
+| `address` | `[bool; 279]`| `[bool; 253]`      | `address`   |
+| `bool`    | `[bool; 27]` | `[bool; 1]`        | `bool`      |
+| `field`   | `[bool; 279]`| `[bool; 253]`      | `field`     |
+| `group`   | `[bool; 279]`| `[bool; 253]`      | `group`     |
+| `i8`      | `[bool; 34]` | `[bool; 8]`        | `i8`        |   
+| `i16`     | `[bool; 42]` | `[bool; 16]`       | `i16`       |   
+| `i32`     | `[bool; 58]` | `[bool; 32]`       | `i32`       |    
+| `i64`     | `[bool; 90]` | `[bool; 64]`       | `i64`       |   
+| `i128`    | `[bool; 154]`| `[bool; 128]`      | `i128`      |   
+| `u8`      | `[bool; 34]` | `[bool; 8]`        | `u8`        |    
+| `u16`     | `[bool; 42]` | `[bool; 16]`       | `u16`       |    
+| `u32`     | `[bool; 58]` | `[bool; 32]`       | `u32`       |   
+| `u64`     | `[bool; 90]` | `[bool; 64]`       | `u64`       |    
+| `u128`    | `[bool; 154]`| `[bool; 128]`      | `u128`      |   
+| `scalar`  | `[bool; 277]`| `[bool; 251]`      | `scalar`    |
+
 
 [Back to Top](#table-of-contents)
 ***
 
-### `self.caller`
-
-```leo
-transition matches(addr: address) -> bool {
-    return self.caller == addr;
-}
-```
-
-The `self.caller` operator returns the address of the account/program that invoked the current `transition`.  Note that if the `transition` was called as part of an external program, this operation will return the address of the program, NOT the address of the top-level user. 
-
-:::info
-* The `self.caller` operator doesn't take any parameters.
-:::
-
-[Back to Top](#table-of-contents)
-***
-
-### `self.signer`
-
-```leo
-transition matches(addr: address) -> bool {
-    return self.signer == addr;
-}
-```
-
-The `self.signer` operator returns the address of the account/program that invoked the top-level `transition`.  This will be the user account that signed the transaction.
-
-:::info
-* The `self.signer` operator doesn't take any parameters.
-:::
-
-[Back to Top](#table-of-contents)
-***
 
 
 
