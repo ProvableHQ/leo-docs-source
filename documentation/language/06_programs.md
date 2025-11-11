@@ -34,6 +34,7 @@ A program can also query values from another program's mappings:
 let balance1 = credits.aleo/account.get(addr);
 let balance2 = credits.aleo/account.get_or_use(addr, 0u64);
 ```
+Although values can be queried, a program cannot directly modify another program's mappings.
 
 
 ### Modifying
