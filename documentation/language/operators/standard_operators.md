@@ -766,8 +766,13 @@ Computes `first - second`, wrapping around at the boundary of the type, and stor
 ### `and`
 
 ```leo
-let a: i8 = 1i8 & 1i8; // 1i8
-let b: i8 = 1i8.and(2i8); // 0i8
+// Integer (bitwise) AND
+let a: i8 = 1i8 & 1i8; 
+let b: i8 = 1i8.and(2i8);
+
+// Boolean (logical) AND
+let a: bool = true && true; 
+let b: bool = true.and(false);
 ```
 
 Performs an AND operation on integer (bitwise) or boolean `first` and `second`,
@@ -843,7 +848,7 @@ Perform a NOT operation on an integer (bitwise) or boolean input, storing the re
 
 | Input     | Destination |
 |-----------|-------------|
-| `bool` | `bool`   |
+| `bool`    | `bool`      |
 | `i8`      | `i8`        |
 | `i16`     | `i16`       |
 | `i32`     | `i32`       |
@@ -861,11 +866,14 @@ Perform a NOT operation on an integer (bitwise) or boolean input, storing the re
 ### `or`
 
 ```leo
-let a: bool = true || false; // true
-let b: bool = false.or(false); // false
+// Integer (bitwise) OR
+let a: i8 = 1i8 | 2i8; 
+let b: i8 = 1i8.or(2i8); 
+
+// Boolean (logical) OR
+let a: bool = true || true; 
+let b: bool = true.or(false);
 ```
-
-
 
 Performs an inclusive OR operation on integer (bitwise) or boolean `first` and `second`, storing the result in `destination`.
 
