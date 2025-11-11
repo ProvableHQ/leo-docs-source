@@ -11,8 +11,6 @@ toc_max_heading_level: 3
 
 | Name                                                                    | Description                       |
 |-------------------------------------------------------------------------|:----------------------------------|
-| [Serialize::to_bits](#serializeto_bits)                   | Serialize data to bits            |
-| [Deserialize:from_bits](#deserializefrom_bits)            | Deserialize bits to a data type   |
 | [BHP256::hash_to_TYPE](#bhp256hash_to_type)               | 256-bit input BHP hash            |
 | [BHP256::commit_to_TYPE](#bhp256commit_to_type)           | 256-bit input BHP commitment      |
 | [BHP512::hash_to_TYPE](#bhp512hash_to_type)               | 512-bit input BHP hash            |
@@ -49,88 +47,6 @@ toc_max_heading_level: 3
 | [ECDSA::verify_sha3_256](#ecdsaverify_sha3_256)           | Verify an ECDSA signature using SHA3_256  |
 | [ECDSA::verify_sha3_384](#ecdsaverify_sha3_384)           | Verify an ECDSA signature using SHA3_384  |
 | [ECDSA::verify_sha3_512](#ecdsaverify_sha3_512)           | Verify an ECDSA signature using SHA3_512  |
-
-
-## Serialization / Deserialization
-
-### `Serialize::to_bits`
-```leo
-// Standard serialization (includes type metadata)
-let bits: [bool; 58] = Serialize::to_bits(value);
-
-// Raw serialization (no metadata, just raw bits)
-let bits: [bool; 32] = Serialize::to_bits_raw(value);
-
-// Works with arrays too
-let bits: [bool; 128] = Serialize::to_bits_raw([1u32, 2u32, 3u32, 4u32]);
-```
-
-By appending `_raw` to the end of the function, the function will omit the metadata of a type and directly serialize the input bits.
-
-#### Supported Types
-
-| First     | Destination  | Destination (Raw)  |
-|-----------|:-------------|--------------------|
-| `address` | `[bool; 279]`| `[bool; 253]`      |
-| `bool`    | `[bool; 27]` | `[bool; 1]`        |
-| `field`   | `[bool; 279]`| `[bool; 253]`      |
-| `group`   | `[bool; 279]`| `[bool; 253]`      |
-| `i8`      | `[bool; 34]` | `[bool; 8]`        |
-| `i16`     | `[bool; 42]` | `[bool; 16]`       |
-| `i32`     | `[bool; 58]` | `[bool; 32]`       |
-| `i64`     | `[bool; 90]` | `[bool; 64]`       |
-| `i128`    | `[bool; 154]`| `[bool; 128]`      |
-| `u8`      | `[bool; 34]` | `[bool; 8]`        |
-| `u16`     | `[bool; 42]` | `[bool; 16]`       |
-| `u32`     | `[bool; 58]` | `[bool; 32]`       |
-| `u64`     | `[bool; 90]` | `[bool; 64]`       |
-| `u128`    | `[bool; 154]`| `[bool; 128]`      |
-| `scalar`  | `[bool; 277]`| `[bool; 251]`      |
-
-[Back to Top](#table-of-contents)
-***
-
-### `Deserialize::from_bits::[TYPE]`
-
-```leo
-// Standard deserialization (includes type metadata)
-let bits1: [bool; 58] = Serialize::to_bits(1u32);
-let value1: u32 = Deserialize::from_bits::[u32](bits1);
-
-// Raw deserialization (no metadata, just raw bits)
-let bits2: [bool; 32] = Serialize::to_bits_raw(1u32);
-let value2: u32 = Deserialize::from_bits_raw::[u32](bits2);
-
-// Works with arrays too
-let bits3: [bool; 128] = Serialize::to_bits_raw([1u32, 2u32, 3u32, 4u32]);
-let arr: [u32; 4] = Deserialize::from_bits_raw::[[u32; 4]](bits3);
-```
-
-By appending `_raw` to the end of the function, the function will omit the metadata of a type and directly serialize the input bits.
-
-#### Supported Types
-
-| TYPE      | Input        | Input (Raw)        | Destination |
-|-----------|:-------------|--------------------|-------------|
-| `address` | `[bool; 279]`| `[bool; 253]`      | `address`   |
-| `bool`    | `[bool; 27]` | `[bool; 1]`        | `bool`      |
-| `field`   | `[bool; 279]`| `[bool; 253]`      | `field`     |
-| `group`   | `[bool; 279]`| `[bool; 253]`      | `group`     |
-| `i8`      | `[bool; 34]` | `[bool; 8]`        | `i8`        |   
-| `i16`     | `[bool; 42]` | `[bool; 16]`       | `i16`       |   
-| `i32`     | `[bool; 58]` | `[bool; 32]`       | `i32`       |    
-| `i64`     | `[bool; 90]` | `[bool; 64]`       | `i64`       |   
-| `i128`    | `[bool; 154]`| `[bool; 128]`      | `i128`      |   
-| `u8`      | `[bool; 34]` | `[bool; 8]`        | `u8`        |    
-| `u16`     | `[bool; 42]` | `[bool; 16]`       | `u16`       |    
-| `u32`     | `[bool; 58]` | `[bool; 32]`       | `u32`       |   
-| `u64`     | `[bool; 90]` | `[bool; 64]`       | `u64`       |    
-| `u128`    | `[bool; 154]`| `[bool; 128]`      | `u128`      |   
-| `scalar`  | `[bool; 277]`| `[bool; 251]`      | `scalar`    |
-
-
-[Back to Top](#table-of-contents)
-***
 
 
 ## Bowe-Hopwood-Pedersen (BHP)
