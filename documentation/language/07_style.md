@@ -20,7 +20,7 @@ The Leo compiler rewrites if-else statements inside `transitions` into a sequenc
 This is because the underlying circuit construction does not support branching.
 For precise control over the circuit size, it is recommended to use ternary expressions directly.
 
-```leo title="Example:"
+```leo title="If-Else:"
 if (condition) {
     return a;
 } else {
@@ -28,7 +28,7 @@ if (condition) {
 } 
 ```
 
-```leo title="Alternative:"
+```leo title="Ternary:"
 return condition ? a : b;
 ```
 
@@ -56,25 +56,53 @@ This greatly increases the constraint numbers and slows down the circuit.
 
 ### Async Functions vs. Blocks
 
+For code conciseness and readability, prefer using `async` blocks rather than a separately declared `async function`:
 
-Use the `async` block more often.
+
+```leo title="Async Function:"
+mapping accumulator: u8 => u64;
+
+async transition increment_accumulator() -> Future {
+    return increment_state_onchain();
+}
+async function increment_accumulator_onchain(){
+    let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+    let new_count: u64 = current_count + 1u64;
+    accumulator.set(0u8, new_count);
+
+}
+```
+
+```leo title="Async Block:"
+mapping accumulator: u8 => u64;
+
+async transition increment_accumulator() -> Future {
+    let f : Future = async {
+        let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+        let new_count: u64 = current_count + 1u64;
+        accumulator.set(0u8, new_count);
+    }
+    return f;
+}
+```
+
 
 ### Modules
 
-As of v3.2.0, Leo supports a module system.  For 
+For maximal code cleanliness and readability, take full advantage of Leo's module system:
+```
+src
+├── constants.leo
+├── utils.leo
+├── structs.leo
+└── main.leo
+```
+With the above structure, consider the following:
+- Move all `const`s to the `constants.leo` module
+- Move all `inline` functions to the `utils.leo` module
+- Move some `struct`s to modules (but this may not make sense in the general case)
 
-
-Sounds good to me.  Is this just for readability/cleanliness, or because of maximum file size?
-
-Strictly readability/cleanliness. No impact on size since modules are flattened into a single program eventually anyways. I just think this makes reading a program much more pleasant.
-
-Move all consts to a `constants.leo` module
-Move all inlines to a `utils.leo` module
-Consider moving some `struct`s to modules but that may not make sense in the general case.
-
-The goal is to only have the interface of the program in `main.leo`. Every function I see should correspond to something I can call from an external context such as another program.
-
-
+The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something than can be called from an external context such as another program.  Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
 
 ##  Layout
 
