@@ -6,7 +6,7 @@ sidebar_label: Data Types
 [general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
 
 
-## Types
+## Primitive Types
 
 ### Addresses
 
@@ -126,6 +126,7 @@ program test.aleo {
 }
 ```
 
+## Composite Types
 
 ### Arrays
 
