@@ -7,7 +7,7 @@ sidebar_label: Control Flow
 
 ## Conditional Statements
 
-Conditional statements are declared as `if {condition} { ... } else if {condition} { ... } else { ... }`.
+Conditional statements are declared as `if {condition} {...} else if {condition} {...} else {...}`.
 Conditional statements can be nested.
 ```leo
     let a: u8 = 1u8;
