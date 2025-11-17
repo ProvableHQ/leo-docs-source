@@ -11,13 +11,13 @@ A local devnet can be a heavyweight but reliable way to test your application on
 
 The Leo CLI provides a helpful command to help startup a local devnet:
 ```bash
-leo devnet --snarkos <SNARKOS>
+leo devnet --snarkos <SNARKOS> --snarkos-features test_network
 ```
 The `<SNARKOS>` is the path to an installed binary of [**snarkOS**](https://github.com/ProvableHQ/snarkOS), the decentralized operating system that forms the backbone of the Aleo network.  
 
 If you don't have snarkOS installed, you can pass the `--install` flag and the CLI will automatically download, compile, and store the binary at the path specified by `<SNARKOS>`.
 ```bash
-leo devnet --snarkos <SNARKOS> --install
+leo devnet --snarkos <SNARKOS> --snarkos-features test_network --install
 ```
 :::info
 
@@ -35,7 +35,7 @@ Windows users will need to perform some additional steps in order for snarkOS to
 
 The `tmux` command will allow you to toggle between nodes in your local devnet.  You can enable this by passing the `--tmux` flag upon startup:
 ```bash
-leo devnet --snarkos <SNARKOS> --tmux
+leo devnet --snarkos <SNARKOS> --snarkos-features test_network --tmux
 ```
 :::info
 This feature is only available on Unix-based systems.
@@ -106,13 +106,13 @@ The height of the chain will increase as blocks are produced.  At various differ
 ```
 Obviously you don't have time to wait for 10 million blocks to access a newer feature like program upgradability, so `leo devnet` provides a way to manually set the consensus heights via the `--consensus-heights` flag:
 ```bash
-leo devnet --snarkos <SNARKOS> --consensus-heights 0,1,2,3,4,5,6,7,8,9,10
+leo devnet --snarkos <SNARKOS> --snarkos-features test_network --consensus-heights 0,1,2,3,4,5,6,7,8,9,10
 ```
 Note that if you want to access the latest features, the number of comma-separated arguments you pass to this flag must be exactly equal to the latest consensus version.
 
 Each time you stop and restart the chain, the prior state and history will be saved.  You can clear any prior history by passing the `--clear-storage` flag:
 ```bash
-leo devnet --snarkos <SNARKOS> --clear-storage
+leo devnet --snarkos <SNARKOS> --snarkos-features test_network --clear-storage
 ```
 Clearing the ledger history may be useful if you wish to redeploy your program without changing the name.  However, this will erase all transaction history and start a new instance of the Aleo blockchain from genesis.
 
