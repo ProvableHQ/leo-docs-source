@@ -74,6 +74,40 @@ The primitive types are: `address`, `bool`, `field`, `group`, `i8`, `i16`, `i32`
 We can cast between all of these types except `signature`.
 
 You can cast an `address` to a `field` but not vice versa.
+
+### Option Types
+
+```leo
+// Boolean option value (true or false or none)
+let b_some: bool? = true; 
+let b_none: bool? = none; 
+// Unwrapping option values
+let b_true = b_some.unwrap();
+let b_false = b_none.unwrap_or(false);
+
+// Signed 32-bit integer option (also available: i8, i16, i64, i128)
+let i_some: i32? = -10i32; 
+let i_none: i32? = none; 
+
+// Unsigned 32-bit integer option (also available: u8, u16, u64, u128)
+let ui_some: u32? = 10u32; 
+let ui_none: u32? = none; 
+
+// Field element option (used in cryptographic computations)
+let a_some: field? = 1field; 
+let a_none: field? = none; 
+
+// Group element option (used in elliptic curve operations)
+let g_some: group? = 0group; 
+let g_none: group? = none; 
+
+// Scalar element option (used in elliptic curve arithmetic)
+let s_some: scalar? = 1scalar; 
+let s_none: scalar? = none; 
+```
+Both `address` and `signature` types do not have option variants.
+
+
 ## 4. Records
 Defining a `record`
 ```leo
@@ -103,7 +137,7 @@ Defining a `struct`
 struct Message {
     sender: address,
     object: u64,
-};
+}
 ```
 
 Creating an instance of a `struct`
@@ -119,6 +153,38 @@ Accessing `struct` fields
 let sender_address: address = msg.sender;
 let object_value: u64 = msg.object;
 ```
+
+### Const Generics
+```leo
+struct Matrix::[N: u32, M: u32] {
+    data: [field; N * M],
+}
+
+// Usage
+let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
+```
+Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
+
+### Option Types
+Creating an option type instance of a `struct`
+```leo
+struct Point {
+    x : u32,
+    y : u32
+}
+
+let point1: Point? = Point {
+    x: 8u32,
+    y: 41u32,
+};
+let point2: Point? = none;
+
+let point1_val = point1.unwrap();
+let point2_val = point2.unwrap_or(Point {x: 0u32, y: 0u32,});
+```
+Note that because the `address` and `signature` types do not have option variants, a `struct` containing elements of these types also cannot have an option variant.
+
+
 
 ## 6. Arrays
 Declaring `arrays`
@@ -186,9 +252,44 @@ There are three variants of functions:
 2. **functions**: Can only call inlines.
 3. **inlines**: Can only call inlines. 
 
-**Direct/indirect recursive calls are not allowed**
+**Direct/indirect recursive calls are not allowed.**
 
-### (Internal) Functions
+### Inline
+An `inline` function is used for **small operations**. It gets **inlined at compile time**, meaning it does not create a separate function call
+```leo
+inline foo(
+    a: field,
+    b: field,
+) -> field {
+    return a + b;
+}
+```
+#### Const Generics
+```leo
+inline sum_first_n_ints::[N: u32]() -> u32 {
+    let sum = 0u32;
+    for i in 0u32..N {
+        sum += i
+    }
+    return sum;
+}
+ 
+transition main() -> u32 {
+    return sum_first_n_ints::[5u32]();
+}
+```
+
+Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
+
+✅ Can call: `inline`
+
+❌ Cannot call: `function` or `transition`
+
+
+
+
+
+### Function
 A `function` is used for **computations**. It **cannot** modify state and can only call `inline` functions.
 ```leo
 function compute(a: u64, b: u64) -> u64 {
@@ -199,21 +300,8 @@ function compute(a: u64, b: u64) -> u64 {
 
 ❌ Cannot call: `function` or `transition`
 
-### Inline Functions
-An `inline` function is used for **small operations**. It gets **inlined at compile time**, meaning it does not create a separate function call
-```leo
-inline foo(
-    a: field,
-    b: field,
-) -> field {
-    return a + b;
-}
-```
-✅ Can call: `inline`
 
-❌ Cannot call: `function` or `transition`
-
-### Transition Functions
+### Transition
 A `transition` function **modifies state** (e.g., transfers, updates records). It can call `function` and `inline` functions, but **cannot be called by a function or inline**.
 ```leo
 transition transfer(receiver: address, amount: u64) {
@@ -228,9 +316,27 @@ function subtract(a: u64, b: u64) -> u64 {
 ```
 ✅ Can call: `function`, `inline`
 
-❌ Cannot call: another `transition`
+❌ Cannot call: another `transition` (unless from another program)
 
-## 10. For Loops
+### Async Transition
+An `async transition` function  **modifies private state** exactly like a regular `transition`, but it also includes an onchain portion that can **modify onchain/public state**. It can call `function` and `inline` functions, but **cannot be called by a function or inline**.  An `async transition` **must** return a `Future`.
+```leo
+mapping balances: address => u64
+
+async transition mint(receiver: address, amount: u64) -> Future {
+    return async {
+        let current_balance: u64 = balances.get_or_use(receiver, 0u64);
+        let new_balance: u64 = current_balance + amount;
+        balances.set(receiver, new_balance);
+    };
+}
+
+```
+✅ Can call: `function`, `inline`
+
+❌ Cannot call: another `transition` (unless from another program)
+
+## 10. Loops
 ```leo
 let count: u32 = 0u32;
 
@@ -239,7 +345,23 @@ for i: u32 in 0u32..5u32 {
 }
 ```
 
-## 11. Mappings
+## 11. Conditionals
+```leo
+let a: u8 = 1u8;
+
+if a == 1u8 {
+    a += 1u8;
+} else if a == 2u8 {
+    a += 2u8;
+} else {
+    a += 3u8;
+}
+ 
+a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8); // Ternary format
+```
+
+## 12. Onchain Storage
+### Mappings
 ```leo
 mapping balances: address => u64;
 
@@ -249,51 +371,119 @@ let get_or_use_bal: u64 = Mapping::get_or_use(balances, receiver, 0u64);
 let set_bal: () = Mapping::set(balances, receiver, 100u64);
 let remove_bal: () = Mapping::remove(balances, receiver);
 ```
-
-## 12. Commands
+### Storage Variables
 ```leo
-transition matches(height: u32) -> Future {
-    return check_height_matches(height);
-}
-async function check_height_matches(height: u32) {
-    assert_eq(height, block.height); // block.height returns latest block height
-}
+storage var: u8
 
-let g: group = group::GEN; // the group generator
-let result: u32 = ChaCha::rand_u32(); // generate a random value `ChaCha::rand_<type>()`
-let owner: address = self.caller; // address of the program function caller
-let hash: field = BHP256::hash_to_field(1u32); // hash any type to any type
-let commit: group = Pedersen64::commit_to_group(1u64, 1scalar); // commit any type to a field, group, or address, using a scalar as blinding factor
+let unwrap_var: u8 = var.unwrap();
+let unwrap_or_var: u8 = var.unwrap_or(0u8);
+var = 8u8;
+var = none;
+```
+### Storage Vectors
+```leo
+storage vec: [u8]
+
+let len_vec: u32 = vec.len();
+let val: u8 = vec.get(idx)
+vec.set(idx, value);
+vec.push(value);
+vec.pop();
+vec.swap_remove(idx);
+vec.clear();
+```
+## 13. Commands
+```leo
+async transition matches(height: u32) -> Future {
+    return async {
+        assert_eq(height, block.height); // block.height returns latest block height
+    };
+}
+let this: address = self.address; // address of this program
+let caller: address = self.caller; // address of the program function caller (may be another program)
+let signer: address = self.signer; // address of the transaction signer (end user)
 
 let a: bool = true;
+let b: u8 = 1u8;
+let c: u8 = 2u8;
 assert(a); // assert the value of a is true
-
-let a: u8 = 1u8;
-let b: u8 = 2u8;
-assert_eq(a, a); // assert a and b are equal
-assert_neq(a, b); // assert a and b are not equal
+assert_eq(b, b); // assert a and b are equal
+assert_neq(b, c); // assert a and b are not equal
 ```
 
 
-## 13. Operators
+## 14. Operators
+### Standard
 ```leo
-let sum: u64 = a + b; // arithmetic addition
-let diff: u64 = a - b; // arithmetic subtraction
-let prod: u64 = a * b; // arithmetic multiplication
-let quot: u64 = a / b; // arithmetic division
-let remainder: u64 = a % b; // arithmetic remainder
-let neg: u64 = -a; // negation
+// Arithmetic Operators
+let sum: u64 = a + b; // addition (also has wrapped variant)
+let diff: u64 = a - b; // subtraction (also has wrapped variant)
+let prod: u64 = a * b; // multiplication (also has wrapped variant)
+let quot: u64 = a / b; // division (also has wrapped variant)
+let power: u64 = a ** b; // exponentiation (also has wrapped variant)
+let remainder: u64 = a % b; // remainder (also has wrapped variant)
+let neg: i64 = -(a as i64); // negation
+let abs : i64 = neg.abs(); // absolute value (also has wrapped variant)
+
+// Bitwise/Boolean Operators
+let logical_and: bool = a && b; // logical AND
+let logical_or: bool = a || b; // logical OR
 let bitwise_and: u64 = a & b; // bitwise AND
 let bitwise_or: u64 = a | b; // bitwise OR
 let bitwise_xor: u64 = a ^ b; // bitwise XOR
 let bitwise_not: u64 = !a; // bitwise NOT
-let logical_and: bool = a && b; // logical AND
-let logical_or: bool = a || b; // logical OR
+let bitwise_shl: u64 = a << b // bitwise shift left (also has wrapped variant)
+let bitwise_shr: u64 = a >> b // bitwise shift left (also has wrapped variant)
+
+// Comparators
 let eq: bool = a == b; // equality
-let neq: bool = a != b; // non-Equality
+let neq: bool = a != b; // non-equality
 let lt: bool = a < b; // less than
 let lte: bool = a <= b; // less than or equal
 let gt: bool = a > b; // greater than
 let gte: bool = a >= b; // greater than or equal
+
+// Group & Field Operators
+let g: group = group::GEN; // the group generator
+let x: field = 0group.to_x_coordinate(); // x-coordinate of a group element 
+let y: field = 0group.to_y_coordinate(); // y-coordinate of a group element 
+let doubled: group = 1field.double();  // Doubles the field/group element
+let inverse: field = 1field.inv(); // Multiplicative inverse of the field/group element
+let squared: field = 1field.square(); // Square of the field/group element
+let root: field = 1field.square_root(); // Square root of the field/group element
+
+// Context-dependent Expressions
+let this: address = self.address;  // Address of program
+let caller: address = self.caller; // Address of function caller
+let signer: address = self.signer; // Address of tx signer (origin)
+
+// Bit Serialization/Deserialization
+let bits: [bool; 58] = Serialize::to_bits(value);  // Standard serialization (includes type metadata)
+let raw_bits: [bool; 32] = Serialize::to_bits_raw(value); // Raw serialization (no metadata, just raw bits)
 ```
 
+### Cryptographic
+```leo
+// Randomization 
+let rand: u32 = ChaCha::rand_u32(); // generate a random value `ChaCha::rand_<type>()`
+
+// Hash Functions (BHP, Pedersen, Poseidon, Keccak, SHA3)
+let hash: field = BHP256::hash_to_field(1u32); // hash any type to any type
+let hash_raw: address = Poseidon2::hash_to_address_raw(1u8); // hash any raw type to any type
+let hash_native: [bool; 256] = Keccak256::hash_native(0field); // hash any type to an array of bits (only available for Keccak and SHA3)
+let hash_native_raw: [bool; 256] = Keccak256::hash_native_raw(0field); // hash any raw type to an array of bits (only available for Keccak and SHA3)
+
+// Commitment Algorithms (BHP, Pedersen)
+let commit: group = Pedersen64::commit_to_group(1u64, 1scalar); // commit any type to a field, group, or address, using a scalar as blinding factor (salt)
+
+// Schnorr Signatures
+let schnorr: bool = signature::verify(sig, addr, 0field) // Schnorr Signature Verification 
+
+// ECDSA Signatures (Keccak, SHA3)
+let ecdsa: bool = ECDSA::verify_keccak256(sig, addr, msg); // Verify an ECDSA signature against an ECDSA public key and the Keccak256 hash of a message
+let ecdsa_raw: bool = ECDSA::verify_keccak256_raw(sig, addr, msg); // Verify an ECDSA signature against an ECDSA public key and the Keccak256 hash of a raw message
+let ecdsa_eth: bool = ECDSA::verify_keccak256_eth(sig, eth_addr, msg); // Verify an ECDSA signature against an Ethereum address and the Keccak256 hash of a raw message
+
+let ecdsa_digest: bool = ECDSA::verify_digest(sig, addr, digest); // Verify an ECDSA signature against an ECDSA public key and a prehashed message
+let ecdsa_digest_eth: bool = ECDSA::verify_digest_eth(sig, eth_addr, digest); Verify an ECDSA signature against an Ethereum address and a prehashed message
+```

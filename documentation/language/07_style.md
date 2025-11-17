@@ -1,7 +1,7 @@
 ---
 id: style
-title: Style Guide
-sidebar: Style Guide
+title: Best Practices
+sidebar: Best Practices
 ---
 [general tags]: # ()
 
@@ -12,8 +12,99 @@ This guide is a living document.
 As new Leo programming conventions arise and old ones become obsolete this guide should reflect the changes.
 Feel free to add your comments and recommendations [here](#contributing).
 
+## Content
 
-## Code Layout
+### Conditional Branches
+
+The Leo compiler rewrites if-else statements inside `transitions` into a sequence of ternary expressions.
+This is because the underlying circuit construction does not support branching.
+For precise control over the circuit size, it is recommended to use ternary expressions directly.
+
+```leo title="If-Else:"
+if (condition) {
+    return a;
+} else {
+    return b;
+} 
+```
+
+```leo title="Ternary:"
+return condition ? a : b;
+```
+
+#### Why?
+Ternary expressions are the cheapest form of conditional.
+We can resolve the *first expression* and *second expression* values before evaluating the *condition*.
+This is very easy to convert into a circuit because we know that each expression does not depend on information in later statements.
+
+In the original `Example`,
+We cannot resolve the return statements before evaluating the condition.
+As a solution, Leo creates branches in the circuit so both paths can be evaluated.
+
+```leo title="branch 1, condition = true"
+return a;
+```
+
+```leo title="branch 2, condition = false"
+return b;
+```
+When the input value `condition` is fetched at proving time, we select a branch of the circuit to evaluate.
+Observe that the statement `return a` is repeated in both branches.
+The cost of every computation within the conditional will be doubled.
+This greatly increases the constraint numbers and slows down the circuit.
+
+
+### Async Functions vs. Blocks
+
+For code conciseness and readability, prefer using `async` blocks rather than a separately declared `async function`:
+
+
+```leo title="Async Function:"
+mapping accumulator: u8 => u64;
+
+async transition increment_accumulator() -> Future {
+    return increment_state_onchain();
+}
+async function increment_accumulator_onchain(){
+    let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+    let new_count: u64 = current_count + 1u64;
+    accumulator.set(0u8, new_count);
+
+}
+```
+
+```leo title="Async Block:"
+mapping accumulator: u8 => u64;
+
+async transition increment_accumulator() -> Future {
+    let f : Future = async {
+        let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+        let new_count: u64 = current_count + 1u64;
+        accumulator.set(0u8, new_count);
+    }
+    return f;
+}
+```
+
+
+### Modules
+
+For maximal code cleanliness and readability, take full advantage of Leo's module system:
+```
+src
+├── constants.leo
+├── utils.leo
+├── structs.leo
+└── main.leo
+```
+With the above structure, consider the following:
+- Move all `const`s to the `constants.leo` module
+- Move all `inline` functions to the `utils.leo` module
+- Move some `struct`s to modules (but this may not make sense in the general case)
+
+The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something than can be called from an external context such as another program.  Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
+
+##  Layout
 
 ### Indentation
 4 spaces per indentation level.
@@ -113,50 +204,6 @@ let a: A = A {
 };
 ```
 
-## Common Patterns
-
-Building off of the style guide, here is a list of common patterns that a Leo developer may encounter
-as well as the recommended code solution.
-
-### Conditional Branches
-
-The Leo compiler rewrites if-else statements inside `transitions` into a sequence of ternary expressions.
-This is because the underlying circuit construction does not support branching.
-For precise control over the circuit size, it is recommended to use ternary expressions directly.
-
-```leo title="Example:"
-if (condition) {
-    return a;
-} else {
-    return b;
-} 
-```
-
-```leo title="Alternative:"
-return condition ? a : b;
-```
-
-#### Why?
-Ternary expressions are the cheapest form of conditional.
-We can resolve the *first expression* and *second expression* values before evaluating the *condition*.
-This is very easy to convert into a circuit because we know that each expression does not depend on information in later statements.
-
-In the original `Example`,
-We cannot resolve the return statements before evaluating the condition.
-As a solution, Leo creates branches in the circuit so both paths can be evaluated.
-
-```leo title="branch 1, condition = true"
-return a;
-```
-
-```leo title="branch 2, condition = false"
-return b;
-```
-When the input value `condition` is fetched at proving time, we select a branch of the circuit to evaluate.
-Observe that the statement `return a` is repeated in both branches.
-The cost of every computation within the conditional will be doubled.
-This greatly increases the constraint numbers and slows down the circuit.
-
 ## Contributing
 
 Thank you for helping make Leo better!
@@ -165,7 +212,7 @@ Before contributing, please view the [Contributor Code of Conduct](https://githu
 By participating in this project - In the issues, pull requests, or Gitter channels -
 you agree to abide by the terms.
 
-## Report an Issue
+### Report an Issue
 
 To report an issue, please use the [GitHub issues tracker](https://github.com/ProvableHQ/leo/issues). When reporting issues, please mention the following details:
 
@@ -178,14 +225,14 @@ To report an issue, please use the [GitHub issues tracker](https://github.com/Pr
 
 Reducing the source code that caused the issue to a bare minimum is always very helpful and sometimes clarifies a misunderstanding.
 
-## Make a Pull Request
+### Make a Pull Request
 
 Start by forking off of the `mainnet` branch to make your changes. Commit messages should clearly explain why and what you changed.
 
 If you need to pull in any changes from the `mainnet` branch after making your fork (for example, to resolve potential merge conflicts),
 please avoid using git merge and instead, git rebase your branch. Rebasing will help us review your changes easily.
 
-### Tools Required
+#### Tools Required
 
 To build Leo from source you will need the following tools:
 - The latest Rust stable version and nightly version.
@@ -195,23 +242,23 @@ To build Leo from source you will need the following tools:
 - Clippy
     - Via rustup, if you didn't do the default rustup install `rustup component add clippy`.
 
-### Formatting
+#### Formatting
 
 Please do the following before opening a PR.
 - `cargo +nightly fmt --all` will format all your code.
 - `cargo clippy --all-features --examples --all --benches`
 
-### Tests
+#### Tests
 
 If your code adds new functionality, please write tests to confirm the new features function as expected. Refer to existing tests for examples of how tests are expected to be written. Please read refer to the [parser tests section](#parser-tests). To run the tests please use the following command `cargo test --all --features ci_skip --no-fail-fast`.
 
-#### **Parser Tests**
+##### **Parser Tests**
 
 In the root directory of the repository, there is a "tests" directory.
 To add a parser test, look at the Example Leo files in the parser sub-directory.
 Then when running the test command, make sure you have the environment variable `CLEAR_LEO_TEST_EXPECTATIONS` set to true. For example, on a UNIX environment, you could run the following command `CLEAR_LEO_TEST_EXPECTATIONS=true cargo test --all --features ci_skip --no-fail-fast`.
 
-### Grammar
+#### Grammar
 
 [The `grammars` repository](https://github.com/ProvableHQ/grammars) contains a file [`leo.abnf`](https://github.com/ProvableHQ/grammars/blob/master/leo.abnf) that has the Leo grammar rules in the ABNF format.
 If your changes affect a grammar rule, we may ask you to modify it in that `.abnf` file.
