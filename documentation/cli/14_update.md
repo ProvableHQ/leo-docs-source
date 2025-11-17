@@ -30,11 +30,11 @@ leo update --name v3.0.0
 ```
 
 ### Flags:
-#### `-l`
 #### `--list`
+#### `-l`
 Lists all available versions of Leo.
 
-#### `-n`
 #### `--name`
+#### `-n`
 An optional release name if you wish to install a specific version of Leo.  By default, the command will look for the latest release.
 

@@ -43,12 +43,12 @@ You can print the list of commands by running `leo --help`
 ## Universal Flags
 These flags are available to use alongside all commands in the Leo CLI.
 
-#### `-h`
 #### `--help`
+#### `-h`
 Prints available commands and flags.
 
-#### `-V`
 #### `--version`
+#### `-V`
 Prints the currently installed version of Leo.
 
 #### `-q`
