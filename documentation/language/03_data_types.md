@@ -6,7 +6,17 @@ sidebar_label: Data Types
 [general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
 
 
-## Types
+## Primitive Types
+
+### Addresses
+
+Addresses are defined to enable compiler-optimized routines for parsing and operating over addresses.
+These semantics will be accompanied by a standard library in a future sprint.
+
+```leo
+let sender: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4;
+let receiver = aleo129nrpl0dxh4evdsan3f4lyhz5pdgp6klrn5atp37ejlavswx5czsk0j5dj;
+```
 
 ### Booleans
 
@@ -87,15 +97,6 @@ let b = 211111543735709260606220623469538663283887092640840819519368524639472136
 let c: scalar = 0;
 ```
 
-### Addresses
-
-Addresses are defined to enable compiler-optimized routines for parsing and operating over addresses.
-These semantics will be accompanied by a standard library in a future sprint.
-
-```leo
-let sender: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4;
-let receiver = aleo129nrpl0dxh4evdsan3f4lyhz5pdgp6klrn5atp37ejlavswx5czsk0j5dj;
-```
 
 ### Signatures
 
@@ -125,8 +126,9 @@ program test.aleo {
 }
 ```
 
+## Composite Types
 
-### Array
+### Arrays
 
 Leo supports static arrays. Array types are declared as `[type; length]` and can be nested. Arrays cannot be empty nor modified.
 
@@ -179,7 +181,7 @@ transition sum_with_loop(a: [u64; 4]) -> u64 {
 }
 ```
 
-### Tuple
+### Tuples
 
 Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and can be nested. Tuples cannot be empty or modified.
 
@@ -232,8 +234,25 @@ let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
 ```
 Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`,  `scalar`, `group`, `field`, and `address`.
 
+### Records
+
+A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is the method of encoding private state on Aleo.  Records are declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be a prefix of any other record name.
+
+Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`.  The visibility qualifier may be specified as `constant`, `public`, or `private`. If no qualifier is provided, Leo defaults to `private`.
+
+Record data structures must always contain a component named `owner` of type `address`, as shown below. When passing a record as input to a program function, the `_nonce: group` and `_version: u8` components are also required but do not need to be declared in the Leo program. They are inserted automatically by the compiler.
+
+```aleo showLineNumbers
+record Token {
+    // The token owner.
+    owner: address,
+    // The token amount.
+    amount: u64,
+}
+```
+
 ## Option Types
-As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, excluding `address`, `signature`, and `tuple`.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
+As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, excluding `record`, `address`, `signature`, and `tuple`.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
 ```leo
 let w: u8? = 42u8;
 let x: u8? = none;
