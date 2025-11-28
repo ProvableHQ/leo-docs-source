@@ -5,7 +5,7 @@ sidebar_label: Project Layout
 ---
 [general tags]: # (project, project_layout, manifest, module)
 
-## The Manifest
+## Manifest
 
 **program.json** is the Leo manifest file that configures our package.
 ```json title="program.json"
@@ -26,12 +26,109 @@ The program ID in `program` is the official name that other developers will be a
 
 Dependencies will be added to the field of the same name, as they are added. The dependencies are also pegged in the **leo.lock** file.
 
-## The Code
 
-The `src/` directory is where all of your Leo code will live.  The main entry point of your project is a file in this directory.appropriately named `main.leo`.  Calls to many of the Leo CLI commands will require you to have this file within your project in order to succeed properly.
+The `src/` directory is where all of your Leo code will live.  The main entry point of your project is a file in this directory appropriately named `main.leo`.  Calls to many of the Leo CLI commands will require you to have this file within your project in order to succeed properly.
 
 
-### Modules 
+## Programs
+
+A program is a collection of code (its functions) and data (its types) that resides at a
+[program ID](#program-id) on the Aleo blockchain. A program is declared as `program {name}.{network} { ... }`.
+The body of the program is delimited by curly braces `{}`.
+
+```leo title=main.leo
+import foo.aleo;
+
+program hello.aleo {
+    const FOO: u64 = 1u64;
+    mapping account: address => u64;
+
+    record Token {
+        owner: address,
+        amount: u64,
+    }
+
+    struct Message {
+        sender: address,
+        object: u64,
+    }
+
+    async transition mint_public(
+        public receiver: address,
+        public amount: u64,
+    ) -> (Token, Future) {
+        return (Token {
+            owner: receiver,
+            amount,
+        }, update_state(receiver, amount));
+    }
+
+    async function update_state(
+        public receiver: address,
+        public amount: u64,
+    ) {
+        let current_amount: u64 = Mapping::get_or_use(account, receiver, 0u64);
+        Mapping::set(account, receiver, current_amount + amount);
+   }
+
+    function compute(a: u64, b: u64) -> u64 {
+        return a + b + FOO;
+    }
+}
+```
+
+
+
+The following must be declared inside the scope of a program in a Leo file:
+
+- [Constants](#constant)
+- [Mappings](#mapping) and [Storage](#storage)
+- [Records](#record)
+- [Structs](#struct)
+- [Transitions](#transition-function) and [Async Transitions](#async-function)
+- [Functions](#transition-function) and [Async Functions](#async-function)
+- [Inlines](#inline)
+
+The following must be declared outside the scope of a program in a Leo file:
+
+- [Imports](#imports)
+
+Declarations are locally accessible within a program file.  If you need a declaration from another Leo file, you must import it.
+### Imports
+
+You can import dependencies that are downloaded to the `imports` directory.
+An import is declared as `import {filename}.aleo;`
+The dependency resolver will pull the imported program from the network or the local filesystem.
+
+```leo showLineNumbers
+import foo.aleo; // Import all `foo.aleo` declarations into the `hello.aleo` program.
+
+program hello.aleo { }
+```
+
+### Program ID
+
+A program ID is declared as `{name}.{network}`.
+
+The first character of a `name` must be a lowercase letter.
+`name` can only contain lowercase letters, numbers, and underscores, and must not contain a double underscore (`__`) or the keyword `aleo` in it.
+
+Currently, `aleo` is the only supported `network` domain.
+
+```leo showLineNumbers
+program hello.aleo; // valid
+
+program Foo.aleo;   // invalid
+program baR.aleo;   // invalid
+program 0foo.aleo;  // invalid
+program 0_foo.aleo; // invalid
+program _foo.aleo;  // invalid
+program foo__bar.aleo;  // invalid
+program aleo.aleo;  // invalid
+```
+
+
+## Modules 
 
 In addition to your main file, Leo also supports a module system as of v3.2.0.
 
@@ -73,6 +170,7 @@ inline increment(x: field) -> field {
     return 1field;
 }
 ```
+
 
 
 <!-- 
