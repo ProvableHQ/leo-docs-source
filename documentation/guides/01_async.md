@@ -14,7 +14,7 @@ The execution of on-chain code is treated as an `async function` call which retu
 
 ## Managing Public State
 
-On-chain data is stored in publicly in one of three data structures: mappings, storage variables, and storage vectors  Any logic that reads from or updates the state of these structures must be contained within an `async function` block as follows: 
+On-chain data is stored publicly in one of three data structures: mappings, storage variables, and storage vectors.  Any logic that reads from or updates the state of these structures must be contained within an `async function` block as follows: 
 
 ```leo
 program first_public_state.aleo {
@@ -23,13 +23,13 @@ program first_public_state.aleo {
     storage queue: [u8];
 
     async function increment_state_onchain(){
-        let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, default 0
+        let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, defaults to 0
         let new_count: u64 = current_count + 1u64;
         accumulator.set(0u8, new_count);
     }
 
     async function increment_count_onchain(){
-        let current_count: u8 = count.unwrap_or(0u8); // Get current value, default 0
+        let current_count: u8 = count.unwrap_or(0u8); // Get current value, defaults to 0
         count = current_count + 1u8;
     }
 
@@ -56,7 +56,7 @@ program first_public_state.aleo {
         return increment_state_onchain();
     }
     async function increment_accumulator_onchain(){
-        let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, default 0
+        let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, defaults to 0
         let new_count: u64 = current_count + 1u64;
         accumulator.set(0u8, new_count);
     }
@@ -68,7 +68,7 @@ program first_public_state.aleo {
         return increment_count_onchain();
     }
     async function increment_count_onchain(){
-        let current_count: u8 = count.unwrap_or(0u8); // Get current value, default 0
+        let current_count: u8 = count.unwrap_or(0u8); // Get current value, defaults to 0
         count = current_count + 1u8;
     }
 
@@ -96,7 +96,7 @@ program first_public_state.aleo {
     //=============================================================
     async transition increment_accumulator() -> Future {
         let f : Future = async {
-            let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, default 0
+            let current_count: u64 = accumulator.get_or_use(0u8, 0u64); // Get current value, defaults to 0
             let new_count: u64 = current_count + 1u64;
             accumulator.set(0u8, new_count);
         }
@@ -108,7 +108,7 @@ program first_public_state.aleo {
     //=============================================================
     async transition increment_count() -> Future {
         let f : Future = async {
-            let current_count: u8 = count.unwrap_or(0u8); // Get current value, default 0
+            let current_count: u8 = count.unwrap_or(0u8); // Get current value, defaults to 0
             count = current_count + 1u8;
         }
         return f;
