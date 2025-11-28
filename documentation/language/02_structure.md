@@ -125,14 +125,25 @@ program hello.aleo { }
 ### Mappings
 
 A mapping is declared as `mapping {name}: {key-type} => {value-type}`.
-Mappings contain key-value pairs.
-Mappings are stored on chain.
+Mappings contain key-value pairs and stored on chain.
 
-```leo showLineNumbers
+```leo
 // On-chain storage of an `account` mapping,
 // with `address` as the type of keys,
 // and `u64` as the type of values.
 mapping account: address => u64;
+```
+
+### Storage
+A storage variable is declared as `storage {name}: {type}`.  Storage variables contain singleton values.  They are declared at program scope and are stored on chain, similar to mappings.
+```leo
+// On-chain storage of an `counter` storage variable of type u32,
+storage counter: u32;
+```
+A storage vector is declared as `storage {name}: [{type}]`.  Storage vectors contain dynamic lists of values of a given type.  They are declared at program scope and are stored on chain, similar to mappings.
+```leo
+// On-chain storage of an `accounts` storage vector of type address,
+storage accounts: [address];
 ```
 
 ### Struct

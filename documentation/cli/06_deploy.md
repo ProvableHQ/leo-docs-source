@@ -119,8 +119,8 @@ Saves the transaction to the directory located at the `<SAVE>` path.
 #### `--skip <SUBSTRING_0> <SUBSTRING_1> ...`
 Skips deployment of any program that contains one of the given substrings, delimited by a space.
 
-#### `-y`
 #### `--yes`
+#### `-y`
 The CLI will ask for manual confirmation on several steps throughout the deployment process.  Setting this flag automatically agrees to all confirmations.
 
 :::warning
@@ -135,9 +135,8 @@ Specifes the priority fee for the deployment transaction(s) delimited by `|` and
 :::
 
 
-#### `-f <FEE_RECORDS>`
 #### `--fee-records <FEE_RECORDS>`
-
+#### `-f <FEE_RECORDS>`
 Specifes the record(s) to pay for fees privately, delimited by `|` and used in order. The fees must either be valid plaintext, ciphertext, or `default`.  If not specified, then transaction fees will be public.
 
 

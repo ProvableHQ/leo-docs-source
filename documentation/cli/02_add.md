@@ -52,9 +52,8 @@ Do not use this feature unless you know what you are doing!
 Specifies that the imported program is a development dependency and should not be used in production
 
 
-
-#### `-c`
 #### `--clear`
+#### `-c`
 Clears all previous dependencies.
 
 :::warning
