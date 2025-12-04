@@ -470,8 +470,8 @@ let rand: u32 = ChaCha::rand_u32(); // generate a random value `ChaCha::rand_<ty
 // Hash Functions (BHP, Pedersen, Poseidon, Keccak, SHA3)
 let hash: field = BHP256::hash_to_field(1u32); // hash any type to any type
 let hash_raw: address = Poseidon2::hash_to_address_raw(1u8); // hash any raw type to any type
-let hash_native: [bool; 256] = Keccak256::hash_native(0field); // hash any type to an array of bits (only available for Keccak and SHA3)
-let hash_native_raw: [bool; 256] = Keccak256::hash_native_raw(0field); // hash any raw type to an array of bits (only available for Keccak and SHA3)
+let hash_native: [bool; 256] = Keccak256::hash_to_bits(0field); // hash any type to an array of bits (only available for Keccak and SHA3)
+let hash_native_raw: [bool; 256] = Keccak256::hash_to_bits_raw(0field); // hash any raw type to an array of bits (only available for Keccak and SHA3)
 
 // Commitment Algorithms (BHP, Pedersen)
 let commit: group = Pedersen64::commit_to_group(1u64, 1scalar); // commit any type to a field, group, or address, using a scalar as blinding factor (salt)
