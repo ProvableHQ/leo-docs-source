@@ -130,49 +130,42 @@ program test.aleo {
 
 ### Arrays
 
-Leo supports static arrays. Array types are declared as `[type; length]` and can be nested.
-
-Arrays only support constant accesses. The accessor expression must be a constant expression.
-
-Arrays can contain primitive data types, structs, or arrays. Structs and records can also contain arrays.
-
-Arrays can be iterated over using a for loop.
-
+Leo supports static arrays.   Array types are declared as `[type; length]`.  Elements can only be primitive data types, structs, or nested arrays.
 ```leo
 // Initalize a boolean array of length 4
 let arr: [bool; 4] = [true, false, true, false];
 
-// Nested array
-let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
-
 // Empty array
 let empty: [u32; 0] = [];
 
+// Nested array
+let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
+```
+
+Structs and records can also contain arrays as fields.  
+```leo
+record Foo {
+    owner: address,
+    data: [u8; 8],
+}
+
 struct Bar {
-    data: u8,
+    data: [u8; 8],
 }
 
 // Array of structs
 let arr_of_structs: [Bar; 2] = [Bar { data: 1u8 }, Bar { data: 2u8 }];
+```
+Arrays can be stored as a mapping output, and iterated over using a loop.
+
+```leo
+// Declare a mapping that contains array values
+mapping data: address => [bool; 8];
 
 // Access the field of a struct within an array
 transition foo(a: [Bar; 8]) -> u8 {
     return a[0u8].data;
 }
-
-// Struct that contains an array
-struct Bat {
-    data: [u8; 8],
-}
-
-// Record that contains an array
-record Floo {
-    owner: address,
-    data: [u8; 8],
-}
-
-// Declare a mapping that contains array values
-mapping data: address => [bool; 8];
 
 // Iterate over an array using a for loop and sum the values within
 transition sum_with_loop(a: [u64; 4]) -> u64 {
@@ -186,22 +179,42 @@ transition sum_with_loop(a: [u64; 4]) -> u64 {
 
 ### Tuples
 
-Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and can be nested. Tuples cannot be empty.
+Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and cannot be empty.
 
-Tuples only support constant access with a dot `.` and a constant integer.
-
-Tuples can contain primitive data types, structs, or arrays. Structs and records can also contain tuples.
+Tuples can contain primitive data types, structs, arrays, or nested tuples. Structs and records can also contain tuples.
 
 ```leo
-program test.aleo {
-    transition baz(foo: u8, bar: u8) -> u8 {
-        let a: (u8, u8) = (foo, bar);
-        let result: u8 = a.0 + a.1;
-        return result;
-    }
-}
+// Initalize a boolean array of length 4
+let tup: (u8,u8,bool) = (1u8,1u8,true);
+
+// Nested array
+let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
 ```
 
+Structs and records can also contain tuples as fields.
+```leo
+record Foo {
+    owner: address,
+    data: (u8,u8),
+}
+
+struct Bar {
+    data: (u8,u8),
+}
+
+// Tuple of structs
+let tup_of_structs: [Bar; 2] = [Bar { data: (1u8,1u8) }, Bar { data: (2u8,2u8) }];
+```
+
+Tuples only support constant access with a dot `.` and a constant integer. 
+
+```leo
+transition baz(foo: u8, bar: u8) -> u8 {
+    let a: (u8, u8) = (foo, bar);
+    let result: u8 = a.0 + a.1;
+    return result;
+}
+```
 
 ### Structs
 
