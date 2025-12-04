@@ -156,16 +156,21 @@ struct Bar {
 // Array of structs
 let arr_of_structs: [Bar; 2] = [Bar { data: 1u8 }, Bar { data: 2u8 }];
 ```
-Arrays can be stored as a mapping output, and iterated over using a loop.
 
+
+Arrays only support constant accesses. The accessor expression must be a constant expression (known at compile-time).
 ```leo
-// Declare a mapping that contains array values
-mapping data: address => [bool; 8];
-
 // Access the field of a struct within an array
 transition foo(a: [Bar; 8]) -> u8 {
     return a[0u8].data;
 }
+```
+
+Arrays can be stored as a mapping input/output, and iterated over using a loop.  
+```leo
+// Declare a mapping that contains array values
+mapping data: address => [bool; 8];
+
 
 // Iterate over an array using a for loop and sum the values within
 transition sum_with_loop(a: [u64; 4]) -> u64 {
