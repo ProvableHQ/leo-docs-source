@@ -20,7 +20,8 @@ toc_max_heading_level: 3
 | [assert](#assert)           | Assert boolean true                 |
 | [assert_eq](#assert_eq)     | Assert equality                     |
 | [assert_neq](#assert_neq)   | Assert non-equality                 |
-| [block.height](#block.height)| Fetch the latest block height      |
+| [block.height](#blockheight)| Fetch the latest block height      |
+| [block.timestamp](#blocktimestamp)| Fetch the latest block timestamp |
 | [Deserialize:from_bits::[TYPE] ](#deserializefrom_bitstype)            | Deserialize bits to a data type  |
 | [div](#div)                 | Division                            |
 | [div_wrapped](#div_wrapped) | Wrapping division operation         |
@@ -45,7 +46,10 @@ toc_max_heading_level: 3
 | [pow_wrapped](#pow_wrapped) | Wrapping exponentiation             |
 | [rem](#rem)                 | Remainder                           |
 | [rem_wrapped](#rem_wrapped) | Wrapping remainder                  |
-| [Serialize::to_bits](#serializeto_bits)                   | Serialize data to bits            |
+| [self.address](#selfaddress)| Address of the current program      |
+| [self.caller](#selfcaller)  | Address of a transition's calling user/program  |
+| [self.signer](#selfsigner)  | Address of the top-level transition's calling user |
+| [Serialize::to_bits](#serializeto_bits) | Serialize data to bits  |
 | [shl](#shl)                 | Shift left                          |
 | [shl_wrapped](#shl_wrapped) | Wrapping shift left                 |
 | [shr](#shr)                 | Shift right                         |
@@ -1085,6 +1089,32 @@ height in a program.
 
 [Back to Top](#table-of-contents)
 ***
+
+### `block.timestamp`
+
+```leo
+async transition matches(timestamp: i64) -> Future {
+    return check_block_timestamp(timestamp);
+} 
+
+async function check_block_timestamp(timestamp: i64) {
+    assert_eq(timestamp, block.timestamp);
+}
+```
+
+
+The `block.timestamp` operator is used to fetch the  timestamp of the latest block in a Leo program. It represents the number of 
+UNIX timestamp of the latest block in the chain. In the above example, `block.timestamp` is used in an async function to fetch the latest block 
+height in a program.
+
+:::info
+* The `block.timestamp` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `block.timestamp` operator doesn't take any parameters.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
 
 ### `self.address`
 

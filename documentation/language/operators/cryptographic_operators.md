@@ -26,17 +26,17 @@ toc_max_heading_level: 3
 | [Poseidon2::hash_to_TYPE](#poseidon2hash_to_type)         | Poseidon hash with input rate 2   |
 | [Poseidon4::hash_to_TYPE](#poseidon4hash_to_type)         | Poseidon hash with input rate 4   |
 | [Poseidon8::hash_to_TYPE](#poseidon8hash_to_type)         | Poseidon hash with input rate 8   |
-| [Keccak256::hash_native](#keccak256hash_native)           | 256-bit input/output Keccak hash  |
+| [Keccak256::hash_to_bits](#keccak256hash_to_bits)           | 256-bit input/output Keccak hash  |
 | [Keccak256::hash_to_TYPE](#keccak256hash_to_type)         | 256-bit input Keccak hash         |
-| [Keccak384::hash_native](#keccak384hash_native)           | 384-bit input/output Keccak hash  |
+| [Keccak384::hash_to_bits](#keccak384hash_to_bits)           | 384-bit input/output Keccak hash  |
 | [Keccak384::hash_to_TYPE](#keccak384hash_to_type)         | 384-bit input Keccak hash         |
-| [Keccak512::hash_native](#keccak512hash_native)           | 512-bit input/output Keccak hash  |
+| [Keccak512::hash_to_bits](#keccak512hash_to_bits)           | 512-bit input/output Keccak hash  |
 | [Keccak512::hash_to_TYPE](#keccak512hash_to_type)         | 512-bit input Keccak hash         |
-| [SHA3_256::hash_native](#sha3_256hash_native)             | 256-bit input/output SHA3 hash    |
+| [SHA3_256::hash_to_bits](#sha3_256hash_to_bits)             | 256-bit input/output SHA3 hash    |
 | [SHA3_256::hash_to_TYPE](#sha3_256hash_to_type)           | 256-bit input SHA3 hash           |
-| [SHA3_384::hash_native](#sha3_384hash_native)             | 384-bit input/output SHA3 hash    |
+| [SHA3_384::hash_to_bits](#sha3_384hash_to_bits)             | 384-bit input/output SHA3 hash    |
 | [SHA3_384::hash_to_TYPE](#sha3_384hash_to_type)           | 384-bit input SHA3 hash           |
-| [SHA3_512::hash_native](#sha3_512hash_native)             | 512-bit input/output SHA3 hash    |
+| [SHA3_512::hash_to_bits](#sha3_512hash_to_bits)             | 512-bit input/output SHA3 hash    |
 | [SHA3_512::hash_to_TYPE](#sha3_512hash_to_type)           | 512-bit input SHA3 hash           |
 | [ChaCha::rand_TYPE](#chacharand_type)                     | ChaCha RNG                        |
 | [signature::verify](#signatureverify)                     | Verify a Schnorr signature        |
@@ -782,27 +782,27 @@ By appending `_raw` to the end of the function, the hash function will omit meta
 
 ## Keccak
 
-### `Keccak256::hash_native`
+### `Keccak256::hash_to_bits`
 
 ```leo
-let result: [bool; 256] = Keccak256::hash_native(1u8);
-let result: [bool; 256] = Keccak256::hash_native(2i64);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
-let result: [bool; 256] = Keccak256::hash_native(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1u8);
+let result: [bool; 256] = Keccak256::hash_to_bits(2i64);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
+let result: [bool; 256] = Keccak256::hash_to_bits(1field);
 
 // Raw hash variants
-let result: [bool; 256] = Keccak256::hash_native_raw(1u8);
-let result: [bool; 256] = Keccak256::hash_native_raw(2i64);
+let result: [bool; 256] = Keccak256::hash_to_bits_raw(1u8);
+let result: [bool; 256] = Keccak256::hash_to_bits_raw(2i64);
                         ...
 ```
 
@@ -893,27 +893,27 @@ By appending `_raw` to the end of the function, the hash function will omit meta
 [Back to Top](#table-of-contents)
 ***
 
-### `Keccak384::hash_native`
+### `Keccak384::hash_to_bits`
 
 ```leo
-let result: [bool; 384] = Keccak384::hash_native(1u8);
-let result: [bool; 384] = Keccak384::hash_native(2i64);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
-let result: [bool; 384] = Keccak384::hash_native(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1u8);
+let result: [bool; 384] = Keccak384::hash_to_bits(2i64);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
+let result: [bool; 384] = Keccak384::hash_to_bits(1field);
 
 // Raw hash variants
-let result: [bool; 384] = Keccak384::hash_native_raw(1u8);
-let result: [bool; 384] = Keccak384::hash_native_raw(2i64);
+let result: [bool; 384] = Keccak384::hash_to_bits_raw(1u8);
+let result: [bool; 384] = Keccak384::hash_to_bits_raw(2i64);
                         ...
 ```
 
@@ -1005,27 +1005,27 @@ By appending `_raw` to the end of the function, the hash function will omit meta
 [Back to Top](#table-of-contents)
 ***
 
-### `Keccak512::hash_native`
+### `Keccak512::hash_to_bits`
 
 ```leo
-let result: [bool; 512] = Keccak512::hash_native(1u8);
-let result: [bool; 512] = Keccak512::hash_native(2i64);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
-let result: [bool; 512] = Keccak512::hash_native(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1u8);
+let result: [bool; 512] = Keccak512::hash_to_bits(2i64);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
+let result: [bool; 512] = Keccak512::hash_to_bits(1field);
 
 // Raw hash variants
-let result: [bool; 512] = Keccak512::hash_native_raw(1u8);
-let result: [bool; 512] = Keccak512::hash_native_raw(2i64);
+let result: [bool; 512] = Keccak512::hash_to_bits_raw(1u8);
+let result: [bool; 512] = Keccak512::hash_to_bits_raw(2i64);
                         ...
 ```
 
@@ -1118,27 +1118,27 @@ By appending `_raw` to the end of the function, the hash function will omit meta
 
 ## SHA3
 
-### `SHA3_256::hash_native`
+### `SHA3_256::hash_to_bits`
 
 ```leo
-let result: [bool; 256] = SHA3_256::hash_native(1u8);
-let result: [bool; 256] = SHA3_256::hash_native(2i64);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
-let result: [bool; 256] = SHA3_256::hash_native(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1u8);
+let result: [bool; 256] = SHA3_256::hash_to_bits(2i64);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
+let result: [bool; 256] = SHA3_256::hash_to_bits(1field);
 
 // Raw hash variants
-let result: [bool; 256] = SHA3_256::hash_native_raw(1u8);
-let result: [bool; 256] = SHA3_256::hash_native_raw(2i64);
+let result: [bool; 256] = SHA3_256::hash_to_bits_raw(1u8);
+let result: [bool; 256] = SHA3_256::hash_to_bits_raw(2i64);
                         ...
 ```
 
@@ -1228,27 +1228,27 @@ By appending `_raw` to the end of the function, the hash function will omit meta
 [Back to Top](#table-of-contents)
 ***
 
-### `SHA3_384::hash_native`
+### `SHA3_384::hash_to_bits`
 
 ```leo
-let result: [bool; 384] = SHA3_384::hash_native(1u8);
-let result: [bool; 384] = SHA3_384::hash_native(2i64);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
-let result: [bool; 384] = SHA3_384::hash_native(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1u8);
+let result: [bool; 384] = SHA3_384::hash_to_bits(2i64);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
+let result: [bool; 384] = SHA3_384::hash_to_bits(1field);
 
 // Raw hash variants
-let result: [bool; 384] = SHA3_384::hash_native_raw(1u8);
-let result: [bool; 384] = SHA3_384::hash_native_raw(2i64);
+let result: [bool; 384] = SHA3_384::hash_to_bits_raw(1u8);
+let result: [bool; 384] = SHA3_384::hash_to_bits_raw(2i64);
                         ...
 ```
 
@@ -1339,27 +1339,27 @@ By appending `_raw` to the end of the function, the hash function will omit meta
 [Back to Top](#table-of-contents)
 ***
 
-### `SHA3_512::hash_native`
+### `SHA3_512::hash_to_bits`
 
 ```leo
-let result: [bool; 512] = SHA3_512::hash_native(1u8);
-let result: [bool; 512] = SHA3_512::hash_native(2i64);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
-let result: [bool; 512] = SHA3_512::hash_native(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1u8);
+let result: [bool; 512] = SHA3_512::hash_to_bits(2i64);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
+let result: [bool; 512] = SHA3_512::hash_to_bits(1field);
 
 // Raw hash variants
-let result: [bool; 512] = SHA3_512::hash_native_raw(1u8);
-let result: [bool; 512] = SHA3_512::hash_native_raw(2i64);
+let result: [bool; 512] = SHA3_512::hash_to_bits_raw(1u8);
+let result: [bool; 512] = SHA3_512::hash_to_bits_raw(2i64);
                         ...
 ```
 
@@ -1700,4 +1700,3 @@ A `Message` is any byte-aligned type.
 
 [Back to Top](#table-of-contents)
 ***
-
