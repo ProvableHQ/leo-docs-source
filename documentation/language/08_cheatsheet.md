@@ -454,7 +454,7 @@ let raw_bits: [bool; 32] = Serialize::to_bits_raw(value); // Raw serialization (
 assert(a); // assert the value of a is true
 assert_eq(a, b); // assert a and b are equal
 assert_neq(b, c); // assert b and c are not equal
-let tern = boolean ? a : b; // Ternary expression
+let ternary = boolean ? a : b; // Ternary expression
 ```
 
 ### Cryptographic
