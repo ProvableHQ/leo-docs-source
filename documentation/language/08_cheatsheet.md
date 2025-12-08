@@ -2,6 +2,8 @@
 id: cheatsheet
 title: Leo Syntax Cheatsheet
 sidebar: Cheatsheet
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, transition, async_transition, function, async_function, inline, mapping, conditionals, loops)
 
@@ -392,27 +394,9 @@ vec.pop();
 vec.swap_remove(idx);
 vec.clear();
 ```
-## 13. Commands
-```leo
-async transition matches(height: u32) -> Future {
-    return async {
-        assert_eq(height, block.height); // block.height returns latest block height
-    };
-}
-let this: address = self.address; // address of this program
-let caller: address = self.caller; // address of the program function caller (may be another program)
-let signer: address = self.signer; // address of the transaction signer (end user)
-
-let a: bool = true;
-let b: u8 = 1u8;
-let c: u8 = 2u8;
-assert(a); // assert the value of a is true
-assert_eq(b, b); // assert a and b are equal
-assert_neq(b, c); // assert a and b are not equal
-```
 
 
-## 14. Operators
+## 13. Operators
 ### Standard
 ```leo
 // Arithmetic Operators
@@ -453,13 +437,24 @@ let squared: field = 1field.square(); // Square of the field/group element
 let root: field = 1field.square_root(); // Square root of the field/group element
 
 // Context-dependent Expressions
-let this: address = self.address;  // Address of program
+let height: u32 = block.height; // Height of current blcok
+let now: i64 = block.timestamp; // Timestamp of current block
+let this: address = self.address; // Address of program
 let caller: address = self.caller; // Address of function caller
+let checksum: [u8, 32] = self.checksum; // Checksum of a program
+let edition: u16 = self.edition; // Edition of a program
+let owner: address = self.program_owner; // Address that deployed a program
 let signer: address = self.signer; // Address of tx signer (origin)
 
 // Bit Serialization/Deserialization
 let bits: [bool; 58] = Serialize::to_bits(value);  // Standard serialization (includes type metadata)
 let raw_bits: [bool; 32] = Serialize::to_bits_raw(value); // Raw serialization (no metadata, just raw bits)
+
+// Miscellaneous
+assert(a); // assert the value of a is true
+assert_eq(a, b); // assert a and b are equal
+assert_neq(b, c); // assert b and c are not equal
+let tern = boolean ? a : b; // Ternary expression
 ```
 
 ### Cryptographic
