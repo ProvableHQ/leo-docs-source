@@ -127,7 +127,7 @@ let user: User = User {
 };
 ```
 
-Accessing `record` Fields:
+Accessing `record` fields:
 ```leo
 let user_address: address = user.owner;
 let user_balance: u64 = user.balance;
@@ -142,7 +142,7 @@ struct Message {
 }
 ```
 
-Creating an Instance of a `struct`:
+Creating an instance of a `struct`:
 ```leo
 let msg: Message = Message {
     sender: aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4,
@@ -196,13 +196,13 @@ let arr: [u8; 4] = [1u8, 2u8, 3u8, 4u8];
 let empty: [u8; 0] = []; 
 ```
 
-Accessing Elements:
+Accessing elements:
 ```leo
 let first: u8 = arr[0]; // Get the first element
 let second: u8 = arr[1]; // Get the second element
 ```
 
-Looping Over Arrays:
+Looping over arrays:
 ```leo
 let numbers: [u32; 3] = [5u32, 10u32, 15u32];
 
@@ -214,20 +214,20 @@ for i: u8 in 0u8..3u8 {
 ```
 
 ## 7. Tuples
-Declaring Tuples:
+Declaring tuples:
 ```leo
 // NOTE: Tuples cannot be empty!
 let t: (u8, bool, field) = (42u8, true, 100field);
 ```
 
 
-Accessing Tuple Elements:
+Accessing tuple elements:
 
 ```leo
 // Using de-structuring
 let (a, b, c) = t; 
 
-// Using index-based accessing
+//Using index-based accessing
 let first: u8 = t.0;
 let second: bool = t.1;
 let third: field = t.2;
