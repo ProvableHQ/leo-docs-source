@@ -48,6 +48,9 @@ toc_max_heading_level: 3
 | [rem_wrapped](#rem_wrapped) | Wrapping remainder                  |
 | [self.address](#selfaddress)| Address of the current program      |
 | [self.caller](#selfcaller)  | Address of a transition's calling user/program  |
+| [self.checksum](#selfcaller)  | Checksum of a program |
+| [self.edition](#selfedition)| Version number of a program |
+| [self.program_owner](#selfprogram_owner)  | Address that submitted a program's deployment transaction |
 | [self.signer](#selfsigner)  | Address of the top-level transition's calling user |
 | [Serialize::to_bits](#serializeto_bits) | Serialize data to bits  |
 | [shl](#shl)                 | Shift left                          |
@@ -1145,6 +1148,99 @@ The `self.caller` operator returns the address of the account/program that invok
 
 :::info
 * The `self.caller` operator doesn't take any parameters.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+### `self.checksum`
+
+```leo
+async transition matches(checksum: [u8,32]) -> Future {
+    return check_program_checksum(checksum);
+} 
+
+async function check_program_checksum(checksum: [u8,32]) {
+    assert_eq(self.checksum, checksum);
+}
+```
+
+
+The `self.checksum` operator returns a program's checksum, which is a unique identifier for the program's code.  
+
+You may also refer to another program's checksum with the following syntax:
+```leo
+import credits.aleo;
+...
+let ext_checksum: [u8, 32] = Program::checksum(credits.aleo);
+```
+
+:::info
+* The `self.checksum` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `self.checksum` operator doesn't take any parameters.
+* To reference another program's checksum, you will need to import that program first.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+
+### `self.edition`
+
+```leo
+async transition matches(edition: u16) -> Future {
+    return check_program_edition(edition);
+} 
+
+async function check_program_edition(edition: u16) {
+    assert_eq(self.edition, edition);
+}
+```
+
+
+The `self.edition` operator returns a program's edition, which is the program's version number. A program's edition starts at zero and is incremented by one for each upgrade. The edition is tracked automatically on the network.
+
+You may also refer to another program's edition with the following syntax:
+```leo
+import credits.aleo;
+...
+let ext_edition: u16 = Program::edition(credits.aleo);
+```
+
+:::info
+* The `self.edition` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `self.edition` operator doesn't take any parameters.
+* To reference another program's edition, you will need to import that program first.
+:::
+
+[Back to Top](#table-of-contents)
+***
+
+### `self.program_owner`
+
+```leo
+async transition matches(owner: address) -> Future {
+    return check_program_owner(owner);
+} 
+
+async function check_program_owner(owner: address) {
+    assert_eq(self.program_owner, owner);
+}
+```
+
+
+The `self.program_owner` operator returns the address that submitted the deployment transaction for a program.
+You may also refer to another program's owner with the following syntax:
+```leo
+import credits.aleo;
+...
+let ext_owner: u16 = Program::owner(credits.aleo);
+```
+
+:::info
+* The `self.program_owner` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `self.program_owner` operator doesn't take any parameters.
+* To reference another program's owner, you will need to import that program first.
 :::
 
 [Back to Top](#table-of-contents)

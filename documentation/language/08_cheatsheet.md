@@ -2,6 +2,8 @@
 id: cheatsheet
 title: Leo Syntax Cheatsheet
 sidebar: Cheatsheet
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 [general tags]: # (program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, transition, async_transition, function, async_function, inline, mapping, conditionals, loops)
 
@@ -109,7 +111,7 @@ Both `address` and `signature` types do not have option variants.
 
 
 ## 4. Records
-Defining a `record`
+Defining a `record`:
 ```leo
 record Token {
     owner: address,
@@ -117,7 +119,7 @@ record Token {
 }
 ```
 
-Creating a `record`
+Creating a `record`:
 ```leo
 let user: User = User {
     owner: aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4,
@@ -125,14 +127,14 @@ let user: User = User {
 };
 ```
 
-Accessing `record` fields
+Accessing `record` fields:
 ```leo
 let user_address: address = user.owner;
 let user_balance: u64 = user.balance;
 ```
 
 ## 5. Structs
-Defining a `struct`
+Defining a `struct`:
 ```leo
 struct Message {
     sender: address,
@@ -140,7 +142,7 @@ struct Message {
 }
 ```
 
-Creating an instance of a `struct`
+Creating an instance of a `struct`:
 ```leo
 let msg: Message = Message {
     sender: aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4,
@@ -148,7 +150,7 @@ let msg: Message = Message {
 };
 ```
 
-Accessing `struct` fields
+Accessing `struct` Fields:
 ```leo
 let sender_address: address = msg.sender;
 let object_value: u64 = msg.object;
@@ -187,24 +189,20 @@ Note that because the `address` and `signature` types do not have option variant
 
 
 ## 6. Arrays
-Declaring `arrays`
+Declaring `arrays`:
 ```leo
 let arrb: [bool; 2] = [true, false];
 let arr: [u8; 4] = [1u8, 2u8, 3u8, 4u8]; 
 let empty: [u8; 0] = []; 
 ```
 
-Accessing elements
+Accessing elements:
 ```leo
 let first: u8 = arr[0]; // Get the first element
 let second: u8 = arr[1]; // Get the second element
 ```
 
-Modifying elements
-
-Leo does not support mutable variables, so arrays are immutable after declaration.
-
-Looping Over Arrays
+Looping over arrays:
 ```leo
 let numbers: [u32; 3] = [5u32, 10u32, 15u32];
 
@@ -216,35 +214,27 @@ for i: u8 in 0u8..3u8 {
 ```
 
 ## 7. Tuples
-Declaring tuples
+Declaring tuples:
 ```leo
+// NOTE: Tuples cannot be empty!
 let t: (u8, bool, field) = (42u8, true, 100field);
 ```
-**Tuples cannot be empty.**
 
-Accessing tuple elements
 
-Use destructuring
+Accessing tuple elements:
+
 ```leo
+// Using de-structuring
 let (a, b, c) = t; 
-```
 
-Index-based access
-```leo
+//Using index-based accessing
 let first: u8 = t.0;
 let second: bool = t.1;
 let third: field = t.2;
-
-```
-## 8. Transitions
-```leo
-transition mint_public(
-    public receiver: address,
-    public amount: u64,
-) -> Token { /* Your code here */ }
 ```
 
-## 9. Functions
+
+## 8. Functions
 The rules for functions (in the traditional sense) are as follows:
 
 There are three variants of functions:
@@ -319,7 +309,11 @@ function subtract(a: u64, b: u64) -> u64 {
 ❌ Cannot call: another `transition` (unless from another program)
 
 ### Async Transition
-An `async transition` function  **modifies private state** exactly like a regular `transition`, but it also includes an onchain portion that can **modify onchain/public state**. It can call `function` and `inline` functions, but **cannot be called by a function or inline**.  An `async transition` **must** return a `Future`.
+An `async transition` function  **modifies private state** exactly like a regular `transition`, but it also includes an onchain portion that can **modify public (onchain) state**.
+
+ It can call `function` and `inline` functions, but **cannot be called by a function or inline**.  
+ 
+ An `async transition` **must** return a `Future`.
 ```leo
 mapping balances: address => u64
 
@@ -336,7 +330,7 @@ async transition mint(receiver: address, amount: u64) -> Future {
 
 ❌ Cannot call: another `transition` (unless from another program)
 
-## 10. Loops
+## 9. Loops
 ```leo
 let count: u32 = 0u32;
 
@@ -345,7 +339,7 @@ for i: u32 in 0u32..5u32 {
 }
 ```
 
-## 11. Conditionals
+## 10. Conditionals
 ```leo
 let a: u8 = 1u8;
 
@@ -360,23 +354,29 @@ if a == 1u8 {
 a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8); // Ternary format
 ```
 
-## 12. Onchain Storage
+## 11. Onchain Storage
 ### Mappings
 ```leo
 mapping balances: address => u64;
 
-let contains_bal: bool = Mapping::contains(balances, receiver);
-let get_bal: u64 = Mapping::get(balances, receiver);
-let get_or_use_bal: u64 = Mapping::get_or_use(balances, receiver, 0u64);
-let set_bal: () = Mapping::set(balances, receiver, 100u64);
-let remove_bal: () = Mapping::remove(balances, receiver);
+// Querying
+let contains_bal: bool = balances.contains(receiver);
+let get_bal: u64 = balances.get(receiver);
+let get_or_use_bal: u64 = balances.get_or_use(receiver, 0u64);
+
+// Modifying
+balances.set(receiver, 100u64);
+balances.remove(balances, receiver);
 ```
 ### Storage Variables
 ```leo
-storage var: u8
+storage var: u8;
 
+// Querying
 let unwrap_var: u8 = var.unwrap();
 let unwrap_or_var: u8 = var.unwrap_or(0u8);
+
+// Modifying
 var = 8u8;
 var = none;
 ```
@@ -384,35 +384,20 @@ var = none;
 ```leo
 storage vec: [u8]
 
+// Querying
 let len_vec: u32 = vec.len();
 let val: u8 = vec.get(idx)
+
+// Modifying
 vec.set(idx, value);
 vec.push(value);
 vec.pop();
 vec.swap_remove(idx);
 vec.clear();
 ```
-## 13. Commands
-```leo
-async transition matches(height: u32) -> Future {
-    return async {
-        assert_eq(height, block.height); // block.height returns latest block height
-    };
-}
-let this: address = self.address; // address of this program
-let caller: address = self.caller; // address of the program function caller (may be another program)
-let signer: address = self.signer; // address of the transaction signer (end user)
-
-let a: bool = true;
-let b: u8 = 1u8;
-let c: u8 = 2u8;
-assert(a); // assert the value of a is true
-assert_eq(b, b); // assert a and b are equal
-assert_neq(b, c); // assert a and b are not equal
-```
 
 
-## 14. Operators
+## 12. Operators
 ### Standard
 ```leo
 // Arithmetic Operators
@@ -453,13 +438,24 @@ let squared: field = 1field.square(); // Square of the field/group element
 let root: field = 1field.square_root(); // Square root of the field/group element
 
 // Context-dependent Expressions
-let this: address = self.address;  // Address of program
+let height: u32 = block.height; // Height of current blcok
+let now: i64 = block.timestamp; // Timestamp of current block
+let this: address = self.address; // Address of program
 let caller: address = self.caller; // Address of function caller
+let checksum: [u8, 32] = self.checksum; // Checksum of a program
+let edition: u16 = self.edition; // Edition of a program
+let owner: address = self.program_owner; // Address that deployed a program
 let signer: address = self.signer; // Address of tx signer (origin)
 
 // Bit Serialization/Deserialization
 let bits: [bool; 58] = Serialize::to_bits(value);  // Standard serialization (includes type metadata)
 let raw_bits: [bool; 32] = Serialize::to_bits_raw(value); // Raw serialization (no metadata, just raw bits)
+
+// Miscellaneous
+assert(a); // assert the value of a is true
+assert_eq(a, b); // assert a and b are equal
+assert_neq(b, c); // assert b and c are not equal
+let ternary = boolean ? a : b; // Ternary expression
 ```
 
 ### Cryptographic

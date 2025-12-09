@@ -22,7 +22,7 @@ snarkVM imposes the following limits on Aleo programs:
 
 Some other protocol-level limits to be aware of are:
 - **the maximum transaction size is 128 KB.** If your program exceeds this, perhaps by requiring large inputs or producing large outputs, consider optimizing the data types in your Leo code.
-- **the maxmimum number of micro-credits your transaction can consume for on-chain execution is `100_000_000`.**. If your program exceeds this, consider optimizing on-chain components of your Leo code.
+- **the maximum number of micro-credits your transaction can consume for on-chain execution is `100_000_000`.**. If your program exceeds this, consider optimizing on-chain components of your Leo code.
 
 As with the above restructions. these limits can only be increased via the governance process.
 
