@@ -227,7 +227,7 @@ Accessing Tuple Elements:
 // Using de-structuring
 let (a, b, c) = t; 
 
-//Using index-based accessing
+// Using index-based accessing
 let first: u8 = t.0;
 let second: bool = t.1;
 let third: field = t.2;
