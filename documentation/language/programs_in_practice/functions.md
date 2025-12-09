@@ -125,7 +125,7 @@ function foo(
 }
 ```
 
-## Inline
+## Inline Function
 
 An inline function is declared as `inline {name}() {}`. Similar to helper functions, they contain expressions and statements that can compute values, and cannot be executed directly from the outside. The key difference is that the Leo compiler inlines the body of the function at each call site.
 
