@@ -370,7 +370,7 @@ balances.remove(balances, receiver);
 ```
 ### Storage Variables
 ```leo
-storage var: u8
+storage var: u8;
 
 // Querying
 let unwrap_var: u8 = var.unwrap();
