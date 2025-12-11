@@ -7,6 +7,15 @@ toc_max_heading_level: 3
 ---
 [general tags]: # (operators, cryptographic_operators, assert, hash, commit, random, address, block)
 
+## Hashing vs. Committing
+
+Many of the cryptographic operators have both `hash` and `commit` variants.  
+
+The `hash` variant is a one-way function that takes an input produces a fixed-size output called a "hash" or "digest." It has a unique property that if even one bit of the input changes, the output hash will change completely, making it easy to see if data has been tampered with. 
+
+The `commit` variant is a wrapper around the `hash` variant that takes an additional parameter called a blinding factor, otherwise known as a **salt**.  The **salt** is appended to the input value before hashing it, ensuring the output will be unique from just the simple hash of the raw input.  So long as a different salt is used each time, this allows a user to commit to the same value multiple times without revealing that they've done so.
+
+
 ## Table of Contents
 
 | Name                                                                    | Description                       |
