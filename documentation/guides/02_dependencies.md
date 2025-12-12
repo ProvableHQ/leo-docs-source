@@ -122,9 +122,9 @@ leo build --no-cache
 ## Program Editions
 
 An **edition** is the version number of a deployed program on the Aleo network:
-- Edition 0: Initial deployment
-- Edition 1: First upgrade
-- Edition 2: Second upgrade
+- **Edition 0:** Initial deployment
+- **Edition 1:** First upgrade
+- **Edition 2:** Second upgrade
 - ...and so on
 
 By default, Leo fetches the **latest** edition of a network dependency. To pin to a specific edition:
