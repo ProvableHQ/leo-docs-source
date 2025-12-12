@@ -86,7 +86,7 @@ program my_program.aleo {
 }
 ```
 
-## How Dependency Resolution Works
+## Dependency Resolution Process
 
 When you run a Leo command, dependencies are resolved as follows:
 
