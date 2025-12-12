@@ -119,7 +119,7 @@ To force a fresh fetch during `build` or `run`:
 leo build --no-cache
 ```
 
-## Editions (Program Versions)
+## Program Editions
 
 An **edition** is the version number of a deployed program on the Aleo network:
 - Edition 0: Initial deployment
