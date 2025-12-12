@@ -92,7 +92,7 @@ When you run a Leo command, dependencies are resolved as follows:
 
 1. **Read `program.json`** to find declared dependencies
 2. **For each dependency:**
-   - **Local**: Read the Leo source from the specified path and compile it
+   - **Local**: Read the Leo source from the specified path and compile it, or use Aleo Instructions file
    - **Network**: Fetch the bytecode from the Aleo network (or cache)
 3. **Resolve transitive dependencies** - if your dependency imports other programs, those are fetched too
 4. **Topologically sort** all programs so dependencies are processed before dependents
