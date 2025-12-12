@@ -14,7 +14,7 @@ Leo programs can import functionality from other programs.  Any imported program
 
 ### Network Dependencies
 
-To depend on a program deployed on the Aleo network:
+To add a program already deployed on the Aleo network as a dependency:
 ```bash
 leo add credits.aleo
 ```
