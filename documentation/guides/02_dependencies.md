@@ -5,7 +5,7 @@ sidebar_label: Dependency Management
 ---
 [general tags]: # (guides, dependency, dependency_management, imports, program)
 
-Leo programs can depend on other Aleo programs. There are two types of dependencies:
+Leo programs can import functionality from other programs.  Any imported programs are referred to as dependencies.  There are two types of dependencies:
 
 - **Network dependencies**: Programs already deployed on the Aleo network, fetched as pre-compiled bytecode.
 - **Local dependencies**: Leo source code on your filesystem, compiled from source.
