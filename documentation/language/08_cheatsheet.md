@@ -382,11 +382,11 @@ var = none;
 ```
 ### Storage Vectors
 ```leo
-storage vec: [u8]
+storage vec: [u8];
 
 // Querying
 let len_vec: u32 = vec.len();
-let val: u8 = vec.get(idx)
+let val: u8 = vec.get(idx);
 
 // Modifying
 vec.set(idx, value);
