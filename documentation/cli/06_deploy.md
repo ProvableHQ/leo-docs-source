@@ -77,6 +77,33 @@ Once it is deployed, it CANNOT be changed.
 
 See the **[Deploying](./../guides/03_deploying.md)** guide for more details.
 
+### JSON Output
+
+Use the `--json` flag to output results in JSON format for programmatic use:
+
+```bash
+leo deploy --json -y
+```
+
+```json
+{
+  "deployments": [
+    {
+      "program_id": "my_program.aleo",
+      "transaction_id": "at1..."
+    }
+  ]
+}
+```
+
+This is useful for scripting and CI/CD pipelines:
+```bash
+# Deploy and extract the transaction ID
+leo deploy --json -y | jq '.deployments[0].transaction_id'
+
+# Deploy and save full output to a file
+leo deploy --json -y > deployment_result.json
+```
 
 ### Flags:
 

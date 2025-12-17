@@ -62,3 +62,13 @@ Specifies the path to Leo program root folder.  Defaults to `./`.
 
 #### `--home <HOME>`  
 Specifies the path to the `.aleo` program registry.  This is where programs downloaded from the network will be cached.  Defaults to `~/.aleo/registry`.
+
+#### `--json`
+Outputs results as JSON to stdout. Implies `-q` (suppresses normal CLI output).
+
+Supported commands: `run`, `execute`, `test`, `deploy`, `upgrade`, `query`, `synthesize`.
+
+**Example - piping to a file:**
+```bash
+leo run --json main 1u32 2u32 > output.json
+```
