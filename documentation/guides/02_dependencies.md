@@ -16,14 +16,14 @@ Leo programs can import functionality from other programs.  Any imported program
 
 To add a program already deployed on the Aleo network as a dependency:
 ```bash
-leo add credits.aleo
+leo add credits.aleo --network
 ```
 or
 ```bash
-leo add credits
+leo add credits --network
 ```
 
-For mainnet programs, specify the network:
+For mainnet dependencies:
 ```bash
 leo add credits --network mainnet
 ```
