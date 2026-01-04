@@ -68,7 +68,7 @@ Outputs results as JSON to stdout. Implies `-q` (suppresses normal CLI output).
 
 Supported commands: `run`, `execute`, `test`, `deploy`, `upgrade`, `query`, `synthesize`.
 
-**Example - piping to a file:**
-```bash
+
+```bash title="Example: Piping to a File"
 leo run --json main 1u32 2u32 > output.json
 ```
