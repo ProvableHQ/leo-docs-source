@@ -79,12 +79,17 @@ See the **[Deploying](./../guides/03_deploying.md)** guide for more details.
 
 ### JSON Output
 
-Use the `--json` flag to output results in JSON format for programmatic use:
+Use `--json-output` to save structured JSON results to disk for programmatic use:
 
 ```bash
-leo deploy --json -y
+# Save to default location (build/json-outputs/deploy.json)
+leo deploy --json-output -y
+
+# Save to custom path
+leo deploy --json-output=deployment_result.json -y
 ```
 
+Example output (`build/json-outputs/deploy.json`):
 ```json
 {
   "deployments": [
@@ -99,10 +104,7 @@ leo deploy --json -y
 This is useful for scripting and CI/CD pipelines:
 ```bash
 # Deploy and extract the transaction ID
-leo deploy --json -y | jq '.deployments[0].transaction_id'
-
-# Deploy and save full output to a file
-leo deploy --json -y > deployment_result.json
+jq '.deployments[0].transaction_id' build/json-outputs/deploy.json
 ```
 
 ### Flags:
