@@ -64,3 +64,19 @@ Specifies the path to Leo program root folder.  Defaults to `./`.
 
 #### `--home <HOME>`  
 Specifies the path to the `.aleo` program registry.  This is where programs downloaded from the network will be cached.  Defaults to `~/.aleo/registry`.
+
+#### `--json-output[=<PATH>]`
+Saves structured JSON output to disk.
+
+- **Default location**: `build/json-outputs/<command>.json`
+- **Custom path**: `--json-output=my-results.json`
+
+Supported commands: `deploy`, `upgrade`, `run`, `execute`, `test`, `query`, `synthesize`.
+
+```bash title="Examples"
+# Save to default location (build/json-outputs/run.json)
+leo run --json-output main 1u32 2u32
+
+# Save to custom path
+leo execute main --json-output=my-results.json
+```

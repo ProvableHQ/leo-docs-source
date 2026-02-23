@@ -77,6 +77,35 @@ Once it is deployed, it CANNOT be changed.
 
 See the **[Deploying](./../guides/03_deploying.md)** guide for more details.
 
+### JSON Output
+
+Use `--json-output` to save structured JSON results to disk for programmatic use:
+
+```bash
+# Save to default location (build/json-outputs/deploy.json)
+leo deploy --json-output -y
+
+# Save to custom path
+leo deploy --json-output=deployment_result.json -y
+```
+
+Example output (`build/json-outputs/deploy.json`):
+```json
+{
+  "deployments": [
+    {
+      "program_id": "my_program.aleo",
+      "transaction_id": "at1..."
+    }
+  ]
+}
+```
+
+This is useful for scripting and CI/CD pipelines:
+```bash
+# Deploy and extract the transaction ID
+jq '.deployments[0].transaction_id' build/json-outputs/deploy.json
+```
 
 ### Flags:
 
