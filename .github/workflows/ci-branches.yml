@@ -15,3 +15,4 @@ jobs:
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           folder-path: 'documentation'
+          config-file: '.github/mlc_config.json'
