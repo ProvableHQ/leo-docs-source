@@ -21,7 +21,10 @@ On invoking the build command, Leo automatically creates a `build/⁠` and `outp
   Leo     2 statements after dead code elimination.
   Leo     The program checksum is: '[...]'.
   Leo ✅ Compiled '{PROGRAM_NAME}.aleo' into Aleo instructions.
+  Leo ✅ Generated ABI at 'build/abi.json'.
 ```
+
+The build also generates an **ABI file** at `build/abi.json` describing your program's public interface (transitions, mappings, and types). See the [ABI Generation guide](../guides/11_abi.md) for details on the format and type lowering specification.
 
 ### Flags:
 ```

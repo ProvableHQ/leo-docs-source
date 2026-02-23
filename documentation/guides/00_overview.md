@@ -30,3 +30,5 @@ There's a lot to learn about Leo! To help tame the complexity, we've put togethe
 
 - [**Upgrading Programs**](./10_program_upgradability.md) - Coming soon!
 
+- [**ABI Generation**](./11_abi.md) - Learn about the ABI format and type lowering for SDK integration.
+
