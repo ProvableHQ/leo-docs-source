@@ -74,7 +74,7 @@ Local dependencies are compiled from source whenever you build. They never requi
 leo remove credits.aleo
 ```
 
-## Using Dependencies in Code
+## Using Dependencies
 
 In your `main.leo` file, import dependencies before the program declaration:
 ```leo
