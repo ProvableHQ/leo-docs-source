@@ -76,7 +76,7 @@ leo remove credits.aleo
 
 ## Using Dependencies in Code
 
-In your `main.leo`, import dependencies before the program declaration:
+In your `main.leo` file, import dependencies before the program declaration:
 ```leo
 import credits.aleo;
 import my_library.aleo;
