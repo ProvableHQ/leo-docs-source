@@ -50,7 +50,7 @@ This adds an entry to your `program.json`:
 
 To add a Leo package or Aleo Instructions file from your local filesystem as a dependency:
 ```bash
-leo add my_library.aleo --local ./path/to/my_library
+leo add my_library.aleo --local <PATH_TO_LIBRARY>
 ```
 
 This records the path in `program.json`:
