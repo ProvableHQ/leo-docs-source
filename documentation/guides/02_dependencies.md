@@ -69,7 +69,7 @@ This records the path in `program.json`:
 
 Local dependencies are compiled from source whenever you build. They never require network access.
 
-### Removing Dependencies
+## Removing Dependencies
 ```bash
 leo remove credits.aleo
 ```
