@@ -75,26 +75,33 @@ Mapping operations are only allowed in an [async function](#async-function) or a
 
 ## Storage Variables
 
-Storage variables behave similar to option types.  There are several functions available to query and modify singleton storage variables.  The examples below will reference the following:
+Storage variables behave similar to option types. There are several functions available to query and modify singleton storage variables.  The examples below will reference the following:
 ```leo
 storage counter: u64;
 ```
 
 ### Querying
-To query the value currrently stored at `counter`:
+To query the value currently stored at `counter`:
+
 ```leo
 counter.unwrap();
 ```
+
 Note that if `counter` has not been initialized, then the program will fail to execute.  To query the value with a fallback for this case:
+
 ```leo
 counter.unwrap_or(fallback_value);
 ```
+
 ### Modifying
 To set a value for `counter`:
+
 ```leo
 counter = 5u64;
 ```
+
 To unset the value at `counter`:
+
 ```leo
 counter = none;
 ```
@@ -115,51 +122,105 @@ program storage_variable.aleo {
 
 }
 ```
+
 :::info
-Storage variable operations are only allowed in an [async function](#async-function) or async block.
+Storage variable operations are only allowed in an [async function](#async-function) or `async` block.
 :::
 
+### External Access
+
+Storage variables defined in another program can be accessed using the fully qualified form `program_name.aleo/storage_name`. External storage variables are **read-only** and cannot be modified.
+
+For example, suppose another program defines the following storage variable:
+
+```leo
+program external_program.aleo {
+    storage counter: u64;
+
+    ...
+}
+```
+
+You may query this value from your program using:
+
+```leo
+let value: u64 = external_program.aleo/counter.unwrap();
+```
+
+As with local storage variables, calling `unwrap()` will cause execution to fail if the storage variable has not been initialized. To safely query the value with a fallback:
+
+```leo
+let value: u64 = external_program.aleo/counter.unwrap_or(0u64);
+```
+
+External storage variables cannot be assigned to or unset. The following operations are invalid:
+
+```leo
+external_program.aleo/counter = 5u64;   // invalid
+external_program.aleo/counter = none;   // invalid
+```
 
 ## Storage Vectors
 
-Storage vectors behave like dynamic arrays of values of a given types.  There are several functions available to query and modify storage vectors.  The examples below will reference the following:
+Storage vectors behave like dynamic arrays of values of a given type. Several functions are available to query and modify storage vectors. The examples below reference the following declaration:
+
 ```leo
 storage id_numbers: [u64];
 ```
 
 ### Querying
-To query the element currrently stored in `id_numbers` at index `idx`:
+
+To query the element currently stored in `id_numbers` at index `idx`:
+
 ```leo
 id_numbers.get(idx);
 ```
+
+This returns `u64?`. If `idx` is out of bounds, the result is `none`.
+
 To get the current length of `id_numbers`:
+
 ```leo
 id_numbers.len();
 ```
+
+This always returns a `u32` and cannot fail.
+
 ### Modifying
+
 To set an element at index `idx` in `id_numbers`:
+
 ```leo
 id_numbers.set(idx, value);
 ```
+
 To push an element onto the end of `id_numbers`:
+
 ```leo
 id_numbers.push(value);
 ```
+
 To pop and return the last element of `id_numbers`:
+
 ```leo
 id_numbers.pop();
 ```
+
 To remove the element at index `idx`, return it, and replace it with the final element of `id_numbers`:
+
 ```leo
 id_numbers.swap_remove(idx);
 ```
-To clear the every element in `id_numbers`:
+
+To clear every element in `id_numbers`:
+
 ```leo
-id_numbers.clear()
+id_numbers.clear();
 ```
+
 :::note
-- `clear()` does not actually remove any values from the vector. It just sets the length to 0.
-- Similarly `swap_remove()` and `pop()` do not actually remove values either. They just reduce the length by 1 to make sure the last element is no longer accessible.
+- `clear()` does not actually remove any values from the vector. It simply sets the length to `0`.
+- Similarly, `swap_remove()` and `pop()` do not physically remove values. They reduce the length by `1`, ensuring the final element is no longer accessible.
 :::
 
 ### Usage
@@ -176,7 +237,6 @@ program storage_vector.aleo {
         id_numbers.push(new_id);
     }
 
-
     async transition remove_id(idx: u32) -> Future {
         return remove_id_onchain(idx);
     }
@@ -186,10 +246,39 @@ program storage_vector.aleo {
     }
 }
 ```
+
 :::info
-Storage vector operations are only allowed in an [async function](#async-function) or async block.
+Storage vector operations are only allowed in an [async function](#async-function) or `async` block.
 :::
 
+### External Access
+
+Storage vectors defined in another program can be accessed using the fully qualified form `program_name.aleo/storage_name`. External storage vectors are **read-only** and cannot be modified.
+
+For example, suppose another program defines the following storage vector:
+
+```leo
+program external_program.aleo {
+    storage id_numbers: [u64];
+}
+```
+
+You may query elements or the length of this vector from your program:
+
+```leo
+let first: Option<u64> = external_program.aleo/id_numbers.get(0u32);
+let length: u32 = external_program.aleo/id_numbers.len();
+```
+
+External storage vectors cannot be modified. The following operations are invalid:
+
+```leo
+external_program.aleo/id_numbers.push(5u64);        // invalid
+external_program.aleo/id_numbers.set(0u32, 5u64);   // invalid
+external_program.aleo/id_numbers.pop();             // invalid
+external_program.aleo/id_numbers.swap_remove(0u32); // invalid
+external_program.aleo/id_numbers.clear();           // invalid
+```
 
 ## Functions
 
@@ -381,9 +470,9 @@ snarkVM imposes the following limits on Aleo programs:
 
 Some other protocol-level limits to be aware of are:
 - **the maximum transaction size is 128 KB.** If your program exceeds this, perhaps by requiring large inputs or producing large outputs, consider optimizing the data types in your Leo code.
-- **the maxmimum number of micro-credits your transaction can consume for on-chain execution is `100_000_000`.**. If your program exceeds this, consider optimizing on-chain components of your Leo code.
+- **the maximum number of micro-credits your transaction can consume for on-chain execution is `100_000_000`.**. If your program exceeds this, consider optimizing on-chain components of your Leo code.
 
-As with the above restructions. these limits can only be increased via the governance process.
+As with the above restrictions, these limits can only be increased via the governance process.
 
 ## Compiling Conditional On-Chain Code
 Consider the following Leo transition.
