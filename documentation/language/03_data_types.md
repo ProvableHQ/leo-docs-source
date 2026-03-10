@@ -126,6 +126,12 @@ program test.aleo {
 }
 ```
 
+Signature literals can be also be used. For example:
+
+```leo
+let sig: signature = sign195m229jvzr0wmnshj6f8gwplhkrkhjumgjmad553r997u7pjfgpfz4j2w0c9lp53mcqqdsmut2g3a2zuvgst85w38hv273mwjec3sqjsv9w6uglcy58gjh7x3l55z68zsf24kx7a73ctp8x8klhuw7l2p4s3aq8um5jp304js7qcnwdqj56q5r5088tyvxsgektun0rnmvtsuxpe6sj
+```
+
 ## Composite Types
 
 ### Arrays
@@ -223,9 +229,9 @@ transition baz(foo: u8, bar: u8) -> u8 {
 
 ### Structs
 
-Struct types are declared and constructed with a familiar syntax. Note that there is a global namespace for struct
-types across your program and its dependencies. If a dependency declares a struct type `T`, you may access that type
-without any qualifier.
+Struct types are declared and constructed with a familiar syntax.
+
+Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo/StructName`.
 
 ```leo
 program test.aleo {
@@ -244,7 +250,17 @@ program test.aleo {
 }
 ```
 
-As of v3.0.0, Leo now supports **const generics** for struct types:
+Structs defined in external programs can be referenced and constructed using their fully qualified name:
+
+```leo
+let s: external_program.aleo/S2 = external_program.aleo/S2 {
+    x: 1field,
+    y: 2u32,
+};
+```
+
+Leo supports **const generics** for struct types:
+
 ```leo
 struct Matrix::[N: u32, M: u32] {
     data: [field; N * M],
@@ -253,7 +269,8 @@ struct Matrix::[N: u32, M: u32] {
 // Usage
 let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
 ```
-Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`,  `scalar`, `group`, `field`, and `address`.
+
+Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`. Const generic structs may be declared and used within a program and its submodules, but they cannot currently be imported from external programs.
 
 ### Records
 

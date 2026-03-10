@@ -156,6 +156,8 @@ let sender_address: address = msg.sender;
 let object_value: u64 = msg.object;
 ```
 
+An struct `ExternalStruct` defined in program `external_program.aleo` can be referred outside the program using the syntax `external_program.aleo/ExternalStruct`.
+
 ### Const Generics
 ```leo
 struct Matrix::[N: u32, M: u32] {
