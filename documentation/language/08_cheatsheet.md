@@ -357,7 +357,9 @@ a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8); // Ternary format
 ```
 
 ## 11. Onchain Storage
+
 ### Mappings
+
 ```leo
 mapping balances: address => u64;
 
@@ -369,8 +371,15 @@ let get_or_use_bal: u64 = balances.get_or_use(receiver, 0u64);
 // Modifying
 balances.set(receiver, 100u64);
 balances.remove(balances, receiver);
+
+// External mappings (read-only)
+let ext_contains: bool = external_program.aleo/balances.contains(receiver);
+let ext_get: u64 = external_program.aleo/balances.get(receiver);
+let ext_get_or_use: u64 = external_program.aleo/balances.get_or_use(receiver, 0u64);
 ```
+
 ### Storage Variables
+
 ```leo
 storage var: u8;
 
@@ -381,14 +390,20 @@ let unwrap_or_var: u8 = var.unwrap_or(0u8);
 // Modifying
 var = 8u8;
 var = none;
+
+// External storage variables (read-only)
+let ext_var: u8 = external_program.aleo/var.unwrap();
+let ext_var_safe: u8 = external_program.aleo/var.unwrap_or(0u8);
 ```
+
 ### Storage Vectors
+
 ```leo
 storage vec: [u8];
 
 // Querying
 let len_vec: u32 = vec.len();
-let val: u8 = vec.get(idx);
+let val: u8? = vec.get(idx);
 
 // Modifying
 vec.set(idx, value);
@@ -396,8 +411,11 @@ vec.push(value);
 vec.pop();
 vec.swap_remove(idx);
 vec.clear();
-```
 
+// External storage vectors (read-only)
+let ext_len: u32 = external_program.aleo/vec.len();
+let ext_val: u8? = external_program.aleo/vec.get(idx);
+```
 
 ## 12. Operators
 ### Standard
