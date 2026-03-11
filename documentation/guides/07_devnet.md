@@ -43,7 +43,7 @@ This feature is only available on Unix-based systems.
 
 You'll need to install the `tmux` package first:
 
-<Tabs defaultValue="cargo"
+<Tabs defaultValue="macos"
 values={[
   { label: 'MacOS', value: 'macos' },
   { label: 'Ubuntu', value: 'ubuntu' },
@@ -55,7 +55,7 @@ To install `tmux` on macOS, you can use the Homebrew package manager. If you hav
 brew install tmux
 ```
 </TabItem>
-<TabItem value="prebuilt">
+<TabItem value="ubuntu">
 On Ubuntu and other Debian-based systems, you can use the apt package manager:
 
 ```bash
