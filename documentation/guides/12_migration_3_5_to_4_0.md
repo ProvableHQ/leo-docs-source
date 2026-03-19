@@ -16,7 +16,7 @@ This guide covers every breaking change and shows how to update your code.
 | `transition foo()` | `fn foo()` (inside `program {}`) |
 | `async transition foo() -> Future` | `fn foo() -> Final` |
 | `function foo()` | `fn foo()` (outside `program {}`) |
-| `async function foo()` | `final fn foo()` |
+| `async function foo()` | `final { ... }` block (see [below](#async-finalize-to-final)) |
 | `inline foo()` | `fn foo()` (outside `program {}`) |
 | `Future` (type) | `Final` |
 | `async { ... }` | `final { ... }` |
@@ -139,7 +139,9 @@ Leo programs execute in two distinct contexts:
 
 In 3.5, the "async" terminology (`async transition`, `async function`, `Future`) suggested asynchronous execution, but what it really meant was "runs on-chain during finalization." The 4.0 keyword `final` directly communicates this: a `final` block or `final fn` runs in the finalization context.
 
-In practice: 3.5 split on-chain logic across an `async transition` and a separate `async function`. In 4.0, on-chain logic lives inside `final { }` blocks or in `final fn` definitions.
+In practice: 3.5 split on-chain logic across an `async transition` and a separate `async function`. In 4.0, on-chain logic lives inside `final { }` blocks within entry points.
+
+When the compiler processes a `final { }` block, it lifts it into a standalone finalization function - the on-chain equivalent of 3.5's `async function`. `final fn` definitions, by contrast, are always inlined into the caller's finalization block before this lifting occurs, making them a compile-time code reuse mechanism rather than standalone on-chain functions.
 
 ### Inline finalize
 
@@ -213,27 +215,40 @@ program token.aleo {
 }
 ```
 
-### Separate finalize functions
+### Reusable finalization logic with `final fn`
 
-If you prefer to keep finalize logic in a separate function, use `final fn`:
+4.0 introduces `final fn` as a new mechanism for **deduplicating** finalization logic across multiple entry points. Unlike 3.5's `async function` - which compiled to a standalone on-chain finalization - `final fn` bodies are **always inlined** into the caller's `final { }` block at compile time. They are a code reuse tool, not a direct replacement for `async function`.
+
+The direct replacement for `async function` is the `final { }` block shown in the sections above. Use `final fn` when multiple entry points share common finalization logic:
 
 ```leo
 // 4.0
+final fn update_balance(receiver: address, amount: u64) {
+    let current: u64 = balances.get_or_use(receiver, 0u64);
+    balances.set(receiver, current + amount);
+}
+
 program token.aleo {
     mapping balances: address => u64;
 
     fn mint(public receiver: address, public amount: u64) -> Final {
-        return final { finalize_mint(receiver, amount); };
+        return final {
+            update_balance(receiver, amount);
+        };
     }
-}
 
-final fn finalize_mint(public receiver: address, public amount: u64) {
-    let current: u64 = balances.get_or_use(receiver, 0u64);
-    balances.set(receiver, current + amount);
+    fn airdrop(public r1: address, public r2: address, public amount: u64) -> Final {
+        return final {
+            update_balance(r1, amount);
+            update_balance(r2, amount);
+        };
+    }
 }
 ```
 
-Note that `final fn` definitions are typically declared **outside** the `program {}` block, since the program block is intended to contain only the program's public interface.
+Here, `update_balance` is inlined into each caller's finalization block before the compiler lifts those blocks into standalone on-chain functions. The result is two independent on-chain finalizations that each contain the inlined logic - no shared `update_balance` function exists in the compiled output.
+
+`final fn` definitions live **outside** the `program {}` block, since they are not part of the program's public on-chain interface.
 
 ### `.await()` becomes `.run()`
 
@@ -272,7 +287,7 @@ program example.aleo {
 | 3.5 | 4.0 |
 |---|---|
 | `async transition foo() -> Future` | `fn foo() -> Final` |
-| `async function foo()` | `final fn foo()` |
+| `async function foo()` | `final { ... }` block |
 | `let f: Future = async { ... }` | `let f: Final = final { ... }` |
 | `f.await()` | `f.run()` |
 | `return finalize_foo(args)` | `return final { finalize_foo(args); }` |
