@@ -32,3 +32,5 @@ There's a lot to learn about Leo! To help tame the complexity, we've put togethe
 
 - [**ABI Generation**](./11_abi.md) - Learn about the ABI format and type lowering for SDK integration.
 
+## Migration
+- [**Migrating from Leo 3.5 to 4.0**](./12_migration_3_5_to_4_0.md) - A complete guide to updating your programs for Leo 4.0.
