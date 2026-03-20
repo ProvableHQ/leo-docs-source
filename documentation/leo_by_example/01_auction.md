@@ -2,7 +2,7 @@
 id: auction
 title: A Private Auction using Leo
 ---
-[general tags]: # (example, auction, record, program, transition, assert)
+[general tags]: # (example, auction, record, program, assert)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/auction)**
 
@@ -148,7 +148,7 @@ ENDPOINT=https://localhost:3030
 " > .env
 ```
 
-Provide the two `Bid` records as input to the `resolve` transition function.
+Provide the two `Bid` records as input to the `resolve` function.
 
 ```bash 
 leo run resolve "{
@@ -168,7 +168,7 @@ leo run resolve "{
 
 ## <a id="step4"></a> Step 4: Finish the Auction
 
-Call the `finish` transition function with the winning `Bid` record.
+Call the `finish` function with the winning `Bid` record.
 
 ```bash 
 leo run finish "{

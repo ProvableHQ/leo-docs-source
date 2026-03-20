@@ -7,7 +7,7 @@ toc_max_heading_level: 3
 ---
 
 snarkVM imposes the following limits on Aleo programs:
-- the maximum size of the program 100 KB, by the number of characters.
+- the maximum size of the program is 100 KB, by the number of characters.
 - the maximum number of mappings is 31.
 - the maximum number of imports is 64.
 - the maximum import depth is 64.
@@ -27,9 +27,9 @@ Some other protocol-level limits to be aware of are:
 As with the above restrictions, these limits can only be increased via the governance process.
 
 ## Compiling Conditional On-Chain Code
-Consider the following Leo transition.
+Consider the following Leo entry function.
 ```leo showLineNumbers
-transition weird_sub(a: u8, b: u8) -> u8 {
+fn weird_sub(a: u8, b: u8) -> u8 {
     if (a >= b) {
         return a.sub_wrapped(b);
     } else {
@@ -48,7 +48,7 @@ function weird_sub:
     ternary r2 r3 r4 into r5;
     output r5 as u8.private;
 ```
-Observe that both branches of the conditional are executed in the transition. The correct output is then selected using a ternary instruction. This compilation method is only possible because operations in transitions are purely functional. [^1].
+Observe that both branches of the conditional are executed in the entry function. The correct output is then selected using a ternary instruction. This compilation method is only possible because operations in transitions are purely functional. [^1].
 
 On-chain commands are not all purely functional; for example, `get`, `get.or_use`, `contains`, `remove`, and `set`, whose semantics all depend on the state of the program. As a result, the same technique for off-chain code cannot be used. Instead, the on-chain code is compiled using `branch` and `position` commands, which allow the program to define sequences of code that are skipped. However, because destination registers in skipped instructions are not initialized, they cannot be accessed in a following instructions. In other words, depending on the branch taken, some registers are invalid and an attempt to access them will return in an execution error. The only Leo code pattern that produces such an access attempt is code that attempts to assign out to a parent scope from a conditional statement; consequently, they are disallowed.
 

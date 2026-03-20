@@ -2,7 +2,7 @@
 id: battleship
 title: A Game of Battleship in Leo
 ---
-[general tags]: # (example, battleship, struct, program, transition)
+[general tags]: # (example, battleship, struct, program)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/battleship)**
 
@@ -256,7 +256,7 @@ Notice the outputs here are similar to `offer_battleship`. A dummy `move.record`
 
 ## 6: Player 1 Takes The 1st Turn
 
-We switch the .env back to player 1, and we run the transition function play.
+We switch the .env back to player 1, and we run the `play` function.
 
 ```bash
 echo "
@@ -312,7 +312,7 @@ Player 1 has an updated `board_state.record` - they have a new `played_tiles` bi
 
 ## 7: Player 2 Takes The 2nd Turn
 
-We switch the .env back to player 2, and we run the transition function play.
+We switch the .env back to player 2, and we run the `play` function.
 
 ```bash
 echo "
@@ -373,7 +373,7 @@ Player 1's next move will consume this `move.record`, which will update Player 1
 
 ## 8: Player 1 Takes The 3rd Turn
 
-We switch the .env back to player 1, and we run the transition function play.
+We switch the .env back to player 1, and we run the `play` function.
 
 ```bash
 echo "
@@ -441,7 +441,7 @@ The `board_state.record` `hits_and_misses` field has also been updated with the 
 
 ## 9: Player 2 Takes The 4th Turn
 
-We switch the .env back to player 2, and we run the transition function play.
+We switch the .env back to player 2, and we run the `play` function.
 
 ```bash
 echo "

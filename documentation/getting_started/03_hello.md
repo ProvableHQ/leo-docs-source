@@ -56,9 +56,9 @@ Let's break down the structure of a Leo file.
 // The 'hello' program.
 program hello.aleo {
     @noupgrade
-    async constructor() {}
+    constructor() {}
 
-    transition main(public a: u32, b: u32) -> u32 {
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -67,12 +67,12 @@ program hello.aleo {
 
 The keyword `program` indicates the name of the [program](./../language/02_structure.md#program-scope) inside the Leo file.  In this case, it is `hello.aleo`.  As mentioned before, this program name must match the one in the  `program.json` manifest file.
 
-The keyword `transition` indicates a [transition](./../language/02_structure.md#transition-function) function definition in Leo.
-The `main` transition takes an input `a` with type `u32` and `public` visibility, and an input `b` with type `u32` and `private` visibility (by default).
-The transition returns one result with type `u32`.
-The transition body is enclosed in curly braces `{ }`. 
+The keyword `fn` indicates an entry function definition in Leo.
+The `main` function takes an input `a` with type `u32` and `public` visibility, and an input `b` with type `u32` and `private` visibility (by default).
+The function returns one result with type `u32`.
+The function body is enclosed in curly braces `{ }`.
 ```leo
-transition main(public a: u32, b: u32) -> u32 {
+fn main(public a: u32, b: u32) -> u32 {
 ```
 
 Inside the `main` function we declare a variable `c` with type `u32` and set it equal to the addition of variables `a` and `b`.
@@ -92,11 +92,11 @@ Leo will check that `c`'s type matches the function return type `u32`.
 return c;
 ```
 
-There is an additional function called a `constructor`.  This is a special function that helps enable program upgradability, which allows you to modify some of the logic and contents of a program after you've already deployed it onchain.  
+There is an additional function called a `constructor`.  This is a special function that helps enable program upgradability, which allows you to modify some of the logic and contents of a program after you've already deployed it onchain.
 
 ```leo
 @noupgrade
-async constructor() {}
+constructor() {}
 ```
 
 The constructor acts as a gatekeeper for your program; the logic in the function gets run before every deployment and upgrade, and governs who and how this program can be deployed and modified.  
@@ -106,7 +106,7 @@ The constructor acts as a gatekeeper for your program; the logic in the function
 All programs must have an explicitly declared constructor function.
 :::
 
-For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/10_program_upgradability.md).
+For now, we'll leave it as is, which will prevent upgrades from occurring. For more details on how program upgradability works, and different patterns for upgrading your programs, check out [Upgrading Programs](./../guides/09_program_upgradability.md).
 
 
 Now let's compile and run the program.
@@ -118,10 +118,10 @@ To compile the program, run:
 leo build
 ```
  
-On invoking the build command, Leo automatically creates a `build/⁠` and `output/`⁠ folder in the project directory. The compiled code is contained in the `build` directory. The `output` directory is used to stored intermediate artifacts from compilation. 
+On invoking the build command, Leo automatically creates a `build/⁠` and `output/`⁠ folder in the project directory. The compiled code is contained in the `build` directory. The `output` directory is used to store intermediate artifacts from compilation.
 
 
-The `leo run` command will both compile and run the specified function program.
+The `leo run` command will both compile and run the specified program.
 In your terminal, run:
 ```bash
 leo run main 1u32 2u32

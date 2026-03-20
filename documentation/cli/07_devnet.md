@@ -9,7 +9,7 @@ toc_max_heading_level: 2
 
 # `leo devnet`
 
-To intialize a local devnet, run the following command:
+To initialize a local devnet, run the following command:
 ```bash
 leo devnet --snarkos <SNARKOS>
 ```
@@ -74,5 +74,5 @@ Number of validators to use in snarkOS.  Defaults to 4.
 Number of clients to use in snarkOS. Defaults to 2.
 
 #### `--verbosity <VERBOSITY>`
-Specifies the verbository of snarkOS (0-4).  Defaults to 1.
+Specifies the verbosity of snarkOS (0-4).  Defaults to 1.
 

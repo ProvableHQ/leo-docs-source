@@ -5,7 +5,7 @@ sidebar: Cheatsheet
 toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
-[general tags]: # (program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, transition, async_transition, function, async_function, inline, mapping, conditionals, loops)
+[general tags]: # (program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, mapping, conditionals, loops)
 
 ## 1. File Import
 ```leo
@@ -156,7 +156,7 @@ let sender_address: address = msg.sender;
 let object_value: u64 = msg.object;
 ```
 
-An struct `ExternalStruct` defined in program `external_program.aleo` can be referred outside the program using the syntax `external_program.aleo/ExternalStruct`.
+A struct `ExternalStruct` defined in program `external_program.aleo` can be referred to outside the program using the syntax `external_program.aleo/ExternalStruct`.
 
 ### Const Generics
 ```leo
@@ -237,101 +237,93 @@ let third: field = t.2;
 
 
 ## 8. Functions
-The rules for functions (in the traditional sense) are as follows:
 
-There are three variants of functions:
-1. **transition**: Can only call functions and inlines.
-2. **functions**: Can only call inlines.
-3. **inlines**: Can only call inlines. 
+There are three kinds of functions in Leo 4.0:
+
+1. **Entry `fn`** (inside `program {}`): the program's public interface, callable from outside.
+2. **Helper `fn`** (outside `program {}`): private helpers used by entry functions.
+3. **`final fn`** (outside `program {}`): reusable finalization logic, inlined into `final { }` blocks at compile time.
 
 **Direct/indirect recursive calls are not allowed.**
 
-### Inline
-An `inline` function is used for **small operations**. It gets **inlined at compile time**, meaning it does not create a separate function call
+### Helper `fn`
+A helper `fn` is used for **computations**. Declared outside `program {}`.
 ```leo
-inline foo(
-    a: field,
-    b: field,
-) -> field {
+fn compute(a: u64, b: u64) -> u64 {
     return a + b;
 }
 ```
+
 #### Const Generics
 ```leo
-inline sum_first_n_ints::[N: u32]() -> u32 {
+fn sum_first_n_ints::[N: u32]() -> u32 {
     let sum = 0u32;
     for i in 0u32..N {
-        sum += i
+        sum += i;
     }
     return sum;
 }
- 
-transition main() -> u32 {
-    return sum_first_n_ints::[5u32]();
+
+program main.aleo {
+    fn main() -> u32 {
+        return sum_first_n_ints::[5u32]();
+    }
 }
 ```
 
 Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
-✅ Can call: `inline`
+✅ Can call: helper `fn`
 
-❌ Cannot call: `function` or `transition`
+❌ Cannot call: entry `fn`
 
-
-
-
-
-### Function
-A `function` is used for **computations**. It **cannot** modify state and can only call `inline` functions.
+### Entry `fn`
+An entry `fn` is the program's **public interface**. Declared inside `program {}`. It can call helper `fn` and include `final { }` blocks for on-chain state updates.
 ```leo
-function compute(a: u64, b: u64) -> u64 {
-    return a + b;
-}
-```
-✅ Can call: `inline`
-
-❌ Cannot call: `function` or `transition`
-
-
-### Transition
-A `transition` function **modifies state** (e.g., transfers, updates records). It can call `function` and `inline` functions, but **cannot be called by a function or inline**.
-```leo
-transition transfer(receiver: address, amount: u64) {
-    let balance: u64 = 1000u64; // Example balance
-    let new_balance: u64 = subtract(balance, amount);
-    // Logic to send `amount` to `receiver` would go here
-}
-
-function subtract(a: u64, b: u64) -> u64 {
+fn subtract(a: u64, b: u64) -> u64 {
     return a - b;
 }
-```
-✅ Can call: `function`, `inline`
 
-❌ Cannot call: another `transition` (unless from another program)
-
-### Async Transition
-An `async transition` function  **modifies private state** exactly like a regular `transition`, but it also includes an onchain portion that can **modify public (onchain) state**.
-
- It can call `function` and `inline` functions, but **cannot be called by a function or inline**.  
- 
- An `async transition` **must** return a `Future`.
-```leo
-mapping balances: address => u64
-
-async transition mint(receiver: address, amount: u64) -> Future {
-    return async {
-        let current_balance: u64 = balances.get_or_use(receiver, 0u64);
-        let new_balance: u64 = current_balance + amount;
-        balances.set(receiver, new_balance);
-    };
+program example.aleo {
+    fn transfer(receiver: address, amount: u64) {
+        let balance: u64 = 1000u64;
+        let new_balance: u64 = subtract(balance, amount);
+    }
 }
-
 ```
-✅ Can call: `function`, `inline`
+✅ Can call: helper `fn`
 
-❌ Cannot call: another `transition` (unless from another program)
+❌ Cannot call: another entry `fn` (unless from another program)
 
+### Entry `fn` with `final { }` (on-chain state)
+An entry `fn` that also modifies **public on-chain state** returns `Final` and includes a `final { }` block.
+```leo
+program example.aleo {
+    mapping balances: address => u64;
+
+    fn mint(receiver: address, amount: u64) -> Final {
+        return final {
+            let current_balance: u64 = balances.get_or_use(receiver, 0u64);
+            balances.set(receiver, current_balance + amount);
+        };
+    }
+}
+```
+✅ Can call: helper `fn`, `final fn`
+
+❌ Cannot call: another entry `fn` (unless from another program)
+
+### `final fn`
+A `final fn` contains reusable finalization logic. It is **always inlined** into the caller's `final { }` block at compile time. Declared outside `program {}`.
+```leo
+final fn update_balance(receiver: address, amount: u64) {
+    let current: u64 = balances.get_or_use(receiver, 0u64);
+    balances.set(receiver, current + amount);
+}
+```
+✅ Can call: other `final fn`
+
+❌ Cannot call: helper `fn` or entry `fn`
 ## 9. Loops
 ```leo
 let count: u32 = 0u32;
@@ -438,7 +430,7 @@ let bitwise_or: u64 = a | b; // bitwise OR
 let bitwise_xor: u64 = a ^ b; // bitwise XOR
 let bitwise_not: u64 = !a; // bitwise NOT
 let bitwise_shl: u64 = a << b // bitwise shift left (also has wrapped variant)
-let bitwise_shr: u64 = a >> b // bitwise shift left (also has wrapped variant)
+let bitwise_shr: u64 = a >> b // bitwise shift right (also has wrapped variant)
 
 // Comparators
 let eq: bool = a == b; // equality
@@ -458,7 +450,7 @@ let squared: field = 1field.square(); // Square of the field/group element
 let root: field = 1field.square_root(); // Square root of the field/group element
 
 // Context-dependent Expressions
-let height: u32 = block.height; // Height of current blcok
+let height: u32 = block.height; // Height of current block
 let now: i64 = block.timestamp; // Timestamp of current block
 let this: address = self.address; // Address of program
 let caller: address = self.caller; // Address of function caller
@@ -501,5 +493,5 @@ let ecdsa_raw: bool = ECDSA::verify_keccak256_raw(sig, addr, msg); // Verify an 
 let ecdsa_eth: bool = ECDSA::verify_keccak256_eth(sig, eth_addr, msg); // Verify an ECDSA signature against an Ethereum address and the Keccak256 hash of a raw message
 
 let ecdsa_digest: bool = ECDSA::verify_digest(sig, addr, digest); // Verify an ECDSA signature against an ECDSA public key and a prehashed message
-let ecdsa_digest_eth: bool = ECDSA::verify_digest_eth(sig, eth_addr, digest); Verify an ECDSA signature against an Ethereum address and a prehashed message
+let ecdsa_digest_eth: bool = ECDSA::verify_digest_eth(sig, eth_addr, digest); // Verify an ECDSA signature against an Ethereum address and a prehashed message
 ```

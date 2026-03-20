@@ -105,20 +105,19 @@ Signatures are a native type in Leo, and can be declared with the keyword `signa
 Signatures can be verified in Leo using the [`signature::verify`](./04_operators.md#signatureverify) or [`s.verify`](./04_operators.md#signatureverify) operators.
 
 ```leo
+struct foo {
+    a: u8,
+    b: scalar
+}
+
 program test.aleo {
-
-    struct foo {
-        a: u8,
-        b: scalar
-    }
-
-    transition verify_field(s: signature, a: address, v: field) {
+    fn verify_field(s: signature, a: address, v: field) {
         let first: bool = signature::verify(s, a, v);
         let second: bool = s.verify(a, v);
         assert_eq(first, second);
     }
 
-    transition verify_foo(s: signature, a: address, v: foo) {
+    fn verify_foo(s: signature, a: address, v: foo) {
         let first: bool = signature::verify(s, a, v);
         let second: bool = s.verify(a, v);
         assert_eq(first, second);
@@ -138,7 +137,7 @@ let sig: signature = sign195m229jvzr0wmnshj6f8gwplhkrkhjumgjmad553r997u7pjfgpfz4
 
 Leo supports static arrays.   Array types are declared as `[type; length]`.  Elements can only be primitive data types, structs, or nested arrays.
 ```leo
-// Initalize a boolean array of length 4
+// Initialize a boolean array of length 4
 let arr: [bool; 4] = [true, false, true, false];
 
 // Empty array
@@ -167,7 +166,7 @@ let arr_of_structs: [Bar; 2] = [Bar { data: 1u8 }, Bar { data: 2u8 }];
 Arrays only support constant accesses. The accessor expression must be a constant expression (known at compile-time).
 ```leo
 // Access the field of a struct within an array
-transition foo(a: [Bar; 8]) -> u8 {
+fn foo(a: [Bar; 8]) -> u8 {
     return a[0u8].data;
 }
 ```
@@ -179,7 +178,7 @@ mapping data: address => [bool; 8];
 
 
 // Iterate over an array using a for loop and sum the values within
-transition sum_with_loop(a: [u64; 4]) -> u64 {
+fn sum_with_loop(a: [u64; 4]) -> u64 {
     let sum: u64 = 0u64;
     for i: u8 in 0u8..4u8 {
         sum += a[i];
@@ -195,7 +194,7 @@ Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and canno
 Tuples can contain primitive data types, structs, arrays, or nested tuples. Structs and records can also contain tuples.
 
 ```leo
-// Initalize a boolean array of length 4
+// Initialize a boolean array of length 4
 let tup: (u8,u8,bool) = (1u8,1u8,true);
 
 // Nested array
@@ -220,7 +219,7 @@ let tup_of_structs: [Bar; 2] = [Bar { data: (1u8,1u8) }, Bar { data: (2u8,2u8) }
 Tuples only support constant access with a dot `.` and a constant integer. 
 
 ```leo
-transition baz(foo: u8, bar: u8) -> u8 {
+fn baz(foo: u8, bar: u8) -> u8 {
     let a: (u8, u8) = (foo, bar);
     let result: u8 = a.0 + a.1;
     return result;
@@ -234,13 +233,13 @@ Struct types are declared and constructed with a familiar syntax.
 Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo/StructName`.
 
 ```leo
-program test.aleo {
-    struct S {
-        x: field,
-        y: u32,
-    }
+struct S {
+    x: field,
+    y: u32,
+}
 
-    transition foo(y: u32) -> S {
+program test.aleo {
+    fn foo(y: u32) -> S {
         let s: S = S {
             x: 172field,
             y,

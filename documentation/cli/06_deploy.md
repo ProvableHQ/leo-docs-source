@@ -157,16 +157,16 @@ Do not use this feature unless you know what you are doing!
 :::
 
 #### `--priority-fees <PRIORITY_FEES>`
-Specifes the priority fee for the deployment transaction(s) delimited by `|` and used in order. The fees are in microcredits and must either be valid `u64` or `default`. Defaults to 0.
+Specifies the priority fee for the deployment transaction(s) delimited by `|` and used in order. The fees are in microcredits and must either be valid `u64` or `default`. Defaults to 0.
 
 :::tip
-1 Credit == 1,000,000 Microcreditss
+1 Credit == 1,000,000 Microcredits
 :::
 
 
 #### `--fee-records <FEE_RECORDS>`
 #### `-f <FEE_RECORDS>`
-Specifes the record(s) to pay for fees privately, delimited by `|` and used in order. The fees must either be valid plaintext, ciphertext, or `default`.  If not specified, then transaction fees will be public.
+Specifies the record(s) to pay for fees privately, delimited by `|` and used in order. The fees must either be valid plaintext, ciphertext, or `default`.  If not specified, then transaction fees will be public.
 
 
 #### `--consensus-heights <CONSENSUS_HEIGHTS>`

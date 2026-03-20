@@ -73,7 +73,7 @@ The private key and address of voter 2.
 private_key: APrivateKey1zkp6NHwbT7PkpnEFeBidz5ZkZ14W8WXZmJ6kjKbEHYdMmf2
 address: aleo1uc6jphye8y9gfqtezrz240ak963sdgugd7s96qpuw6k7jz9axs8q2qnhxc
 ```
-Let's propose a new ballot. Take on the role of the proposer and run the propose transition function. We've provided the necessary information as inputs to the `propose` function.
+Let's propose a new ballot. Take on the role of the proposer and run the `propose` function. We've provided the necessary information as inputs to the `propose` function.
 
 ```bash
 echo "
@@ -113,7 +113,7 @@ You'll see that the output generates a new record with the proposal information 
 
 ## <a id="step1"></a> Voter 1 makes a vote
 
-Let's create a new private ticket to make a vote. Take on the role of voter 1 and run the `new_ticket` transition. The inputs take a unique ticket ID and the voter's public address.
+Let's create a new private ticket to make a vote. Take on the role of voter 1 and run the `new_ticket` function. The inputs take a unique ticket ID and the voter's public address.
 
 ```bash
 echo "
@@ -141,7 +141,7 @@ Output
 
 You'll see a new private ticket created belonging to the owner, and a public mapping in the vote program to track the ID of that ticket.
 
-Voter 1 can now vote privately on their ticket. Call the agree or disagree transition function, which takes the voter's ticket output as the input.
+Voter 1 can now vote privately on their ticket. Call the `agree` or `disagree` function, which takes the voter's ticket output as the input.
 
 ```bash
 leo run agree "{
@@ -164,7 +164,7 @@ Output
 
 ## <a id="step2"></a> Voter 2 makes a vote
 
-Let's create a new private ticket for voter 2. Take on the role of voter 1 and run the `new_ticket` transition. The inputs take a unique ticket ID and the voter's public address.
+Let's create a new private ticket for voter 2. Take on the role of voter 2 and run the `new_ticket` function. The inputs take a unique ticket ID and the voter's public address.
 
 ```bash
 echo "
@@ -190,7 +190,7 @@ Output
 }
 ```
 
-Voter 2 can now vote privately on their ticket. Call the agree or disagree transition function, which takes the voter's ticket output as the input.
+Voter 2 can now vote privately on their ticket. Call the `agree` or `disagree` function, which takes the voter's ticket output as the input.
 
 ```bash
 leo run disagree "{

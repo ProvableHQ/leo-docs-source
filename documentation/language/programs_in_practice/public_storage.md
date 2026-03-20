@@ -54,23 +54,21 @@ Mapping::remove(balance, addr); // Alternate syntax
 program map.aleo {
     mapping balance: address => u64;
 
-    async transition dubble() -> Future {
-        return dubble_onchain(self.caller);
+    fn dubble() -> Final {
+        let addr: address = self.caller;
+        return final {
+            let current_value: u64 = balance.get_or_use(addr, 0u64);
+            balance.set(addr, current_value + 1u64);
+
+            let next_current_value = balance.get(addr);
+            balance.set(addr, current_value + 1u64);
+        };
     }
-
-    async function dubble_onchain(addr: address) {
-        let current_value: u64 = balance.get_or_use(addr, 0u64);
-        balance.set(addr, current_value + 1u64);
-
-        let next_current_value = balance.get(addr);
-        balance.set(addr, current_value + 1u64);
-    }
-
 }
 ```
 
 :::info
-Mapping operations are only allowed in an [async function](#async-function) or async block.
+Mapping operations are only allowed inside a `final { }` block or inside a `final fn`.
 :::
 
 ## Storage Variables
@@ -111,20 +109,17 @@ counter = none;
 program storage_variable.aleo {
     storage counter: u64;
 
-    async transition increment() -> Future {
-        return increment_onchain();
+    fn increment() -> Final {
+        return final {
+            let current_value: u64 = counter.unwrap_or(0u64);
+            counter = current_value + 1u64;
+        };
     }
-
-    async function increment_onchain() {
-        let current_value: u64 = counter.unwrap_or(0u64);
-        counter = current_value + 1u64;
-    }
-
 }
 ```
 
 :::info
-Storage variable operations are only allowed in an [async function](#async-function) or `async` block.
+Storage variable operations are only allowed inside a `final { }` block or inside a `final fn`.
 :::
 
 ### External Access
@@ -229,26 +224,22 @@ id_numbers.clear();
 program storage_vector.aleo {
     storage id_numbers: [u64];
 
-    async transition add_id(new_id: u64) -> Future {
-        return add_id_onchain(new_id);
+    fn add_id(new_id: u64) -> Final {
+        return final {
+            id_numbers.push(new_id);
+        };
     }
 
-    async function add_id_onchain(new_id: u64) {
-        id_numbers.push(new_id);
-    }
-
-    async transition remove_id(idx: u32) -> Future {
-        return remove_id_onchain(idx);
-    }
-
-    async function remove_id_onchain(idx: u32) {
-        id_numbers.swap_remove(idx);
+    fn remove_id(idx: u32) -> Final {
+        return final {
+            id_numbers.swap_remove(idx);
+        };
     }
 }
 ```
 
 :::info
-Storage vector operations are only allowed in an [async function](#async-function) or `async` block.
+Storage vector operations are only allowed inside a `final { }` block or inside a `final fn`.
 :::
 
 ### External Access

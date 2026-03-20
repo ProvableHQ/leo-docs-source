@@ -1484,7 +1484,7 @@ let result: scalar = ChaCha::rand_scalar();
 Returns a random value with the destination type.
 
 :::info
-This operation can only be used in an async function.
+This operation can only be used inside a `final { }` block or inside a `final fn`.
 :::
 
 
@@ -1517,10 +1517,12 @@ This operation can only be used in an async function.
 ### `signature::verify`
 
 ```leo
-transition verify_field(s: signature, a: address, v: field) {
-    let first: bool = signature::verify(s, a, v);
-    let second: bool = s.verify(a, v);
-    assert_eq(first, second);
+program example.aleo {
+    fn verify_field(s: signature, a: address, v: field) {
+        let first: bool = signature::verify(s, a, v);
+        let second: bool = s.verify(a, v);
+        assert_eq(first, second);
+    }
 }
 ```
 

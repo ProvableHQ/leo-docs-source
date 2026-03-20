@@ -16,7 +16,7 @@ Feel free to add your comments and recommendations [here](#contributing).
 
 ### Conditional Branches
 
-The Leo compiler rewrites if-else statements inside `transitions` into a sequence of ternary expressions.
+The Leo compiler rewrites if-else statements in off-chain code into a sequence of ternary expressions.
 This is because the underlying circuit construction does not support branching.
 For precise control over the circuit size, it is recommended to use ternary expressions directly.
 
@@ -54,35 +54,39 @@ The cost of every computation within the conditional will be doubled.
 This greatly increases the constraint numbers and slows down the circuit.
 
 
-### Async Functions vs. Blocks
+### `final fn` vs. Inline `final` Blocks
 
-For code conciseness and readability, prefer using `async` blocks rather than a separately declared `async function`:
+For code conciseness and readability, prefer using inline `final { }` blocks rather than a separately declared `final fn`, unless the finalization logic is shared across multiple entry points:
 
-
-```leo title="Async Function:"
-mapping accumulator: u8 => u64;
-
-async transition increment_accumulator() -> Future {
-    return increment_state_onchain();
-}
-async function increment_accumulator_onchain(){
-    let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+```leo title="final fn (use only when shared across multiple entry points):"
+final fn increment_state(acc: u8) {
+    let current_count: u64 = accumulator.get_or_use(acc, 0u64);
     let new_count: u64 = current_count + 1u64;
-    accumulator.set(0u8, new_count);
+    accumulator.set(acc, new_count);
+}
 
+program example.aleo {
+    mapping accumulator: u8 => u64;
+
+    fn increment_accumulator() -> Final {
+        return final {
+            increment_state(0u8);
+        };
+    }
 }
 ```
 
-```leo title="Async Block:"
-mapping accumulator: u8 => u64;
+```leo title="Inline final block (preferred for single-use logic):"
+program example.aleo {
+    mapping accumulator: u8 => u64;
 
-async transition increment_accumulator() -> Future {
-    let f : Future = async {
-        let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
-        let new_count: u64 = current_count + 1u64;
-        accumulator.set(0u8, new_count);
+    fn increment_accumulator() -> Final {
+        return final {
+            let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+            let new_count: u64 = current_count + 1u64;
+            accumulator.set(0u8, new_count);
+        };
     }
-    return f;
 }
 ```
 
@@ -99,10 +103,10 @@ src
 ```
 With the above structure, consider the following:
 - Move all `const`s to the `constants.leo` module
-- Move all `inline` functions to the `utils.leo` module
+- Move all helper `fn` functions to the `utils.leo` module
 - Move some `struct`s to modules (but this may not make sense in the general case)
 
-The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something than can be called from an external context such as another program.  Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
+The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something that can be called from an external context such as another program.  Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
 
 ##  Layout
 
@@ -112,7 +116,7 @@ The goal is to only have the interface of the program in `main.leo`. Every funct
 ### Blank lines
 
 A single blank line should separate the top-level declarations in a `program` scope,
-namely `transition`, `function`, `struct`, `record`, and `mapping` declarations.
+namely `fn`, `record`, and `mapping` declarations, as well as module-level `struct` and helper `fn` declarations.
 Multiple imports can be optionally separated by a single blank line;
 the last import at the top of the file should be followed by a blank line.
 
@@ -120,16 +124,16 @@ the last import at the top of the file should be followed by a blank line.
 import std.io.Write;
 import std.math.Add;
 
+struct A {
+    // ...
+}
+
+fn foo() {
+    // ...
+}
+
 program prog.aleo {
-
-    struct A {
-        // ...
-    }
-
-    function foo() {
-        // ...
-    }
-
+    // ...
 }
 ```
 
@@ -142,7 +146,7 @@ program prog.aleo {
     struct A {
         // ...
     }
-    function foo() {
+    fn foo() {
         // ...
     }
 }
@@ -163,10 +167,11 @@ program prog.aleo {
 ### Layout
 Leo file elements should be ordered:
 1. Imports
-2. Program declaration
-3. Mappings
-4. Records + Structs
-5. Functions + Transitions
+2. Constants + Structs (module level)
+3. Helper `fn` and `final fn` definitions
+4. Program declaration
+5. Mappings + Records
+6. Entry point `fn` declarations
 
 
 ### Braces
@@ -176,7 +181,7 @@ struct A {
     // ...
 }
 
-transition main() {
+fn main() {
     // ...
 }
 
@@ -250,7 +255,7 @@ Please do the following before opening a PR.
 
 #### Tests
 
-If your code adds new functionality, please write tests to confirm the new features function as expected. Refer to existing tests for examples of how tests are expected to be written. Please read refer to the [parser tests section](#parser-tests). To run the tests please use the following command `cargo test --all --features ci_skip --no-fail-fast`.
+If your code adds new functionality, please write tests to confirm the new features function as expected. Refer to existing tests for examples of how tests are expected to be written. Please refer to the [parser tests section](#parser-tests). To run the tests please use the following command `cargo test --all --features ci_skip --no-fail-fast`.
 
 ##### **Parser Tests**
 

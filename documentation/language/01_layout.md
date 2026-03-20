@@ -39,8 +39,18 @@ The body of the program is delimited by curly braces `{}`.
 ```leo title=main.leo
 import foo.aleo;
 
+const FOO: u64 = 1u64;
+
+struct Message {
+    sender: address,
+    object: u64,
+}
+
+fn compute(a: u64, b: u64) -> u64 {
+    return a + b + FOO;
+}
+
 program hello.aleo {
-    const FOO: u64 = 1u64;
     mapping account: address => u64;
 
     record Token {
@@ -48,31 +58,15 @@ program hello.aleo {
         amount: u64,
     }
 
-    struct Message {
-        sender: address,
-        object: u64,
-    }
-
-    async transition mint_public(
+    fn mint_public(
         public receiver: address,
         public amount: u64,
-    ) -> (Token, Future) {
-        return (Token {
-            owner: receiver,
-            amount,
-        }, update_state(receiver, amount));
-    }
-
-    async function update_state(
-        public receiver: address,
-        public amount: u64,
-    ) {
-        let current_amount: u64 = Mapping::get_or_use(account, receiver, 0u64);
-        Mapping::set(account, receiver, current_amount + amount);
-   }
-
-    function compute(a: u64, b: u64) -> u64 {
-        return a + b + FOO;
+    ) -> (Token, Final) {
+        let token: Token = Token { owner: receiver, amount };
+        return (token, final {
+            let current_amount: u64 = Mapping::get_or_use(account, receiver, 0u64);
+            Mapping::set(account, receiver, current_amount + amount);
+        });
     }
 }
 ```
@@ -81,17 +75,17 @@ program hello.aleo {
 
 The following must be declared inside the scope of a program in a Leo file:
 
-- [Constants](#constant)
 - [Mappings](#mapping) and [Storage](#storage)
 - [Records](#record)
-- [Structs](#struct)
-- [Transitions](#transition-function) and [Async Transitions](#async-function)
-- [Functions](#transition-function) and [Async Functions](#async-function)
-- [Inlines](#inline)
+- [Entry point `fn` declarations](./programs_in_practice/functions.md#entry-functions)
 
 The following must be declared outside the scope of a program in a Leo file:
 
 - [Imports](#imports)
+- [Constants](#constant)
+- [Structs](#struct)
+- Helper `fn` definitions
+- [`final fn` definitions](./programs_in_practice/functions.md#final-fn)
 
 Declarations are locally accessible within a program file.  If you need a declaration from another Leo file, you must import it.
 ### Imports
@@ -132,7 +126,7 @@ program aleo.aleo;  // invalid
 
 In addition to your main file, Leo also supports a module system as of v3.2.0.
 
-Leaf modules (i.e. modules without submodules) must be defined in a single file (ex. `foo.leo`).  Modules with submodules must be defined by an optional top-level `.leo` file and a subdirectory directory containing the submodules:
+Leaf modules (i.e. modules without submodules) must be defined in a single file (ex. `foo.leo`).  Modules with submodules must be defined by an optional top-level `.leo` file and a subdirectory containing the submodules:
 
 
 Take the following project as an example:
@@ -157,7 +151,7 @@ Only relative paths are implemented so far. That means that items in `outer.leo`
 :::
 
 
-A module file may only contain `struct`, `const`, and `inline` definitions:
+A module file may only contain `struct`, `const`, and `fn` definitions:
 
 ```leo
 const X: u32 = 2u32;
@@ -166,7 +160,7 @@ struct S {
     a: field
 }
 
-inline increment(x: field) -> field {
+fn increment(x: field) -> field {
     return 1field;
 }
 ```

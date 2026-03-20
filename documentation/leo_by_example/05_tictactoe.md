@@ -50,7 +50,7 @@ cd tictactoe
 
 ## <a id="step0"></a> Create a new board.
 
-We generate the board, and then the players take turns executing the transition function make_move.
+We generate the board, and then the players take turns executing the `make_move` function.
 
 The inputs to the function are the player number, row position, column position, and the previous state of the board.
 

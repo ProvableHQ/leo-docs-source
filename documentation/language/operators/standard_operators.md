@@ -47,11 +47,11 @@ toc_max_heading_level: 3
 | [rem](#rem)                 | Remainder                           |
 | [rem_wrapped](#rem_wrapped) | Wrapping remainder                  |
 | [self.address](#selfaddress)| Address of the current program      |
-| [self.caller](#selfcaller)  | Address of a transition's calling user/program  |
+| [self.caller](#selfcaller)  | Address of the calling user/program  |
 | [self.checksum](#selfcaller)  | Checksum of a program |
 | [self.edition](#selfedition)| Version number of a program |
 | [self.program_owner](#selfprogram_owner)  | Address that submitted a program's deployment transaction |
-| [self.signer](#selfsigner)  | Address of the top-level transition's calling user |
+| [self.signer](#selfsigner)  | Address of the top-level calling user |
 | [Serialize::to_bits](#serializeto_bits) | Serialize data to bits  |
 | [shl](#shl)                 | Shift left                          |
 | [shl_wrapped](#shl_wrapped) | Wrapping shift left                 |
@@ -1071,22 +1071,22 @@ Checks if `first` is less than or equal to `second`, storing the result in `dest
 ### `block.height`
 
 ```leo
-async transition matches(height: u32) -> Future {
-    return check_block_height(height);
-} 
-
-async function check_block_height(height: u32) {
-    assert_eq(height, block.height);
+program example.aleo {
+    fn matches(height: u32) -> Final {
+        return final {
+            assert_eq(height, block.height);
+        };
+    }
 }
 ```
 
 
-The `block.height` operator is used to fetch the latest block height in a Leo program. It represents the number of 
-blocks in the chain. In the above example, `block.height` is used in an async function to fetch the latest block 
+The `block.height` operator is used to fetch the latest block height in a Leo program. It represents the number of
+blocks in the chain. In the above example, `block.height` is used in a `final { }` block to fetch the latest block
 height in a program.
 
 :::info
-* The `block.height` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `block.height` operator can only be used inside a `final { }` block or inside a `final fn`. Using it outside will result in a compilation error.
 * The `block.height` operator doesn't take any parameters.
 :::
 
@@ -1096,22 +1096,20 @@ height in a program.
 ### `block.timestamp`
 
 ```leo
-async transition matches(timestamp: i64) -> Future {
-    return check_block_timestamp(timestamp);
-} 
-
-async function check_block_timestamp(timestamp: i64) {
-    assert_eq(timestamp, block.timestamp);
+program example.aleo {
+    fn matches(timestamp: i64) -> Final {
+        return final {
+            assert_eq(timestamp, block.timestamp);
+        };
+    }
 }
 ```
 
 
-The `block.timestamp` operator is used to fetch the  timestamp of the latest block in a Leo program. It represents the number of 
-UNIX timestamp of the latest block in the chain. In the above example, `block.timestamp` is used in an async function to fetch the latest block 
-height in a program.
+The `block.timestamp` operator is used to fetch the UNIX timestamp of the latest block in a Leo program. In the above example, `block.timestamp` is used in a `final { }` block to fetch the latest block timestamp in a program.
 
 :::info
-* The `block.timestamp` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `block.timestamp` operator can only be used inside a `final { }` block or inside a `final fn`. Using it outside will result in a compilation error.
 * The `block.timestamp` operator doesn't take any parameters.
 :::
 
@@ -1122,8 +1120,10 @@ height in a program.
 ### `self.address`
 
 ```leo
-transition get_program_address() -> address {
-    return self.address;
+program example.aleo {
+    fn get_program_address() -> address {
+        return self.address;
+    }
 }
 ```
 
@@ -1139,12 +1139,14 @@ The `self.address` operator returns the address of the program that calls it.  W
 ### `self.caller`
 
 ```leo
-transition matches(addr: address) -> bool {
-    return self.caller == addr;
+program example.aleo {
+    fn matches(addr: address) -> bool {
+        return self.caller == addr;
+    }
 }
 ```
 
-The `self.caller` operator returns the address of the account/program that invoked the current `transition`.  Note that if the `transition` was called as part of an external program, this operation will return the address of the program, NOT the address of the top-level user. 
+The `self.caller` operator returns the address of the account/program that invoked the current entry function. Note that if the function was called as part of an external program, this operation will return the address of the program, NOT the address of the top-level user.
 
 :::info
 * The `self.caller` operator doesn't take any parameters.
@@ -1156,17 +1158,17 @@ The `self.caller` operator returns the address of the account/program that invok
 ### `self.checksum`
 
 ```leo
-async transition matches(checksum: [u8,32]) -> Future {
-    return check_program_checksum(checksum);
-} 
-
-async function check_program_checksum(checksum: [u8,32]) {
-    assert_eq(self.checksum, checksum);
+program example.aleo {
+    fn matches(checksum: [u8,32]) -> Final {
+        return final {
+            assert_eq(self.checksum, checksum);
+        };
+    }
 }
 ```
 
 
-The `self.checksum` operator returns a program's checksum, which is a unique identifier for the program's code.  
+The `self.checksum` operator returns a program's checksum, which is a unique identifier for the program's code.
 
 You may also refer to another program's checksum with the following syntax:
 ```leo
@@ -1176,7 +1178,7 @@ let ext_checksum: [u8, 32] = Program::checksum(credits.aleo);
 ```
 
 :::info
-* The `self.checksum` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `self.checksum` operator can only be used inside a `final { }` block or inside a `final fn`. Using it outside will result in a compilation error.
 * The `self.checksum` operator doesn't take any parameters.
 * To reference another program's checksum, you will need to import that program first.
 :::
@@ -1188,12 +1190,12 @@ let ext_checksum: [u8, 32] = Program::checksum(credits.aleo);
 ### `self.edition`
 
 ```leo
-async transition matches(edition: u16) -> Future {
-    return check_program_edition(edition);
-} 
-
-async function check_program_edition(edition: u16) {
-    assert_eq(self.edition, edition);
+program example.aleo {
+    fn matches(edition: u16) -> Final {
+        return final {
+            assert_eq(self.edition, edition);
+        };
+    }
 }
 ```
 
@@ -1208,7 +1210,7 @@ let ext_edition: u16 = Program::edition(credits.aleo);
 ```
 
 :::info
-* The `self.edition` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `self.edition` operator can only be used inside a `final { }` block or inside a `final fn`. Using it outside will result in a compilation error.
 * The `self.edition` operator doesn't take any parameters.
 * To reference another program's edition, you will need to import that program first.
 :::
@@ -1219,12 +1221,12 @@ let ext_edition: u16 = Program::edition(credits.aleo);
 ### `self.program_owner`
 
 ```leo
-async transition matches(owner: address) -> Future {
-    return check_program_owner(owner);
-} 
-
-async function check_program_owner(owner: address) {
-    assert_eq(self.program_owner, owner);
+program example.aleo {
+    fn matches(owner: address) -> Final {
+        return final {
+            assert_eq(self.program_owner, owner);
+        };
+    }
 }
 ```
 
@@ -1238,7 +1240,7 @@ let ext_owner: u16 = Program::owner(credits.aleo);
 ```
 
 :::info
-* The `self.program_owner` operator can only be used in an async function. Using it outside an async function will result in a compilation error.
+* The `self.program_owner` operator can only be used inside a `final { }` block or inside a `final fn`. Using it outside will result in a compilation error.
 * The `self.program_owner` operator doesn't take any parameters.
 * To reference another program's owner, you will need to import that program first.
 :::
@@ -1249,12 +1251,14 @@ let ext_owner: u16 = Program::owner(credits.aleo);
 ### `self.signer`
 
 ```leo
-transition matches(addr: address) -> bool {
-    return self.signer == addr;
+program example.aleo {
+    fn matches(addr: address) -> bool {
+        return self.signer == addr;
+    }
 }
 ```
 
-The `self.signer` operator returns the address of the account/program that invoked the top-level `transition`.  This will be the user account that signed the transaction.
+The `self.signer` operator returns the address of the account that invoked the top-level entry function. This will be the user account that signed the transaction.
 
 :::info
 * The `self.signer` operator doesn't take any parameters.

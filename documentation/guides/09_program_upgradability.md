@@ -73,11 +73,11 @@ program noupgrade_example.aleo {
     // This constructor is for the "noupgrade" mode.
     // It is immutable and prevents any future upgrades.
     @noupgrade
-    async constructor() {
+    constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }
     
-    transition main(public a: u32, b: u32) -> u32 {
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -102,11 +102,11 @@ program admin_example.aleo {
     // This constructor is for the "admin" mode.
     // It ensures that only the designated admin can upgrade the program.
     @admin(address="aleo1rhgdu77hgyqd3xjj8ucu3jj9r2p3lam3tc3h0nvv2d3k0rp2ca5sqsceh7")
-    async constructor() {
+    constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }
     
-    transition main(public a: u32, b: u32) -> u32 {
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -133,11 +133,11 @@ The compiler uses the `mapping` and `key` fields to generate a constructor that 
 program vote_example.aleo {
     // This constructor is for the "checksum" mode.
     @checksum(mapping="basic_voting.aleo/approved_checksum", key="true")
-    async constructor() {
+    constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }
     
-    transition main(public a: u32, b: u32) -> u32 {
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -166,14 +166,14 @@ With the `@custom` constructor, you are responsible for writing the entire const
 // The 'timelock_example' program.
 program timelock_example.aleo {
     @custom
-    async constructor() {
+    constructor() {
         // For upgrades (edition > 0), enforce a block height condition on when the constructor can be called successfully
         if self.edition > 0u16 {
             assert(block.height >= 1300u32);
         }
     }
     
-    transition main(public a: u32, b: u32) -> u32 {
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -202,13 +202,12 @@ The protocol enforces strict rules to ensure that upgrades don't break dependent
 
 An upgrade **can**:
 
-* Change the internal logic of existing `transition` and `async functions` blocks.
-* Add new `struct`s, `record`s, `mapping`s, `transition`s, and `function`s.
+* Change the internal logic of existing entry `fn` bodies and `final { }` blocks.
+* Add new `struct`s, `record`s, `mapping`s, and `fn` declarations.
 
 An upgrade **cannot**:
 
-* Change the input or output signatures of any existing `transition`, `function`, `async transition`, or `async function`.
-* Change the logic within a non-inline `function`.
+* Change the input or output signatures of any existing entry `fn`.
 * Modify or delete any existing `struct`, `record`, or `mapping`.
 * Delete any existing program component.
 
@@ -218,9 +217,10 @@ An upgrade **cannot**:
 | `struct`          | ❌ | ❌ | ✅ |
 | `record`          | ❌ | ❌ | ✅ |
 | `mapping`         | ❌ | ❌ | ✅ |
-| `function`        | ❌ | ❌ | ✅ |
-| `transition`      | ❌ | ✅ (logic) | ✅ |
-| `async function`  | ❌ | ✅ (logic) | ✅ |
+| inlined `fn` (helper)     |  ✅ |  ✅ | ✅ |
+| non-inlined `fn` (helper)     | ❌ | ❌ | ✅ |
+| `fn` (entry)      | ❌ | ✅ (logic) | ✅ |
+| `final fn` (entry)      | ❌ | ✅ (logic) | ✅ |
 | `constructor`     | ❌ | ❌ | ❌ |
 
 -----

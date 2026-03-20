@@ -4,7 +4,7 @@ title: Executing Your Programs
 sidebar_label: Executing
 ---
 
-[general tags]: # (guides,execute, execution, transaction, transition, transaction_status, async_transition)
+[general tags]: # (guides, execute, execution, transaction, transaction_status)
 
 The `leo execute` command executes the Leo program and outputs a transaction object
 ```bash

@@ -14,14 +14,14 @@ Developers can choose from a wide variety of development environments.
 ![Leo Playground](./../img/leo-playground.png)
 
 :::note
-Developers may find the generating transactions is slower in the browser. This is because the underlying algorithms for generating proofs are computationally expensive. We're actively working on making this better!
+Developers may find that generating transactions is slower in the browser. This is because the underlying algorithms for generating proofs are computationally expensive. We're actively working on making this better!
 :::
 
 ## Plugins
 
 <!--TODO: Condense this.--->
 
-The Leo team also maintains plugin for a number of different edits. If you do not see your favorite editor on this list, please reach out on [GitHub](https://github.com/ProvableHQ/leo/issues/new).
+The Leo team also maintains a plugin for a number of different editors. If you do not see your favorite editor on this list, please reach out on [GitHub](https://github.com/ProvableHQ/leo/issues/new).
 
 
 ### VS Code
@@ -44,7 +44,7 @@ Download the editor here: https://code.visualstudio.com/download.
 
 [//]: # (![]&#40;./images/sublime.png&#41;  )
 Download the editor here: https://www.sublimetext.com/download.
-Aleo instructions support for Sublime's LSP plugin is provided through a language-server.
+Aleo instruction support for Sublime's LSP plugin is provided through a language-server.
 
 #### Install
 

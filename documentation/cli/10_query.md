@@ -139,11 +139,11 @@ leo query transaction --from-io <INPUT_OR_OUTPUT_ID>
 ```
 
 
-#### `--from-transition <TRANSITION_ID>`
-Get the ID of the transaction containing the specified transition.
+#### `--from-entry-fn <FUNCTION_ID>`
+Get the ID of the transaction containing the specified entry function execution.
 
 ```bash title="Example:"
-leo query transaction --from-transition <TRANSITION_ID>
+leo query transaction --from-entry-fn <FUNCTION_ID>
 ```
 
 
@@ -190,7 +190,7 @@ Get the value corresponding to the specified mapping and key.  Will return `null
 #### `--edition <EDITION>`
 An optional edition to query for when fetching the program source. If not specified, the latest edition will be used.
 
-The edition of the program is set to `0` upon initial deployment and is incremented by `1` each time the program is upgraded.  See the **[Upgrading Programs](./../guides/10_program_upgradability.md)** guide for more details.
+The edition of the program is set to `0` upon initial deployment and is incremented by `1` each time the program is upgraded.  See the **[Upgrading Programs](./../guides/09_program_upgradability.md)** guide for more details.
 
 
 ---

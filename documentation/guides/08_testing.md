@@ -5,7 +5,7 @@ sidebar_label: Testing
 ---
 [general tags]: # (guides, tests, testing, unit_testing, integration_testing, devnet, testnet)
 
-Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are number of tools and techniques you can use. 
+Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are a number of tools and techniques you can use.
 
 - [**Unit and Integration Testing**](#test-framework) - Validate Leo program logic through test cases.
 
@@ -42,21 +42,21 @@ Developers can add multiple `leo` files to the test directory but must ensure th
 :::
 
 
-### Testing `transition` Functions
+### Testing Entry Functions
 
-The `example_program.leo` program contains a transition function which returns the sum of two `u32` inputs.
+The `example_program.leo` program contains an entry function which returns the sum of two `u32` inputs.
 
 ```Leo
-transition simple_addition(public a: u32, b: u32) -> u32 {
+fn simple_addition(public a: u32, b: u32) -> u32 {
     let c: u32 = a + b;
     return c;
 }
 ```
 
-The `test_example_program.leo` contains two tests to ensure that the transition logic returns a correct output and fails when the output does not match the sum of the input values.
+The `test_example_program.leo` contains two tests to ensure that the function logic returns a correct output and fails when the output does not match the sum of the input values.
 ```Leo
 @test
-transition test_simple_addition() {
+fn test_simple_addition() {
     let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
     assert_eq(result, 5u32);
 }
@@ -66,7 +66,7 @@ The `@should_fail` annotation should be added after the `@test` annotation for t
 ```Leo
 @test
 @should_fail
-transition test_simple_addition_fail() {
+fn test_simple_addition_fail() {
     let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
     assert_eq(result, 3u32);
 }
@@ -74,7 +74,7 @@ transition test_simple_addition_fail() {
 
 ### Testing Leo Types
 
-Developers can test that record and struct fields match their expected values.  In `example_program.leo`, a record is minted transition function shown here:
+Developers can test that record and struct fields match their expected values.  In `example_program.leo`, a record is minted by an entry function shown here:
 
 ```Leo
 record Example {
@@ -82,7 +82,7 @@ record Example {
     x: field,
 }
 
-transition mint_record(x: field) -> Example {
+fn mint_record(x: field) -> Example {
     return Example {
         owner: self.signer,
         x,
@@ -94,44 +94,28 @@ The corresponding test in `test_example_program.leo` checks that the Record fiel
 
 ```Leo
 @test
-transition test_record_maker() {
+fn test_record_maker() {
     let r: example_program.aleo/Example = example_program.aleo/mint_record(0field);
     assert_eq(r.x, 0field);
 }
 ```
 
 :::info
-Each test file is required to have at least one `transition` function.
+Each test file is required to have at least one `@test fn` function.
 :::
 
 
 ### Modeling Onchain State
-While the testing framework cannot access on-chain state from either `testnet` or `mainnet`, developers can simulate on-chain state in `script`s. A script is interpreted Leo code in which developers are able to await `Future`s and update mappings using interpreted tests. When using interpreted tests, the `transition` or `function` keyword is replaced with the `script` keyword.
 
-```Leo
-@test
-script test_async() {
-    const VAL: field = 12field;
-    let fut: Future = example_program.aleo/set_mapping(VAL);
-    fut.await();
-    assert_eq(Mapping::get(example_program.aleo/map, 0field), VAL);
+The Leo test framework executes tests via the real VM, so on-chain state (mappings, storage) is fully supported in `@test fn` functions — no special syntax is required. Call entry functions that return `Final` the same way as any other function; the finalization will be executed as part of the test run.
 
-    let rand_val: field = ChaCha::rand_field();
-    Mapping::set(example_program.aleo/map, VAL, rand_val);
-    let value: field = Mapping::get(example_program.aleo/map, VAL);
-    assert_eq(value, rand_val);
-}
-```
-
-:::info
-External `transition`s -- `async` or not -- may be called from test `transition`s or scripts, but external `async function`s may only be called directly from scripts.
-:::
+For end-to-end and integration testing against a live network or a local devnet, use the [SDK](https://github.com/ProvableHQ/sdk) directly or `snarkVM` as a library.
 
 
 ### Running Tests
-Invoking the `leo test` command will run all of the compiled and interpreted tests. Developer may optionally select an individual tests by supplying a a test function name or a string that is contained within a test function name.  For instance, to run the test for `test_async`, developers would use the following command:
+Invoking the `leo test` command will run all of the compiled and interpreted tests. Developers may optionally select individual tests by supplying a test function name or a string that is contained within a test function name.  For instance, to run the test for `test_final`, developers would use the following command:
 ```bash
-leo test test_async
+leo test test_final
 ```
 Either of the following commands will run both of the addition function tests:
 ```bash
@@ -149,7 +133,7 @@ See the `leo test` CLI documentation [here](./../cli/13_test.md)
 
 A local devnet can be a heavyweight but reliable way to test your application on Aleo.
 
-For more information, refer the to [Devnet](./07_devnet.md) guide
+For more information, refer to the [Devnet](./07_devnet.md) guide
 
 ## Deploying/Executing on Testnet
 To deploy and execute on Testnet, you'll need to set your endpoint back to one of the public facing options. Additionally, you'll need to obtain Testnet credits from one of the faucets below:

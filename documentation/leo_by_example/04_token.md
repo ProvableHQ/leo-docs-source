@@ -2,7 +2,7 @@
 id: token
 title: A Custom Token in Leo
 ---
-[general tags]: # (example, token, record, program, transition, future, async_transition, async_function)
+[general tags]: # (example, token, record, program)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/token)**
 
@@ -96,7 +96,7 @@ The output is a private record.
 
 ## <a id="step2"></a> Public Transfer
 
-Let's publicly transfer 10 tokens from Alice to Bob. Swap the private key back to Alice and call the public transfer transition.
+Let's publicly transfer 10 tokens from Alice to Bob. Swap the private key back to Alice and call the public transfer function.
 
 ```bash
 echo "
@@ -119,11 +119,11 @@ Output
 }
 ```
 
-Again, we see the arguments used for the finalize function of `transfer_public` - Alice's address, Bob's address, and the amount to transfer. The public mapping will be queryable on-chain.
+Again, we see the arguments used for the `final` block of `transfer_public` - Alice's address, Bob's address, and the amount to transfer. The public mapping will be queryable on-chain.
 
 ## <a id="step3"></a> Private Transfer
 
-Let's privately transfer 20 tokens from Bob to Alice. Switch to Bob's private key and call the private transfer transition.
+Let's privately transfer 20 tokens from Bob to Alice. Switch to Bob's private key and call the private transfer function.
 
 ```bash
 echo "
@@ -182,7 +182,7 @@ Output
 }
 ```
 
-Calling `transfer_public_to_private`, outputs a `Future`, which indicates code to be run on-chain, along with its associated inputs.
+Calling `transfer_public_to_private` outputs finalization data, which indicates code to be run on-chain, along with its associated inputs.
 
 ## <a id="step5"></a> Private to Public Transfer
 
@@ -217,4 +217,4 @@ Output
 }
 ```
 
-When we call `transfer_private_to_public`, we take Bob's private record that contains 110 tokens, and outputs a record owned by Bob with 70 tokens, and then outputs a `Future` which will be run on-chain.
+When we call `transfer_private_to_public`, we take Bob's private record that contains 110 tokens, and outputs a record owned by Bob with 70 tokens, and then outputs finalization data which will be run on-chain.

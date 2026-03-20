@@ -22,6 +22,7 @@ This guide covers every breaking change and shows how to update your code.
 | `async { ... }` | `final { ... }` |
 | `f.await()` | `f.run()` |
 | `@test script foo()` | `@test fn foo()` (inside `program {}`) |
+| `async constructor()` | `constructor()` |
 
 ## Function Declaration Keywords
 
@@ -323,6 +324,26 @@ program test.aleo {
     fn foo(p: Point) -> Point {
         return Point { x: p.y, y: p.x };
     }
+}
+```
+
+## Constructor
+
+The `async` keyword is removed from constructor declarations. In 3.5, constructors were declared with `async constructor`; in 4.0 the keyword is simply `constructor`:
+
+```leo
+// 3.5
+program hello.aleo {
+    @noupgrade
+    async constructor() {}
+}
+```
+
+```leo
+// 4.0
+program hello.aleo {
+    @noupgrade
+    constructor() {}
 }
 ```
 

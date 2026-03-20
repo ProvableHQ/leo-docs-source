@@ -5,7 +5,7 @@ sidebar_label: Deploying
 ---
 [general tags]: # (guides, deploy, deployment, program)
 
-The `leo deploy` command is used for deploying Leo program to a local devnet, Testnet, or Mainnet.
+The `leo deploy` command is used for deploying a Leo program to a local devnet, Testnet, or Mainnet.
 The `leo upgrade` command is used for upgrading an existing Leo program on the network.
 
 ## Getting Started
@@ -215,7 +215,7 @@ Leo will:
 
 If your program is already deployed, you can upgrade it using the `leo upgrade` command.
 The upgrade will only work if your program is upgradable, meaning it has a constructor that allows for upgrades.
-See the [Upgradability Guide](../guides/10_program_upgradability.md) for more details on how to make your program upgradable.
+See the [Upgradability Guide](../guides/09_program_upgradability.md) for more details on how to make your program upgradable.
 
 
 ## Options and Environment Variables
@@ -223,7 +223,7 @@ The target network, the Private Key, and a node API endpoint need to be specifie
 They can be set in one of the following ways, in order of precedence:
 1. CLI options,
 2. environment variables, or
-3. 3 `.env` file:
+3. `.env` file:
 
 The options are selected in that order of precedence. 
 For example, if the `--network` option is specified, it will override the value in the `.env` file.

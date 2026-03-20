@@ -5,18 +5,18 @@ sidebar_label: Run
 toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
-[general tags]: # (cli, leo_run, run, transition, async_transition)
+[general tags]: # (cli, leo_run, run)
 
 # `leo run`
 
-You can run a transition function by using the `leo run` command.  This will simply run the specified transition function with the provided inputs and show what the produced output will be.  It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain.  For that, please see the [`leo execute`](08_execute.md) command.
+You can run an entry function by using the `leo run` command.  This will simply run the specified entry function with the provided inputs and show what the produced output will be.  It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain.  For that, please see the [`leo execute`](08_execute.md) command.
 
-To run a Leo transition function with inputs from the command line, run the following command:
+To run a Leo entry function with inputs from the command line, run the following command:
 ```bash
-leo run <TRANSITION_NAME> <INPUTS>
+leo run <FUNCTION_NAME> <INPUTS>
 ```
 
-where `<TRANSITION_NAME>` is the name of the `transition` or `async transition` function to run and `<INPUTS>` is a list of inputs to the program separated by spaces.
+where `<FUNCTION_NAME>` is the name of the entry `fn` to run and `<INPUTS>` is a list of inputs to the program separated by spaces.
 
 This command does not synthesize the program circuit or generate proving and verifying keys.
 

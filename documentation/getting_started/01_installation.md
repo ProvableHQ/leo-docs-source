@@ -35,7 +35,7 @@ This will generate the executable at `~/.cargo/bin/leo`.
 ## MacOS (Apple Silicon):
   1. **[Download Leo for Apple Silicon (MacOS)](https://github.com/ProvableHQ/leo/releases/latest/download/leo.zip)**
   2. Extract the `.zip` file
-  3. Open a terminal land navigate to the extracted directory.
+  3. Open a terminal and navigate to the extracted directory.
   4. Run `chmod +x leo` to make the file executable
   5. Move `leo` to `/usr/local/bin` to use it system wide.
 

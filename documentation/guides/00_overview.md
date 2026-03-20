@@ -8,7 +8,7 @@ sidebar_label: Overview
 There's a lot to learn about Leo! To help tame the complexity, we've put together some explainers that you may find helpful.
 
 ## Basic:
-- [**The Asynchronous Programming Model**](./01_async.md) - Learn the fundamentals of the offchain/onchain computation model of Aleo.
+- [**The Finalization Model**](./01_finalization.md) - Learn the fundamentals of the offchain/onchain computation model of Aleo.
 
 - [**Dependency Management**](./02_dependencies.md) - Learn how to efficiently manage your dependencies.
 
@@ -26,11 +26,9 @@ There's a lot to learn about Leo! To help tame the complexity, we've put togethe
 
 - [**Testing, Testing, 123**](./08_testing.md) - Learn how to take advantage of the various tools for Leo testing.
 
-- [**Debuggin' Out**](./09_debugging.md) - Learn how to use Leo's interactive debugger.
+- [**Upgrading Programs**](./09_program_upgradability.md) - Coming soon!
 
-- [**Upgrading Programs**](./10_program_upgradability.md) - Coming soon!
-
-- [**ABI Generation**](./11_abi.md) - Learn about the ABI format and type lowering for SDK integration.
+- [**ABI Generation**](./10_abi.md) - Learn about the ABI format and type lowering for SDK integration.
 
 ## Migration
-- [**Migrating from Leo 3.5 to 4.0**](./12_migration_3_5_to_4_0.md) - A complete guide to updating your programs for Leo 4.0.
+- [**Migrating from Leo 3.5 to 4.0**](./11_migration_3_5_to_4_0.md) - A complete guide to updating your programs for Leo 4.0.

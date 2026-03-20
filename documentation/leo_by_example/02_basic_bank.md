@@ -2,7 +2,7 @@
 id: basic_bank
 title: A Basic Bank using Leo
 ---
-[general tags]: # (example, bank, record, program, transition, assert, hash, loops, mappings, async_transition, async_function)
+[general tags]: # (example, bank, record, program, assert, hash, loops, mappings)
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/basic_bank)**
 
@@ -36,7 +36,7 @@ There are, of course, ways to write a version of this application without these 
 - record ownership
 - loops and bounded iteration
 - mappings
-- async/await
+- `final` blocks
 
 ## How to Run
 
@@ -72,7 +72,7 @@ private_key: APrivateKey1zkp75cpr5NNQpVWc5mfsD9Uf2wg6XvHknf82iwB636q3rtc
 address: aleo1zeklp6dd8e764spe74xez6f8w27dlua3w7hl4z2uln03re52egpsv46ngg
 ```
 
-Let's make some bank transactions. We'll take the role of the bank and issue 100 tokens to the user. We swap the private key into `.env` and run the `issue` transition function. The inputs are simply the recipient of the issuance and the amount.
+Let's make some bank transactions. We'll take the role of the bank and issue 100 tokens to the user. We swap the private key into `.env` and run the `issue` function. The inputs are simply the recipient of the issuance and the amount.
 
 ```bash
 echo "
@@ -93,7 +93,7 @@ Output
 
 ## <a id="deposit"></a> Deposit Tokens
 
-Now, let's have the user deposit 50 of their tokens with the bank. We'll take the role of the user and call the deposit function, having the user use the output record that was issued to them by the bank. The inputs are the output record from the `issue` transition and the amount the user wishes to deposit.
+Now, let's have the user deposit 50 of their tokens with the bank. We'll take the role of the user and call the deposit function, having the user use the output record that was issued to them by the bank. The inputs are the output record from the `issue` function and the amount the user wishes to deposit.
 
 ```bash
 echo "
@@ -124,7 +124,7 @@ Output
 }
 ```
 
-You'll see that the output contains a new private record belonging to the user with 50 credits, and a `Future` indicating code to be run on-chain and its associated inputs.
+You'll see that the output contains a new private record belonging to the user with 50 credits, and finalization data indicating code to be run on-chain and its associated inputs.
 
 ## <a id="wait"></a> Wait
 
@@ -134,7 +134,7 @@ You can run the calculation yourself, it comes out to 266 tokens accrued using t
 
 ## <a id="withdraw"></a> Withdraw Tokens
 
-Now, let's have the bank withdraw all tokens after 15 periods. Let's switch to the bank role, and call the `withdraw` transition function. The inputs are the recipient's address, amount, rate, and periods.
+Now, let's have the bank withdraw all tokens after 15 periods. Let's switch to the bank role, and call the `withdraw` function. The inputs are the recipient's address, amount, rate, and periods.
 
 ```bash
 echo "
@@ -160,6 +160,6 @@ Output
   ]
 }
 ```
-You'll see here the withdrawal function creates a new private record for the user containing all 266 withdrawn tokens, and then outputs a `Future` which will be run on-chain.
+You'll see here the withdrawal function creates a new private record for the user containing all 266 withdrawn tokens, and then outputs finalization data which will be run on-chain.
 
 ```

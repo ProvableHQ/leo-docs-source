@@ -18,7 +18,7 @@ We urge you to exercise caution when managing your private keys. `leo account` c
 
 # Subcommands
 * [`new`](#leo-account-new) - Generates a new Aleo account.
-* [`import`](#leo-account-import) - Derive and Aleo account from a private key.
+* [`import`](#leo-account-import) - Derive an Aleo account from a private key.
 * [`sign`](#leo-account-sign) - Sign a message using your Aleo private key.
 * [`verify`](#leo-account-verify) - Verify a message and signature from an Aleo address.
 * [`decrypt`](#leo-account-decrypt) - Decrypt record ciphertexts using your Aleo private key or view key.
@@ -117,11 +117,11 @@ Specifies the message to be signed.
 ---
 
 #### `--private-key <PRIVATE_KEY>`
-Explicity specifies the private key to sign the message with.  Overrides any private key in `.env` file or `$PRIVATE_KEY` environment variable.
+Explicitly specifies the private key to sign the message with.  Overrides any private key in `.env` file or `$PRIVATE_KEY` environment variable.
 
 
 #### `--private-key-file <PRIVATE_KEY_FILE>`
-Alternative way to explicity specifies the private key by reading from a text file at path `<PRIVATE_KEY_FILE>` Overrides any private key in `.env` file or `$PRIVATE_KEY` environment variable.
+Alternative way to explicitly specify the private key by reading from a text file at path `<PRIVATE_KEY_FILE>`. Overrides any private key in `.env` file or `$PRIVATE_KEY` environment variable.
 
 
 #### `--raw `
@@ -198,7 +198,7 @@ Optionally, you can specify a path to a file containing the key rather than the 
 leo account decrypt --ciphertext <CIPHERTEXT> -f <PATH_TO_KEYFILE>
 ```
 
-If you do not specify either the key or key file, the CLI will attempt use the `PRIVATE_KEY` and `VIEW_KEY` environment variables.
+If you do not specify either the key or key file, the CLI will attempt to use the `PRIVATE_KEY` and `VIEW_KEY` environment variables.
 
 If the private key does not correspond to the owner of the record, the decryption will fail. 
 

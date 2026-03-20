@@ -22,7 +22,7 @@ leo devnet --snarkos <SNARKOS> --snarkos-features test_network --install
 :::info
 
 Windows users will need to perform some additional steps in order for snarkOS to install properly:
-1. Upon initially installing Rust, you should have been automatically been prompted to install Visual Studio with the MSVC 2022 C++ build tools. 
+1. Upon initially installing Rust, you should have been automatically prompted to install Visual Studio with the MSVC 2022 C++ build tools.
 2. Open the Visual Studio Installer and install the C++ Clang Compiler for Windows and either the Windows 10 SDK or Windows 11 SDK (depending on your OS). Make a note of the installation path of the installed tool.  It should be of the form `{PATH}\Microsoft Visual Studio\2022\BuildTools`.
 3. Within the aforementioned build tools directory, you should find the location of a file called `libclang.dll`.  For `x86`-based systems, this should be in the `VC\Tools\Llvm\bin` subdirectory.  For `x64`-based systems, this should be in the `VC\Tools\Llvm\x64\bin` subdirectory.
 4. Once you have the full path of `libclang.dll`, create the `LIBCLANG_PATH` environment variable for your system and set it to this path.
@@ -162,13 +162,13 @@ or by using `leo query` from the CLI:
 leo query transaction {TRANSACTION_ID}
 ```
 
-The transaction API endpoint is instructive in verifying whether a transaction succeeded or failed.  Since both successful and failed transaction execute a fee transaction, if only the fee transaction appears, that is a clear indication that the transaction has failed.  Note that on the Testnet and on Mainnet, failed transactions still require a fee since the network is performing a computation.
+The transaction API endpoint is instructive in verifying whether a transaction succeeded or failed.  Since both successful and failed transactions execute a fee transaction, if only the fee transaction appears, that is a clear indication that the transaction has failed.  Note that on the Testnet and on Mainnet, failed transactions still require a fee since the network is performing a computation.
 
 A full list of API endpoints is available [here](https://docs.explorer.provable.com/docs/api/v2/intro)
 
 ## Record Scanning
 
-You can use the CLI from your installed snarkOS binary to view your records.  First, navigate to the directory where you installed the binary.  The use the following command syntax:
+You can use the CLI from your installed snarkOS binary to view your records.  First, navigate to the directory where you installed the binary.  Then use the following command syntax:
 ```bash
 ./snarkos developer scan --endpoint http://localhost:3030 --private-key {YOUR_PRIVATE_KEY} --start <block_number> --network 1
 ```
