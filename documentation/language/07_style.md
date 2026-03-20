@@ -3,7 +3,8 @@ id: style
 title: Best Practices
 sidebar: Best Practices
 ---
-[general tags]: # ()
+
+[general tags]: #
 
 This guide is provided to point developers in the right direction when writing Leo code.
 There are many conventions that are unique to the Leo language and the circuits it generates.
@@ -25,7 +26,7 @@ if (condition) {
     return a;
 } else {
     return b;
-} 
+}
 ```
 
 ```leo title="Ternary:"
@@ -33,8 +34,9 @@ return condition ? a : b;
 ```
 
 #### Why?
+
 Ternary expressions are the cheapest form of conditional.
-We can resolve the *first expression* and *second expression* values before evaluating the *condition*.
+We can resolve the _first expression_ and _second expression_ values before evaluating the _condition_.
 This is very easy to convert into a circuit because we know that each expression does not depend on information in later statements.
 
 In the original `Example`,
@@ -48,11 +50,11 @@ return a;
 ```leo title="branch 2, condition = false"
 return b;
 ```
+
 When the input value `condition` is fetched at proving time, we select a branch of the circuit to evaluate.
 Observe that the statement `return a` is repeated in both branches.
 The cost of every computation within the conditional will be doubled.
 This greatly increases the constraint numbers and slows down the circuit.
-
 
 ### `final fn` vs. Inline `final` Blocks
 
@@ -90,10 +92,10 @@ program example.aleo {
 }
 ```
 
-
 ### Modules
 
 For maximal code cleanliness and readability, take full advantage of Leo's module system:
+
 ```
 src
 ├── constants.leo
@@ -101,16 +103,19 @@ src
 ├── structs.leo
 └── main.leo
 ```
+
 With the above structure, consider the following:
+
 - Move all `const`s to the `constants.leo` module
 - Move all helper `fn` functions to the `utils.leo` module
 - Move some `struct`s to modules (but this may not make sense in the general case)
 
-The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something that can be called from an external context such as another program.  Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
+The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something that can be called from an external context such as another program. Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
 
-##  Layout
+## Layout
 
 ### Indentation
+
 4 spaces per indentation level.
 
 ### Blank lines
@@ -155,7 +160,7 @@ program prog.aleo {
 ### Naming Conventions
 
 | Item                      | Convention                          |
-|---------------------------|-------------------------------------|
+| ------------------------- | ----------------------------------- |
 | Packages                  | snake_case (but prefer single word) |
 | Structs and Records       | CamelCase                           |
 | Struct and Record Members | snake_case                          |
@@ -165,7 +170,9 @@ program prog.aleo {
 | Inputs                    | snake_case                          |
 
 ### Layout
+
 Leo file elements should be ordered:
+
 1. Imports
 2. Constants + Structs (module level)
 3. Helper `fn` and `final fn` definitions
@@ -173,9 +180,10 @@ Leo file elements should be ordered:
 5. Mappings + Records
 6. Entry point `fn` declarations
 
-
 ### Braces
+
 Opening braces always go on the same line.
+
 ```leo
 struct A {
     // ...
@@ -189,7 +197,9 @@ let a: A = A { };
 ```
 
 ### Semicolons
+
 Every statement including the `return` statement should end in a semicolon.
+
 ```leo
 let a: u32 = 1u32;
 let b: u32 = a + 5u32;
@@ -199,7 +209,9 @@ return b;
 ```
 
 ### Commas
+
 Trailing commas should be included whenever the closing delimiter appears on a separate line.
+
 ```leo
 let a: A = A { x: 0, y: 1 };
 
@@ -240,16 +252,18 @@ please avoid using git merge and instead, git rebase your branch. Rebasing will 
 #### Tools Required
 
 To build Leo from source you will need the following tools:
+
 - The latest Rust stable version and nightly version.
-    - Recommend that you install multiple versions using `rustup`.
+  - Recommend that you install multiple versions using `rustup`.
 - Cargo
-    - Rusty Hook install via `cargo install rusty-hook`.
+  - Rusty Hook install via `cargo install rusty-hook`.
 - Clippy
-    - Via rustup, if you didn't do the default rustup install `rustup component add clippy`.
+  - Via rustup, if you didn't do the default rustup install `rustup component add clippy`.
 
 #### Formatting
 
 Please do the following before opening a PR.
+
 - `cargo +nightly fmt --all` will format all your code.
 - `cargo clippy --all-features --examples --all --benches`
 

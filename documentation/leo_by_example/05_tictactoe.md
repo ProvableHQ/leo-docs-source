@@ -2,7 +2,8 @@
 id: tictactoe
 title: A Game of Tic-Tac-Toe in Leo
 ---
-[general tags]: # (example, tictactoe, program, struct, conditional)
+
+[general tags]: # "example, tictactoe, program, struct, conditional"
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/tictactoe)**
 
@@ -21,10 +22,12 @@ We can play a standard game of Tic-Tac-Toe in Leo. I think we all know what a ti
 ❌ ❕ ❌ ❕ ⭕
 
 ## Representing State
-Leo allows users to define composite data types with the `struct` keyword. 
+
+Leo allows users to define composite data types with the `struct` keyword.
 The game board is represented by a struct called `Board`, which contains three `Row`s. An alternative representation would be to use an array, however, these are not yet supported in Leo.
 
 ## Language Features
+
 - `struct` declarations
 - conditional statements
 - early termination. Leo allows users to return from a function early using the `return` keyword.
@@ -42,11 +45,11 @@ cd tictactoe
 
 ## Walkthrough
 
-* [Step 0: Create a new board.](#step0)
-* [Step 1: Player 1 makes the first move.](#step1)
-* [Step 2: Player 2 makes the second move.](#step2)
-* [Step 3: Player 1 makes the third move.](#step3)
-* [Step 4: and so on...](#step4)
+- [Step 0: Create a new board.](#step0)
+- [Step 1: Player 1 makes the first move.](#step1)
+- [Step 2: Player 2 makes the second move.](#step2)
+- [Step 3: Player 1 makes the third move.](#step3)
+- [Step 4: and so on...](#step4)
 
 ## <a id="step0"></a> Create a new board.
 
@@ -59,6 +62,7 @@ The output provided is the new state of the board and an evaluation of who won t
 ```bash
 leo run new
 ```
+
 ## <a id="step1"></a> Player 1 makes a move.
 
 Have player 1 make the first move.

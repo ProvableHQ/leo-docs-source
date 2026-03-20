@@ -3,7 +3,8 @@ id: migration-3-5-to-4-0
 title: Migrating from Leo 3.5 to 4.0
 sidebar_label: Migration Guide (3.5 → 4.0)
 ---
-[general tags]: # (guides, migration, upgrade, leo4, breaking_changes)
+
+[general tags]: # "guides, migration, upgrade, leo4, breaking_changes"
 
 Leo 4.0 redesigns the language surface to make Leo's **execution model** transparent. Every Leo program runs in two distinct contexts: a **proof context** (private, off-chain, generating ZK proofs) and a **finalization context** (public, on-chain, modifying state). The old keywords - `transition`, `function`, `async`, `Future` - obscured this distinction; 4.0 replaces them with a minimal set (`fn`, `final`, `Final`) that makes each function's execution context immediately clear. The `program {}` block now explicitly defines a program's public interface.
 
@@ -11,18 +12,18 @@ This guide covers every breaking change and shows how to update your code.
 
 ## Quick Reference
 
-| 3.5 Syntax | 4.0 Syntax |
-|---|---|
-| `transition foo()` | `fn foo()` (inside `program {}`) |
-| `async transition foo() -> Future` | `fn foo() -> Final` |
-| `function foo()` | `fn foo()` (outside `program {}`) |
-| `async function foo()` | `final { ... }` block (see [below](#async-finalize-to-final)) |
-| `inline foo()` | `fn foo()` (outside `program {}`) |
-| `Future` (type) | `Final` |
-| `async { ... }` | `final { ... }` |
-| `f.await()` | `f.run()` |
-| `@test script foo()` | `@test fn foo()` (inside `program {}`) |
-| `async constructor()` | `constructor()` |
+| 3.5 Syntax                         | 4.0 Syntax                                                    |
+| ---------------------------------- | ------------------------------------------------------------- |
+| `transition foo()`                 | `fn foo()` (inside `program {}`)                              |
+| `async transition foo() -> Future` | `fn foo() -> Final`                                           |
+| `function foo()`                   | `fn foo()` (outside `program {}`)                             |
+| `async function foo()`             | `final { ... }` block (see [below](#async-finalize-to-final)) |
+| `inline foo()`                     | `fn foo()` (outside `program {}`)                             |
+| `Future` (type)                    | `Final`                                                       |
+| `async { ... }`                    | `final { ... }`                                               |
+| `f.await()`                        | `f.run()`                                                     |
+| `@test script foo()`               | `@test fn foo()` (inside `program {}`)                        |
+| `async constructor()`              | `constructor()`                                               |
 
 ## Function Declaration Keywords
 
@@ -118,12 +119,12 @@ program test.aleo {
 
 In 3.5, all declarations - transitions, functions, structs, mappings - lived inside the `program {}` block. In 4.0, the `program {}` block defines the program's **public interface**: the entry points, records, mappings, and storage that are visible on-chain. Everything else moves outside:
 
-| Inside `program {}` | Outside `program {}` |
-|---|---|
+| Inside `program {}`           | Outside `program {}`    |
+| ----------------------------- | ----------------------- |
 | Entry point `fn` declarations | Helper `fn` definitions |
-| `record` definitions | `final fn` definitions |
-| `mapping` declarations | `struct` definitions |
-| | `interface` definitions |
+| `record` definitions          | `final fn` definitions  |
+| `mapping` declarations        | `struct` definitions    |
+|                               | `interface` definitions |
 
 This separation makes it easy to see what a program exposes on-chain at a glance. Helper functions and types that support the implementation but aren't part of the on-chain interface live at module level.
 
@@ -285,13 +286,13 @@ program example.aleo {
 
 ### Summary of keyword changes
 
-| 3.5 | 4.0 |
-|---|---|
-| `async transition foo() -> Future` | `fn foo() -> Final` |
-| `async function foo()` | `final { ... }` block |
-| `let f: Future = async { ... }` | `let f: Final = final { ... }` |
-| `f.await()` | `f.run()` |
-| `return finalize_foo(args)` | `return final { finalize_foo(args); }` |
+| 3.5                                | 4.0                                    |
+| ---------------------------------- | -------------------------------------- |
+| `async transition foo() -> Future` | `fn foo() -> Final`                    |
+| `async function foo()`             | `final { ... }` block                  |
+| `let f: Future = async { ... }`    | `let f: Final = final { ... }`         |
+| `f.await()`                        | `f.run()`                              |
+| `return finalize_foo(args)`        | `return final { finalize_foo(args); }` |
 
 ## Module-Level Struct Declarations
 
@@ -439,4 +440,3 @@ for i: u32 in 0u32..=10u32 {
     // i takes values 0, 1, 2, ..., 10
 }
 ```
-

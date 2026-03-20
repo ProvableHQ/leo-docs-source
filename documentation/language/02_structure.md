@@ -1,9 +1,10 @@
 ---
-id: structure 
-title: Structure of a Leo Program 
+id: structure
+title: Structure of a Leo Program
 sidebar_label: Program Structure
 ---
-[general tags]: # (program, constant, import, record, struct, mapping)
+
+[general tags]: # "program, constant, import, record, struct, mapping"
 
 ## Layout of a Leo Program
 
@@ -12,7 +13,7 @@ A Leo program contains declarations of a [Program](#program), [Constants](#const
 Declarations are locally accessible within a program file.
 If you need a declaration from another Leo file, you must import it.
 
-### Program 
+### Program
 
 A program is a collection of code (its functions) and data (its types) that resides at a
 [program ID](#program-id) on the Aleo blockchain. A program is declared as `program {name}.{network} { ... }`.
@@ -91,7 +92,7 @@ program _foo.aleo;  // invalid
 
 A constant is declared as `const {name}: {type} = {expression};`.  
 Constants are immutable and must be assigned a value when declared.  
-Constants can be declared in the global scope or in a local function scope.  
+Constants can be declared in the global scope or in a local function scope.
 
 ```leo
 const FOO: u8 = 1u8;
@@ -129,6 +130,7 @@ mapping account: address => u64;
 ```
 
 ### Storage
+
 A storage variable is declared as `storage {name}: {type}`. Storage variables contain singleton values. They are declared at program scope and are stored on chain, similar to mappings.
 
 ```leo
@@ -136,7 +138,7 @@ A storage variable is declared as `storage {name}: {type}`. Storage variables co
 storage counter: u32;
 ```
 
-A storage vector is declared as `storage {name}: [{type}]`.  Storage vectors contain dynamic lists of values of a given type.  They are declared at program scope and are stored on chain, similar to mappings.
+A storage vector is declared as `storage {name}: [{type}]`. Storage vectors contain dynamic lists of values of a given type. They are declared at program scope and are stored on chain, similar to mappings.
 
 ```leo
 // On-chain storage of an `accounts` storage vector of type address,
@@ -160,7 +162,7 @@ struct Array3 {
 
 A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be a prefix of any other record name.
 
-Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`. 
+Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`.
 
 The visibility qualifier may be specified as `constant`, `public`, or `private`. If no qualifier is provided, Leo defaults to `private`.
 

@@ -5,14 +5,17 @@ sidebar: Cheatsheet
 toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
-[general tags]: # (program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, mapping, conditionals, loops)
+
+[general tags]: # "program, import, boolean, integer, field, group, scalar, address, signature, array, tuple, struct, operators, cryptographic_operators, assert, hash, commit, random, address, block, mapping, conditionals, loops"
 
 ## 1. File Import
+
 ```leo
 import foo.aleo;
 ```
 
 ## 2. Programs
+
 ```leo
 program hello.aleo {
     // code
@@ -20,33 +23,35 @@ program hello.aleo {
 ```
 
 ## 3. Primitive Data Types
+
 ```leo
 // Boolean value (true or false)
-let b: bool = false; 
+let b: bool = false;
 
 // Signed 32-bit integer (also available: i8, i16, i64, i128)
-let i: i32 = -10i32; 
+let i: i32 = -10i32;
 
 // Unsigned 32-bit integer (also available: u8, u16, u64, u128)
-let ui: u32 = 10u32; 
+let ui: u32 = 10u32;
 
 // Field element (used in cryptographic computations)
-let a: field = 1field; 
+let a: field = 1field;
 
 // Group element (used in elliptic curve operations)
-let g: group = 0group; 
+let g: group = 0group;
 
 // Scalar element (used in elliptic curve arithmetic)
-let s: scalar = 1scalar; 
+let s: scalar = 1scalar;
 
 // Aleo blockchain address
-let receiver: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4; 
+let receiver: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4;
 
 // Digital signature (used for authentication and verification)
 let s: signature = sign1ftal5ngunk4lv9hfygl45z35vqu9cufqlecumke9jety3w2s6vqtjj4hmjulh899zqsxfxk9wm8q40w9zd9v63sqevkz8zaddugwwq35q8nghcp83tgntvyuqgk8yh0temt6gdqpleee0nwnccxfzes6pawcdwyk4f70n9ecmz6675kvrfsruehe27ppdsxrp2jnvcmy2wws6sw0egv;
 ```
 
 ### Type Casting
+
 ```leo
 // Casting between integer types
 let a: u8 = 255u8;
@@ -71,6 +76,7 @@ let f_from_group: field = g as field; // Convert group to field
 let addr: address = aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4;
 let addr_field: field = addr as field; // Convert address to field
 ```
+
 The primitive types are: `address`, `bool`, `field`, `group`, `i8`, `i16`, `i32`, `i64`, `i128`, `u8`, `u16`, `u32`, `u64`, `u128`, `scalar`.
 
 We can cast between all of these types except `signature`.
@@ -81,37 +87,39 @@ You can cast an `address` to a `field` but not vice versa.
 
 ```leo
 // Boolean option value (true or false or none)
-let b_some: bool? = true; 
-let b_none: bool? = none; 
+let b_some: bool? = true;
+let b_none: bool? = none;
 // Unwrapping option values
 let b_true = b_some.unwrap();
 let b_false = b_none.unwrap_or(false);
 
 // Signed 32-bit integer option (also available: i8, i16, i64, i128)
-let i_some: i32? = -10i32; 
-let i_none: i32? = none; 
+let i_some: i32? = -10i32;
+let i_none: i32? = none;
 
 // Unsigned 32-bit integer option (also available: u8, u16, u64, u128)
-let ui_some: u32? = 10u32; 
-let ui_none: u32? = none; 
+let ui_some: u32? = 10u32;
+let ui_none: u32? = none;
 
 // Field element option (used in cryptographic computations)
-let a_some: field? = 1field; 
-let a_none: field? = none; 
+let a_some: field? = 1field;
+let a_none: field? = none;
 
 // Group element option (used in elliptic curve operations)
-let g_some: group? = 0group; 
-let g_none: group? = none; 
+let g_some: group? = 0group;
+let g_none: group? = none;
 
 // Scalar element option (used in elliptic curve arithmetic)
-let s_some: scalar? = 1scalar; 
-let s_none: scalar? = none; 
+let s_some: scalar? = 1scalar;
+let s_none: scalar? = none;
 ```
+
 Both `address` and `signature` types do not have option variants.
 
-
 ## 4. Records
+
 Defining a `record`:
+
 ```leo
 record Token {
     owner: address,
@@ -120,6 +128,7 @@ record Token {
 ```
 
 Creating a `record`:
+
 ```leo
 let user: User = User {
     owner: aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4,
@@ -128,13 +137,16 @@ let user: User = User {
 ```
 
 Accessing `record` fields:
+
 ```leo
 let user_address: address = user.owner;
 let user_balance: u64 = user.balance;
 ```
 
 ## 5. Structs
+
 Defining a `struct`:
+
 ```leo
 struct Message {
     sender: address,
@@ -143,6 +155,7 @@ struct Message {
 ```
 
 Creating an instance of a `struct`:
+
 ```leo
 let msg: Message = Message {
     sender: aleo1ezamst4pjgj9zfxqq0fwfj8a4cjuqndmasgata3hggzqygggnyfq6kmyd4,
@@ -151,6 +164,7 @@ let msg: Message = Message {
 ```
 
 Accessing `struct` Fields:
+
 ```leo
 let sender_address: address = msg.sender;
 let object_value: u64 = msg.object;
@@ -159,6 +173,7 @@ let object_value: u64 = msg.object;
 A struct `ExternalStruct` defined in program `external_program.aleo` can be referred to outside the program using the syntax `external_program.aleo/ExternalStruct`.
 
 ### Const Generics
+
 ```leo
 struct Matrix::[N: u32, M: u32] {
     data: [field; N * M],
@@ -167,10 +182,13 @@ struct Matrix::[N: u32, M: u32] {
 // Usage
 let m = Matrix::[2, 2] { data: [0, 1, 2, 3] };
 ```
+
 Note that generic structs cannot currently be imported outside a program, but can be declared and used in submodules. Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
 ### Option Types
+
 Creating an option type instance of a `struct`
+
 ```leo
 struct Point {
     x : u32,
@@ -186,25 +204,28 @@ let point2: Point? = none;
 let point1_val = point1.unwrap();
 let point2_val = point2.unwrap_or(Point {x: 0u32, y: 0u32,});
 ```
+
 Note that because the `address` and `signature` types do not have option variants, a `struct` containing elements of these types also cannot have an option variant.
 
-
-
 ## 6. Arrays
+
 Declaring `arrays`:
+
 ```leo
 let arrb: [bool; 2] = [true, false];
-let arr: [u8; 4] = [1u8, 2u8, 3u8, 4u8]; 
-let empty: [u8; 0] = []; 
+let arr: [u8; 4] = [1u8, 2u8, 3u8, 4u8];
+let empty: [u8; 0] = [];
 ```
 
 Accessing elements:
+
 ```leo
 let first: u8 = arr[0]; // Get the first element
 let second: u8 = arr[1]; // Get the second element
 ```
 
 Looping over arrays:
+
 ```leo
 let numbers: [u32; 3] = [5u32, 10u32, 15u32];
 
@@ -216,25 +237,25 @@ for i: u8 in 0u8..3u8 {
 ```
 
 ## 7. Tuples
+
 Declaring tuples:
+
 ```leo
 // NOTE: Tuples cannot be empty!
 let t: (u8, bool, field) = (42u8, true, 100field);
 ```
 
-
 Accessing tuple elements:
 
 ```leo
 // Using de-structuring
-let (a, b, c) = t; 
+let (a, b, c) = t;
 
 //Using index-based accessing
 let first: u8 = t.0;
 let second: bool = t.1;
 let third: field = t.2;
 ```
-
 
 ## 8. Functions
 
@@ -247,7 +268,9 @@ There are three kinds of functions in Leo 4.0:
 **Direct/indirect recursive calls are not allowed.**
 
 ### Helper `fn`
+
 A helper `fn` is used for **computations**. Declared outside `program {}`.
+
 ```leo
 fn compute(a: u64, b: u64) -> u64 {
     return a + b;
@@ -255,6 +278,7 @@ fn compute(a: u64, b: u64) -> u64 {
 ```
 
 #### Const Generics
+
 ```leo
 fn sum_first_n_ints::[N: u32]() -> u32 {
     let sum = 0u32;
@@ -278,7 +302,9 @@ Acceptable types for const generic parameters include integer types, `bool`, `sc
 ❌ Cannot call: entry `fn`
 
 ### Entry `fn`
+
 An entry `fn` is the program's **public interface**. Declared inside `program {}`. It can call helper `fn` and include `final { }` blocks for on-chain state updates.
+
 ```leo
 fn subtract(a: u64, b: u64) -> u64 {
     return a - b;
@@ -291,12 +317,15 @@ program example.aleo {
     }
 }
 ```
+
 ✅ Can call: helper `fn`
 
 ❌ Cannot call: another entry `fn` (unless from another program)
 
 ### Entry `fn` with `final { }` (on-chain state)
+
 An entry `fn` that also modifies **public on-chain state** returns `Final` and includes a `final { }` block.
+
 ```leo
 program example.aleo {
     mapping balances: address => u64;
@@ -309,22 +338,28 @@ program example.aleo {
     }
 }
 ```
+
 ✅ Can call: helper `fn`, `final fn`
 
 ❌ Cannot call: another entry `fn` (unless from another program)
 
 ### `final fn`
+
 A `final fn` contains reusable finalization logic. It is **always inlined** into the caller's `final { }` block at compile time. Declared outside `program {}`.
+
 ```leo
 final fn update_balance(receiver: address, amount: u64) {
     let current: u64 = balances.get_or_use(receiver, 0u64);
     balances.set(receiver, current + amount);
 }
 ```
+
 ✅ Can call: other `final fn`
 
 ❌ Cannot call: helper `fn` or entry `fn`
+
 ## 9. Loops
+
 ```leo
 let count: u32 = 0u32;
 
@@ -334,6 +369,7 @@ for i: u32 in 0u32..5u32 {
 ```
 
 ## 10. Conditionals
+
 ```leo
 let a: u8 = 1u8;
 
@@ -344,7 +380,7 @@ if a == 1u8 {
 } else {
     a += 3u8;
 }
- 
+
 a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8); // Ternary format
 ```
 
@@ -410,7 +446,9 @@ let ext_val: u8? = external_program.aleo/vec.get(idx);
 ```
 
 ## 12. Operators
+
 ### Standard
+
 ```leo
 // Arithmetic Operators
 let sum: u64 = a + b; // addition (also has wrapped variant)
@@ -442,8 +480,8 @@ let gte: bool = a >= b; // greater than or equal
 
 // Group & Field Operators
 let g: group = group::GEN; // the group generator
-let x: field = 0group.to_x_coordinate(); // x-coordinate of a group element 
-let y: field = 0group.to_y_coordinate(); // y-coordinate of a group element 
+let x: field = 0group.to_x_coordinate(); // x-coordinate of a group element
+let y: field = 0group.to_y_coordinate(); // y-coordinate of a group element
 let doubled: group = 1field.double();  // Doubles the field/group element
 let inverse: field = 1field.inv(); // Multiplicative inverse of the field/group element
 let squared: field = 1field.square(); // Square of the field/group element
@@ -471,8 +509,9 @@ let ternary = boolean ? a : b; // Ternary expression
 ```
 
 ### Cryptographic
+
 ```leo
-// Randomization 
+// Randomization
 let rand: u32 = ChaCha::rand_u32(); // generate a random value `ChaCha::rand_<type>()`
 
 // Hash Functions (BHP, Pedersen, Poseidon, Keccak, SHA3)
@@ -485,7 +524,7 @@ let hash_native_raw: [bool; 256] = Keccak256::hash_to_bits_raw(0field); // hash 
 let commit: group = Pedersen64::commit_to_group(1u64, 1scalar); // commit any type to a field, group, or address, using a scalar as blinding factor (salt)
 
 // Schnorr Signatures
-let schnorr: bool = signature::verify(sig, addr, 0field) // Schnorr Signature Verification 
+let schnorr: bool = signature::verify(sig, addr, 0field) // Schnorr Signature Verification
 
 // ECDSA Signatures (Keccak, SHA3)
 let ecdsa: bool = ECDSA::verify_keccak256(sig, addr, msg); // Verify an ECDSA signature against an ECDSA public key and the Keccak256 hash of a message

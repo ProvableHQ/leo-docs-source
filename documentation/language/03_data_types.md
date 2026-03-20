@@ -3,8 +3,8 @@ id: data_types
 title: Data Types
 sidebar_label: Data Types
 ---
-[general tags]: # (boolean, integer, field, group, scalar, address, signature, array, tuple, struct)
 
+[general tags]: # "boolean, integer, field, group, scalar, address, signature, array, tuple, struct"
 
 ## Primitive Types
 
@@ -47,12 +47,13 @@ Higher bit length integers generate more constraints in the circuit, which can s
 :::
 
 :::info
-Leo does not assume a default integer type.  Every integer must either have an **explicit type annotation** or a type that can be **inferred by the compiler**. 
+Leo does not assume a default integer type. Every integer must either have an **explicit type annotation** or a type that can be **inferred by the compiler**.
 
 ```leo
 let a: u8 = 2u8; // explicit type
 let b: u16 = a as u16; // type casting
 ```
+
 :::
 
 ### Field Elements
@@ -97,7 +98,6 @@ let b = 211111543735709260606220623469538663283887092640840819519368524639472136
 let c: scalar = 0;
 ```
 
-
 ### Signatures
 
 Aleo uses the Schnorr signature scheme to sign messages with an Aleo private key.
@@ -135,7 +135,8 @@ let sig: signature = sign195m229jvzr0wmnshj6f8gwplhkrkhjumgjmad553r997u7pjfgpfz4
 
 ### Arrays
 
-Leo supports static arrays.   Array types are declared as `[type; length]`.  Elements can only be primitive data types, structs, or nested arrays.
+Leo supports static arrays. Array types are declared as `[type; length]`. Elements can only be primitive data types, structs, or nested arrays.
+
 ```leo
 // Initialize a boolean array of length 4
 let arr: [bool; 4] = [true, false, true, false];
@@ -147,7 +148,8 @@ let empty: [u32; 0] = [];
 let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
 ```
 
-Structs and records can also contain arrays as fields.  
+Structs and records can also contain arrays as fields.
+
 ```leo
 record Foo {
     owner: address,
@@ -162,8 +164,8 @@ struct Bar {
 let arr_of_structs: [Bar; 2] = [Bar { data: 1u8 }, Bar { data: 2u8 }];
 ```
 
-
 Arrays only support constant accesses. The accessor expression must be a constant expression (known at compile-time).
+
 ```leo
 // Access the field of a struct within an array
 fn foo(a: [Bar; 8]) -> u8 {
@@ -171,7 +173,8 @@ fn foo(a: [Bar; 8]) -> u8 {
 }
 ```
 
-Arrays can be stored as a mapping input/output, and iterated over using a loop.  
+Arrays can be stored as a mapping input/output, and iterated over using a loop.
+
 ```leo
 // Declare a mapping that contains array values
 mapping data: address => [bool; 8];
@@ -202,6 +205,7 @@ let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
 ```
 
 Structs and records can also contain tuples as fields.
+
 ```leo
 record Foo {
     owner: address,
@@ -216,7 +220,7 @@ struct Bar {
 let tup_of_structs: [Bar; 2] = [Bar { data: (1u8,1u8) }, Bar { data: (2u8,2u8) }];
 ```
 
-Tuples only support constant access with a dot `.` and a constant integer. 
+Tuples only support constant access with a dot `.` and a constant integer.
 
 ```leo
 fn baz(foo: u8, bar: u8) -> u8 {
@@ -273,9 +277,9 @@ Acceptable types for const generic parameters include integer types, `bool`, `sc
 
 ### Records
 
-A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is the method of encoding private state on Aleo.  Records are declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be a prefix of any other record name.
+A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is the method of encoding private state on Aleo. Records are declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be a prefix of any other record name.
 
-Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`.  The visibility qualifier may be specified as `constant`, `public`, or `private`. If no qualifier is provided, Leo defaults to `private`.
+Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`. The visibility qualifier may be specified as `constant`, `public`, or `private`. If no qualifier is provided, Leo defaults to `private`.
 
 Record data structures must always contain a component named `owner` of type `address`, as shown below. When passing a record as input to a program function, the `_nonce: group` and `_version: u8` components are also required but do not need to be declared in the Leo program. They are inserted automatically by the compiler.
 
@@ -289,22 +293,28 @@ record Token {
 ```
 
 ## Option Types
-As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, excluding `record`, `address`, `signature`, and `tuple`.  A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
+
+As of v3.3.0, Leo supports first-class option types using the `T?` syntax, where `T` is any of the types previously mentioned, excluding `record`, `address`, `signature`, and `tuple`. A value of type `T?` can be initialized into two states: either a value of type `T`, or `none`:
+
 ```leo
 let w: u8? = 42u8;
 let x: u8? = none;
 ```
-A value of type `T?` can be converted to type `T` by calling the `.unwrap()` method on the value.  Note that if the value being unwrapped is `none`, then the program will fail to execute.  To unwrap the value with a fallback for this case, call the `.unwrap_or()` method:
+
+A value of type `T?` can be converted to type `T` by calling the `.unwrap()` method on the value. Note that if the value being unwrapped is `none`, then the program will fail to execute. To unwrap the value with a fallback for this case, call the `.unwrap_or()` method:
+
 ```leo
 let y = w.unwrap();        // Returns 42u8
 let z = x.unwrap_or(99u8); // Returns 99u8
 ```
+
 Option types can also be stored in arrays and structs:
+
 ```leo
 // Struct of options
-struct Point { 
-    x: u32?, 
-    y: u32? 
+struct Point {
+    x: u32?,
+    y: u32?
 }
 
 // Array of options
@@ -314,15 +324,17 @@ let second_val = arr[1].unwrap_or(0u16); // Returns 0u16
 
 // Structs have option variant as well
 let p: Point? = none;
-let p_val = p.unwrap_or(Point { x: 0u32, y: none }); // Returns default 
+let p_val = p.unwrap_or(Point { x: 0u32, y: none }); // Returns default
 ```
 
 ## Type Inference
-As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.  
 
-If the compiler cannot infer the type, you must provide an explicit type annotation. 
+As of v2.7.0, Leo supports type inference. The Leo compiler is able to infer the types of declared variables and expressions as long as the type can be **unambiguously determined** from the surrounding context.
+
+If the compiler cannot infer the type, you must provide an explicit type annotation.
 
 Here are some examples:
+
 ```leo
 let a: u8 = 2u8; // explicit type - allowed
 let b = 2u8; // type inference - allowed
@@ -332,6 +344,7 @@ let d = 2; // ambiguous type - not allowed
 ```
 
 Type inference also applies to members within a struct:
+
 ```leo
 struct Foo {
     x: u8
@@ -341,4 +354,3 @@ let f = Foo {
     x: 5, // inferred to be a `u8`
 };
 ```
-

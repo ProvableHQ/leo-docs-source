@@ -3,13 +3,15 @@ id: abi
 title: ABI Generation
 sidebar_label: ABI Generation
 ---
-[general tags]: # (abi, build, sdk, tooling, types, lowering, integration)
+
+[general tags]: # "abi, build, sdk, tooling, types, lowering, integration"
 
 ## Overview
 
 The Leo compiler generates an **Application Binary Interface (ABI)** alongside compiled bytecode. The ABI is a JSON file that describes the public interface of your program, enabling downstream tooling to interact with deployed programs without needing access to the original source code.
 
 **Use cases:**
+
 - SDK generation (Rust, TypeScript, etc.)
 - Type-safe transaction construction
 - Program introspection and documentation
@@ -48,14 +50,14 @@ The ABI is a JSON object with the following top-level structure:
 }
 ```
 
-| Field | Description |
-|-------|-------------|
-| `program` | Program identifier (e.g., `"token.aleo"`) |
-| `structs` | Struct type definitions used in the public interface |
-| `records` | Record type definitions |
-| `mappings` | On-chain key-value storage declarations |
-| `storage_variables` | Storage variable declarations |
-| `functions` | Public entry points (entry `fn` declarations, not helper functions) |
+| Field               | Description                                                         |
+| ------------------- | ------------------------------------------------------------------- |
+| `program`           | Program identifier (e.g., `"token.aleo"`)                           |
+| `structs`           | Struct type definitions used in the public interface                |
+| `records`           | Record type definitions                                             |
+| `mappings`          | On-chain key-value storage declarations                             |
+| `storage_variables` | Storage variable declarations                                       |
+| `functions`         | Public entry points (entry `fn` declarations, not helper functions) |
 
 :::info
 The ABI only includes types that are referenced by the public interface. Internal helper structs not used in entry functions, mappings, or storage are automatically pruned.
@@ -173,6 +175,7 @@ Records are similar to structs but include a visibility mode for each field:
 ```
 
 **Mode values:**
+
 - `"None"` - Default visibility (private for records)
 - `"Constant"` - Publicly visible constant
 - `"Private"` - Encrypted, visible only to owner
@@ -254,10 +257,12 @@ Entry functions define the public entry points:
 ```
 
 **Input types:**
+
 - `Plaintext` - Primitive, array, struct, or optional
 - `Record` - Record input (consumed by the entry function)
 
 **Output types:**
+
 - `Plaintext` - Primitive, array, struct, or optional
 - `Record` - Record output (created by the entry function)
 - `Final` - Entry function with a `final { }` block returns a `Final`
@@ -272,9 +277,7 @@ Entry functions with `final { }` blocks have `has_final: true` and return a `Fin
     { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "Public" },
     { "name": "amount", "ty": { "Plaintext": { "Primitive": { "UInt": "U64" } } }, "mode": "Public" }
   ],
-  "outputs": [
-    { "ty": "Final", "mode": "None" }
-  ]
+  "outputs": [{ "ty": "Final", "mode": "None" }]
 }
 ```
 
@@ -286,20 +289,20 @@ The ABI uses **Leo types** (the high-level representation). When interacting wit
 
 Most Leo types map directly to Aleo types:
 
-| Leo Type | Aleo Type |
-|----------|-----------|
-| `address` | `address` |
-| `bool` | `boolean` |
-| `field` | `field` |
-| `group` | `group` |
-| `scalar` | `scalar` |
-| `signature` | `signature` |
+| Leo Type      | Aleo Type     |
+| ------------- | ------------- |
+| `address`     | `address`     |
+| `bool`        | `boolean`     |
+| `field`       | `field`       |
+| `group`       | `group`       |
+| `scalar`      | `scalar`      |
+| `signature`   | `signature`   |
 | `i8` - `i128` | `i8` - `i128` |
 | `u8` - `u128` | `u8` - `u128` |
-| `[T; N]` | `[T; N]` |
-| `struct Foo` | `Foo` |
-| `record Bar` | `Bar.record` |
-| `Final` | `future` |
+| `[T; N]`      | `[T; N]`      |
+| `struct Foo`  | `Foo`         |
+| `record Bar`  | `Bar.record`  |
+| `Final`       | `future`      |
 
 ### Optional Lowering
 
@@ -310,6 +313,7 @@ T?  -->  struct { is_some: bool, val: T }
 ```
 
 **Leo source:**
+
 ```leo showLineNumbers
 program example.aleo {
     fn process(value: u32?) -> u32 {
@@ -319,6 +323,7 @@ program example.aleo {
 ```
 
 **Aleo representation:**
+
 ```
 struct "u32?" {
     is_some as boolean;
@@ -339,6 +344,7 @@ let arr: [u64?; 2] = [1u64, none];
 ```
 
 Lowers to an array of structs:
+
 ```
 [
     "u64?" { is_some: true, val: 1u64 },
@@ -358,6 +364,7 @@ mapping vec__len__: bool => u32  // Length stored at key `false`
 ```
 
 **Leo source:**
+
 ```leo showLineNumbers
 program example.aleo {
     storage history: Vector<u64>;
@@ -371,6 +378,7 @@ program example.aleo {
 ```
 
 **Aleo representation:**
+
 ```
 mapping history__:
     key as u32.public;
@@ -382,6 +390,7 @@ mapping history__len__:
 ```
 
 To read a storage vector:
+
 1. Get length from `{name}__len__` at key `false`
 2. Read elements from `{name}__` at indices `0` to `length - 1`
 
@@ -394,6 +403,7 @@ Tuples are expanded into multiple registers in Aleo bytecode:
 ```
 
 **Leo source:**
+
 ```leo showLineNumbers
 program example.aleo {
     fn swap(a: u32, b: u32) -> (u32, u32) {
@@ -403,6 +413,7 @@ program example.aleo {
 ```
 
 **Aleo bytecode:**
+
 ```
 function swap:
     input r0 as u32.private;
@@ -481,9 +492,7 @@ program token.aleo {
         { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "Public" },
         { "name": "amount", "ty": { "Plaintext": { "Primitive": { "UInt": "U64" } } }, "mode": "Public" }
       ],
-      "outputs": [
-        { "ty": "Final", "mode": "None" }
-      ]
+      "outputs": [{ "ty": "Final", "mode": "None" }]
     },
     {
       "name": "mint_private",
@@ -492,9 +501,7 @@ program token.aleo {
         { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "None" },
         { "name": "amount", "ty": { "Plaintext": { "Primitive": { "UInt": "U64" } } }, "mode": "None" }
       ],
-      "outputs": [
-        { "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }
-      ]
+      "outputs": [{ "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }]
     },
     {
       "name": "transfer_private",
@@ -503,15 +510,14 @@ program token.aleo {
         { "name": "token", "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" },
         { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "None" }
       ],
-      "outputs": [
-        { "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }
-      ]
+      "outputs": [{ "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }]
     }
   ]
 }
 ```
 
 **Key observations:**
+
 - Only `Token` record is included (no internal helper types)
 - `mint_public` has a `final { }` block (`has_final: true`) and returns a `Final` in the ABI
 - `mint_private` and `transfer_private` return `Record` outputs

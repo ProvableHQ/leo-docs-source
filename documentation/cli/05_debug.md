@@ -3,7 +3,8 @@ id: cli_debug
 title: ""
 sidebar_label: Debug
 ---
-[general tags]: # (cli, leo_debug, debug)
+
+[general tags]: # "cli, leo_debug, debug"
 
 # `leo debug`
 

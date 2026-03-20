@@ -3,53 +3,67 @@ id: public_state
 title: Public State
 sidebar_label: Public State
 ---
-[general tags]: # (program, mapping, storage)
 
+[general tags]: # "program, mapping, storage"
 
 ## Mappings
 
-There are several functions available to query and modify mappings.  The examples below will reference the following mapping:
+There are several functions available to query and modify mappings. The examples below will reference the following mapping:
+
 ```leo
 mapping balance: address => u64;
 ```
 
 ### Querying
+
 To simply check if a value has been set for a particular `address` in `balance`:
+
 ```leo
 balance.contains(addr)
 Mapping::contains(balance, addr); // Alternate syntax
 ```
+
 To query a value for a particular `address` in `balance`:
+
 ```leo
 balance.get(addr)
 Mapping::get(balance, addr); // Alternate syntax
 ```
-Note that if value at `addr` does not exist above, then the program will fail to execute.  To query a value with a fallback for this case:
+
+Note that if value at `addr` does not exist above, then the program will fail to execute. To query a value with a fallback for this case:
+
 ```leo
 balance.get_or_use(addr,fallback_value)
 Mapping::get_or_use(balance, addr, fallback_value); // Alternate syntax
 ```
+
 A program can also query values from another program's mappings:
+
 ```leo
 let balance1 = credits.aleo/account.get(addr);
 let balance2 = credits.aleo/account.get_or_use(addr, 0u64);
 ```
+
 Although values can be queried, a program cannot directly modify another program's mappings.
 
-
 ### Modifying
+
 To set a value for a particular `address` in `balance`:
+
 ```leo
 balance.set(addr,value)
 Mapping::set(balance, addr, value); // Alternate syntax
 ```
+
 To remove the value set at particular `address` in `balance`:
+
 ```leo
 balance.remove(addr)
 Mapping::remove(balance, addr); // Alternate syntax
 ```
 
 ### Usage
+
 ```leo showLineNumbers
 program map.aleo {
     mapping balance: address => u64;
@@ -73,25 +87,28 @@ Mapping operations are only allowed inside a `final { }` block or inside a `fina
 
 ## Storage Variables
 
-Storage variables behave similar to option types. There are several functions available to query and modify singleton storage variables.  The examples below will reference the following:
+Storage variables behave similar to option types. There are several functions available to query and modify singleton storage variables. The examples below will reference the following:
+
 ```leo
 storage counter: u64;
 ```
 
 ### Querying
+
 To query the value currently stored at `counter`:
 
 ```leo
 counter.unwrap();
 ```
 
-Note that if `counter` has not been initialized, then the program will fail to execute.  To query the value with a fallback for this case:
+Note that if `counter` has not been initialized, then the program will fail to execute. To query the value with a fallback for this case:
 
 ```leo
 counter.unwrap_or(fallback_value);
 ```
 
 ### Modifying
+
 To set a value for `counter`:
 
 ```leo
@@ -105,6 +122,7 @@ counter = none;
 ```
 
 ### Usage
+
 ```leo showLineNumbers
 program storage_variable.aleo {
     storage counter: u64;
@@ -214,9 +232,10 @@ id_numbers.clear();
 ```
 
 :::note
+
 - `clear()` does not actually remove any values from the vector. It simply sets the length to `0`.
 - Similarly, `swap_remove()` and `pop()` do not physically remove values. They reduce the length by `1`, ensuring the final element is no longer accessible.
-:::
+  :::
 
 ### Usage
 

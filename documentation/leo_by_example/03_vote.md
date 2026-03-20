@@ -2,7 +2,8 @@
 id: vote
 title: A Voting Program using Leo
 ---
-[general tags]: # (example, vote, record, program, mapping)
+
+[general tags]: # "example, vote, record, program, mapping"
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/vote)**
 
@@ -34,11 +35,11 @@ The `.env` file contains a private key and network type. This is the account tha
 
 ## Walkthrough
 
-* [Functions](#functions)
-* [Step 0: Create a Proposal](#step0)
-* [Step 1: Voter 1 issues a ticket and makes a vote](#step1)
-* [Step 2: Voter 2 issues a ticket and makes a vote](#step2)
-* [Step 3: How votes are tallied](#step3)
+- [Functions](#functions)
+- [Step 0: Create a Proposal](#step0)
+- [Step 1: Voter 1 issues a ticket and makes a vote](#step1)
+- [Step 2: Voter 2 issues a ticket and makes a vote](#step2)
+- [Step 3: How votes are tallied](#step3)
 
 ## <a id="functions"></a> Functions
 
@@ -73,6 +74,7 @@ The private key and address of voter 2.
 private_key: APrivateKey1zkp6NHwbT7PkpnEFeBidz5ZkZ14W8WXZmJ6kjKbEHYdMmf2
 address: aleo1uc6jphye8y9gfqtezrz240ak963sdgugd7s96qpuw6k7jz9axs8q2qnhxc
 ```
+
 Let's propose a new ballot. Take on the role of the proposer and run the `propose` function. We've provided the necessary information as inputs to the `propose` function.
 
 ```bash
@@ -81,13 +83,15 @@ NETWORK=testnet
 PRIVATE_KEY=APrivateKey1zkp8wKHF9zFX1j4YJrK3JhxtyKDmPbRu9LrnEW8Ki56UQ3G
 " > .env
 
-leo run propose "{ 
-  title: 2077160157502449938194577302446444field, 
-  content: 1452374294790018907888397545906607852827800436field, 
+leo run propose "{
+  title: 2077160157502449938194577302446444field,
+  content: 1452374294790018907888397545906607852827800436field,
   proposer: aleo1rfez44epy0m7nv4pskvjy6vex64tnt0xy90fyhrg49cwe0t9ws8sh6nhhr
 }"
 ```
+
 Output
+
 ```bash
 
  • {
@@ -123,7 +127,9 @@ PRIVATE_KEY=APrivateKey1zkpHmSu9zuhyuCJqVfQE8p82HXpCTLVa8Z2HUNaiy9mrug2
 
 leo run new_ticket 2264670486490520844857553240576860973319410481267184439818180411609250173817field aleo1c45etea8czkyscyqawxs7auqjz08daaagp2zq4qjydkhxt997q9s77rsp2
 ```
+
 Output
+
 ```bash
  • {
   owner: aleo1c45etea8czkyscyqawxs7auqjz08daaagp2zq4qjydkhxt997q9s77rsp2.private,
@@ -150,7 +156,9 @@ leo run agree "{
   _nonce: 1738483341280375163846743812193292672860569105378494043894154684192972730518group.public
 }"
 ```
+
 Output
+
 ```bash
  • {
   program_id: vote.aleo,
@@ -174,7 +182,9 @@ PRIVATE_KEY=APrivateKey1zkp6NHwbT7PkpnEFeBidz5ZkZ14W8WXZmJ6kjKbEHYdMmf2
 
 leo run new_ticket 2158670485494560943857353240576760973319410481267184429818180411607250143681field aleo1uc6jphye8y9gfqtezrz240ak963sdgugd7s96qpuw6k7jz9axs8q2qnhxc
 ```
+
 Output
+
 ```bash
  • {
   owner: aleo1uc6jphye8y9gfqtezrz240ak963sdgugd7s96qpuw6k7jz9axs8q2qnhxc.private,
@@ -199,7 +209,9 @@ leo run disagree "{
   _nonce: 6511154004161574129036815174288926693337549214513234790975047364416273541105group.public
 }"
 ```
+
 Output
+
 ```bash
  • {
   program_id: vote.aleo,

@@ -4,14 +4,16 @@ title: Executing Your Programs
 sidebar_label: Executing
 ---
 
-[general tags]: # (guides, execute, execution, transaction, transaction_status)
+[general tags]: # "guides, execute, execution, transaction, transaction_status"
 
 The `leo execute` command executes the Leo program and outputs a transaction object
+
 ```bash
 leo execute <FUNCTION_NAME> <INPUT_1> <INPUT_2> ...
 ```
 
 Optionally, you can execute a function in a remote Leo program by using
+
 ```bash
 leo execute <PROGRAM_NAME>.aleo/<FUNCTION_NAME> <INPUT_1> <INPUT_2> ...
 ```
@@ -25,7 +27,9 @@ If executing a function from a local program, the `leo execute` command will fir
        Leo ✅ Compiled 'hello.aleo' into Aleo instructions.
 
 ```
-It will then print out the summary of the execution plan with 
+
+It will then print out the summary of the execution plan with
+
 ```bash
 🚀 Execution Plan Summary
 ──────────────────────────────────────────────
@@ -52,6 +56,7 @@ It will then print out the summary of the execution plan with
 ```
 
 Finally, an execution cost breakdown will be printed alongside any outputs from the function itself.
+
 ```bash
 📊 Execution Summary for <PROGRAM_NAME>
 ──────────────────────────────────────────────
@@ -69,7 +74,4 @@ Finally, an execution cost breakdown will be printed alongside any outputs from 
   ...
 ```
 
-Under the hood, `leo execute` produces a JSON object. This is a [`Transaction`](https://developer.aleo.org/concepts/fundamentals/transactions) that can be broadcast to the Aleo network.  You can view this JSON by passing the `--print` flag to `leo execute`.
-
-
-
+Under the hood, `leo execute` produces a JSON object. This is a [`Transaction`](https://developer.aleo.org/concepts/fundamentals/transactions) that can be broadcast to the Aleo network. You can view this JSON by passing the `--print` flag to `leo execute`.

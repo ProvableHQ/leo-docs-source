@@ -1,9 +1,10 @@
 ---
-id: test 
+id: test
 title: Testing, Testing, 123
 sidebar_label: Testing
 ---
-[general tags]: # (guides, tests, testing, unit_testing, integration_testing, devnet, testnet)
+
+[general tags]: # "guides, tests, testing, unit_testing, integration_testing, devnet, testnet"
 
 Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are a number of tools and techniques you can use.
 
@@ -15,8 +16,8 @@ Once deployed, an application lives on the ledger forever. Consequently, it's im
 
 - [**Other Tools**](#other-tools) - Tools and methodologies developed by the open-source Aleo community.
 
-
 ## Unit and Integration Testing
+
 The Leo testing framework enables developers to validate their Leo program logic by writing unit and integration tests. Tests are written in Leo and are located in a `tests/` subdirectory of the main Leo project directory.
 
 ```bash
@@ -33,14 +34,14 @@ example_program
 │   └── test_example_program.leo
 └── program.json
 ```
-The test file is a Leo program that imports the program in `main.leo`.  The test functions will all be annotated with `@test` above the function declaration. 
 
-This tutorial will use an example program which can be found in the [example's repository](https://github.com/ProvableHQ/leo-examples/tree/main/example_with_test).  
+The test file is a Leo program that imports the program in `main.leo`. The test functions will all be annotated with `@test` above the function declaration.
+
+This tutorial will use an example program which can be found in the [example's repository](https://github.com/ProvableHQ/leo-examples/tree/main/example_with_test).
 
 :::info
-Developers can add multiple `leo` files to the test directory but must ensure that the name of the test file matches the program name within that test file.  For example, if the name of the test file is `test_example_program.leo`, the program name in that file must be `test_example_program.aleo`.
+Developers can add multiple `leo` files to the test directory but must ensure that the name of the test file matches the program name within that test file. For example, if the name of the test file is `test_example_program.leo`, the program name in that file must be `test_example_program.aleo`.
 :::
-
 
 ### Testing Entry Functions
 
@@ -54,6 +55,7 @@ fn simple_addition(public a: u32, b: u32) -> u32 {
 ```
 
 The `test_example_program.leo` contains two tests to ensure that the function logic returns a correct output and fails when the output does not match the sum of the input values.
+
 ```Leo
 @test
 fn test_simple_addition() {
@@ -63,6 +65,7 @@ fn test_simple_addition() {
 ```
 
 The `@should_fail` annotation should be added after the `@test` annotation for tests that are expected to fail.
+
 ```Leo
 @test
 @should_fail
@@ -74,7 +77,7 @@ fn test_simple_addition_fail() {
 
 ### Testing Leo Types
 
-Developers can test that record and struct fields match their expected values.  In `example_program.leo`, a record is minted by an entry function shown here:
+Developers can test that record and struct fields match their expected values. In `example_program.leo`, a record is minted by an entry function shown here:
 
 ```Leo
 record Example {
@@ -104,30 +107,33 @@ fn test_record_maker() {
 Each test file is required to have at least one `@test fn` function.
 :::
 
-
 ### Modeling Onchain State
 
 The Leo test framework executes tests via the real VM, so on-chain state (mappings, storage) is fully supported in `@test fn` functions — no special syntax is required. Call entry functions that return `Final` the same way as any other function; the finalization will be executed as part of the test run.
 
 For end-to-end and integration testing against a live network or a local devnet, use the [SDK](https://github.com/ProvableHQ/sdk) directly or `snarkVM` as a library.
 
-
 ### Running Tests
-Invoking the `leo test` command will run all of the compiled and interpreted tests. Developers may optionally select individual tests by supplying a test function name or a string that is contained within a test function name.  For instance, to run the test for `test_final`, developers would use the following command:
+
+Invoking the `leo test` command will run all of the compiled and interpreted tests. Developers may optionally select individual tests by supplying a test function name or a string that is contained within a test function name. For instance, to run the test for `test_final`, developers would use the following command:
+
 ```bash
 leo test test_final
 ```
+
 Either of the following commands will run both of the addition function tests:
+
 ```bash
 leo test simple
 ```
+
 or
+
 ```bash
 leo test addition
 ```
 
 See the `leo test` CLI documentation [here](./../cli/13_test.md)
-
 
 ## Running a Devnet
 
@@ -136,6 +142,7 @@ A local devnet can be a heavyweight but reliable way to test your application on
 For more information, refer to the [Devnet](./07_devnet.md) guide
 
 ## Deploying/Executing on Testnet
+
 To deploy and execute on Testnet, you'll need to set your endpoint back to one of the public facing options. Additionally, you'll need to obtain Testnet credits from one of the faucets below:
 
 ### Faucets
@@ -143,16 +150,15 @@ To deploy and execute on Testnet, you'll need to set your endpoint back to one o
 <!--TODO: Update this information once the new faucet becomes public.-->
 
 At some point you'll need testnet credits. There are a few community-supported faucets to choose from:
+
 - [**Puzzle**](https://dev.puzzle.online/faucet) - 15 credits / 4 hours
 
 - [**Demox**](https://discord.com/channels/913160862670397510/1202322326230937640/1203135682873266207) - 10 credits / 12 hours
 
 The faucets are periodically refreshed.
 
-
 ## Other Tools
 
 The Aleo community has developed some neat tools to aid in testing.
 
 - [**doko.js**](https://github.com/venture23-aleo/doko-js)
-

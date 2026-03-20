@@ -5,15 +5,17 @@ sidebar_label: Build
 toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
-[general tags]: # (cli, leo_build, build, compile, program)
+
+[general tags]: # "cli, leo_build, build, compile, program"
 
 # `leo build`
 
 To compile your program into Aleo instructions and verify that it builds properly, run:
+
 ```bash
 leo build
 ```
- 
+
 On invoking the build command, Leo automatically creates a `build/⁠` and `output/`⁠ folder in the project directory. The compiled `.aleo` file is contained in the `build` directory. The `output` directory is used to store intermediate artifacts from compilation.
 
 ```bash title="console output:"
@@ -27,6 +29,7 @@ On invoking the build command, Leo automatically creates a `build/⁠` and `outp
 The build also generates an **ABI file** at `build/abi.json` describing your program's public interface (transitions, mappings, and types). See the [ABI Generation guide](../guides/10_abi.md) for details on the format and type lowering specification.
 
 ### Flags:
+
 ```
 --offline
     Enables offline mode.
@@ -61,4 +64,3 @@ The build also generates an **ABI file** at `build/abi.json` describing your pro
 --consensus-heights <CONSENSUS_HEIGHTS>
     Optional consensus heights to use. This should only be set if you are using a custom devnet.
 ```
-

@@ -3,7 +3,8 @@ id: finalization
 title: The Finalization Model
 sidebar_label: Finalization Model
 ---
-[general tags]: # (guides, final, entry_function, program)
+
+[general tags]: # "guides, final, entry_function, program"
 
 ## Background
 
@@ -55,6 +56,7 @@ program first_public_state.aleo {
 ```
 
 Entry functions with on-chain logic return `Final` and embed the finalization code in an inline `final { }` block. A few additional rules apply:
+
 - Entry functions can return additional data types in a tuple, including Records, along with a `Final`.
 - Only one `Final` can be returned.
 - If multiple types are returned, the `Final` must be the last type in the tuple.
@@ -81,18 +83,18 @@ program second_public_storage.aleo {
 ```
 
 You can access the inputs to an external `Final` using the following syntax:
+
 ```leo
 let f = imported_program.aleo/some_function();
 let value = f.0;  // or f.1, f.2, f.3 and so on depending on the input index
 ```
 
-
 ## Managing Both Public and Private State
 
 Records are private state and can be created or consumed in the proof context (the entry `fn` body), but not inside `final { }` blocks or `final fn`. The finalization context runs purely on-chain and only has access to public on-chain state.
 
-|                          | **Public State**              | **Private State**            |
-|--------------------------|-------------------------------|------------------------------|
-| **Where it runs**        | `final { }` block             | Entry `fn` body              |
-| **Data Storage**         | `mapping`, `storage`          | `record`                     |
-| **Visibility**           | everyone                      | visible if you have the `viewkey` |
+|                   | **Public State**     | **Private State**                 |
+| ----------------- | -------------------- | --------------------------------- |
+| **Where it runs** | `final { }` block    | Entry `fn` body                   |
+| **Data Storage**  | `mapping`, `storage` | `record`                          |
+| **Visibility**    | everyone             | visible if you have the `viewkey` |

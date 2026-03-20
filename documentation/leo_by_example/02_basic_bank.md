@@ -2,7 +2,8 @@
 id: basic_bank
 title: A Basic Bank using Leo
 ---
-[general tags]: # (example, bank, record, program, assert, hash, loops, mappings)
+
+[general tags]: # "example, bank, record, program, assert, hash, loops, mappings"
 
 **[Source Code](https://github.com/ProvableHQ/leo-examples/tree/main/basic_bank)**
 
@@ -11,6 +12,7 @@ title: A Basic Bank using Leo
 This program implements a bank that issues tokens to users and allows users to deposit tokens to accrue simple interest on their deposits.
 
 ### User Flow
+
 1. The bank issues users tokens via the `issue` function.
 2. A user deposits tokens via the `deposit` function.
 3. Upon a user's request to withdraw, the bank calculates the appropriate amount of compound interest and pays the user the principal and interest via the `withdraw` function.
@@ -20,8 +22,9 @@ Note that the program can be easily extended to include additional features such
 ## Bugs
 
 You may have already guessed that this program has a few bugs. We list some of them below:
+
 - `withdraw` can only be invoked by the bank. A malicious bank could lock users' tokens by not invoking `withdraw`.
-- `withdraw` fails if the sum of the interest and principal is greater than the user's balance. 
+- `withdraw` fails if the sum of the interest and principal is greater than the user's balance.
 - Users can increase their principal by depositing tokens multiple times, including immediately before withdrawal.
 - Integer division rounds down; if the calculated interest is too small, then it will be rounded down to zero.
 
@@ -30,6 +33,7 @@ Can you find any others?
 There are, of course, ways to write a version of this application without these bugs. This could be a good exercise for the reader.
 
 ## Language Features and Concepts
+
 - `record` declarations
 - `assert_eq`
 - core functions, e.g. `BHP256::hash`
@@ -53,10 +57,10 @@ The `.env` file contains a private key and address. This is the account that wil
 
 ## Walkthrough
 
-* [Step 0: Issue Tokens](#issue)
-* [Step 1: Deposit Tokens](#deposit)
-* [Step 2: Wait](#wait)
-* [Step 3: Withdraw Tokens](#withdraw)
+- [Step 0: Issue Tokens](#issue)
+- [Step 1: Deposit Tokens](#deposit)
+- [Step 2: Wait](#wait)
+- [Step 3: Withdraw Tokens](#withdraw)
 
 ## <a id="issue"></a> Issue Tokens
 
@@ -82,7 +86,9 @@ PRIVATE_KEY=APrivateKey1zkpHtqVWT6fSHgUMNxsuVf7eaR6id2cj7TieKY1Z8CP5rCD
 
 leo run issue aleo1zeklp6dd8e764spe74xez6f8w27dlua3w7hl4z2uln03re52egpsv46ngg 100u64
 ```
+
 Output
+
 ```bash
  • {
   owner: aleo1zeklp6dd8e764spe74xez6f8w27dlua3w7hl4z2uln03re52egpsv46ngg.private,
@@ -107,7 +113,9 @@ leo run deposit "{
     _nonce: 4668394794828730542675887906815309351994017139223602571716627453741502624516group.public
 }"  50u64
 ```
+
 Output
+
 ```bash
  • {
   owner: aleo1zeklp6dd8e764spe74xez6f8w27dlua3w7hl4z2uln03re52egpsv46ngg.private,
@@ -144,7 +152,9 @@ PRIVATE_KEY=APrivateKey1zkpHtqVWT6fSHgUMNxsuVf7eaR6id2cj7TieKY1Z8CP5rCD
 
 leo run withdraw aleo1zeklp6dd8e764spe74xez6f8w27dlua3w7hl4z2uln03re52egpsv46ngg 50u64 1234u64 15u64
 ```
+
 Output
+
 ```bash
  • {
   owner: aleo1zeklp6dd8e764spe74xez6f8w27dlua3w7hl4z2uln03re52egpsv46ngg.private,
@@ -160,6 +170,9 @@ Output
   ]
 }
 ```
+
 You'll see here the withdrawal function creates a new private record for the user containing all 266 withdrawn tokens, and then outputs finalization data which will be run on-chain.
+
+```
 
 ```

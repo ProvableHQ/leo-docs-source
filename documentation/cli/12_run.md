@@ -5,13 +5,15 @@ sidebar_label: Run
 toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
-[general tags]: # (cli, leo_run, run)
+
+[general tags]: # "cli, leo_run, run"
 
 # `leo run`
 
-You can run an entry function by using the `leo run` command.  This will simply run the specified entry function with the provided inputs and show what the produced output will be.  It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain.  For that, please see the [`leo execute`](08_execute.md) command.
+You can run an entry function by using the `leo run` command. This will simply run the specified entry function with the provided inputs and show what the produced output will be. It will NOT generate the zero-knowledge proof of execution or the transaction, and nothing will be run onchain. For that, please see the [`leo execute`](08_execute.md) command.
 
 To run a Leo entry function with inputs from the command line, run the following command:
+
 ```bash
 leo run <FUNCTION_NAME> <INPUTS>
 ```
@@ -40,11 +42,13 @@ This command does not synthesize the program circuit or generate proving and ver
 If one or more of your inputs are negatives, and consequently begin with a `-`,
 you may separate the inputs with a `--` so that the command line parser
 won't attempt to parse them as options:
+
 ```bash
-leo run <TRANSITION_NAME> -- <INPUT_0> -- <INPUT_1> ...
+leo run <FUNCTION_NAME> -- <INPUT_0> -- <INPUT_1> ...
 ```
 
 ### Flags:
+
 ```
 --offline
     Enables offline mode.
@@ -79,5 +83,3 @@ leo run <TRANSITION_NAME> -- <INPUT_0> -- <INPUT_1> ...
 --consensus-heights <CONSENSUS_HEIGHTS>
     Optional consensus heights to use. This should only be set if you are using a custom devnet.
 ```
-
-

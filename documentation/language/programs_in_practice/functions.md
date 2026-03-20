@@ -3,8 +3,8 @@ id: functions
 title: Functions
 sidebar_label: Functions
 ---
-[general tags]: # (fn, final, entry_function, helper_function, final_fn)
 
+[general tags]: # "fn, final, entry_function, helper_function, final_fn"
 
 ## Entry Functions
 
@@ -23,7 +23,8 @@ program hello.aleo {
 
 ### Inputs
 
-Inputs are declared as `{visibility} {name}: {type}`.  They must be declared just after the function name declaration, in parentheses.
+Inputs are declared as `{visibility} {name}: {type}`. They must be declared just after the function name declaration, in parentheses.
+
 ```leo showLineNumbers
 // The entry function `foo` takes a single input `a` with type `field` and visibility `public`.
 fn foo(public a: field) { }
@@ -33,6 +34,7 @@ fn foo(public a: field) { }
 
 The return type of the function is declared as `-> {expression}` and must be declared just after the function inputs.
 A function output is calculated as `return {expression};`. Returning an output ends the execution of the function, and the type of the returned value must match the output type declared in the function signature.
+
 ```leo showLineNumbers
 fn foo(public a: field) -> field {
     // Returns the addition of the public input a and the value `1field`.
@@ -130,6 +132,7 @@ fn foo(
 ```
 
 Helper functions also support **const generics**:
+
 ```leo showLineNumbers
 fn sum_first_n_ints::[N: u32]() -> u32 {
     let sum = 0u32;
@@ -145,6 +148,7 @@ program main.aleo {
     }
 }
 ```
+
 Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
 ## Function Call Rules
