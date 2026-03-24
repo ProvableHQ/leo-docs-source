@@ -74,17 +74,17 @@ program hello.aleo {
 
 The following must be declared inside the scope of a program in a Leo file:
 
-- [Mappings](#mapping) and [Storage](#storage)
-- [Records](#record)
+- [Mappings](./02_structure.md#mappings) and [Storage](./02_structure.md#storage)
+- [Records](./02_structure.md#record)
 - [Entry point `fn` declarations](./programs_in_practice/functions.md#entry-functions)
 
 The following must be declared outside the scope of a program in a Leo file:
 
 - [Imports](#imports)
-- [Constants](#constant)
-- [Structs](#struct)
+- [Constants](./02_structure.md#constant)
+- [Structs](./02_structure.md#struct)
 - Helper `fn` definitions
-- [`final fn` definitions](./programs_in_practice/functions.md#final-fn)
+- [`final fn` definitions](./programs_in_practice/functions.md#on-chain-state-with-final-fn)
 
 Declarations are locally accessible within a program file. If you need a declaration from another Leo file, you must import it.
 

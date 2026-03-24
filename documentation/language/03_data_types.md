@@ -102,7 +102,7 @@ let c: scalar = 0;
 
 Aleo uses the Schnorr signature scheme to sign messages with an Aleo private key.
 Signatures are a native type in Leo, and can be declared with the keyword `signature`.
-Signatures can be verified in Leo using the [`signature::verify`](./04_operators.md#signatureverify) or [`s.verify`](./04_operators.md#signatureverify) operators.
+Signatures can be verified in Leo using the [`signature::verify`](./operators/cryptographic_operators.md#signatureverify) or [`s.verify`](./operators/cryptographic_operators.md#signatureverify) operators.
 
 ```leo
 struct foo {

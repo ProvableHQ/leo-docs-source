@@ -8,7 +8,7 @@ sidebar_label: Testing
 
 Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are a number of tools and techniques you can use.
 
-- [**Unit and Integration Testing**](#test-framework) - Validate Leo program logic through test cases.
+- [**Unit and Integration Testing**](#unit-and-integration-testing) - Validate Leo program logic through test cases.
 
 - [**Running a Devnet**](#running-a-devnet) - Deploy and execute on a local devnet.
 

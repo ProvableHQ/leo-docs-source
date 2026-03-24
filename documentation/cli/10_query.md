@@ -152,12 +152,12 @@ Get the ID of the transaction that an input or output ID occurred in.
 leo query transaction --from-io <INPUT_OR_OUTPUT_ID>
 ```
 
-#### `--from-entry-fn <FUNCTION_ID>`
+#### `--from-transition <TRANSITION_ID>`
 
-Get the ID of the transaction containing the specified entry function execution.
+Get the ID of the transaction containing the specified transition.
 
 ```bash title="Example:"
-leo query transaction --from-entry-fn <FUNCTION_ID>
+leo query transaction --from-transition <TRANSITION_ID>
 ```
 
 #### `--from-program <PROGRAM_NAME>`

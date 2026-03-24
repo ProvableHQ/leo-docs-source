@@ -17,7 +17,7 @@ This guide covers every breaking change and shows how to update your code.
 | `transition foo()`                 | `fn foo()` (inside `program {}`)                              |
 | `async transition foo() -> Future` | `fn foo() -> Final`                                           |
 | `function foo()`                   | `fn foo()` (outside `program {}`)                             |
-| `async function foo()`             | `final { ... }` block (see [below](#async-finalize-to-final)) |
+| `async function foo()`             | `final { ... }` block (see [below](#asyncfinalize-to-final)) |
 | `inline foo()`                     | `fn foo()` (outside `program {}`)                             |
 | `Future` (type)                    | `Final`                                                       |
 | `async { ... }`                    | `final { ... }`                                               |
