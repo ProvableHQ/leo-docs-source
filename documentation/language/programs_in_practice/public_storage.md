@@ -40,8 +40,8 @@ Mapping::get_or_use(balance, addr, fallback_value); // Alternate syntax
 A program can also query values from another program's mappings:
 
 ```leo
-let balance1 = credits.aleo/account.get(addr);
-let balance2 = credits.aleo/account.get_or_use(addr, 0u64);
+let balance1 = credits.aleo::account.get(addr);
+let balance2 = credits.aleo::account.get_or_use(addr, 0u64);
 ```
 
 Although values can be queried, a program cannot directly modify another program's mappings.
@@ -142,7 +142,7 @@ Storage variable operations are only allowed inside a `final { }` block or insid
 
 ### External Access
 
-Storage variables defined in another program can be accessed using the fully qualified form `program_name.aleo/storage_name`. External storage variables are **read-only** and cannot be modified.
+Storage variables defined in another program can be accessed using the fully qualified form `program_name.aleo::storage_name`. External storage variables are **read-only** and cannot be modified.
 
 For example, suppose another program defines the following storage variable:
 
@@ -157,20 +157,20 @@ program external_program.aleo {
 You may query this value from your program using:
 
 ```leo
-let value: u64 = external_program.aleo/counter.unwrap();
+let value: u64 = external_program.aleo::counter.unwrap();
 ```
 
 As with local storage variables, calling `unwrap()` will cause execution to fail if the storage variable has not been initialized. To safely query the value with a fallback:
 
 ```leo
-let value: u64 = external_program.aleo/counter.unwrap_or(0u64);
+let value: u64 = external_program.aleo::counter.unwrap_or(0u64);
 ```
 
 External storage variables cannot be assigned to or unset. The following operations are invalid:
 
 ```leo
-external_program.aleo/counter = 5u64;   // invalid
-external_program.aleo/counter = none;   // invalid
+external_program.aleo::counter = 5u64;   // invalid
+external_program.aleo::counter = none;   // invalid
 ```
 
 ## Storage Vectors
@@ -263,7 +263,7 @@ Storage vector operations are only allowed inside a `final { }` block or inside 
 
 ### External Access
 
-Storage vectors defined in another program can be accessed using the fully qualified form `program_name.aleo/storage_name`. External storage vectors are **read-only** and cannot be modified.
+Storage vectors defined in another program can be accessed using the fully qualified form `program_name.aleo::storage_name`. External storage vectors are **read-only** and cannot be modified.
 
 For example, suppose another program defines the following storage vector:
 
@@ -276,16 +276,16 @@ program external_program.aleo {
 You may query elements or the length of this vector from your program:
 
 ```leo
-let first: u64? = external_program.aleo/id_numbers.get(0u32);
-let length: u32 = external_program.aleo/id_numbers.len();
+let first: u64? = external_program.aleo::id_numbers.get(0u32);
+let length: u32 = external_program.aleo::id_numbers.len();
 ```
 
 External storage vectors cannot be modified. The following operations are invalid:
 
 ```leo
-external_program.aleo/id_numbers.push(5u64);        // invalid
-external_program.aleo/id_numbers.set(0u32, 5u64);   // invalid
-external_program.aleo/id_numbers.pop();             // invalid
-external_program.aleo/id_numbers.swap_remove(0u32); // invalid
-external_program.aleo/id_numbers.clear();           // invalid
+external_program.aleo::id_numbers.push(5u64);        // invalid
+external_program.aleo::id_numbers.set(0u32, 5u64);   // invalid
+external_program.aleo::id_numbers.pop();             // invalid
+external_program.aleo::id_numbers.swap_remove(0u32); // invalid
+external_program.aleo::id_numbers.clear();           // invalid
 ```

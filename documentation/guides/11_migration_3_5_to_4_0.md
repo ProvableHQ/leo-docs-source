@@ -17,13 +17,14 @@ This guide covers every breaking change and shows how to update your code.
 | `transition foo()`                 | `fn foo()` (inside `program {}`)                              |
 | `async transition foo() -> Future` | `fn foo() -> Final`                                           |
 | `function foo()`                   | `fn foo()` (outside `program {}`)                             |
-| `async function foo()`             | `final { ... }` block (see [below](#async-finalize-to-final)) |
+| `async function foo()`             | `final { ... }` block (see [below](#asyncfinalize-to-final)) |
 | `inline foo()`                     | `fn foo()` (outside `program {}`)                             |
 | `Future` (type)                    | `Final`                                                       |
 | `async { ... }`                    | `final { ... }`                                               |
 | `f.await()`                        | `f.run()`                                                     |
 | `@test script foo()`               | `@test fn foo()` (inside `program {}`)                        |
 | `async constructor()`              | `constructor()`                                               |
+| `foo.aleo/bar`                     | `foo.aleo::bar`                                               |
 
 ## Function Declaration Keywords
 
@@ -275,7 +276,7 @@ program example.aleo {
 // 4.0
 program example.aleo {
     fn compose(value: u8) -> Final {
-        let f: Final = other_program.aleo/action();
+        let f: Final = other_program.aleo::action();
         return final {
             f.run();
             // ... on-chain logic
@@ -348,6 +349,28 @@ program hello.aleo {
 }
 ```
 
+## External Call Syntax: `/` becomes `::`
+
+In 3.5, calling a function or referencing a type in another program used a `/` separator:
+
+```leo
+// 3.5
+let result: u32 = other_program.aleo/some_fn(1u32);
+let s: other_program.aleo/MyStruct = other_program.aleo/MyStruct { x: 1u32 };
+```
+
+In 4.0, this separator is `::`, consistent with the path syntax used elsewhere in Leo:
+
+```leo
+// 4.0
+let result: u32 = other_program.aleo::some_fn(1u32);
+let s: other_program.aleo::MyStruct = other_program.aleo::MyStruct { x: 1u32 };
+```
+
+This applies to all cross-program references: function calls, type annotations, external mapping access, external storage access, and external storage vector access.
+
+**To migrate:** replace `program_name.aleo/` with `program_name.aleo::` wherever it appears in your Leo source files.
+
 ## Removed Features
 
 ### `script` functions, interpreter, and debugger
@@ -378,14 +401,14 @@ import test_program.aleo;
 program test_test_program.aleo {
     @test
     fn test_addition() {
-        let result: u32 = test_program.aleo/add(1u32, 2u32);
+        let result: u32 = test_program.aleo::add(1u32, 2u32);
         assert_eq(result, 3u32);
     }
 
     @test
     @should_fail
     fn test_overflow() {
-        let _result: u8 = test_program.aleo/add_u8(255u8, 1u8);
+        let _result: u8 = test_program.aleo::add_u8(255u8, 1u8);
     }
 }
 ```
@@ -413,6 +436,8 @@ program my_counter.aleo : Counter {
 ```
 
 Interfaces can declare function signatures, record definitions, mappings, and storage variables. Programs implement an interface by listing it after `:` in the program declaration.
+
+For full documentation including record requirements, interface composition, dynamic calls, and dynamic records, see [Interfaces & Dynamic Dispatch](../language/programs_in_practice/interfaces.md).
 
 Interfaces support inheritance:
 

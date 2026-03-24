@@ -56,6 +56,8 @@ The `commit` variant is a wrapper around the `hash` variant that takes an additi
 | [ECDSA::verify_sha3_256](#ecdsaverify_sha3_256)           | Verify an ECDSA signature using SHA3_256     |
 | [ECDSA::verify_sha3_384](#ecdsaverify_sha3_384)           | Verify an ECDSA signature using SHA3_384     |
 | [ECDSA::verify_sha3_512](#ecdsaverify_sha3_512)           | Verify an ECDSA signature using SHA3_512     |
+| [Snark::verify](#snarkverify)                             | Verify a single Varuna ZK proof on-chain            |
+| [Snark::verify_batch](#snarkverify_batch)                 | Batch-verify multiple Varuna ZK proofs on-chain     |
 
 ## Bowe-Hopwood-Pedersen (BHP)
 
@@ -1640,5 +1642,51 @@ A `Message` is any byte-aligned type.
 | `[u8;65] ` | `[u8; 33]` | `[u8; 20]`   | `Message` | `bool`      |
 
 [Back to Top](#table-of-contents)
+
+---
+
+## Snark
+
+### `Snark::verify`
+
+```leo
+let valid: bool = Snark::verify(vk, version, inputs, proof);
+```
+
+Verifies a single Varuna ZK proof on-chain. Only callable from inside a `final { }` block.
+
+| Argument  | Type          | Description                                   |
+| --------- | ------------- | --------------------------------------------- |
+| `vk`      | `[u8; N]`     | Serialized verifying key (1-D byte array)      |
+| `version` | `u8`          | Varuna version identifier                     |
+| `inputs`  | `[field; N]`  | Public inputs (1-D field array)               |
+| `proof`   | `[u8; N]`     | Serialized proof (1-D byte array)             |
+
+Returns `bool`.
+
+[Back to Top](#table-of-contents)
+
+---
+
+### `Snark::verify_batch`
+
+```leo
+let valid: bool = Snark::verify_batch(vks, version, inputs, proof);
+```
+
+Batch-verifies multiple Varuna ZK proofs on-chain. Only callable from inside a `final { }` block. The number of verifying keys (`M`) must equal the number of circuits in `inputs` (`K`).
+
+| Argument  | Type               | Description                                                             |
+| --------- | ------------------ | ----------------------------------------------------------------------- |
+| `vks`     | `[[u8; N]; M]`     | Array of serialized verifying keys                                      |
+| `version` | `u8`               | Varuna version identifier                                               |
+| `inputs`  | `[[[field; N]; M]; K]` | Public inputs — outer dimension is circuits, middle is instances    |
+| `proof`   | `[u8; N]`          | Serialized proof (1-D byte array)                                       |
+
+Returns `bool`.
+
+[Back to Top](#table-of-contents)
+
+---
 
 ---

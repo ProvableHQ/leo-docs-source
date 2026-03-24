@@ -18,7 +18,7 @@ To add a local dependency to your project, run the following command:
 leo add --local <LOCAL> <NAME>
 ```
 
-where `<NAME>` is the name of the imported program, and `<LOCAL>` is the path to the local project.
+where `<NAME>` is the name of the imported program or library, and `<LOCAL>` is the path to the local project or library.
 
 &nbsp;
 
@@ -30,13 +30,17 @@ leo add --network <NAME>
 
 where `<NAME>` is the name of the imported program.
 
+:::note
+Libraries can only be added as local dependencies. Use `--local` to add a library.
+:::
+
 ### Flags:
 
 #### `--local <LOCAL> `
 
 #### `-l <LOCAL>`
 
-Specifies that the dependency to be added is a local program located at path `<LOCAL>`. This can either be the root directory for a Leo project, or a path directly to an already compiled `.aleo` file.
+Specifies that the dependency to be added is a local program or library located at path `<LOCAL>`. This can be the root directory for a Leo project, the root directory for a Leo library, or a path directly to an already compiled `.aleo` file.
 
 #### `--network`
 

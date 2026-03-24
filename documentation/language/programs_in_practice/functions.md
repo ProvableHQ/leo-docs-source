@@ -151,6 +151,20 @@ program main.aleo {
 
 Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
+### The `@no_inline` Annotation
+
+By default the compiler inlines helper functions that are called only once, which reduces call overhead. To prevent this, annotate the function with `@no_inline`:
+
+```leo
+@no_inline
+fn expensive_helper(a: u32, b: u32) -> u32 {
+    // ...
+    return a + b;
+}
+```
+
+Use `@no_inline` when the function is intentionally shared across multiple call sites but the compiler would otherwise duplicate it, or when you want to preserve the function boundary for readability in the compiled output.
+
 ## Function Call Rules
 
 - An entry `fn` can call: helper `fn`, `final fn`, and external entry `fn`s.

@@ -8,7 +8,7 @@ sidebar_label: Testing
 
 Once deployed, an application lives on the ledger forever. Consequently, it's important to consider every edge case and rigorously test your code. There are a number of tools and techniques you can use.
 
-- [**Unit and Integration Testing**](#test-framework) - Validate Leo program logic through test cases.
+- [**Unit and Integration Testing**](#unit-and-integration-testing) - Validate Leo program logic through test cases.
 
 - [**Running a Devnet**](#running-a-devnet) - Deploy and execute on a local devnet.
 
@@ -59,7 +59,7 @@ The `test_example_program.leo` contains two tests to ensure that the function lo
 ```Leo
 @test
 fn test_simple_addition() {
-    let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
+    let result: u32 = example_program.aleo::simple_addition(2u32, 3u32);
     assert_eq(result, 5u32);
 }
 ```
@@ -70,7 +70,7 @@ The `@should_fail` annotation should be added after the `@test` annotation for t
 @test
 @should_fail
 fn test_simple_addition_fail() {
-    let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
+    let result: u32 = example_program.aleo::simple_addition(2u32, 3u32);
     assert_eq(result, 3u32);
 }
 ```
@@ -98,7 +98,7 @@ The corresponding test in `test_example_program.leo` checks that the Record fiel
 ```Leo
 @test
 fn test_record_maker() {
-    let r: example_program.aleo/Example = example_program.aleo/mint_record(0field);
+    let r: example_program.aleo::Example = example_program.aleo::mint_record(0field);
     assert_eq(r.x, 0field);
 }
 ```
@@ -112,6 +112,36 @@ Each test file is required to have at least one `@test fn` function.
 The Leo test framework executes tests via the real VM, so on-chain state (mappings, storage) is fully supported in `@test fn` functions — no special syntax is required. Call entry functions that return `Final` the same way as any other function; the finalization will be executed as part of the test run.
 
 For end-to-end and integration testing against a live network or a local devnet, use the [SDK](https://github.com/ProvableHQ/sdk) directly or `snarkVM` as a library.
+
+### Testing Library Packages
+
+`leo test` works on library packages directly — no wrapper program is needed. Place test files in the `tests/` directory of the library project and call library functions using the `library_name::function` path syntax:
+
+```leo title="tests/test_my_lib.leo"
+program test_my_lib.aleo {
+    @test
+    fn test_double() {
+        assert_eq(my_lib::double(5u32), 10u32);
+    }
+
+    @test
+    fn test_triple() {
+        assert_eq(my_lib::math::triple(4u32), 12u32);
+    }
+
+    @noupgrade
+    constructor() {}
+}
+```
+
+Run `leo test` from the library's root directory:
+
+```bash
+cd my_lib
+leo test
+```
+
+Submodule functions are accessible through their qualified path (e.g., `my_lib::math::triple(4u32)`).
 
 ### Running Tests
 

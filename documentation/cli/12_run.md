@@ -30,7 +30,7 @@ This command does not synthesize the program circuit or generate proving and ver
 
 ⛓  Constraints
 
- •  '{PROGRAM_NAME}.aleo/{FUNCTION_NAME}' - ... constraints (called 1 time)
+ •  '{PROGRAM_NAME}.aleo::{FUNCTION_NAME}' - ... constraints (called 1 time)
 
 ➡️  Outputs
 

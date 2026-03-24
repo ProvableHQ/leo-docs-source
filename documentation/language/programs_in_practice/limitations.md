@@ -11,6 +11,7 @@ snarkVM imposes the following limits on Aleo programs:
 - the maximum size of the program is 100 KB, by the number of characters.
 - the maximum number of mappings is 31.
 - the maximum number of imports is 64.
+- the maximum length of a program name is 30 characters (excluding the `.aleo` suffix).
 - the maximum import depth is 64.
 - the maximum call depth is 31.
 - the maximum number of functions is 31.

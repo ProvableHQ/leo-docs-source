@@ -102,7 +102,7 @@ let c: scalar = 0;
 
 Aleo uses the Schnorr signature scheme to sign messages with an Aleo private key.
 Signatures are a native type in Leo, and can be declared with the keyword `signature`.
-Signatures can be verified in Leo using the [`signature::verify`](./04_operators.md#signatureverify) or [`s.verify`](./04_operators.md#signatureverify) operators.
+Signatures can be verified in Leo using the [`signature::verify`](./operators/cryptographic_operators.md#signatureverify) or [`s.verify`](./operators/cryptographic_operators.md#signatureverify) operators.
 
 ```leo
 struct foo {
@@ -234,7 +234,7 @@ fn baz(foo: u8, bar: u8) -> u8 {
 
 Struct types are declared and constructed with a familiar syntax.
 
-Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo/StructName`.
+Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo::StructName`.
 
 ```leo
 struct S {
@@ -256,7 +256,7 @@ program test.aleo {
 Structs defined in external programs can be referenced and constructed using their fully qualified name:
 
 ```leo
-let s: external_program.aleo/S2 = external_program.aleo/S2 {
+let s: external_program.aleo::S2 = external_program.aleo::S2 {
     x: 1field,
     y: 2u32,
 };
