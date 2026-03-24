@@ -140,13 +140,13 @@ leo run main 1u32 2u32
 
 ⛓  Constraints
 
- •  'hello.aleo/main' - 33 constraints (called 1 time)
+ •  'hello.aleo::main' - 33 constraints (called 1 time)
 
 ➡️  Output
 
  • 3u32
 
-       Leo ✅ Finished 'hello.aleo/main' (in "./hello/build")
+       Leo ✅ Finished 'hello.aleo::main' (in "./hello/build")
 ```
 
 ## Deploying and Executing

@@ -234,7 +234,7 @@ fn baz(foo: u8, bar: u8) -> u8 {
 
 Struct types are declared and constructed with a familiar syntax.
 
-Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo/StructName`.
+Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo::StructName`.
 
 ```leo
 struct S {
@@ -256,7 +256,7 @@ program test.aleo {
 Structs defined in external programs can be referenced and constructed using their fully qualified name:
 
 ```leo
-let s: external_program.aleo/S2 = external_program.aleo/S2 {
+let s: external_program.aleo::S2 = external_program.aleo::S2 {
     x: 1field,
     y: 2u32,
 };

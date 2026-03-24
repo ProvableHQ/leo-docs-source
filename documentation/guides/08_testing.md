@@ -59,7 +59,7 @@ The `test_example_program.leo` contains two tests to ensure that the function lo
 ```Leo
 @test
 fn test_simple_addition() {
-    let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
+    let result: u32 = example_program.aleo::simple_addition(2u32, 3u32);
     assert_eq(result, 5u32);
 }
 ```
@@ -70,7 +70,7 @@ The `@should_fail` annotation should be added after the `@test` annotation for t
 @test
 @should_fail
 fn test_simple_addition_fail() {
-    let result: u32 = example_program.aleo/simple_addition(2u32, 3u32);
+    let result: u32 = example_program.aleo::simple_addition(2u32, 3u32);
     assert_eq(result, 3u32);
 }
 ```
@@ -98,7 +98,7 @@ The corresponding test in `test_example_program.leo` checks that the Record fiel
 ```Leo
 @test
 fn test_record_maker() {
-    let r: example_program.aleo/Example = example_program.aleo/mint_record(0field);
+    let r: example_program.aleo::Example = example_program.aleo::mint_record(0field);
     assert_eq(r.x, 0field);
 }
 ```

@@ -9,12 +9,8 @@ sidebar_label: Interfaces & Dynamic Dispatch
 Leo provides three related features for building composable, generic programs:
 
 - **Interfaces** — declare a named contract that programs must fulfill. Available in Leo v4.
-- **Dynamic Calls** — call into a program determined at runtime. In active development.
-- **Dynamic Records** — pass and inspect records whose structure is unknown at compile time. In active development.
-
-For the full language specification behind these features, see the [Interfaces Addendum to Unified fn Syntax Proposal](https://docs.google.com/document/d/1_4hXISdPXjD6BYNFd1MOvXVcYDX17lR93G7pFw0YHbM/edit?tab=t.0).
-
----
+- **Dynamic Calls** — call into a program determined at runtime.
+- **Dynamic Records** — pass and inspect records whose structure is unknown at compile time.
 
 ## Interfaces
 
@@ -100,8 +96,6 @@ interface Token : Transfer + Balances {}
 program my_token.aleo : Token { /* ... */ }
 ```
 
----
-
 ## Dynamic Calls
 
 Static calls require the callee program to be known at compile time:
@@ -109,7 +103,7 @@ Static calls require the callee program to be known at compile time:
 ```leo
 // Static: the callee is fixed at compile time
 fn route_transfer_static(to: address, amount: u64) {
-    return token_a.aleo/transfer(to, amount);
+    return token_a.aleo::transfer(to, amount);
 }
 ```
 
@@ -118,15 +112,11 @@ Dynamic calls allow the callee to be determined at runtime. The caller still kno
 ```leo
 // Dynamic: any program that implements TokenStandard can be called
 fn route_transfer_dynamic(token_program: field, to: address, amount: u64) {
-    return TokenStandard@(token_program)/transfer_public(to, amount);
+    return TokenStandard@(token_program)::transfer_public(to, amount);
 }
 ```
 
-The syntax `MyInterface@(callee_program)/method()` performs a dynamic call where `callee_program` is a `field` value resolved at runtime.
-
-:::note
-The exact dynamic call syntax is still being finalized.
-:::
+The syntax `MyInterface@(callee_program)::method()` performs a dynamic call where `callee_program` is a `field` value resolved at runtime that represents the name (i.e. ID) of the program.
 
 ### The `identifier` Type
 
@@ -135,30 +125,19 @@ For most use cases, Leo introduces an `identifier` type. An `identifier` is inst
 ```leo
 let callee: identifier = 'my_program';
 let network: identifier = 'aleo';
-TokenStandard@(callee, network)/transfer_public(to, amount);
+TokenStandard@(callee, network)::transfer_public(to, amount);
 ```
 
 Using `identifier` instead of a raw `field` makes the intent clearer and allows the compiler to perform additional validation.
 
----
-
 ## Dynamic Records
 
-:::note
-Dynamic records are actively being developed and are not yet available in a released version of Leo.
-:::
-
-A `dyn record` is a record whose field structure is not known at compile time. It retains all the ownership and privacy properties of a regular record, but can be introspected at runtime using `has_field`:
+A `dyn record` is a record whose field structure is not known at compile time. It retains all the ownership and privacy properties of a regular record:
 
 ```leo
 fn try_get_memo(rec: dyn record) -> u64 {
-    if rec.has_field('memo') {
-        let memo: u64 = rec.memo as u64;
-        return memo;
-    } else {
-        // handle error or return a default value
-        return 0u64;
-    }
+    let memo: u64 = rec.memo; // fails at runtime if `rec` does not have a field named `memo` of type `u64`.
+    return 0u64;
 }
 ```
 

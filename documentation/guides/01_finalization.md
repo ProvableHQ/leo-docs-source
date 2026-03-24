@@ -72,7 +72,7 @@ program second_public_storage.aleo {
     mapping hashes: u8 => scalar;
 
     fn two_mappings(value: u8) -> Final {
-        let increment_final: Final = first_public_storage.aleo/increment();
+        let increment_final: Final = first_public_storage.aleo::increment();
         return final {
             increment_final.run();
             let hash: scalar = BHP256::hash_to_scalar(value);
@@ -85,7 +85,7 @@ program second_public_storage.aleo {
 You can access the inputs to an external `Final` using the following syntax:
 
 ```leo
-let f = imported_program.aleo/some_function();
+let f = imported_program.aleo::some_function();
 let value = f.0;  // or f.1, f.2, f.3 and so on depending on the input index
 ```
 
