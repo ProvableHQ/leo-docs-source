@@ -3,7 +3,8 @@ id: operators
 title: Operators & Expressions
 sidebar_label: Operators and Expressions
 ---
-[general tags]: # (operators, cryptographic_operators, assert, hash, commit, random, address, block)
+
+[general tags]: # "operators, cryptographic_operators, assert, hash, commit, random, address, block"
 
 ## Operators
 
@@ -24,7 +25,7 @@ a = a.add(1u8);
 ```
 
 :::note
-The Leo operators compile down to [`Aleo Instructions`](https://developer.aleo.org/guides/aleo/opcodes) opcodes executable by the Aleo Virtual Machine (AVM). 
+The Leo operators compile down to [`Aleo Instructions`](https://developer.aleo.org/guides/aleo/opcodes) opcodes executable by the Aleo Virtual Machine (AVM).
 :::
 
 ### Operator Precedence
@@ -56,4 +57,3 @@ let result = (a + 1u8) * 2u8;
 ```
 
 `(a + 1u8)` will be evaluated before multiplying by two `* 2u8`.
-

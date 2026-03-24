@@ -3,7 +3,8 @@ id: style
 title: Best Practices
 sidebar: Best Practices
 ---
-[general tags]: # ()
+
+[general tags]: #
 
 This guide is provided to point developers in the right direction when writing Leo code.
 There are many conventions that are unique to the Leo language and the circuits it generates.
@@ -16,7 +17,7 @@ Feel free to add your comments and recommendations [here](#contributing).
 
 ### Conditional Branches
 
-The Leo compiler rewrites if-else statements inside `transitions` into a sequence of ternary expressions.
+The Leo compiler rewrites if-else statements in off-chain code into a sequence of ternary expressions.
 This is because the underlying circuit construction does not support branching.
 For precise control over the circuit size, it is recommended to use ternary expressions directly.
 
@@ -25,7 +26,7 @@ if (condition) {
     return a;
 } else {
     return b;
-} 
+}
 ```
 
 ```leo title="Ternary:"
@@ -33,8 +34,9 @@ return condition ? a : b;
 ```
 
 #### Why?
+
 Ternary expressions are the cheapest form of conditional.
-We can resolve the *first expression* and *second expression* values before evaluating the *condition*.
+We can resolve the _first expression_ and _second expression_ values before evaluating the _condition_.
 This is very easy to convert into a circuit because we know that each expression does not depend on information in later statements.
 
 In the original `Example`,
@@ -48,48 +50,52 @@ return a;
 ```leo title="branch 2, condition = false"
 return b;
 ```
+
 When the input value `condition` is fetched at proving time, we select a branch of the circuit to evaluate.
 Observe that the statement `return a` is repeated in both branches.
 The cost of every computation within the conditional will be doubled.
 This greatly increases the constraint numbers and slows down the circuit.
 
+### `final fn` vs. Inline `final` Blocks
 
-### Async Functions vs. Blocks
+For code conciseness and readability, prefer using inline `final { }` blocks rather than a separately declared `final fn`, unless the finalization logic is shared across multiple entry points:
 
-For code conciseness and readability, prefer using `async` blocks rather than a separately declared `async function`:
-
-
-```leo title="Async Function:"
-mapping accumulator: u8 => u64;
-
-async transition increment_accumulator() -> Future {
-    return increment_state_onchain();
-}
-async function increment_accumulator_onchain(){
-    let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+```leo title="final fn (use only when shared across multiple entry points):"
+final fn increment_state(acc: u8) {
+    let current_count: u64 = accumulator.get_or_use(acc, 0u64);
     let new_count: u64 = current_count + 1u64;
-    accumulator.set(0u8, new_count);
-
+    accumulator.set(acc, new_count);
 }
-```
 
-```leo title="Async Block:"
-mapping accumulator: u8 => u64;
+program example.aleo {
+    mapping accumulator: u8 => u64;
 
-async transition increment_accumulator() -> Future {
-    let f : Future = async {
-        let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
-        let new_count: u64 = current_count + 1u64;
-        accumulator.set(0u8, new_count);
+    fn increment_accumulator() -> Final {
+        return final {
+            increment_state(0u8);
+        };
     }
-    return f;
 }
 ```
 
+```leo title="Inline final block (preferred for single-use logic):"
+program example.aleo {
+    mapping accumulator: u8 => u64;
+
+    fn increment_accumulator() -> Final {
+        return final {
+            let current_count: u64 = accumulator.get_or_use(0u8, 0u64);
+            let new_count: u64 = current_count + 1u64;
+            accumulator.set(0u8, new_count);
+        };
+    }
+}
+```
 
 ### Modules
 
 For maximal code cleanliness and readability, take full advantage of Leo's module system:
+
 ```
 src
 ├── constants.leo
@@ -97,22 +103,25 @@ src
 ├── structs.leo
 └── main.leo
 ```
+
 With the above structure, consider the following:
+
 - Move all `const`s to the `constants.leo` module
-- Move all `inline` functions to the `utils.leo` module
+- Move all helper `fn` functions to the `utils.leo` module
 - Move some `struct`s to modules (but this may not make sense in the general case)
 
-The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something than can be called from an external context such as another program.  Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
+The goal is to only have the interface of the program in `main.leo`. Every function should correspond to something that can be called from an external context such as another program. Note that there is no impact on final program size since modules are flattened into a single program eventually anyways.
 
-##  Layout
+## Layout
 
 ### Indentation
+
 4 spaces per indentation level.
 
 ### Blank lines
 
 A single blank line should separate the top-level declarations in a `program` scope,
-namely `transition`, `function`, `struct`, `record`, and `mapping` declarations.
+namely `fn`, `record`, and `mapping` declarations, as well as module-level `struct` and helper `fn` declarations.
 Multiple imports can be optionally separated by a single blank line;
 the last import at the top of the file should be followed by a blank line.
 
@@ -120,16 +129,16 @@ the last import at the top of the file should be followed by a blank line.
 import std.io.Write;
 import std.math.Add;
 
+struct A {
+    // ...
+}
+
+fn foo() {
+    // ...
+}
+
 program prog.aleo {
-
-    struct A {
-        // ...
-    }
-
-    function foo() {
-        // ...
-    }
-
+    // ...
 }
 ```
 
@@ -142,7 +151,7 @@ program prog.aleo {
     struct A {
         // ...
     }
-    function foo() {
+    fn foo() {
         // ...
     }
 }
@@ -151,7 +160,7 @@ program prog.aleo {
 ### Naming Conventions
 
 | Item                      | Convention                          |
-|---------------------------|-------------------------------------|
+| ------------------------- | ----------------------------------- |
 | Packages                  | snake_case (but prefer single word) |
 | Structs and Records       | CamelCase                           |
 | Struct and Record Members | snake_case                          |
@@ -161,22 +170,26 @@ program prog.aleo {
 | Inputs                    | snake_case                          |
 
 ### Layout
-Leo file elements should be ordered:
-1. Imports
-2. Program declaration
-3. Mappings
-4. Records + Structs
-5. Functions + Transitions
 
+Leo file elements should be ordered:
+
+1. Imports
+2. Constants + Structs (module level)
+3. Helper `fn` and `final fn` definitions
+4. Program declaration
+5. Mappings + Records
+6. Entry point `fn` declarations
 
 ### Braces
+
 Opening braces always go on the same line.
+
 ```leo
 struct A {
     // ...
 }
 
-transition main() {
+fn main() {
     // ...
 }
 
@@ -184,7 +197,9 @@ let a: A = A { };
 ```
 
 ### Semicolons
+
 Every statement including the `return` statement should end in a semicolon.
+
 ```leo
 let a: u32 = 1u32;
 let b: u32 = a + 5u32;
@@ -194,7 +209,9 @@ return b;
 ```
 
 ### Commas
+
 Trailing commas should be included whenever the closing delimiter appears on a separate line.
+
 ```leo
 let a: A = A { x: 0, y: 1 };
 
@@ -235,22 +252,24 @@ please avoid using git merge and instead, git rebase your branch. Rebasing will 
 #### Tools Required
 
 To build Leo from source you will need the following tools:
+
 - The latest Rust stable version and nightly version.
-    - Recommend that you install multiple versions using `rustup`.
+  - Recommend that you install multiple versions using `rustup`.
 - Cargo
-    - Rusty Hook install via `cargo install rusty-hook`.
+  - Rusty Hook install via `cargo install rusty-hook`.
 - Clippy
-    - Via rustup, if you didn't do the default rustup install `rustup component add clippy`.
+  - Via rustup, if you didn't do the default rustup install `rustup component add clippy`.
 
 #### Formatting
 
 Please do the following before opening a PR.
+
 - `cargo +nightly fmt --all` will format all your code.
 - `cargo clippy --all-features --examples --all --benches`
 
 #### Tests
 
-If your code adds new functionality, please write tests to confirm the new features function as expected. Refer to existing tests for examples of how tests are expected to be written. Please read refer to the [parser tests section](#parser-tests). To run the tests please use the following command `cargo test --all --features ci_skip --no-fail-fast`.
+If your code adds new functionality, please write tests to confirm the new features function as expected. Refer to existing tests for examples of how tests are expected to be written. Please refer to the [parser tests section](#parser-tests). To run the tests please use the following command `cargo test --all --features ci_skip --no-fail-fast`.
 
 ##### **Parser Tests**
 

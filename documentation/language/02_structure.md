@@ -1,19 +1,19 @@
 ---
-id: structure 
-title: Structure of a Leo Program 
+id: structure
+title: Structure of a Leo Program
 sidebar_label: Program Structure
 ---
-[general tags]: # (program, constant, import, transition, async_transition, function, async_function, inline, record, struct, mapping)
+
+[general tags]: # "program, constant, import, record, struct, mapping"
 
 ## Layout of a Leo Program
 
 A Leo program contains declarations of a [Program](#program), [Constants](#constant), [Imports](#import)
-, [Transition Functions](#transition-function), [Async Functions](#async-function), [Helper Functions](#helper-function), [Structs](#struct)
-, [Records](#record), and [Mappings](#mapping).
+, [Structs](#struct), [Records](#record), [Mappings](#mapping), and functions.
 Declarations are locally accessible within a program file.
 If you need a declaration from another Leo file, you must import it.
 
-### Program 
+### Program
 
 A program is a collection of code (its functions) and data (its types) that resides at a
 [program ID](#program-id) on the Aleo blockchain. A program is declared as `program {name}.{network} { ... }`.
@@ -22,8 +22,18 @@ The body of the program is delimited by curly braces `{}`.
 ```leo
 import foo.aleo;
 
+const FOO: u64 = 1u64;
+
+struct Message {
+    sender: address,
+    object: u64,
+}
+
+fn compute(a: u64, b: u64) -> u64 {
+    return a + b + FOO;
+}
+
 program hello.aleo {
-    const FOO: u64 = 1u64;
     mapping account: address => u64;
 
     record Token {
@@ -31,48 +41,33 @@ program hello.aleo {
         amount: u64,
     }
 
-    struct Message {
-        sender: address,
-        object: u64,
-    }
-
-    async transition mint_public(
+    fn mint_public(
         public receiver: address,
         public amount: u64,
-    ) -> (Token, Future) {
-        return (Token {
-            owner: receiver,
-            amount,
-        }, update_state(receiver, amount));
-    }
-
-    async function update_state(
-        public receiver: address,
-        public amount: u64,
-    ) {
-        let current_amount: u64 = Mapping::get_or_use(account, receiver, 0u64);
-        Mapping::set(account, receiver, current_amount + amount);
-   }
-
-    function compute(a: u64, b: u64) -> u64 {
-        return a + b + FOO;
+    ) -> (Token, Final) {
+        let token: Token = Token { owner: receiver, amount };
+        return (token, final {
+            let current_amount: u64 = Mapping::get_or_use(account, receiver, 0u64);
+            Mapping::set(account, receiver, current_amount + amount);
+        });
     }
 }
 ```
 
 The following must be declared inside the scope of a program in a Leo file:
 
-- constants
 - mappings
+- storage variables
 - record types
-- struct types
-- transition functions
-- helper functions
-- async functions
+- entry point `fn` declarations
 
 The following must be declared outside the scope of a program in a Leo file:
 
 - imports
+- constants
+- struct types
+- helper `fn` definitions
+- `final fn` definitions
 
 #### Program ID
 
@@ -97,13 +92,13 @@ program _foo.aleo;  // invalid
 
 A constant is declared as `const {name}: {type} = {expression};`.  
 Constants are immutable and must be assigned a value when declared.  
-Constants can be declared in the global scope or in a local function scope.  
+Constants can be declared in the global scope or in a local function scope.
 
 ```leo
+const FOO: u8 = 1u8;
+
 program foo.aleo {
-    const FOO: u8 = 1u8;
-    
-    function bar() -> u8 {
+    fn bar() -> u8 {
         const BAR: u8 = 2u8;
         return FOO + BAR;
     }
@@ -125,7 +120,7 @@ program hello.aleo { }
 ### Mappings
 
 A mapping is declared as `mapping {name}: {key-type} => {value-type}`.
-Mappings contain key-value pairs and stored on chain.
+Mappings contain key-value pairs and are stored on chain.
 
 ```leo
 // On-chain storage of an `account` mapping,
@@ -135,6 +130,7 @@ mapping account: address => u64;
 ```
 
 ### Storage
+
 A storage variable is declared as `storage {name}: {type}`. Storage variables contain singleton values. They are declared at program scope and are stored on chain, similar to mappings.
 
 ```leo
@@ -142,7 +138,7 @@ A storage variable is declared as `storage {name}: {type}`. Storage variables co
 storage counter: u32;
 ```
 
-A storage vector is declared as `storage {name}: [{type}]`.  Storage vectors contain dynamic lists of values of a given type.  They are declared at program scope and are stored on chain, similar to mappings.
+A storage vector is declared as `storage {name}: [{type}]`. Storage vectors contain dynamic lists of values of a given type. They are declared at program scope and are stored on chain, similar to mappings.
 
 ```leo
 // On-chain storage of an `accounts` storage vector of type address,
@@ -166,7 +162,7 @@ struct Array3 {
 
 A [record](https://developer.aleo.org/concepts/fundamentals/records) data type is declared as `record {name} {}`. A record name must not contain the keyword `aleo`, and must not be a prefix of any other record name.
 
-Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`. 
+Records contain component declarations `{visibility} {name}: {type},`. Names of record components must not contain the keyword `aleo`.
 
 The visibility qualifier may be specified as `constant`, `public`, or `private`. If no qualifier is provided, Leo defaults to `private`.
 

@@ -1,19 +1,24 @@
 ---
 id: deploy
-title: Deploying Your Programs 
+title: Deploying Your Programs
 sidebar_label: Deploying
 ---
-[general tags]: # (guides, deploy, deployment, program)
 
-The `leo deploy` command is used for deploying Leo program to a local devnet, Testnet, or Mainnet.
+[general tags]: # "guides, deploy, deployment, program"
+
+The `leo deploy` command is used for deploying a Leo program to a local devnet, Testnet, or Mainnet.
 The `leo upgrade` command is used for upgrading an existing Leo program on the network.
 
 ## Getting Started
+
 From the root of the Leo program directory, run the following command:
+
 ```bash
 leo deploy --help
 ```
+
 This will display the help message with all available options for the `leo deploy` command.
+
 ```bash
 Deploy a program
 
@@ -86,13 +91,14 @@ Options:
           Print help
 ```
 
-
 ## A Quick Example
+
 When you run `leo new`, it creates a new Leo project with default files and directories, including a `.env` file.
 The defaults in the `.env` file are set to deploy on a testnet devnet using a local node API endpoint.
 The defaults are set to deploy on a local devnet with the `testnet` configuration using a local node API endpoint.
 
 To test the deployment, run a devnet via `leo devnet` (you'll need to configure it appropriately and run it in a separate terminal) and then run:
+
 ```bash
 > leo deploy  --devnet --broadcast
        Leo
@@ -204,6 +210,7 @@ Transaction accepted.
 ```
 
 Leo will:
+
 - Compile the program and generate the necessary AVM instructions.
 - Tell you the program's checksum, which is a unique identifier for the program's code.
 - Display a deployment summary, including the total number of variables and constraints.
@@ -215,19 +222,21 @@ Leo will:
 
 If your program is already deployed, you can upgrade it using the `leo upgrade` command.
 The upgrade will only work if your program is upgradable, meaning it has a constructor that allows for upgrades.
-See the [Upgradability Guide](../guides/10_program_upgradability.md) for more details on how to make your program upgradable.
-
+See the [Upgradability Guide](../guides/09_program_upgradability.md) for more details on how to make your program upgradable.
 
 ## Options and Environment Variables
+
 The target network, the Private Key, and a node API endpoint need to be specified for a deployment or upgrade.
 They can be set in one of the following ways, in order of precedence:
+
 1. CLI options,
 2. environment variables, or
-3. 3 `.env` file:
+3. `.env` file:
 
-The options are selected in that order of precedence. 
+The options are selected in that order of precedence.
 For example, if the `--network` option is specified, it will override the value in the `.env` file.
 A `.env` file should be formatted as follows:
+
 ```bash
 NETWORK=testnet
 PRIVATE_KEY=APrivateKey1z...GPWH
@@ -235,5 +244,3 @@ ENDPOINT=https://api.explorer.provable.com/v1
 ```
 
 If you are deploying to a local devnet, use the `--devnet` flag.
-
-

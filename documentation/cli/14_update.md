@@ -5,7 +5,8 @@ sidebar_label: Update
 toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
-[general tags]: # (cli, leo_update, versioning)
+
+[general tags]: # "cli, leo_update, versioning"
 
 # `leo update`
 
@@ -19,7 +20,7 @@ leo update
 Checking target-arch... aarch64-apple-darwin
 Checking current version... v3.1.0
 Checking latest released version... v3.1.0
-       Leo 
+       Leo
 Leo is already on the latest version
 ```
 
@@ -30,11 +31,15 @@ leo update --name v3.0.0
 ```
 
 ### Flags:
+
 #### `--list`
+
 #### `-l`
+
 Lists all available versions of Leo.
 
 #### `--name`
-#### `-n`
-An optional release name if you wish to install a specific version of Leo.  By default, the command will look for the latest release.
 
+#### `-n`
+
+An optional release name if you wish to install a specific version of Leo. By default, the command will look for the latest release.

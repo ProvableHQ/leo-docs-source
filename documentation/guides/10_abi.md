@@ -3,13 +3,15 @@ id: abi
 title: ABI Generation
 sidebar_label: ABI Generation
 ---
-[general tags]: # (abi, build, sdk, tooling, types, lowering, integration)
+
+[general tags]: # "abi, build, sdk, tooling, types, lowering, integration"
 
 ## Overview
 
 The Leo compiler generates an **Application Binary Interface (ABI)** alongside compiled bytecode. The ABI is a JSON file that describes the public interface of your program, enabling downstream tooling to interact with deployed programs without needing access to the original source code.
 
 **Use cases:**
+
 - SDK generation (Rust, TypeScript, etc.)
 - Type-safe transaction construction
 - Program introspection and documentation
@@ -44,21 +46,21 @@ The ABI is a JSON object with the following top-level structure:
   "records": [...],
   "mappings": [...],
   "storage_variables": [...],
-  "transitions": [...]
+  "functions": [...]
 }
 ```
 
-| Field | Description |
-|-------|-------------|
-| `program` | Program identifier (e.g., `"token.aleo"`) |
-| `structs` | Struct type definitions used in the public interface |
-| `records` | Record type definitions |
-| `mappings` | On-chain key-value storage declarations |
-| `storage_variables` | Storage variable declarations |
-| `transitions` | Public entry points (only transitions, not internal functions) |
+| Field               | Description                                                         |
+| ------------------- | ------------------------------------------------------------------- |
+| `program`           | Program identifier (e.g., `"token.aleo"`)                           |
+| `structs`           | Struct type definitions used in the public interface                |
+| `records`           | Record type definitions                                             |
+| `mappings`          | On-chain key-value storage declarations                             |
+| `storage_variables` | Storage variable declarations                                       |
+| `functions`         | Public entry points (entry `fn` declarations, not helper functions) |
 
 :::info
-The ABI only includes types that are referenced by the public interface. Internal helper structs not used in transitions, mappings, or storage are automatically pruned.
+The ABI only includes types that are referenced by the public interface. Internal helper structs not used in entry functions, mappings, or storage are automatically pruned.
 :::
 
 ## Type Reference
@@ -173,6 +175,7 @@ Records are similar to structs but include a visibility mode for each field:
 ```
 
 **Mode values:**
+
 - `"None"` - Default visibility (private for records)
 - `"Constant"` - Publicly visible constant
 - `"Private"` - Encrypted, visible only to owner
@@ -224,14 +227,14 @@ Storage variables can be plain values or vectors:
 }
 ```
 
-### Transitions
+### Entry Functions
 
-Transitions define the public entry points:
+Entry functions define the public entry points:
 
 ```json
 {
   "name": "transfer",
-  "is_async": false,
+  "has_final": false,
   "inputs": [
     {
       "name": "receiver",
@@ -254,27 +257,27 @@ Transitions define the public entry points:
 ```
 
 **Input types:**
+
 - `Plaintext` - Primitive, array, struct, or optional
-- `Record` - Record input (consumed by the transition)
+- `Record` - Record input (consumed by the entry function)
 
 **Output types:**
-- `Plaintext` - Primitive, array, struct, or optional
-- `Record` - Record output (created by the transition)
-- `Future` - Async transition returns a future
 
-Async transitions have `is_async: true` and return a `Future`:
+- `Plaintext` - Primitive, array, struct, or optional
+- `Record` - Record output (created by the entry function)
+- `Final` - Entry function with a `final { }` block returns a `Final`
+
+Entry functions with `final { }` blocks have `has_final: true` and return a `Final`:
 
 ```json
 {
   "name": "mint_public",
-  "is_async": true,
+  "has_final": true,
   "inputs": [
     { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "Public" },
     { "name": "amount", "ty": { "Plaintext": { "Primitive": { "UInt": "U64" } } }, "mode": "Public" }
   ],
-  "outputs": [
-    { "ty": "Future", "mode": "None" }
-  ]
+  "outputs": [{ "ty": "Final", "mode": "None" }]
 }
 ```
 
@@ -286,20 +289,20 @@ The ABI uses **Leo types** (the high-level representation). When interacting wit
 
 Most Leo types map directly to Aleo types:
 
-| Leo Type | Aleo Type |
-|----------|-----------|
-| `address` | `address` |
-| `bool` | `boolean` |
-| `field` | `field` |
-| `group` | `group` |
-| `scalar` | `scalar` |
-| `signature` | `signature` |
+| Leo Type      | Aleo Type     |
+| ------------- | ------------- |
+| `address`     | `address`     |
+| `bool`        | `boolean`     |
+| `field`       | `field`       |
+| `group`       | `group`       |
+| `scalar`      | `scalar`      |
+| `signature`   | `signature`   |
 | `i8` - `i128` | `i8` - `i128` |
 | `u8` - `u128` | `u8` - `u128` |
-| `[T; N]` | `[T; N]` |
-| `struct Foo` | `Foo` |
-| `record Bar` | `Bar.record` |
-| `Future` | `future` |
+| `[T; N]`      | `[T; N]`      |
+| `struct Foo`  | `Foo`         |
+| `record Bar`  | `Bar.record`  |
+| `Final`       | `future`      |
 
 ### Optional Lowering
 
@@ -310,13 +313,17 @@ T?  -->  struct { is_some: bool, val: T }
 ```
 
 **Leo source:**
+
 ```leo showLineNumbers
-transition process(value: u32?) -> u32 {
-    return value.unwrap_or(0u32);
+program example.aleo {
+    fn process(value: u32?) -> u32 {
+        return value.unwrap_or(0u32);
+    }
 }
 ```
 
 **Aleo representation:**
+
 ```
 struct "u32?" {
     is_some as boolean;
@@ -337,6 +344,7 @@ let arr: [u64?; 2] = [1u64, none];
 ```
 
 Lowers to an array of structs:
+
 ```
 [
     "u64?" { is_some: true, val: 1u64 },
@@ -356,21 +364,21 @@ mapping vec__len__: bool => u32  // Length stored at key `false`
 ```
 
 **Leo source:**
+
 ```leo showLineNumbers
 program example.aleo {
     storage history: Vector<u64>;
 
-    async transition append(value: u64) -> Future {
-        return finalize_append(value);
-    }
-
-    async function finalize_append(value: u64) {
-        history.push(value);
+    fn append(value: u64) -> Final {
+        return final {
+            history.push(value);
+        };
     }
 }
 ```
 
 **Aleo representation:**
+
 ```
 mapping history__:
     key as u32.public;
@@ -382,6 +390,7 @@ mapping history__len__:
 ```
 
 To read a storage vector:
+
 1. Get length from `{name}__len__` at key `false`
 2. Read elements from `{name}__` at indices `0` to `length - 1`
 
@@ -394,13 +403,17 @@ Tuples are expanded into multiple registers in Aleo bytecode:
 ```
 
 **Leo source:**
+
 ```leo showLineNumbers
-transition swap(a: u32, b: u32) -> (u32, u32) {
-    return (b, a);
+program example.aleo {
+    fn swap(a: u32, b: u32) -> (u32, u32) {
+        return (b, a);
+    }
 }
 ```
 
 **Aleo bytecode:**
+
 ```
 function swap:
     input r0 as u32.private;
@@ -428,26 +441,21 @@ program token.aleo {
         amount: u64,
     }
 
-    async transition mint_public(
+    fn mint_public(
         public receiver: address,
         public amount: u64
-    ) -> Future {
-        return finalize_mint_public(receiver, amount);
+    ) -> Final {
+        return final {
+            let current: u64 = Mapping::get_or_use(account, receiver, 0u64);
+            Mapping::set(account, receiver, current + amount);
+        };
     }
 
-    async function finalize_mint_public(
-        public receiver: address,
-        public amount: u64
-    ) {
-        let current: u64 = Mapping::get_or_use(account, receiver, 0u64);
-        Mapping::set(account, receiver, current + amount);
-    }
-
-    transition mint_private(receiver: address, amount: u64) -> Token {
+    fn mint_private(receiver: address, amount: u64) -> Token {
         return Token { owner: receiver, amount };
     }
 
-    transition transfer_private(token: Token, receiver: address) -> Token {
+    fn transfer_private(token: Token, receiver: address) -> Token {
         return Token { owner: receiver, amount: token.amount };
     }
 }
@@ -476,53 +484,47 @@ program token.aleo {
     }
   ],
   "storage_variables": [],
-  "transitions": [
+  "functions": [
     {
       "name": "mint_public",
-      "is_async": true,
+      "has_final": true,
       "inputs": [
         { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "Public" },
         { "name": "amount", "ty": { "Plaintext": { "Primitive": { "UInt": "U64" } } }, "mode": "Public" }
       ],
-      "outputs": [
-        { "ty": "Future", "mode": "None" }
-      ]
+      "outputs": [{ "ty": "Final", "mode": "None" }]
     },
     {
       "name": "mint_private",
-      "is_async": false,
+      "has_final": false,
       "inputs": [
         { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "None" },
         { "name": "amount", "ty": { "Plaintext": { "Primitive": { "UInt": "U64" } } }, "mode": "None" }
       ],
-      "outputs": [
-        { "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }
-      ]
+      "outputs": [{ "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }]
     },
     {
       "name": "transfer_private",
-      "is_async": false,
+      "has_final": false,
       "inputs": [
         { "name": "token", "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" },
         { "name": "receiver", "ty": { "Plaintext": { "Primitive": "Address" } }, "mode": "None" }
       ],
-      "outputs": [
-        { "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }
-      ]
+      "outputs": [{ "ty": { "Record": { "path": ["Token"], "program": "token" } }, "mode": "None" }]
     }
   ]
 }
 ```
 
 **Key observations:**
+
 - Only `Token` record is included (no internal helper types)
-- `mint_public` is async (`is_async: true`) and returns a `Future`
+- `mint_public` has a `final { }` block (`has_final: true`) and returns a `Final` in the ABI
 - `mint_private` and `transfer_private` return `Record` outputs
 - `transfer_private` takes a `Record` input (consuming the token)
-- The `finalize_mint_public` function is internal and not exposed in the ABI
 
 ## See Also
 
 - [Leo Build Command](./../cli/03_build.md) - CLI reference for building programs
 - [Data Types](../language/03_data_types.md) - Leo type system reference
-- [Async Programming Model](./01_async.md) - Understanding transitions and finalize
+- [The Finalization Model](./01_finalization.md) - Understanding the proof and finalization execution contexts

@@ -1,9 +1,10 @@
 ---
-id: upgradability 
+id: upgradability
 title: Upgrading Programs
 sidebar_label: Upgrading Programs
 ---
-[general tags]: # (guides, upgrade, program, transaction, constructor)
+
+[general tags]: # "guides, upgrade, program, transaction, constructor"
 
 # A Developer's Guide to Upgradability in Leo
 
@@ -12,13 +13,13 @@ For more details on the underlying protocol, refer to the [Aleo docs](https://de
 
 ## Getting Started: The Upgrade Policy
 
-Your program's upgrade policy is defined by an annotation on a constructor (see below) in the Leo program. 
+Your program's upgrade policy is defined by an annotation on a constructor (see below) in the Leo program.
 The Leo compiler reads the annotation to understand your intent and generates the appropriate underlying code.
 
 There are four primary upgrade modes:
 
 | Mode         | Description                                                                                       |
-|:-------------|:--------------------------------------------------------------------------------------------------|
+| :----------- | :------------------------------------------------------------------------------------------------ |
 | `@noupgrade` | The program is not upgradable.                                                                    |
 | `@admin`     | Upgrades are controlled by a single, hardcoded admin address.                                     |
 | `@checksum`  | Upgrades are governed by an on-chain checksum, often managed by a separate program (e.g., a DAO). |
@@ -33,18 +34,18 @@ Upgradability revolves around a special `constructor` function and on-chain prog
 The `constructor` is a special function that runs on-chain during every deployment and upgrade. Think of it as the gatekeeper for your program.
 There are two key properties of the `constructor` related to upgradability:
 
-* **Foundational:** All programs must be deployed with a `constructor`.  If the `constructor` logic fails (e.g., a failed `assert`), the entire deployment or upgrade transaction is rejected.
-* **Immutable:** The logic inside the `constructor` is set in stone at the first deployment. It can never be changed by a future upgrade. Any bugs introduced here are permanent, so audit your constructor carefully.
+- **Foundational:** All programs must be deployed with a `constructor`. If the `constructor` logic fails (e.g., a failed `assert`), the entire deployment or upgrade transaction is rejected.
+- **Immutable:** The logic inside the `constructor` is set in stone at the first deployment. It can never be changed by a future upgrade. Any bugs introduced here are permanent, so audit your constructor carefully.
 
 ### Program Metadata Operands
 
 Within a `constructor`, you can access on-chain metadata about the program using the `self` keyword.
 
-| Operand | Leo Type   | Description                                                                                                                                  |
-| :--- |:-----------|:---------------------------------------------------------------------------------------------------------------------------------------------|
-| `self.edition` | `u16`      | The program's version number. Starts at `0` and is incremented by `1` for each upgrade. The edition is tracked automatically on the network. |
+| Operand              | Leo Type   | Description                                                                                                                                  |
+| :------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| `self.edition`       | `u16`      | The program's version number. Starts at `0` and is incremented by `1` for each upgrade. The edition is tracked automatically on the network. |
 | `self.program_owner` | `address`  | The address that submitted the deployment transaction.                                                                                       |
-| `self.checksum` | `[u8, 32]` | The program's checksum, which is a unique identifier for the program's code.                                                                 |
+| `self.checksum`      | `[u8, 32]` | The program's checksum, which is a unique identifier for the program's code.                                                                 |
 
 You may also refer to other program's metadata by qualifying the operand with the program name, like `Program::edition(credits.aleo)`, `Program::program_owner(foo.aleo)`.
 You will need to import the program in your Leo file to use this syntax.
@@ -55,13 +56,13 @@ Note. Programs deployed before the upgradability feature (i.e. using Leo version
 
 ## Upgrade Patterns in Leo
 
-Below are some common upgrade patterns in Leo. 
+Below are some common upgrade patterns in Leo.
 
 You may also refer to the working Leo [examples](https://github.com/ProvableHQ/leo-examples/tree/main/upgrades).
 
-### Pattern 1: Non-Upgradable 
+### Pattern 1: Non-Upgradable
 
-**Goal:** Explicitly prevent all future upgrades. 
+**Goal:** Explicitly prevent all future upgrades.
 
 **`main.leo`**
 
@@ -73,11 +74,11 @@ program noupgrade_example.aleo {
     // This constructor is for the "noupgrade" mode.
     // It is immutable and prevents any future upgrades.
     @noupgrade
-    async constructor() {
+    constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }
-    
-    transition main(public a: u32, b: u32) -> u32 {
+
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -85,6 +86,7 @@ program noupgrade_example.aleo {
 ```
 
 The corresponding AVM code is:
+
 ```
 constructor:
     assert.eq edition 0u16
@@ -102,11 +104,11 @@ program admin_example.aleo {
     // This constructor is for the "admin" mode.
     // It ensures that only the designated admin can upgrade the program.
     @admin(address="aleo1rhgdu77hgyqd3xjj8ucu3jj9r2p3lam3tc3h0nvv2d3k0rp2ca5sqsceh7")
-    async constructor() {
+    constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }
-    
-    transition main(public a: u32, b: u32) -> u32 {
+
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -114,11 +116,11 @@ program admin_example.aleo {
 ```
 
 The corresponding AVM code is:
+
 ```
 constructor:
     assert.eq program_owner aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px;
 ```
-
 
 ### Pattern 3: Checksum-Driven (Vote Example)
 
@@ -133,11 +135,11 @@ The compiler uses the `mapping` and `key` fields to generate a constructor that 
 program vote_example.aleo {
     // This constructor is for the "checksum" mode.
     @checksum(mapping="basic_voting.aleo/approved_checksum", key="true")
-    async constructor() {
+    constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }
-    
-    transition main(public a: u32, b: u32) -> u32 {
+
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -145,6 +147,7 @@ program vote_example.aleo {
 ```
 
 The corresponding AVM code is:
+
 ```
 constructor:
     branch.eq edition 0u16 to end;
@@ -157,7 +160,6 @@ constructor:
 
 **Goal:** Enforce a time delay before an upgrade is allowed. No pre-defined mode is available for this so we'll have to write our own upgrade policy
 
-
 **`main.leo`**
 
 With the `@custom` constructor, you are responsible for writing the entire constructor logic yourself.
@@ -166,14 +168,14 @@ With the `@custom` constructor, you are responsible for writing the entire const
 // The 'timelock_example' program.
 program timelock_example.aleo {
     @custom
-    async constructor() {
+    constructor() {
         // For upgrades (edition > 0), enforce a block height condition on when the constructor can be called successfully
         if self.edition > 0u16 {
             assert(block.height >= 1300u32);
         }
     }
-    
-    transition main(public a: u32, b: u32) -> u32 {
+
+    fn main(public a: u32, b: u32) -> u32 {
         let c: u32 = a + b;
         return c;
     }
@@ -181,6 +183,7 @@ program timelock_example.aleo {
 ```
 
 The corresponding AVM code is:
+
 ```
 constructor:
     gt edition 0u16 into r0;
@@ -192,9 +195,7 @@ constructor:
     position end_otherwise_0_1;
 ```
 
-
-
------
+---
 
 ## The Rules: What You Can and Cannot Change
 
@@ -202,28 +203,28 @@ The protocol enforces strict rules to ensure that upgrades don't break dependent
 
 An upgrade **can**:
 
-* Change the internal logic of existing `transition` and `async functions` blocks.
-* Add new `struct`s, `record`s, `mapping`s, `transition`s, and `function`s.
+- Change the internal logic of existing entry `fn` bodies and `final { }` blocks.
+- Add new `struct`s, `record`s, `mapping`s, and `fn` declarations.
 
 An upgrade **cannot**:
 
-* Change the input or output signatures of any existing `transition`, `function`, `async transition`, or `async function`.
-* Change the logic within a non-inline `function`.
-* Modify or delete any existing `struct`, `record`, or `mapping`.
-* Delete any existing program component.
+- Change the input or output signatures of any existing entry `fn`.
+- Modify or delete any existing `struct`, `record`, or `mapping`.
+- Delete any existing program component.
 
-| Program Component | Delete | Modify | Add |
-|:------------------| :---: | :---: | :---: |
-| `import`          | ❌ | ❌ | ✅ |
-| `struct`          | ❌ | ❌ | ✅ |
-| `record`          | ❌ | ❌ | ✅ |
-| `mapping`         | ❌ | ❌ | ✅ |
-| `function`        | ❌ | ❌ | ✅ |
-| `transition`      | ❌ | ✅ (logic) | ✅ |
-| `async function`  | ❌ | ✅ (logic) | ✅ |
-| `constructor`     | ❌ | ❌ | ❌ |
+| Program Component         | Delete |   Modify   | Add |
+| :------------------------ | :----: | :--------: | :-: |
+| `import`                  |   ❌   |     ❌     | ✅  |
+| `struct`                  |   ❌   |     ❌     | ✅  |
+| `record`                  |   ❌   |     ❌     | ✅  |
+| `mapping`                 |   ❌   |     ❌     | ✅  |
+| inlined `fn` (helper)     |   ✅   |     ✅     | ✅  |
+| non-inlined `fn` (helper) |   ❌   |     ❌     | ✅  |
+| `fn` (entry)              |   ❌   | ✅ (logic) | ✅  |
+| `final fn` (entry)        |   ❌   | ✅ (logic) | ✅  |
+| `constructor`             |   ❌   |     ❌     | ❌  |
 
------
+---
 
 ## Security Checklist
 

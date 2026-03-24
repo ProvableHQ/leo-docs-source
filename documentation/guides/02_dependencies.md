@@ -3,9 +3,10 @@ id: dependencies
 title: Dependency Management
 sidebar_label: Dependency Management
 ---
-[general tags]: # (guides, dependency, dependency_management, imports, program)
 
-Leo programs can import functionality from other programs.  Any imported programs are referred to as dependencies.  There are two types of dependencies:
+[general tags]: # "guides, dependency, dependency_management, imports, program"
+
+Leo programs can import functionality from other programs. Any imported programs are referred to as dependencies. There are two types of dependencies:
 
 - **Network dependencies**: Programs already deployed on the Aleo network, fetched as pre-compiled bytecode.
 - **Local dependencies**: Code on your filesystem; either Leo code compiled from source, or Aleo Instructions code.
@@ -15,20 +16,25 @@ Leo programs can import functionality from other programs.  Any imported program
 ### Network Dependencies
 
 To add a program already deployed on the Aleo network as a dependency:
+
 ```bash
 leo add credits.aleo --network
 ```
+
 or
+
 ```bash
 leo add credits --network
 ```
 
 For mainnet dependencies:
+
 ```bash
 leo add credits --network mainnet
 ```
 
 This adds an entry to your `program.json`:
+
 ```json
 {
   "program": "your_program.aleo",
@@ -49,11 +55,13 @@ This adds an entry to your `program.json`:
 ### Local Dependencies
 
 To add a Leo package or Aleo Instructions file from your local filesystem as a dependency:
+
 ```bash
 leo add my_library.aleo --local <PATH_TO_LIBRARY>
 ```
 
 This records the path in `program.json`:
+
 ```json
 {
   "dependencies": [
@@ -70,6 +78,7 @@ This records the path in `program.json`:
 Local dependencies are compiled from source whenever you build. They never require network access.
 
 ## Removing Dependencies
+
 ```bash
 leo remove credits.aleo
 ```
@@ -77,6 +86,7 @@ leo remove credits.aleo
 ## Using Dependencies
 
 In your `main.leo` file, import dependencies before the program declaration:
+
 ```leo
 import credits.aleo;
 import my_library.aleo;
@@ -103,18 +113,19 @@ Network dependencies are cached locally at `~/.aleo/registry/{network}/{program_
 
 Different commands handle caching differently:
 
-| Command | Cache Behavior |
-|---------|---------------|
-| `leo build` | Uses cache |
-| `leo run` | Uses cache |
-| `leo execute` | Always fetches fresh |
-| `leo deploy` | Always fetches fresh |
-| `leo upgrade` | Always fetches fresh |
+| Command          | Cache Behavior       |
+| ---------------- | -------------------- |
+| `leo build`      | Uses cache           |
+| `leo run`        | Uses cache           |
+| `leo execute`    | Always fetches fresh |
+| `leo deploy`     | Always fetches fresh |
+| `leo upgrade`    | Always fetches fresh |
 | `leo synthesize` | Always fetches fresh |
 
 Commands that generate proofs (`execute`, `deploy`, `upgrade`, `synthesize`) always fetch fresh bytecode because proofs include commitments to the exact bytecode of dependencies. Using stale cached bytecode would produce invalid proofs if a dependency has been upgraded on-chain.
 
 To force a fresh fetch during `build` or `run`:
+
 ```bash
 leo build --no-cache
 ```
@@ -122,17 +133,20 @@ leo build --no-cache
 ## Program Editions
 
 An **edition** is the version number of a deployed program on the Aleo network:
+
 - **Edition 0:** Initial deployment
 - **Edition 1:** First upgrade
 - **Edition 2:** Second upgrade
 - ...and so on
 
 By default, Leo fetches the **latest** edition of a network dependency. To pin to a specific edition:
+
 ```bash
 leo add some_program.aleo --edition 3
 ```
 
 This records the pinned edition in the manifest:
+
 ```json
 {
   "name": "some_program.aleo",
@@ -144,6 +158,7 @@ This records the pinned edition in the manifest:
 ```
 
 **When to pin editions:**
+
 - When you need reproducible builds
 - When a dependency upgrade would break your program
 - When you want to avoid unexpected behavior changes
@@ -155,6 +170,7 @@ This records the pinned edition in the manifest:
 ### Recursive Deployment
 
 When deploying a program that has local dependencies, use:
+
 ```bash
 leo deploy --recursive
 ```
