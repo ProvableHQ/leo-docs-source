@@ -14,7 +14,19 @@ To create a new project, run:
 leo new <NAME>
 ```
 
-Valid project names are snake_case: lowercase letters and numbers separated by underscores.
-This command will create a new directory with the given project name.
+To create a new library, run:
 
-See [Project Layout](./../language/01_layout.md) for more details .
+```bash
+leo new --lib <NAME>
+```
+
+Valid project and library names are snake_case: lowercase letters and numbers separated by underscores.
+This command will create a new directory with the given name.
+
+See [Project Layout](./../language/01_layout.md) for more details.
+
+### Flags:
+
+#### `--lib`
+
+Creates a new Leo library instead of a program. A library provides reusable logic that can be imported by other Leo programs or libraries using `leo add --local`, but cannot be deployed or executed on its own.
