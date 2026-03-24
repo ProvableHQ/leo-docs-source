@@ -85,6 +85,7 @@ The following must be declared outside the scope of a program in a Leo file:
 - [Structs](./02_structure.md#struct)
 - Helper `fn` definitions
 - [`final fn` definitions](./programs_in_practice/functions.md#on-chain-state-with-final-fn)
+- [`interface` definitions](./programs_in_practice/interfaces.md)
 
 Declarations are locally accessible within a program file. If you need a declaration from another Leo file, you must import it.
 

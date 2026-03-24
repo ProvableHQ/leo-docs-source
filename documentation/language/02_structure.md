@@ -9,7 +9,7 @@ sidebar_label: Program Structure
 ## Layout of a Leo Program
 
 A Leo program contains declarations of a [Program](#program), [Constants](#constant), [Imports](#import)
-, [Structs](#struct), [Records](#record), [Mappings](#mappings), and functions.
+, [Structs](#struct), [Records](#record), [Mappings](#mappings), [Interfaces](./programs_in_practice/interfaces.md), and functions.
 Declarations are locally accessible within a program file.
 If you need a declaration from another Leo file, you must import it.
 
@@ -68,6 +68,7 @@ The following must be declared outside the scope of a program in a Leo file:
 - struct types
 - helper `fn` definitions
 - `final fn` definitions
+- `interface` definitions
 
 #### Program ID
 

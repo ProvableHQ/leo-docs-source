@@ -414,6 +414,8 @@ program my_counter.aleo : Counter {
 
 Interfaces can declare function signatures, record definitions, mappings, and storage variables. Programs implement an interface by listing it after `:` in the program declaration.
 
+For full documentation including record requirements, interface composition, dynamic calls, and dynamic records, see [Interfaces & Dynamic Dispatch](../language/programs_in_practice/interfaces.md).
+
 Interfaces support inheritance:
 
 ```leo
