@@ -8,13 +8,18 @@ sidebar_label: Interfaces & Dynamic Dispatch
 
 Leo provides three related features for building composable, generic programs:
 
-- **Interfaces** — declare a named contract that programs must fulfill. Available in Leo v4.
+- **Interfaces** — declare a named contract that programs must fulfill.
 - **Dynamic Calls** — call into a program determined at runtime.
 - **Dynamic Records** — pass and inspect records whose structure is unknown at compile time.
 
 ## Interfaces
 
-An `interface` declaration specifies a set of functions, records, and mappings that a program must provide. Interfaces are declared outside the `program {}` block.
+An `interface` declaration specifies a set of functions, records, mappings, and storage variables that a
+program must provide. Interfaces are a compile-time concept and have no impact on the bytecode generated.
+They are only useful as a way to enforce structural contracts — ensuring that any program claiming to implement
+an interface actually provides all required functions, records, mappings, and storage variables — and to enable
+dynamic calls, where the caller knows *what* it can call without knowing *which* program it is calling at
+runtime. Interfaces are declared outside the `program {}` block or in a submodule.
 
 ```leo
 interface Transfer {
@@ -146,14 +151,14 @@ return token_a.aleo::TokenStandard@(target, network)::transfer_public(to, amount
 :::note
 The only valid network identifier currently is `aleo`.
 :::
+
 ## Dynamic Records
 
 A `dyn record` is a record whose field structure is not known at compile time. It retains all the ownership and privacy properties of a regular record:
 
 ```leo
-fn try_get_memo(rec: dyn record) -> u64 {
-    let memo: u64 = rec.memo; // fails at runtime if `rec` does not have a field named `memo` of type `u64`.
-    return 0u64;
+fn get_memo(rec: dyn record) -> u64 {
+    return rec.memo; // fails at runtime if `rec` does not have a field named `memo` of type `u64`
 }
 ```
 
