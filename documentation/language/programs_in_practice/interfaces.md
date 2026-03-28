@@ -143,6 +143,9 @@ let network: identifier = 'aleo';
 return token_a.aleo::TokenStandard@(target, network)::transfer_public(to, amount);
 ```
 
+:::note
+The only valid network identifier currently is `aleo`.
+:::
 ## Dynamic Records
 
 A `dyn record` is a record whose field structure is not known at compile time. It retains all the ownership and privacy properties of a regular record:
