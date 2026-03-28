@@ -1645,7 +1645,7 @@ A `Message` is any byte-aligned type.
 
 ---
 
-## Snark
+## zk-SNARKs
 
 ### `Snark::verify`
 
