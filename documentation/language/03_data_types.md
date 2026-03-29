@@ -4,7 +4,7 @@ title: Data Types
 sidebar_label: Data Types
 ---
 
-[general tags]: # "boolean, integer, field, group, scalar, address, signature, array, tuple, struct"
+[general tags]: # "boolean, integer, field, group, scalar, address, signature, identifier, array, tuple, struct"
 
 ## Primitive Types
 
@@ -129,6 +129,16 @@ Signature literals can be also be used. For example:
 
 ```leo
 let sig: signature = sign195m229jvzr0wmnshj6f8gwplhkrkhjumgjmad553r997u7pjfgpfz4j2w0c9lp53mcqqdsmut2g3a2zuvgst85w38hv273mwjec3sqjsv9w6uglcy58gjh7x3l55z68zsf24kx7a73ctp8x8klhuw7l2p4s3aq8um5jp304js7qcnwdqj56q5r5088tyvxsgektun0rnmvtsuxpe6sj
+```
+
+### Identifiers
+
+The `identifier` type represents a SnarkVM identifier name resolved at runtime. It is often used with [dynamic calls](./programs_in_practice/interfaces.md#dynamic-calls) to specify which program to call at runtime without knowing it at compile time.
+
+An `identifier` literal uses single-quote syntax:
+
+```leo
+let target: identifier = 'my_program';
 ```
 
 ## Composite Types

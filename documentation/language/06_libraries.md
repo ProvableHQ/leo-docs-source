@@ -173,6 +173,14 @@ program my_app.aleo {
 }
 ```
 
+## Name Resolution and Path Precedence
+
+When a library dependency and a local submodule share the same name, paths beginning with that name resolve to the **library** first. For example, if your project declares a library dependency called `foo` and also has a local submodule `src/foo.leo`, then `foo::bar` refers to the item `bar` from the library, not from the submodule.
+
+:::note
+Explicit disambiguation using absolute paths (similar to Rust's `crate::foo::…` for local modules) is planned for a future release.
+:::
+
 ## Testing
 
 `leo test` works on library packages directly — no wrapper program is required. Place test files in the `tests/` directory and call library functions using the `library_name::item` path syntax.
