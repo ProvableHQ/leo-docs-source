@@ -220,7 +220,7 @@ interface ARC20 {
 
 program caller.aleo {
     fn main(target: identifier, token: dyn record, to: address) -> dyn record {
-        return ARC20@(target)::transfer_private(token, to); // ✅ direct pass-through
+        return ARC20@(target)::transfer_private(token, to); // direct pass-through
     }
 }
 ```
@@ -237,8 +237,8 @@ interface ARC20 {
 program my_token.aleo : ARC20 {
     record Token { owner: address, amount: u64 }
 
-    fn do_transfer(target: identifier, tok: Token, to: address) -> dyn record {
-        return ARC20@(target)::transfer_private(tok as dyn record, to); // ✅ explicit cast
+    fn do_transfer(target: identifier, token: Token, to: address) -> dyn record {
+        return ARC20@(target)::transfer_private(token as dyn record, to); // explicit cast
     }
 }
 ```
@@ -256,8 +256,8 @@ interface ARC20 {
 program caller.aleo {
     record Token { owner: address, amount: u64 }
 
-    fn main(target: identifier, tok: Token, to: address) -> dyn record {
-        return ARC20@(target)::transfer_private(tok, to); // ✅ implicit conversion under the hood
+    fn main(target: identifier, token: Token, to: address) -> dyn record {
+        return ARC20@(target)::transfer_private(token, to); // implicit conversion under the hood
     }
 }
 ```
@@ -274,7 +274,7 @@ interface ARC20 {
 
 program caller.aleo {
     fn main(target: identifier, token: dyn record, to: address) -> dyn record {
-        return ARC20@(target)::transfer_private(token, to); // ✅ implicit cast, returns dyn record
+        return ARC20@(target)::transfer_private(token, to); // implicit cast, returns dyn record
     }
 }
 ```
