@@ -202,3 +202,81 @@ fn get_memo(rec: dyn record) -> u64 {
 ```
 
 `dyn record` complements dynamic calls: while dynamic calls allow a program to route logic to any compliant callee, `dyn record` allows that same program to accept, inspect, and forward records from programs it has never seen at compile time, without losing the safety guarantees of the type system.
+
+### Dynamic Records and Dynamic Calls
+
+Regardless of what the interface signature says, dynamic calls always take dynamic records as inputs and return dynamic records as outputs.
+
+When making a dynamic call, all record arguments are treated as `dyn record` under the hood, and all record return values come back as `dyn record` — even when the interface uses a concrete static record type. There are four cases depending on what the interface declares and what the caller provides:
+
+**Case A — Interface expects `dyn record`, caller has `dyn record`**
+
+Pass the dynamic record directly with no conversion needed.
+
+```leo
+interface ARC20 {
+    fn transfer_private(token: dyn record, to: address) -> dyn record;
+}
+
+program caller.aleo {
+    fn main(target: identifier, token: dyn record, to: address) -> dyn record {
+        return ARC20@(target)::transfer_private(token, to); // ✅ direct pass-through
+    }
+}
+```
+
+**Case B — Interface expects `dyn record`, caller has a static record**
+
+Convert the static record explicitly to `dyn record` using `as` before passing it.
+
+```leo
+interface ARC20 {
+    fn transfer_private(token: dyn record, to: address) -> dyn record;
+}
+
+program my_token.aleo : ARC20 {
+    record Token { owner: address, amount: u64 }
+
+    fn do_transfer(target: identifier, tok: Token, to: address) -> dyn record {
+        return ARC20@(target)::transfer_private(tok as dyn record, to); // ✅ explicit cast
+    }
+}
+```
+
+**Case C — Interface expects a static record, caller has a static record**
+
+Leo implicitly converts the static record to `dyn record` at the call site. Nothing extra is required from the caller, though an implicit unsafe step occurs under the hood.
+
+```leo
+interface ARC20 {
+    record Token;
+    fn transfer_private(token: Token, to: address) -> Token;
+}
+
+program caller.aleo {
+    record Token { owner: address, amount: u64 }
+
+    fn main(target: identifier, tok: Token, to: address) -> dyn record {
+        return ARC20@(target)::transfer_private(tok, to); // ✅ implicit conversion under the hood
+    }
+}
+```
+
+**Case D — Interface expects a static record, caller has a `dyn record`**
+
+Leo implicitly casts the dynamic record to the expected static type at the call site. The return value is still `dyn record`.
+
+```leo
+interface ARC20 {
+    record Token;
+    fn transfer_private(token: Token, to: address) -> Token;
+}
+
+program caller.aleo {
+    fn main(target: identifier, token: dyn record, to: address) -> dyn record {
+        return ARC20@(target)::transfer_private(token, to); // ✅ implicit cast, returns dyn record
+    }
+}
+```
+
+In all four cases, the return type of a dynamic call that involves records is always `dyn record`, regardless of what the interface declares.
