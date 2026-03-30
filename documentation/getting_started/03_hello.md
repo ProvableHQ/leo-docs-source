@@ -68,7 +68,7 @@ program hello.aleo {
 }
 ```
 
-The keyword `program` indicates the name of the [program](./../language/02_structure.md#program-scope) inside the Leo file. In this case, it is `hello.aleo`. As mentioned before, this program name must match the one in the `program.json` manifest file.
+The keyword `program` indicates the name of the [program](./../language/02_structure.md#program) inside the Leo file. In this case, it is `hello.aleo`. As mentioned before, this program name must match the one in the `program.json` manifest file.
 
 The keyword `fn` indicates an entry function definition in Leo.
 The `main` function takes an input `a` with type `u32` and `public` visibility, and an input `b` with type `u32` and `private` visibility (by default).
@@ -140,13 +140,13 @@ leo run main 1u32 2u32
 
 ⛓  Constraints
 
- •  'hello.aleo/main' - 33 constraints (called 1 time)
+ •  'hello.aleo::main' - 33 constraints (called 1 time)
 
 ➡️  Output
 
  • 3u32
 
-       Leo ✅ Finished 'hello.aleo/main' (in "./hello/build")
+       Leo ✅ Finished 'hello.aleo::main' (in "./hello/build")
 ```
 
 ## Deploying and Executing

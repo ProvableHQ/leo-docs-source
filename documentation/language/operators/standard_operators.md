@@ -27,6 +27,8 @@ toc_max_heading_level: 3
 | [div_wrapped](#div_wrapped)                                 | Wrapping division operation                               |
 | [double](#double)                                           | Double                                                    |
 | [group::GEN](#groupgen)                                     | group generator                                           |
+| [Aleo::generator](#aleogenerator)                                   | Aleo group generator constant                             |
+| [Aleo::generator_powers](#aleogenerator_powers)                     | Precomputed Aleo generator powers `[group; 251]`          |
 | [gt](#gt)                                                   | Greater than comparison                                   |
 | [gte](#gte)                                                 | Greater than or equal to comparison                       |
 | [inv](#inv)                                                 | Multiplicative inverse                                    |
@@ -1267,6 +1269,28 @@ It is an associated constant, whose name is `GEN` and whose associated type is `
 | `group`     |
 
 [Back to Top](#table-of-contents)
+
+---
+
+### `Aleo::generator`
+
+```leo
+let g: group = Aleo::generator;
+```
+
+Returns the generator point of the Aleo group. This is equivalent to `group::GEN` but expressed through the `Aleo` namespace for consistency with other `Aleo::*` intrinsics.
+
+---
+
+### `Aleo::generator_powers`
+
+```leo
+let powers: [group; 251] = Aleo::generator_powers;
+```
+
+Returns a precomputed array of the first 251 consecutive powers of the Aleo group generator: `[G^0, G^1, G^2, ..., G^250]`. Useful for efficient scalar multiplication in final blocks without recomputing the powers at runtime.
+
+Only available inside `final { }` blocks.
 
 ---
 

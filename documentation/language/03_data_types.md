@@ -4,7 +4,7 @@ title: Data Types
 sidebar_label: Data Types
 ---
 
-[general tags]: # "boolean, integer, field, group, scalar, address, signature, array, tuple, struct"
+[general tags]: # "boolean, integer, field, group, scalar, address, signature, identifier, array, tuple, struct"
 
 ## Primitive Types
 
@@ -102,7 +102,7 @@ let c: scalar = 0;
 
 Aleo uses the Schnorr signature scheme to sign messages with an Aleo private key.
 Signatures are a native type in Leo, and can be declared with the keyword `signature`.
-Signatures can be verified in Leo using the [`signature::verify`](./04_operators.md#signatureverify) or [`s.verify`](./04_operators.md#signatureverify) operators.
+Signatures can be verified in Leo using the [`signature::verify`](./operators/cryptographic_operators.md#signatureverify) or [`s.verify`](./operators/cryptographic_operators.md#signatureverify) operators.
 
 ```leo
 struct foo {
@@ -129,6 +129,16 @@ Signature literals can be also be used. For example:
 
 ```leo
 let sig: signature = sign195m229jvzr0wmnshj6f8gwplhkrkhjumgjmad553r997u7pjfgpfz4j2w0c9lp53mcqqdsmut2g3a2zuvgst85w38hv273mwjec3sqjsv9w6uglcy58gjh7x3l55z68zsf24kx7a73ctp8x8klhuw7l2p4s3aq8um5jp304js7qcnwdqj56q5r5088tyvxsgektun0rnmvtsuxpe6sj
+```
+
+### Identifiers
+
+The `identifier` type represents a SnarkVM identifier name resolved at runtime. It is often used with [dynamic calls](./programs_in_practice/interfaces.md#dynamic-calls) to specify which program to call at runtime without knowing it at compile time.
+
+An `identifier` literal uses single-quote syntax:
+
+```leo
+let target: identifier = 'my_program';
 ```
 
 ## Composite Types
@@ -234,7 +244,7 @@ fn baz(foo: u8, bar: u8) -> u8 {
 
 Struct types are declared and constructed with a familiar syntax.
 
-Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo/StructName`.
+Structs defined within a program can be referenced by their name. Structs defined in other programs must be referenced using the fully qualified form `program_name.aleo::StructName`.
 
 ```leo
 struct S {
@@ -256,7 +266,7 @@ program test.aleo {
 Structs defined in external programs can be referenced and constructed using their fully qualified name:
 
 ```leo
-let s: external_program.aleo/S2 = external_program.aleo/S2 {
+let s: external_program.aleo::S2 = external_program.aleo::S2 {
     x: 1field,
     y: 2u32,
 };

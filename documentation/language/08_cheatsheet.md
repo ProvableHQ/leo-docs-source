@@ -170,7 +170,7 @@ let sender_address: address = msg.sender;
 let object_value: u64 = msg.object;
 ```
 
-A struct `ExternalStruct` defined in program `external_program.aleo` can be referred to outside the program using the syntax `external_program.aleo/ExternalStruct`.
+A struct `ExternalStruct` defined in program `external_program.aleo` can be referred to outside the program using the syntax `external_program.aleo::ExternalStruct`.
 
 ### Const Generics
 
@@ -401,9 +401,9 @@ balances.set(receiver, 100u64);
 balances.remove(balances, receiver);
 
 // External mappings (read-only)
-let ext_contains: bool = external_program.aleo/balances.contains(receiver);
-let ext_get: u64 = external_program.aleo/balances.get(receiver);
-let ext_get_or_use: u64 = external_program.aleo/balances.get_or_use(receiver, 0u64);
+let ext_contains: bool = external_program.aleo::balances.contains(receiver);
+let ext_get: u64 = external_program.aleo::balances.get(receiver);
+let ext_get_or_use: u64 = external_program.aleo::balances.get_or_use(receiver, 0u64);
 ```
 
 ### Storage Variables
@@ -420,8 +420,8 @@ var = 8u8;
 var = none;
 
 // External storage variables (read-only)
-let ext_var: u8 = external_program.aleo/var.unwrap();
-let ext_var_safe: u8 = external_program.aleo/var.unwrap_or(0u8);
+let ext_var: u8 = external_program.aleo::var.unwrap();
+let ext_var_safe: u8 = external_program.aleo::var.unwrap_or(0u8);
 ```
 
 ### Storage Vectors
@@ -441,8 +441,8 @@ vec.swap_remove(idx);
 vec.clear();
 
 // External storage vectors (read-only)
-let ext_len: u32 = external_program.aleo/vec.len();
-let ext_val: u8? = external_program.aleo/vec.get(idx);
+let ext_len: u32 = external_program.aleo::vec.len();
+let ext_val: u8? = external_program.aleo::vec.get(idx);
 ```
 
 ## 12. Operators

@@ -105,7 +105,7 @@ leo run initialize_board 34084860461056u64 551911718912u64 7u64 1157425104234217
   _nonce: 605849623036268790365773177565562473735086364071033205649960161942593750353group.public
 }
 
-Leo ✅ Finished 'battleship.aleo/initialize_board'
+Leo ✅ Finished 'battleship.aleo::initialize_board'
 ```
 
 The output is a board_state record owned by Player 1.
@@ -162,7 +162,7 @@ leo run offer_battleship "{
   _nonce: 6986401140057557061321899375524513841643724821230599181456639629979203966487group.public
 }
 
-Leo ✅ Finished 'battleship.aleo/offer_battleship'
+Leo ✅ Finished 'battleship.aleo::offer_battleship'
 ```
 
 The first output record is the updated `board_state.record`. Notice the `game_started` flag is now true. This board cannot be used to offer any other battleship games or accept any battleship game offers. Player 1 would need to initialize a new board and use that instead. The second output record is a dummy `move.record` - there are no fire coordinates included to play on Player 2's board, and no information about any previous Player 2 moves (Player 2 has not made any moves yet). This `move.record` is owned by Player 2, who must use that in combination with their own `board_state.record` to accept the game. Let's do that now.
@@ -194,7 +194,7 @@ leo run initialize_board 31u64 2207646875648u64 224u64 9042383626829824u64 aleo1
   _nonce: 677929557867990662961068737825412945684193990901139603462104629310061710321group.public
 }
 
-✅ Executed 'battleship.aleo/initialize_board'
+✅ Executed 'battleship.aleo::initialize_board'
 ```
 
 Note, the output ships here is 9044591273705727u64, which in a bitstring is:
@@ -255,7 +255,7 @@ leo run start_battleship "{
   _nonce: 7551593771072417773015833444631669906818701068612998340960968556531564726874group.public
 }
 
-✅ Executed 'battleship.aleo/start_battleship'
+✅ Executed 'battleship.aleo::start_battleship'
 ```
 
 Notice the outputs here are similar to `offer_battleship`. A dummy `move.record` is owned by Player 1, and Player 2 gets a `board_state.record` with the `game_started` flag updated. However, now that Player 1 has a `move.record` and a started board, they can begin to play.
@@ -311,7 +311,7 @@ leo run play "{
   _nonce: 4383078917685812690935470339923943658033179718952229417171392956492546325808group.public
 }
 
-✅ Executed 'battleship.aleo/play'
+✅ Executed 'battleship.aleo::play'
 ```
 
 Player 1 has an updated `board_state.record` - they have a new `played_tiles` bitstring, which corresponds to the fire coordinate they just sent to Player 2. You can see that the `incoming_fire_coordinate` in the `move.record` owned by Player 2 matches exactly the input given by Player 1. Player 2 can now play this move tile and respond with a fire coordinate of their own, and they will also let Player 1 know whether their fire coordinate hit or miss Player 2's ships.
@@ -367,7 +367,7 @@ leo run play "{
   _nonce: 8217837260140600949756911248177622179381338760298068527463640818659709985441group.public
 }
 
-✅ Executed 'battleship.aleo/play'
+✅ Executed 'battleship.aleo::play'
 ```
 
 Player 2 now has an updated `board_state.record` which includes their newly updated `played_tiles`, only containing the fire coordinate they just sent to Player 1. Player 1 now owns a new `move.record` which includes the `hits_and_misses` field.
@@ -428,7 +428,7 @@ leo run play "{
   _nonce: 7971995563631235472540847437984726419106193784727086463494463811056252801811group.public
 }
 
-✅ Executed 'battleship.aleo/play'
+✅ Executed 'battleship.aleo::play'
 ```
 
 As before, both a `board_state.record` and `move.record` are created. The `board_state.record` now contains 3u64 as the `played_tiles`, which looks like this in bitstring form:
@@ -497,7 +497,7 @@ leo run play "{
   _nonce: 5304512645876453228434639693756897952439730718508628026257897445388710294282group.public
 }
 
-✅ Executed 'battleship.aleo/play'
+✅ Executed 'battleship.aleo::play'
 ```
 
 ## 10. Who Wins?
@@ -900,9 +900,9 @@ A move record must be consumed in order to create the next move record. The owne
 
 ## Enforce constraints on valid moves, and force the player to give their opponent information about their opponent's previous move in order to continue playing
 
-A valid move for a player is a fire coordinate that has only one flipped bit in a u64. We can make sure only one bit is flipped with the powers of 2 bit trick. That single bit must be a coordinate that has not been played by that player before, which we check in board.aleo/update_played_tiles.
+A valid move for a player is a fire coordinate that has only one flipped bit in a u64. We can make sure only one bit is flipped with the powers of 2 bit trick. That single bit must be a coordinate that has not been played by that player before, which we check in board.aleo::update_played_tiles.
 
-In order to give their next move to their opponent, a player must call the main.aleo/play function, which checks the opponent's fire coordinate on the current player's board. The move record being created is updated with whether that fire coordinate was a hit or a miss for the opponent.
+In order to give their next move to their opponent, a player must call the main.aleo::play function, which checks the opponent's fire coordinate on the current player's board. The move record being created is updated with whether that fire coordinate was a hit or a miss for the opponent.
 
 ## Winning the game
 

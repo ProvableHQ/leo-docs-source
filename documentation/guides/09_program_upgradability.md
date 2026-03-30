@@ -134,7 +134,7 @@ The compiler uses the `mapping` and `key` fields to generate a constructor that 
 // The 'vote_example' program.
 program vote_example.aleo {
     // This constructor is for the "checksum" mode.
-    @checksum(mapping="basic_voting.aleo/approved_checksum", key="true")
+    @checksum(mapping="basic_voting.aleo::approved_checksum", key="true")
     constructor() {
         // The Leo compiler automatically generates the constructor logic.
     }

@@ -43,6 +43,8 @@ Check out the [**Testing**](./../guides/08_testing.md) guide for more informatio
     Comma separated list of passes whose AST snapshots to capture.
 --build-tests
     Build tests along with the main program and dependencies.
+--prove
+    Generate a full ZK proof for each executed transaction. Proof generation is disabled by default to keep test runs fast.
 --no-cache
     Don't use the dependency cache.
 --no-local

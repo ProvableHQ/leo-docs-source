@@ -4,12 +4,18 @@ title: Dependency Management
 sidebar_label: Dependency Management
 ---
 
-[general tags]: # "guides, dependency, dependency_management, imports, program"
+[general tags]: # "guides, dependency, dependency_management, imports, program, library"
 
-Leo programs can import functionality from other programs. Any imported programs are referred to as dependencies. There are two types of dependencies:
+Leo programs can import functionality from other programs and libraries. Any imported program or library is referred to as a dependency. There are two types of dependencies:
 
 - **Network dependencies**: Programs already deployed on the Aleo network, fetched as pre-compiled bytecode.
-- **Local dependencies**: Code on your filesystem; either Leo code compiled from source, or Aleo Instructions code.
+- **Local dependencies**: Code on your filesystem; either Leo code compiled from source, Aleo Instructions code, or a Leo library.
+
+### Programs vs. Libraries
+
+A regular Leo **program** has an on-chain identity (`program foo.aleo { }`), can hold mappings and records, and is deployed to the Aleo network. A Leo **library** is a source-only package containing structs, constants, and helper functions with no on-chain footprint — all library code is inlined into programs that use it at compile time. Libraries can only be local dependencies; they are never deployed.
+
+See [Leo Libraries](../language/06_libraries.md) for details on how to write and use libraries.
 
 ## Adding Dependencies
 
@@ -76,6 +82,8 @@ This records the path in `program.json`:
 ```
 
 Local dependencies are compiled from source whenever you build. They never require network access.
+
+**Leo libraries** are a special kind of local dependency. A library project (created with `leo new --lib`) contains only structs, constants, and helper functions — no program block, no mappings, no records. Because libraries have no on-chain identity, they can only be local dependencies and are never deployed. All library code is inlined into the consuming program at compile time. See [Leo Libraries](../language/06_libraries.md) for more.
 
 ## Removing Dependencies
 

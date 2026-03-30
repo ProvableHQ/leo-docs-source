@@ -20,11 +20,11 @@ If you're interested in learning more about Aleo:
 
 [//]: # "disabling markdown checks for twitter links"
 
-🐦 | X (Twitter) ~ @ProvableHQ ~ **https://twitter.com/ProvableHQ**
+🐦 | X (Twitter) ~ @ProvableHQ ~ **https://x.com/ProvableHQ**
 
-🐦 | X (Twitter) ~ @AleoHQ ~ **https://twitter.com/AleoHQ**
+🐦 | X (Twitter) ~ @AleoHQ ~ **https://x.com/AleoHQ**
 
-🤝 | Community X (Twitter) ~ @aleocommunity ~ **https://twitter.com/aleocommunity**
+🤝 | Community X (Twitter) ~ @aleocommunity ~ **https://x.com/aleocommunity**
 
 <!-- markdown-link-check-enable -->
 
@@ -34,7 +34,7 @@ If you're interested in learning more about Aleo:
 
 📜 | Leo Workshops ~ **https://github.com/ProvableHQ/workshop**
 
-🏎️ | Awesome Aleo ~ **https://github.com/AleoNet/awesome-aleo**
+🏎️ | Awesome Aleo ~ **https://github.com/howardwu/awesome-aleo**
 
 ✍️ | Provable Blog ~ **https://provable.com/blog**
 
