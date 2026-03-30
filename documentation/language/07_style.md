@@ -92,6 +92,48 @@ program example.aleo {
 }
 ```
 
+### Libraries
+
+[Libraries](./06_libraries.md) are the right tool for sharing reusable code across programs. The following recommendations apply when authoring or consuming them.
+
+#### Extract shared logic into a library
+
+When the same helper functions, constants, or `struct` definitions appear in more than one program, move them into a library. This avoids duplicating constraints and makes maintenance easier.
+
+```
+packages/
+├── math_utils/   ← shared library
+│   └── src/lib.leo
+├── token_a.aleo/
+│   └── src/main.leo
+└── token_b.aleo/
+    └── src/main.leo
+```
+
+#### Libraries are side-effect-free
+
+Libraries should be **stateless**: no `program { }` block, no `mapping`, no `record`, no entry functions. All state belongs in a program. If you find yourself wanting on-chain state in a library, split the logic into a helper library and a thin program wrapper.
+
+#### Prefer library functions over duplicating logic
+
+Repeating a multi-step computation inline in several programs multiplies the constraint count across each circuit. Centralising that logic in a library function makes the constraint cost obvious and keeps each program smaller.
+
+#### Use submodules for large libraries
+
+When a library grows beyond a few hundred lines, split it across submodules named after their responsibility (`geometry.leo`, `encoding.leo`, etc.) and keep `lib.leo` as the public surface re-exporting common items.
+
+```
+math_utils/
+├── src/
+│   ├── lib.leo        ← public API
+│   ├── geometry.leo   ← math_utils::geometry::*
+│   └── encoding.leo   ← math_utils::encoding::*
+```
+
+#### Name libraries clearly
+
+Library package names follow the same snake_case rule as programs. Prefer a single descriptive noun when possible (`math`, `encoding`, `token_utils`).
+
 ### Modules
 
 For maximal code cleanliness and readability, take full advantage of Leo's module system:
