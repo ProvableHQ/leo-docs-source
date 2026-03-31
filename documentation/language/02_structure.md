@@ -64,7 +64,6 @@ The following must be declared inside the scope of a program in a Leo file:
 The following must be declared outside the scope of a program in a Leo file:
 
 - imports
-- constants
 - struct types
 - helper `fn` definitions
 - `final fn` definitions
@@ -91,19 +90,51 @@ program _foo.aleo;  // invalid
 
 ### Constant
 
-A constant is declared as `const {name}: {type} = {expression};`.  
-Constants are immutable and must be assigned a value when declared.  
-Constants can be declared in the global scope or in a local function scope.
+A constant is declared as `const {name}: {type} = {expression};`.
+Constants are immutable, and the right-hand side must be an expression evaluatable at compile time.
+
+Constants can be declared in four scopes:
+
+- **Global scope** (outside all program blocks in a program file): accessible anywhere in the same file.
+- **Program scope** (inside a `program` block, outside any function): accessible within that program.
+- **Local scope** (inside a function body): accessible only within that function.
+- **Module scope** (in a module file within the same package, i.e. a `.leo` file with no `program` block): accessible within the same package via `path::to::module::CONST_NAME`. See [Modules](./01_layout.md#modules) for details.
+
+Constants are also supported in [libraries](./06_libraries.md), which are separate packages containing reusable code. A library's root file and its submodules may declare constants, accessible from any dependent package as `library::CONST_NAME` or `library::path::to::submodule::CONST_NAME`.
+
+**Accessibility across packages:** Global and program-scope constants in a program are accessible from other programs that import it, using `program_name.aleo::CONST_NAME`. The following are not yet supported: 
+
+1. Accessing a constant from a submodule of an imported program
+2. Accessing an imported program's constant from within a submodule of the current program
+
+See [ProvableHQ/leo#29274](https://github.com/ProvableHQ/leo/issues/29274).
 
 ```leo
-const FOO: u8 = 1u8;
+const MAX: u64 = 100u64;           // global constant
 
 program foo.aleo {
-    fn bar() -> u8 {
-        const BAR: u8 = 2u8;
-        return FOO + BAR;
+    const MULTIPLIER: u64 = 2u64;  // program-scope constant
+
+    fn compute(x: u64) -> u64 {
+        const OFFSET: u64 = 5u64;  // local constant
+        return x * MULTIPLIER + OFFSET;
     }
 }
+```
+
+**Supported types:** All integer types (`u8`, `u16`, `u32`, `u64`, `u128`, `i8`, `i16`, `i32`, `i64`, `i128`), `bool`, `field`, `group`, `scalar`, `address`, and tuples, arrays, and structs composed of these types.
+
+**Compile-time expressions:** The right-hand side of a constant declaration must be evaluatable at compile time. Valid right-hand sides include:
+
+- Literal values (e.g., `42u32`, `true`, `1field`)
+- References to previously declared constants
+- Arithmetic, bitwise, and comparison expressions over constants (e.g., `MAX * 2u64`, `!FLAG`)
+- Tuple, array, and struct expressions whose components are themselves compile-time constants
+
+```leo
+const BASE: u32 = 10u32;
+const LIMIT: u32 = BASE * 5u32;   // expression over constants
+const PAIR: (u32, bool) = (LIMIT, true);   // tuple constant
 ```
 
 ### Import
