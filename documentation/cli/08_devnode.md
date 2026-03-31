@@ -10,7 +10,7 @@ toc_max_heading_level: 2
 
 # `leo devnode`
 
-Leo devnode is a lightweight-node network that bypasses the consensus algorithm and the requirement to generate proofs for deployment and execution transactions. It is a development tool intended for rapidly iterating on Aleo program design and running end-to-end tests prior to deploying Aleo programs to testnet and mainnet.
+A devnode is a lightweight-node network that bypasses the consensus algorithm and the requirement to generate proofs for deployment and execution transactions. It is a development tool intended for rapidly iterating on Aleo program design and running end-to-end tests prior to deploying Aleo programs to Testnet and Mainnet.
 
 :::note
 `leo devnode` is the recommended local development tool for lightweight testing. The older [`leo devnet`](./07_devnet.md) command (which requires a full snarkOS installation and spins up a multi-validator network) remains available for more complex testing scenarios.
