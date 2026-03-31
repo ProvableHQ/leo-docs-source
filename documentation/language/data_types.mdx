@@ -304,35 +304,49 @@ record Token {
 
 ## Constants
 
-A constant is a value that is fixed at compile time and cannot be changed. Constants are declared outside the `program {}` block using the `const` keyword.
+A constant is a value that is fixed at compile time and cannot be changed.  Constants are inlined at every use site during compilation. They are useful for defining fixed configuration values, thresholds, or well-known addresses that are shared across functions in a file.
 
 ```leo
 const MAX_SUPPLY: u64 = 1_000_000u64;
 const ADMIN: address = aleo1...;
 ```
 
-Constants can use any literal type — integers, field elements, booleans, addresses, groups, and scalars. They can also be used in expressions:
-
+Constants can use any literal type — integers, field elements, booleans, addresses, groups, and scalars.  Additionally, constants can be composed via tuples, arrays, and structs, as well as arithmetic, bitwise, and comparison expressions over other constants:
 ```leo
-const BASE: u64 = 100u64;
-const DOUBLED: u64 = BASE * 2u64;
+const BASE: u32 = 10u32;
+const LIMIT: u32 = BASE * 5u32;   // expression over constants
+const PAIR: (u32, bool) = (LIMIT, true);   // tuple constant
 ```
 
-Constants are inlined at every use site during compilation. They are useful for defining fixed configuration values, thresholds, or well-known addresses that are shared across functions in a file.
-
-```leo
-const FEE: u64 = 10u64;
-
-program hello.aleo {
-    fn transfer(amount: u64) -> u64 {
-        return amount - FEE;
-    }
-}
-```
 
 :::note
-Structs, records, mappings, arrays, tuples, and option types cannot be used as constants. Only primitive literal types are supported: integers, `field`, `group`, `scalar`, `bool`, and `address`.
+Records and option types cannot be used as constants.
 :::
+
+
+
+Constants can be declared in four scopes:
+
+- **Global scope** (outside all program blocks in a program file): accessible anywhere in the same file.
+- **Program scope** (inside a `program` block, outside any function): accessible within that program.
+- **Local scope** (inside a function body): accessible only within that function.
+- **Module scope** (in a module file within the same package, i.e. a `.leo` file with no `program` block): accessible within the same package via `path::to::module::CONST_NAME`. See [Modules](./project_layout/modules.mdx) for details.
+
+```leo
+const MAX: u64 = 100u64;           // global constant
+
+program foo.aleo {
+    const MULTIPLIER: u64 = 2u64;  // program-scope constant
+
+    fn compute(x: u64) -> u64 {
+        const OFFSET: u64 = 5u64;  // local constant
+        return x * MULTIPLIER + OFFSET;
+    }
+}
+
+```
+
+Constants are also supported in [libraries](./project_layout/libraries.mdx), which are separate packages containing reusable code. A library's root file and its submodules may declare constants, accessible from any dependent package as `library::CONST_NAME` or `library::path::to::submodule::CONST_NAME`.
 
 ## Option Types
 
