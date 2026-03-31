@@ -106,7 +106,7 @@ leo deploy --skip-deploy-certificate --endpoint http://localhost:3030
 
 `--skip-deploy-certificate` skips generating the deployment proof. Without it, deployment will still work but will be significantly slower.
 
-**Executing a transition**
+### **Executing a Transition**
 
 ```bash
 leo execute <TRANSITION> <INPUTS> --skip-execute-proof --endpoint http://localhost:3030
