@@ -173,19 +173,7 @@ For more information, refer to the [Devnet](./07_devnet.md) guide
 
 ## Deploying/Executing on Testnet
 
-To deploy and execute on Testnet, you'll need to set your endpoint back to one of the public facing options. Additionally, you'll need to obtain Testnet credits from one of the faucets below:
-
-### Faucets
-
-<!--TODO: Update this information once the new faucet becomes public.-->
-
-At some point you'll need testnet credits. There are a few community-supported faucets to choose from:
-
-- [**Puzzle**](https://dev.puzzle.online/faucet) - 15 credits / 4 hours
-
-- [**Demox**](https://discord.com/channels/913160862670397510/1202322326230937640/1203135682873266207) - 10 credits / 12 hours
-
-The faucets are periodically refreshed.
+To deploy and execute on Testnet, you'll need to set your endpoint back to one of the public facing options. Additionally, you'll need to obtain Testnet credits — visit [**https://faucet.aleo.org/**](https://faucet.aleo.org/) to request them.
 
 ## Other Tools
 
