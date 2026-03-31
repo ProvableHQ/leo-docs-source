@@ -94,7 +94,7 @@ leo devnode advance 10
 leo devnode advance 5 --socket-addr 127.0.0.1:4040
 ```
 
-## Using Leo CLI Commands with Devnode
+## Skipping Proof Generation
 
 When targeting a devnode, two proof-generation steps can be skipped for faster iteration. Proofs are not verified by the devnode, so generating them is unnecessary overhead.
 
