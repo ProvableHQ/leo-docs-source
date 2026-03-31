@@ -149,6 +149,25 @@ Specifies the priority fee for the deployment transaction(s) delimited by `|` an
 
 Specifies the record(s) to pay for fees privately, delimited by `|` and used in order. The fees must either be valid plaintext, ciphertext, or `default`. If not specified, then transaction fees will be public.
 
+#### `--with <WITH>...`
+
+Specifies one or more additional programs to load into the VM at runtime. Each entry can be:
+- A path to a local `.aleo` bytecode file (e.g. `./extra_prog.aleo`)
+- The name of a remote program to fetch from the network endpoint (along with its transitive dependencies)
+
+Multiple programs can be provided as a comma-separated list. When specifying local `.aleo` files, they must be listed in topological order — i.e. a dependency must appear before any program that depends on it.
+
+This is useful when a program has dynamic dependencies that are not declared in `program.json` and therefore cannot be resolved at build time.
+
+```bash
+leo execute <FUNCTION_NAME> <INPUTS> --with ./extra_prog.aleo
+leo execute <FUNCTION_NAME> <INPUTS> --with program1.aleo,program2.aleo
+```
+
+:::note
+When loading remote programs, an `--endpoint` must be set.
+:::
+
 #### `--consensus-heights <CONSENSUS_HEIGHTS>`
 
 Specifies the consensus heights to use, delimited by `,`. This should only be set if you are using a custom devnet.
