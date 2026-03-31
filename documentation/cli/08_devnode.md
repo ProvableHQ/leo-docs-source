@@ -16,7 +16,7 @@ A devnode is a lightweight-node network that bypasses the consensus algorithm an
 `leo devnode` is the recommended local development tool for lightweight testing. The older [`leo devnet`](./07_devnet.md) command (which requires a full snarkOS installation and spins up a multi-validator network) remains available for more complex testing scenarios.
 :::
 
-To initialize devnode, run the following command:
+To initialize a devnode, run the following command:
 
 ```bash
 leo devnode start --private-key <PRIVATE_KEY>
