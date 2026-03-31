@@ -59,7 +59,7 @@ interface Transfer {
 
 interface Pausable {
     mapping paused: address => bool;
-    fn pause() -> bool;
+    fn pause() -> (bool, Final);
 }
 
 // my_token.aleo must satisfy both Transfer and Pausable
@@ -75,13 +75,10 @@ program my_token.aleo : Transfer + Pausable {
         return Token { owner: to, balance: input.balance - amount };
     }
 
-    async fn pause() -> (bool, Future) {
-        let f: Future = finalize_pause(self.caller);
-        return (true, f);
-    }
-
-    async function finalize_pause(caller: address) {
-        Mapping::set(paused, caller, true);
+    fn pause() -> (bool, Final) {
+        return (true, final {
+            Mapping::set(paused, self.caller, true);
+        });
     }
 }
 ```
@@ -156,18 +153,17 @@ Dynamic calls allow the callee to be determined at runtime. The caller still kno
 ```leo
 // Dynamic: any program that implements TokenStandard can be called
 fn route_transfer_dynamic(token_program: identifier, to: address, amount: u64) {
-    return token_a.aleo::TokenStandard@(token_program)::transfer_public(to, amount);
+    return TokenStandard@(token_program)::transfer_public(to, amount);
 }
 ```
 
 The syntax is:
 ```
-qualifier.aleo::Interface@(target)::method(args)
+Interface@(target)::method(args)
 ```
 where:
-- `qualifier.aleo` is the imported program that declares (or re-exports) the interface. This must be a static import.
 - `Interface` is the interface name.
-- `target` is an `identifier` value resolved at runtime — the name of the program to call into.
+- `target` is an `identifier` value (or `field`) resolved at runtime — the name of the program to call into.
 - `method` is the function to invoke.
 
 ### The `identifier` Type
@@ -176,7 +172,7 @@ The `identifier` type represents a program name resolved at runtime. An `identif
 
 ```leo
 let target: identifier = 'my_program';
-return token_a.aleo::TokenStandard@(target)::transfer_public(to, amount);
+return TokenStandard@(target)::transfer_public(to, amount);
 ```
 
 By default the target is looked up on the `aleo` network. To specify a different network explicitly, pass a second `identifier` as a second argument:
@@ -184,7 +180,7 @@ By default the target is looked up on the `aleo` network. To specify a different
 ```leo
 let target: identifier = 'my_program';
 let network: identifier = 'aleo';
-return token_a.aleo::TokenStandard@(target, network)::transfer_public(to, amount);
+return TokenStandard@(target, network)::transfer_public(to, amount);
 ```
 
 :::note

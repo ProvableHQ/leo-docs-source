@@ -47,7 +47,7 @@ Developers can add multiple `leo` files to the test directory but must ensure th
 
 The `example_program.leo` program contains an entry function which returns the sum of two `u32` inputs.
 
-```Leo
+```leo
 fn simple_addition(public a: u32, b: u32) -> u32 {
     let c: u32 = a + b;
     return c;
@@ -56,7 +56,7 @@ fn simple_addition(public a: u32, b: u32) -> u32 {
 
 The `test_example_program.leo` contains two tests to ensure that the function logic returns a correct output and fails when the output does not match the sum of the input values.
 
-```Leo
+```leo
 @test
 fn test_simple_addition() {
     let result: u32 = example_program.aleo::simple_addition(2u32, 3u32);
@@ -66,7 +66,7 @@ fn test_simple_addition() {
 
 The `@should_fail` annotation should be added after the `@test` annotation for tests that are expected to fail.
 
-```Leo
+```leo
 @test
 @should_fail
 fn test_simple_addition_fail() {
@@ -79,7 +79,7 @@ fn test_simple_addition_fail() {
 
 Developers can test that record and struct fields match their expected values. In `example_program.leo`, a record is minted by an entry function shown here:
 
-```Leo
+```leo
 record Example {
     owner: address,
     x: field,
@@ -95,7 +95,7 @@ fn mint_record(x: field) -> Example {
 
 The corresponding test in `test_example_program.leo` checks that the Record field contains the correct value:
 
-```Leo
+```leo
 @test
 fn test_record_maker() {
     let r: example_program.aleo::Example = example_program.aleo::mint_record(0field);
