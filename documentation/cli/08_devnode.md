@@ -48,7 +48,7 @@ leo devnode start [OPTIONS]
 | `--ledger-path` | `-l` | (in-memory) | Path for persistent ledger storage. If `-l` is given without a path, defaults to `./devnode` |
 | `--clean` | `-c` | `false` | Clear the ledger directory before starting. Requires `--ledger-path` |
 
-**Examples**
+### **Examples**
 
 ```bash
 # In-memory (ephemeral, no persistence)
