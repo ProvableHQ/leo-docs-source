@@ -398,7 +398,7 @@ let get_or_use_bal: u64 = balances.get_or_use(receiver, 0u64);
 
 // Modifying
 balances.set(receiver, 100u64);
-balances.remove(balances, receiver);
+balances.remove(receiver);
 
 // External mappings (read-only)
 let ext_contains: bool = external_program.aleo::balances.contains(receiver);
@@ -492,7 +492,7 @@ let height: u32 = block.height; // Height of current block
 let now: i64 = block.timestamp; // Timestamp of current block
 let this: address = self.address; // Address of program
 let caller: address = self.caller; // Address of function caller
-let checksum: [u8, 32] = self.checksum; // Checksum of a program
+let checksum: [u8; 32] = self.checksum; // Checksum of a program
 let edition: u16 = self.edition; // Edition of a program
 let owner: address = self.program_owner; // Address that deployed a program
 let signer: address = self.signer; // Address of tx signer (origin)

@@ -6,7 +6,7 @@ sidebar_label: Control Flow
 
 [general tags]: # "loop, conditional, return"
 
-### Conditional Statements
+## Conditional Statements
 
 Conditional statements are declared as `if {condition} { ... } else if {condition} { ... } else { ... }`.
 Conditional statements can be nested.
@@ -30,7 +30,7 @@ let a: u8 = 1u8;
 a = (a == 1u8) ? a + 1u8 : ((a == 2u8) ? a + 2u8 : a + 3u8);
 ```
 
-### Return Statements
+## Return Statements
 
 Return statements are declared as `return {expression};`.
 
@@ -46,7 +46,7 @@ Return statements are declared as `return {expression};`.
     }
 ```
 
-### For Loops
+## For Loops
 
 For loops are declared as `for {variable: type} in {lower bound}..{upper bound}`.
 The loop bounds must be integer constants of the same type. Furthermore, if

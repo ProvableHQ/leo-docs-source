@@ -171,14 +171,17 @@ struct Bar {
 }
 
 // Array of structs
-let arr_of_structs: [Bar; 2] = [Bar { data: 1u8 }, Bar { data: 2u8 }];
+let arr_of_structs: [Bar; 2] = [
+    Bar { data: [1u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8] },
+    Bar { data: [2u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8, 0u8] },
+];
 ```
 
 Arrays only support constant accesses. The accessor expression must be a constant expression (known at compile-time).
 
 ```leo
 // Access the field of a struct within an array
-fn foo(a: [Bar; 8]) -> u8 {
+fn foo(a: [Bar; 8]) -> [u8; 8] {
     return a[0u8].data;
 }
 ```
@@ -207,10 +210,10 @@ Leo supports tuples. Tuple types are declared as `(type1, type2, ...)` and canno
 Tuples can contain primitive data types, structs, arrays, or nested tuples. Structs and records can also contain tuples.
 
 ```leo
-// Initialize a boolean array of length 4
+// Initialize a tuple of mixed types
 let tup: (u8,u8,bool) = (1u8,1u8,true);
 
-// Nested array
+// Nested tuple
 let nested: [[bool; 2]; 2] = [[true, false], [true, false]];
 ```
 
@@ -226,7 +229,7 @@ struct Bar {
     data: (u8,u8),
 }
 
-// Tuple of structs
+// Array of structs with tuple fields
 let tup_of_structs: [Bar; 2] = [Bar { data: (1u8,1u8) }, Bar { data: (2u8,2u8) }];
 ```
 
@@ -293,7 +296,7 @@ Records contain component declarations `{visibility} {name}: {type},`. Names of 
 
 Record data structures must always contain a component named `owner` of type `address`, as shown below. When passing a record as input to a program function, the `_nonce: group` and `_version: u8` components are also required but do not need to be declared in the Leo program. They are inserted automatically by the compiler.
 
-```aleo showLineNumbers
+```leo showLineNumbers
 record Token {
     // The token owner.
     owner: address,
