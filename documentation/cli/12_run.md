@@ -50,6 +50,12 @@ leo run <FUNCTION_NAME> -- <INPUT_0> -- <INPUT_1> ...
 ### Flags:
 
 ```
+--with <WITH>...
+    Comma-separated list of additional programs to load into the VM at runtime.
+    Each entry can be a path to a local `.aleo` bytecode file or the name of a
+    remote program to fetch (with its transitive dependencies) from the network
+    endpoint. Local files must be listed in topological order (dependencies
+    before the programs that depend on them).
 --offline
     Enables offline mode.
 --enable-ast-spans
