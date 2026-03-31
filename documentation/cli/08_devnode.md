@@ -6,11 +6,15 @@ toc_min_heading_level: 2
 toc_max_heading_level: 2
 ---
 
-[general tags]: # "cli, leo_devnode, devnode local_devnode"
+[general tags]: # "cli, leo_devnode, devnode, local_devnode"
 
 # `leo devnode`
 
 Leo devnode is a lightweight-node network that bypasses the consensus algorithm and the requirement to generate proofs for deployment and execution transactions. It is a development tool intended for rapidly iterating on Aleo program design and running end-to-end tests prior to deploying Aleo programs to testnet and mainnet.
+
+:::note
+`leo devnode` is the recommended local development tool for lightweight testing. The older [`leo devnet`](./07_devnet.md) command (which requires a full snarkOS installation and spins up a multi-validator network) remains available for more complex testing scenarios.
+:::
 
 To initialize devnode, run the following command:
 
@@ -26,7 +30,7 @@ The default endpoint for a local devnode is `http://localhost:3030`.
 
 <!-- markdown-link-check-enable -->
 
-Press `Ctrl+C` to stop the devnode. If started with persistent storage (`-l`), the ledger state is saved and can be resumed by running `leo devnode start -l` again. If started without persistent storage, the ledger is discarded when the devnode exits.
+Press `Ctrl+C` to stop the devnode. If started with `--ledger-path`, the ledger state is saved and can be resumed by running the same command again. If started without `--ledger-path`, the ledger is discarded when the devnode exits.
 
 ## `leo devnode start`
 
@@ -36,32 +40,32 @@ leo devnode start [OPTIONS]
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--private-key` | `-p` | | Private key (required, or set via environment variable) |
+| `--private-key` | | | Private key (required, or set via `PRIVATE_KEY` environment variable) |
 | `--verbosity` | `-v` | `2` | Log verbosity level (`0`–`2`) |
 | `--socket-addr` | `-a` | `127.0.0.1:3030` | Address and port for the REST API |
 | `--genesis-path` | `-g` | (built-in) | Path to a custom genesis block file |
 | `--manual-block-creation` | `-m` | `false` | Disable automatic block creation after broadcast |
-| `--ledger-path` | `-l` | (in-memory) | Directory for persistent ledger storage. If `-l` is given without a path, defaults to `./devnode/` |
+| `--ledger-path` | `-l` | (in-memory) | Path for persistent ledger storage. If `-l` is given without a path, defaults to `./devnode` |
 | `--clean` | `-c` | `false` | Clear the ledger directory before starting. Requires `--ledger-path` |
 
 **Examples**
 
 ```bash
 # In-memory (ephemeral, no persistence)
-leo devnode start
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH
 
-# Persistent, default directory (./devnode/)
-leo devnode start -l
+# Persistent, default directory (./devnode)
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -l
 
 # Persistent, custom directory
-leo devnode start -l ./my-ledger
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -l ./my-ledger
 
 # Fresh start — wipe existing ledger before starting
-leo devnode start -l --clean
-leo devnode start -l ./my-ledger --clean
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -l --clean
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -l ./my-ledger --clean
 
 # Manual block creation (blocks only advance when explicitly requested)
-leo devnode start -m
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -m
 ```
 
 ## `leo devnode advance`
@@ -120,7 +124,7 @@ leo upgrade --skip-deploy-certificate --endpoint http://localhost:3030
 
 ```bash
 # 1. Start a persistent devnode
-leo devnode start -l
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -l
 
 # 2. Deploy your program (in another terminal, from your Leo project directory)
 leo deploy --skip-deploy-certificate --endpoint http://localhost:3030
@@ -129,5 +133,5 @@ leo deploy --skip-deploy-certificate --endpoint http://localhost:3030
 leo execute <TRANSITION> <INPUTS> --skip-execute-proof --endpoint http://localhost:3030
 
 # 4. Reset and start fresh when needed
-leo devnode start -l --clean
+leo devnode start --private-key APrivateKey1zkp8CZNn3yeCseEtxuVPbDCwSyhGW6yZKUYKfgXmcpoGPWH -l --clean
 ```
