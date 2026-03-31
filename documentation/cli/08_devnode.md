@@ -114,7 +114,7 @@ leo execute <TRANSITION> <INPUTS> --skip-execute-proof --endpoint http://localho
 
 `--skip-execute-proof` skips generating the execution proof. Without it, execution will still work but will be significantly slower.
 
-**Upgrading a program**
+### **Upgrading a Program**
 
 ```bash
 leo upgrade --skip-deploy-certificate --endpoint http://localhost:3030
