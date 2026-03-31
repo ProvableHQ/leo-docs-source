@@ -1,0 +1,59 @@
+---
+id: cli_abi
+title: ""
+sidebar_label: Abi
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+[general tags]: # "cli, leo_abi, abi, interface, json"
+
+# `leo abi`
+
+Generate an ABI (Application Binary Interface) from a compiled `.aleo` bytecode file. The ABI is a JSON description of the program's public interface — its transitions, mappings, and types — enabling downstream tooling to interact with deployed programs without the original source code.
+
+Unlike the ABI generated automatically by `leo build`, this command operates directly on `.aleo` bytecode files. This is useful for generating ABIs from programs you didn't write, or for inspecting programs already deployed onchain.
+
+```bash
+leo abi <FILE>
+```
+
+```bash title="example:"
+leo abi build/main.aleo
+```
+
+### Flags:
+
+#### `<FILE>`
+
+Path to the `.aleo` bytecode file to generate an ABI from. Required.
+
+#### `--network <NETWORK>`
+
+#### `-n <NETWORK>`
+
+Specifies the network to use for parsing. Valid network names are `testnet`, `mainnet`, and `canary`. Defaults to `testnet`.
+
+#### `--output <OUTPUT>`
+
+#### `-o <OUTPUT>`
+
+Path to write the ABI JSON file. If not specified, the ABI is printed to stdout.
+
+### Examples
+
+```bash
+# Generate ABI and print to stdout
+leo abi build/main.aleo
+
+# Generate ABI for a specific network
+leo abi build/main.aleo --network mainnet
+
+# Save ABI to a file
+leo abi build/main.aleo --output abi.json
+
+# Generate ABI from an imported dependency
+leo abi build/imports/credits.aleo -o credits_abi.json
+```
+
+For a detailed breakdown of the ABI format and type system, see the [ABI Generation guide](../guides/abi.mdx).

@@ -12,7 +12,7 @@ toc_max_heading_level: 2
 
 The `leo account` command is used to create and manage Aleo accounts, as well as sign and verify messages
 
-:::warning
+:::danger
 We urge you to exercise caution when managing your private keys. `leo account` cannot be used to recover lost keys.
 :::
 
@@ -30,7 +30,6 @@ We urge you to exercise caution when managing your private keys. `leo account` c
 
 ## `leo account new`
 
-[Back to Top](#subcommands)
 
 Use this command to generate a private key, view key, and address for a new Aleo account.
 
@@ -60,13 +59,12 @@ Writes the generated private key to a `.env` file in the current working directo
 
 Print sensitive information (such as private key) discreetly to an alternate screen
 
-&nbsp;
+[Back to Top](#subcommands)
 
 ---
 
 ## `leo account import`
 
-[Back to Top](#subcommands)
 
 Use this command to derive the view key and address for an Aleo account from a private key.
 
@@ -90,13 +88,11 @@ Writes the generated private key to a `.env` file in the current working directo
 
 Print sensitive information (such as private key) discreetly to an alternate screen
 
-&nbsp;
+[Back to Top](#subcommands)
 
 ---
 
 ## `leo account sign`
-
-[Back to Top](#subcommands)
 
 Use this command to sign a message using your Aleo private key.
 
@@ -134,13 +130,11 @@ Alternative way to explicitly specify the private key by reading from a text fil
 
 Parses the message as bytes instead of Aleo literals.
 
-&nbsp;
+[Back to Top](#subcommands)
 
 ---
 
 ## `leo account verify`
-
-[Back to Top](#subcommands)
 
 Use this command to verify a message and signature from an Aleo address.
 
@@ -190,9 +184,11 @@ Specifies the message that was signed.
 
 Parses the message as bytes instead of Aleo literals.
 
-## `leo account decrypt`
-
 [Back to Top](#subcommands)
+
+---
+
+## `leo account decrypt`
 
 Use this command to decrypt a record ciphertext using your Aleo private key or view key.
 
@@ -234,3 +230,5 @@ Specifies the path to a file containing the private key or view key. This will r
 #### `--network <NETWORK>`
 
 Specifies the network to deploy to. Overrides any `NETWORK` environment variable set manually or in a `.env` file. Valid network names are `testnet`, `mainnet`, and `canary`.
+
+[Back to Top](#subcommands)

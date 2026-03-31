@@ -14,6 +14,7 @@ You can print the list of commands by running `leo --help`
 
 ## Commands
 
+- [`abi`](./abi.mdx) - Generate an ABI from a compiled `.aleo` bytecode file.
 - [`account`](./account.mdx) - Create a new Aleo account, sign and verify messages.
   - [`new`](./account.mdx#leo-account-new) - Generates a new Aleo account.
   - [`import`](./account.mdx#leo-account-import) - Derive and Aleo account from a private key.
@@ -25,7 +26,11 @@ You can print the list of commands by running `leo --help`
 - [`debug`](./debug.mdx) - Run the interactive debugger in the current package.
 - [`deploy`](./deploy.mdx) - Deploy a program to the Aleo network.
 - [`devnet`](./devnet.mdx) - Initialize a local devnet.
+- [`devnode`](./devnode.mdx) - Start a lightweight development node that bypasses consensus and proof generation.
+  - [`start`](./devnode.mdx#leo-devnode-start) - Start the devnode.
+  - [`advance`](./devnode.mdx#leo-devnode-advance) - Manually advance the ledger by creating new blocks.
 - [`execute`](./execute.mdx) - Execute a program and produce a transaction containing a proof.
+- [`fmt`](./fmt.mdx) - Format Leo source files.
 - [`new`](./new.mdx) - Create a new Leo project in a new directory.
 - [`query`](./query.mdx) - Query live data and state from the Aleo network.
   - [`block`](./query.mdx#leo-query-block) - Query block information.
@@ -41,7 +46,6 @@ You can print the list of commands by running `leo --help`
 - [`update`](./update.mdx) - Update to the latest version of Leo.
 - [`upgrade`](./upgrade.mdx) - Upgrade a deployed program on the Aleo network.
 - [`synthesize`](./synthesize.mdx) - Generate proving and verifying keys for a program.
-- [`fmt`](./fmt.mdx) - Format Leo source files.
 
 ## Universal Flags
 
