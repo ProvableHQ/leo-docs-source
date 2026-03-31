@@ -98,7 +98,7 @@ leo devnode advance 5 --socket-addr 127.0.0.1:4040
 
 When targeting a devnode, two proof-generation steps can be skipped for faster iteration. Proofs are not verified by the devnode, so generating them is unnecessary overhead.
 
-**Deploying a program**
+### **Deploying a Program**
 
 ```bash
 leo deploy --skip-deploy-certificate --endpoint http://localhost:3030
