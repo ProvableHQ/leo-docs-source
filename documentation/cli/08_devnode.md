@@ -81,7 +81,7 @@ leo devnode advance [NUM_BLOCKS] [OPTIONS]
 | `NUM_BLOCKS` | `1` | Number of blocks to create |
 | `--socket-addr` | `127.0.0.1:3030` | Address of the running devnode |
 
-**Examples**
+### **Examples**
 
 ```bash
 # Advance by 1 block
