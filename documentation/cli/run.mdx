@@ -82,4 +82,10 @@ leo run <FUNCTION_NAME> -- <INPUT_0> -- <INPUT_1> ...
     Whether the network is a devnet. If not set, defaults to the `DEVNET` environment variable.
 --consensus-heights <CONSENSUS_HEIGHTS>
     Optional consensus heights to use. This should only be set if you are using a custom devnet.
+--with <WITH>...
+    Comma-separated list of additional programs to load into the VM at runtime.
+    Each entry can be a path to a local `.aleo` bytecode file or the name of a
+    remote program to fetch (with its transitive dependencies) from the network
+    endpoint. Local files must be listed in topological order (dependencies
+    before the programs that depend on them).
 ```
