@@ -41,8 +41,8 @@ leo devnode start [OPTIONS]
 | `--socket-addr` | `-a` | `127.0.0.1:3030` | Address and port for the REST API |
 | `--genesis-path` | `-g` | (built-in) | Path to a custom genesis block file |
 | `--manual-block-creation` | `-m` | `false` | Disable automatic block creation after broadcast |
-| `--ledger-path` | `-l` | (in-memory) | Directory for persistent ledger storage. If `-l` is given without a path, defaults to `./devnode/` |
-| `--clean` | `-c` | `false` | Clear the ledger directory before starting. Requires `--ledger-path` |
+| `--storage` | `-s` | (in-memory) | Directory for persistent ledger storage. If `-l` is given without a path, defaults to `./devnode/` |
+| `--clear-storage` | `-c` | `false` | Clear the ledger directory before starting. Requires `--storage` |
 
 **Examples**
 
@@ -51,14 +51,14 @@ leo devnode start [OPTIONS]
 leo devnode start
 
 # Persistent, default directory (./devnode/)
-leo devnode start -l
+leo devnode start -s
 
 # Persistent, custom directory
-leo devnode start -l ./my-ledger
+leo devnode start -s ./my-ledger
 
 # Fresh start — wipe existing ledger before starting
-leo devnode start -l --clean
-leo devnode start -l ./my-ledger --clean
+leo devnode start -s --c
+leo devnode start -s ./my-ledger -c
 
 # Manual block creation (blocks only advance when explicitly requested)
 leo devnode start -m
@@ -120,7 +120,7 @@ leo upgrade --skip-deploy-certificate --endpoint http://localhost:3030
 
 ```bash
 # 1. Start a persistent devnode
-leo devnode start -l
+leo devnode start -s
 
 # 2. Deploy your program (in another terminal, from your Leo project directory)
 leo deploy --skip-deploy-certificate --endpoint http://localhost:3030
@@ -129,5 +129,5 @@ leo deploy --skip-deploy-certificate --endpoint http://localhost:3030
 leo execute <TRANSITION> <INPUTS> --skip-execute-proof --endpoint http://localhost:3030
 
 # 4. Reset and start fresh when needed
-leo devnode start -l --clean
+leo devnode start -s -c
 ```
