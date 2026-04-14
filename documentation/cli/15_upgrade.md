@@ -40,6 +40,10 @@ The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set man
 
 <!-- markdown-link-check-enable -->
 
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
+
 #### `--devnet`
 
 Specifies whether the network being deployed to is a devnet. If not set, defaults to the `DEVNET` environment variable.

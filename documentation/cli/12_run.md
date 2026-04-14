@@ -78,6 +78,11 @@ leo run <FUNCTION_NAME> -- <INPUT_0> -- <INPUT_1> ...
     The network to deploy to. Overrides the `NETWORK` environment variable.
 --endpoint <ENDPOINT>
     The endpoint to deploy to. Overrides the `ENDPOINT` environment variable.
+--network-retries <N>
+    Number of times to retry a network request on transient transport failure, with
+    exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the
+    NETWORK_RETRIES environment variable. Defaults to 2. HTTP errors and broadcast
+    calls are not retried.
 --devnet
     Whether the network is a devnet. If not set, defaults to the `DEVNET` environment variable.
 --consensus-heights <CONSENSUS_HEIGHTS>

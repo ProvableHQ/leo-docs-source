@@ -19,7 +19,8 @@ program must provide. Interfaces are a compile-time concept and have no impact o
 They are only useful as a way to enforce structural contracts — ensuring that any program claiming to implement
 an interface actually provides all required functions, records, mappings, and storage variables — and to enable
 dynamic calls, where the caller knows *what* it can call without knowing *which* program it is calling at
-runtime. Interfaces are declared outside the `program {}` block or in a submodule.
+runtime. Interfaces can be declared outside the `program {}` block, in a submodule, or in a library package 
+(including library submodules).
 
 ```leo
 interface Transfer {
