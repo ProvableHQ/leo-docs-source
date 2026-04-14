@@ -151,6 +151,10 @@ program main.aleo {
 
 Acceptable types for const generic parameters include integer types, `bool`, `scalar`, `group`, `field`, and `address`.
 
+:::note
+Const generic parameters are only valid on inlinable helper `fn` functions. They are not permitted on entry point functions inside a `program {}` block, `final fn` functions, functions annotated with `@no_inline`, or function signatures declared inside an `interface`.
+:::
+
 ### The `@no_inline` Annotation
 
 By default the compiler inlines helper functions that are called only once, which reduces call overhead. To prevent this, annotate the function with `@no_inline`:
