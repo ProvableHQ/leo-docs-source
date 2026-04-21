@@ -204,11 +204,33 @@ Interface@(target[, network])::mapping.get_or_use(key, default)
 
 These reads are only valid inside a `final fn` or a `final {}` block — they lower to the AVM `get.dynamic`, `contains.dynamic`, and `get.or_use.dynamic` instructions. Dynamic *writes* are not supported.
 
-```leo
+`bank.aleo` declares the `Bank` interface and implements it:
+
+```leo title="bank/src/main.leo"
 interface Bank {
     mapping balances: address => u64;
 }
 
+program bank.aleo: Bank {
+    mapping balances: address => u64;
+
+    fn deposit(user: address, amount: u64) -> Final {
+        return final { do_deposit(user, amount); };
+    }
+
+    @noupgrade
+    constructor() {}
+}
+
+final fn do_deposit(user: address, amount: u64) {
+    let prev: u64 = Mapping::get_or_use(balances, user, 0u64);
+    Mapping::set(balances, user, prev + amount);
+}
+```
+
+A second program imports `bank.aleo` and reads its mapping through the interface. Since the read is cross-program, the interface name is qualified with `bank.aleo::`:
+
+```leo title="checker/src/main.leo"
 import bank.aleo;
 
 program checker.aleo {
@@ -229,7 +251,7 @@ final fn do_read(target: field, user: address) {
 }
 ```
 
-When the interface is in scope without a program qualifier (for example, self-reading from the program that declares it), the leading `program.aleo::` segment can be omitted: `Bank@(target)::balances.get(key)`.
+When the reader is inside the same program that declares the interface, drop the program qualifier — `Bank@(target)::balances.get(key)` rather than `bank.aleo::Bank@(target)::balances.get(key)`.
 
 ### Dynamic Storage Reads
 
@@ -243,12 +265,33 @@ Interface@(target[, network])::vector.len()         // u32
 
 Singleton storage is read by naming the variable directly (no trailing `.op(...)`). Vector storage supports `.get(index)` (out-of-bounds reads return `none`) and `.len()` (no arguments). Storage writes through the dynamic interface are not supported — use a dynamic call to an entry function that performs the write.
 
-```leo
+`logger.aleo` declares the `Logger` interface and implements it:
+
+```leo title="logger/src/main.leo"
 interface Logger {
     storage counter: u64;
     storage entries: [u64];
 }
 
+program logger.aleo: Logger {
+    storage counter: u64;
+    storage entries: [u64];
+
+    fn bump(val: u64) -> Final {
+        return final {
+            counter = counter.unwrap_or(0u64) + 1u64;
+            entries.push(val);
+        };
+    }
+
+    @noupgrade
+    constructor() {}
+}
+```
+
+A second program imports `logger.aleo` and reads its storage variables through the interface. Since the read is cross-program, the interface name is qualified with `logger.aleo::`:
+
+```leo title="reader/src/main.leo"
 import logger.aleo;
 
 program reader.aleo {

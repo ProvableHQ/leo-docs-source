@@ -183,7 +183,7 @@ Explicit disambiguation using absolute paths (similar to Rust's `crate::foo::…
 
 ## Building a Library
 
-Running `leo build` inside a library package parses the library sources and runs the full frontend pipeline — name validation, global-item collection, path resolution, interface checks, type checking, and static analysis — on the library itself. Type errors, unknown identifiers, interface-cycle errors, and the like are reported at the library package, instead of surfacing only when a downstream program consumes it.
+Running `leo build` inside a library package parses the library sources and runs semantic validation on the library itself. Type errors, unknown identifiers, interface-cycle errors, and the like are reported at the library package, instead of surfacing only when a downstream program consumes it.
 
 ```bash
 cd math_utils
