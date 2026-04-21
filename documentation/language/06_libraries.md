@@ -181,6 +181,26 @@ When a library dependency and a local submodule share the same name, paths begin
 Explicit disambiguation using absolute paths (similar to Rust's `crate::foo::…` for local modules) is planned for a future release.
 :::
 
+## Building a Library
+
+Running `leo build` inside a library package parses the library sources and runs the full frontend pipeline — name validation, global-item collection, path resolution, interface checks, type checking, and static analysis — on the library itself. Type errors, unknown identifiers, interface-cycle errors, and the like are reported at the library package, instead of surfacing only when a downstream program consumes it.
+
+```bash
+cd math_utils
+leo build
+```
+
+```
+       Leo 🔨 Building library 'math_utils'
+       Leo ✅ Validated 'math_utils'.
+```
+
+No bytecode is produced — libraries are inlined at the point of use and have no on-chain footprint — but any frontend errors are reported with spans pointing into the library's own source files.
+
+:::note
+When a program that depends on a library is built, library sources are compiled holistically with the program — any errors in the library still surface, but as part of the consuming program's build. Running `leo build` inside the library package itself validates it in isolation, so problems are caught at the source before any consumer tries to use it.
+:::
+
 ## Testing
 
 `leo test` works on library packages directly — no wrapper program is required. Place test files in the `tests/` directory and call library functions using the `library_name::item` path syntax.

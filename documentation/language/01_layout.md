@@ -165,6 +165,85 @@ fn increment(x: field) -> field {
 }
 ```
 
+### Accessing Submodules of Imported Programs
+
+When an imported program organizes its source across submodules, you can reach any `struct`, `const`, or helper `fn` from those submodules using an extended locator path:
+
+```
+program.aleo::submodule::item
+```
+
+For example, suppose `provider.aleo` has a submodule `colors` that defines a `Color` struct, a `MAX_CH` constant, and a `blend` helper:
+
+```leo title="provider/src/colors.leo"
+const MAX_CH: u32 = 255u32;
+
+struct Color {
+    r: u32,
+    g: u32,
+    b: u32,
+}
+
+fn blend(a: Color, b: Color) -> Color {
+    return Color {
+        r: (a.r + b.r) / 2u32,
+        g: (a.g + b.g) / 2u32,
+        b: (a.b + b.b) / 2u32,
+    };
+}
+```
+
+```leo title="provider/src/main.leo"
+program provider.aleo {
+    fn sum_channels(c: colors::Color) -> u32 {
+        return c.r + c.g + c.b;
+    }
+
+    fn mix_colors(a: colors::Color, b: colors::Color) -> colors::Color {
+        return colors::blend(a, b);
+    }
+
+    @noupgrade
+    constructor() {}
+}
+```
+
+A program that imports `provider.aleo` can reach the submodule struct, constant, and helper through the extended path, and can also call `provider.aleo`'s top-level entry functions:
+
+```leo title="consumer/src/main.leo"
+import provider.aleo;
+
+program consumer.aleo {
+    // Struct and const from the submodule.
+    fn make_white() -> provider.aleo::colors::Color {
+        return provider.aleo::colors::Color {
+            r: provider.aleo::colors::MAX_CH,
+            g: provider.aleo::colors::MAX_CH,
+            b: provider.aleo::colors::MAX_CH,
+        };
+    }
+
+    // Top-level entry function from the provider.
+    fn mix(a: provider.aleo::colors::Color, b: provider.aleo::colors::Color) -> provider.aleo::colors::Color {
+        return provider.aleo::mix_colors(a, b);
+    }
+
+    // Submodule helper called directly — inlined into consumer's bytecode.
+    fn average(a: provider.aleo::colors::Color, b: provider.aleo::colors::Color) -> provider.aleo::colors::Color {
+        return provider.aleo::colors::blend(a, b);
+    }
+
+    @noupgrade
+    constructor() {}
+}
+```
+
+Helper `fn`s reached through `program.aleo::submodule::name(...)` are inlined directly into the caller's bytecode; they are not separate on-chain calls and do not appear in the provider's ABI. Only top-level entry functions declared inside `program provider.aleo { ... }` remain part of its on-chain interface.
+
+Submodule paths can be arbitrarily deep — `program.aleo::a::b::item` is valid if `program.aleo` has a nested submodule `a/b.leo`. The same extended path syntax applies to library submodules (see [Leo Libraries](./06_libraries.md#submodules)).
+
+`interface` definitions may also be referenced through the same path syntax — both library submodules (`program my_app.aleo: my_lib::interfaces::Adder { ... }`) and imported program submodules (`program my_app.aleo: other_prog.aleo::interfaces::Adder { ... }`) work in a program header.
+
 <!--
 
 ## The Tests
