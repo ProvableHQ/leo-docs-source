@@ -19,7 +19,8 @@ program must provide. Interfaces are a compile-time concept and have no impact o
 They are only useful as a way to enforce structural contracts — ensuring that any program claiming to implement
 an interface actually provides all required functions, records, mappings, and storage variables — and to enable
 dynamic calls, where the caller knows *what* it can call without knowing *which* program it is calling at
-runtime. Interfaces are declared outside the `program {}` block or in a submodule.
+runtime. Interfaces can be declared outside the `program {}` block, in a submodule, or in a library package 
+(including library submodules).
 
 ```leo
 interface Transfer {
@@ -185,6 +186,136 @@ return TokenStandard@(target, network)::transfer_public(to, amount);
 
 :::note
 The only valid network identifier currently is `aleo`.
+:::
+
+### Dynamic Mapping Reads
+
+An interface that declares a `mapping` can also be used to read that mapping on a runtime-determined program. The syntax mirrors dynamic calls, but with a mapping name in place of a method name and a trailing read operation:
+
+```
+Interface@(target[, network])::mapping.get(key)
+Interface@(target[, network])::mapping.contains(key)
+Interface@(target[, network])::mapping.get_or_use(key, default)
+```
+
+- `.get(key)` returns the mapped value; the transition fails at runtime if `key` is not present.
+- `.contains(key)` returns a `bool`.
+- `.get_or_use(key, default)` returns the mapped value, or `default` if `key` is absent.
+
+These reads are only valid inside a `final fn` or a `final {}` block — they lower to the AVM `get.dynamic`, `contains.dynamic`, and `get.or_use.dynamic` instructions. Dynamic *writes* are not supported.
+
+`bank.aleo` declares the `Bank` interface and implements it:
+
+```leo title="bank/src/main.leo"
+interface Bank {
+    mapping balances: address => u64;
+}
+
+program bank.aleo: Bank {
+    mapping balances: address => u64;
+
+    fn deposit(user: address, amount: u64) -> Final {
+        return final { do_deposit(user, amount); };
+    }
+
+    @noupgrade
+    constructor() {}
+}
+
+final fn do_deposit(user: address, amount: u64) {
+    let prev: u64 = Mapping::get_or_use(balances, user, 0u64);
+    Mapping::set(balances, user, prev + amount);
+}
+```
+
+A second program imports `bank.aleo` and reads its mapping through the interface. Since the read is cross-program, the interface name is qualified with `bank.aleo::`:
+
+```leo title="checker/src/main.leo"
+import bank.aleo;
+
+program checker.aleo {
+    mapping snapshot: address => u64;
+
+    fn read_balance(target: field, user: address) -> Final {
+        return final { do_read(target, user); };
+    }
+
+    @noupgrade
+    constructor() {}
+}
+
+final fn do_read(target: field, user: address) {
+    let present: bool = bank.aleo::Bank@(target)::balances.contains(user);
+    let val: u64 = bank.aleo::Bank@(target)::balances.get_or_use(user, 0u64);
+    Mapping::set(snapshot, user, present ? val : 0u64);
+}
+```
+
+When the reader is inside the same program that declares the interface, drop the program qualifier — `Bank@(target)::balances.get(key)` rather than `bank.aleo::Bank@(target)::balances.get(key)`.
+
+### Dynamic Storage Reads
+
+Interfaces that declare [`storage`](../02_structure.md#storage) variables support dynamic reads with the same pattern. Storage reads always return an `Option<T>`:
+
+```
+Interface@(target[, network])::singleton            // Option<T>
+Interface@(target[, network])::vector.get(index)    // Option<T>
+Interface@(target[, network])::vector.len()         // u32
+```
+
+Singleton storage is read by naming the variable directly (no trailing `.op(...)`). Vector storage supports `.get(index)` (out-of-bounds reads return `none`) and `.len()` (no arguments). Storage writes through the dynamic interface are not supported — use a dynamic call to an entry function that performs the write.
+
+`logger.aleo` declares the `Logger` interface and implements it:
+
+```leo title="logger/src/main.leo"
+interface Logger {
+    storage counter: u64;
+    storage entries: [u64];
+}
+
+program logger.aleo: Logger {
+    storage counter: u64;
+    storage entries: [u64];
+
+    fn bump(val: u64) -> Final {
+        return final {
+            counter = counter.unwrap_or(0u64) + 1u64;
+            entries.push(val);
+        };
+    }
+
+    @noupgrade
+    constructor() {}
+}
+```
+
+A second program imports `logger.aleo` and reads its storage variables through the interface. Since the read is cross-program, the interface name is qualified with `logger.aleo::`:
+
+```leo title="reader/src/main.leo"
+import logger.aleo;
+
+program reader.aleo {
+    mapping latest: u32 => u64;
+
+    fn snapshot(target: field, i: u32) -> Final {
+        return final { do_snapshot(target, i); };
+    }
+
+    @noupgrade
+    constructor() {}
+}
+
+final fn do_snapshot(target: field, i: u32) {
+    let n: u32 = logger.aleo::Logger@(target)::entries.len();
+    let entry: u64? = logger.aleo::Logger@(target)::entries.get(i);
+    let current: u64? = logger.aleo::Logger@(target)::counter;
+    let stored: u64 = i < n ? entry.unwrap() : current.unwrap_or(0u64);
+    Mapping::set(latest, i, stored);
+}
+```
+
+:::note
+Dynamic mapping reads are a type-checked alternative to the [`_dynamic_get`, `_dynamic_contains`, and `_dynamic_get_or_use`](./intrinsics.md) intrinsics. The interface form checks that the named mapping exists on the interface and that keys, values, and defaults have matching types; the intrinsics accept arbitrary runtime identifiers and leave that responsibility to the caller. Prefer the interface form whenever an interface is available.
 :::
 
 ## Dynamic Records

@@ -56,6 +56,10 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
+
 #### `--latest`
 
 #### `-l`
@@ -132,6 +136,10 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
+
 #### `--confirmed`
 
 #### `-c`
@@ -194,6 +202,10 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
+
 #### `--mappings`
 
 Lists all mappings defined in the latest deployed edition of the program.
@@ -224,6 +236,10 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
+
 ---
 
 ## `leo query committee`
@@ -239,6 +255,10 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 #### `--endpoint <ENDPOINT>`
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
+
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
 
 ---
 
@@ -280,6 +300,10 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
 
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
+
 ---
 
 ## `leo query peers`
@@ -311,3 +335,7 @@ Specifies the network to deploy to. Overrides any `NETWORK` environment variable
 #### `--endpoint <ENDPOINT>`
 
 The endpoint to deploy to. Overrides any `ENDPOINT` environment variable set manually or in a `.env` file.
+
+#### `--network-retries <N>`
+
+Number of times to retry a network request on transient transport failure, with exponential backoff (1 s, 2 s, 4 s, … capped at 64 s). Overrides the `NETWORK_RETRIES` environment variable. Defaults to `2`. HTTP errors (4xx/5xx) and broadcast calls are not retried.
